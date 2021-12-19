@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>English Learning Web App ……</title>
   <style type="text/css">
-
+/*** Web font 为本页增加2种英文字体，每种字体再提供2类字体文件地下载 ***/
 @font-face {
     font-family: 'ciclefina';
     src: url('images/cicle-webfont.woff2') format('woff2'),
@@ -23,14 +23,16 @@
     font-style: normal;
 } 
 
-    html,body{
+/***为所有元素设定border-box的属性，让各盒装模型元素统一宽和高的计算方法，并清除所有盒装模型元素的默认margin 值。**/
+    *{
 	margin:0 ;
- /*	font-size:页面打开时，由用户端的window.innerWidth属性决定*/
+	box-sizing:border-box;
+ /*	基础font-size 属性的大小在页面打开时，由用户端的window.innerWidth属性决定*/
 		}
+
 	html{
 	 font-family:"Helvetica","Arial";
-	 height: 100%;
-	}
+		}
 	header{
 	font-family: 'zantroke';
 	height:150px;
@@ -45,7 +47,7 @@
 	 font-size:1.8em;
 	 letter-spacing:0.2em;
 	}
-	header>h1>span{
+	header span{
 	font-size:0.5em;
 	}
 
@@ -93,15 +95,14 @@
 	 flex: 2;
 	 text-align:center;
 	}
-	article#help div#backPic img{
+	article#help div#backPic{
 	 width:100%;
-	 /*height:100%;如果设置这条，会照成窄屏幕出现图像变形*/
 	}
-	article#help p#textInfo{
-	position:relative;
-	left:0.2em;
-	top:55%;
+	article#help div#backPic img{
+	 width:80%;
+	 margin:0 10%;
 	}
+
    }/*end of media screen @ min-width:600px */
 
  @media screen and (max-width:600px){
@@ -109,42 +110,35 @@
 	 height:25% ;
 	}
 	article#word{
-	 height:70% ;
+	 height:75% ;
 	 text-align:center;
 	}
-	article#help div#backPic img{
-	 height:100%;
-    /*width:100%;如果设置这条，会照成窄屏幕出现图像变形*/
+	article#help{
+	 display:flex;
 	}
-
+	article#help div#backPic{
+	 flex:1;
+	}
 	article#help p#textInfo{
-	position:relative;
-	line-height:1.5;
-    margin-left:35%;
-   
+	 flex:2;
 	}
+	article#help div#backPic img{
+	 width:80%;
+	 margin:0 10%;
+	 }
   }
-    article#help{
-	  position:relative;
+
+  	article#help{
 	  background-color:rgb(20,50,0);
 	  overflow:hidden;
 	   	} 
-	article#help div#backPic{
-	 position:absolute;
-	 height:98%;
-	 left:1%;top:1%;
-	 z-index: 1 ;
-	}
-
 	 article#help p#textInfo{
-	  
+	  margin:0;padding:0;
 	  color:white;
-	  font-size:1.3em;
+	  font-size:1.2em;
 	  text-indent:2em;
-	  text-shadow:red 2px 1px ;
-	  z-index: 2 ;
-	  padding:1%;
-	 	  }
+	  text-shadow:blue 2px 1px ;
+	  	  }
 
 
 	article#word input#en{font-family: 'zantroke'}
@@ -204,7 +198,7 @@
   
     article#word p#cn p{
 	 font-size:1em;
-	 margin:0.2em auto ;
+	 margin:0.5em auto ;
 	 border:1px solid black ;
 	
 	}
@@ -214,9 +208,8 @@
   </style>
   <script src="images/words.js">
   </script>
-  <script>
-
-  //设计“word对象”的数据结构，并用对象的方法实现初步的代码组织
+  <script >
+     //设计“word对象”的数据结构，并用对象的方法实现初步的代码组织
   //en6为全局变量，由大学英语6级词汇形成字符串，组成数组，结构如下：
   //var en6=["a/ei/art.一(个)；每一(个)；(同类事物中)任一个", ...]
    var myWord = {
@@ -273,6 +266,7 @@
   	},//End of showHelp
    similarWords: [],
   	nowSimilarId: 0,
+	myAudio:null
   }; //End of  Model 
   
    for (var i=0; i < 10 ; i++){
@@ -301,7 +295,7 @@
   	}
   	document.body.style.fontSize = fontSize + "px" ;
    
-   var sectionHeight =  window.innerHeight - 150 - 50 - 30 ;//让section尽量填满剩余的纵向空间，最后的30这个数字没有依据，仅凭经验来设置为30px。
+   var sectionHeight =  document.documentElement.clientHeight - 150 - 50 ;//让section尽量填满剩余的纵向空间，最后的30这个数字没有依据，仅凭经验来设置为30px。
    document.querySelector("section").style.height = sectionHeight + "px";
    
    //为所有自定义的按钮设定特殊风格
@@ -498,7 +492,11 @@
       my$("article#word p#cn").textContent = "原文音频，点击确认" ;
 	 var nextDom = my$("section article#word nav span#next");
      var okDom = my$("section article#word nav span#ok");
+	if (Model.myAudio){
+		Model.myAudio.pause();
+	}
 	var voice = new Audio();
+	Model.myAudio = voice ;
 	var i = 1 ;
 	var path ="http://lijianhong.top/mp3/pride and prejudice 0" ;
 	voice.src = path + i + ".mp3";
@@ -508,20 +506,27 @@
 	   var timer1 = (new Date()).getTime();
 	   var costTime = timer1 - timer ;
 	   console.log("canplaythrough 事件发生在 " + costTime +" ms .");
-	    },false);
-	okDom.onclick = function(){
-		    if (!playing) {
-              voice.play();
-		    }else{
-			  voice.pause();
-			}
-            playing = ! playing ;
-		};
-    nextDom.onclick = function(){
-	  i++ ;
-      voice.src = path + i + ".mp3";
-	  timer = (new Date()).getTime();
-	};
+	   my$("section article#word p#cn").textContent = "连接第"+i+"章音频";
+        okDom.onclick = function(){
+				if (!playing) {
+				  voice.play();
+				  my$("section article#word p#pn").textContent = "正在播放音频" ;
+				}else{
+				  voice.pause();
+				  my$("section article#word p#pn").textContent = "音频播放暂停" ;
+				}
+				playing = ! playing ;
+			};
+		 nextDom.onclick = function(){
+		  i++ ;
+		  voice.pause();
+		  voice.src = path + i + ".mp3";
+		  my$("section article#word p#cn").textContent = "连接第"+i+"章音频";
+		  my$("section article#word p#pn").textContent = "音频播放暂停" ;
+		  playing = false ;
+		  timer = (new Date()).getTime();
+		  };
+	    },false);//end of 音频的"canplaythrough"事件发生
   	},false);//听一听傲慢与偏见的原文朗读音频
 
    //实现脚步信息，对当前时间反馈
@@ -551,12 +556,11 @@
   }//end of my$
    
 
-
   </script>
  </head>
  <body>
   <header> 
-   <h1>Words Learning App <span>（大学英语6级）</span></h1>
+   <h1>Words Learning App </h1>  <span>（大学英语6级）</span>
    <nav>
     <span   id="read">读一读</span>
     <span   id="write">写一写</span>
@@ -567,12 +571,11 @@
   </header>
   <section>
     <article id = "help">
-	  <p id="textInfo">
-     Photo from the movie of "Pride And Prejudice ",
-	 请选择上面状态按钮，进入相应学习单词的模式。
-	 </p>
 	 <div id="backPic" >
-	 </div>
+	 </div>	
+	 <p id="textInfo">
+      这里是帮助区，区内图像来源于 "Pride And Prejudice "剧照,用于烘托学习气氛。您请选择上面状态按钮，进入相应学习单词的模式。
+	 </p>
 	</article>
 	<article id = "word">
 	  <h1>当前单词</h1>
