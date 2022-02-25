@@ -1,0 +1,10 @@
+chapter 1
+浏览器端程序的简单输入和输出
+chapter 2
+初步理解浏览器这个强大的编程学习环境，初步使用浏览器的console开发面板，会使用浏览器的全局对象document的几个简单方法，让程序实现用户输入和输出。能构初步分析代码的流程、理解代码逻辑（特别是逻辑的组合）、编写具备简单算法的程序。对于较好理解HTML和CSS的学习者，可以通过最后二个案例，理解浏览器的DOM概念，并编写有初步界面和交互性的程序。
+chapter 3
+console.log ，Math ，floor，random ，prompt ，parseInt ，= ，== ，===  ，while(条件){ 循环体 }，break  ，document.querySelector，textContent ，onclick。
+chapter 4
+内有5个HTML文件，自此开始，要求学习者逐步了解浏览器编程环境和能利用Console后台的调试功能。案例008，在了解console.log和Math对象的基本功能后，通过window对象的prompt方法实现程序对数据输入；案例009在008基础上，增加了一个循环，顺便可以让学习者感受浏览器window对象的alert和prompt方法对代码运行的强大暂停作用，这点可以在初期程序调试中利用；案例010在009基础上，继续完善程序对用户输入数据的处理和逻辑判断；案例010-012三个案例开始，引入浏览器document对象的querySelector方法，实现对Web页元素的引用，并利用引用的DOM对象的textContent和onclick属性，实现对Web页的动态更新，在理解这些Web页DOM操作的基本方法后，案例最后结合二分法算法，实现了一个比较完整的案例，注：对英文不好的学习者，最后三个案例可暂作忽略，建议放在熟悉了JavaScript的语法和掌握了浏览器端概念之后再去学习。
+chapter 5
+这里是拓展阅读区，拷贝一些内容,进入相应学习模式。

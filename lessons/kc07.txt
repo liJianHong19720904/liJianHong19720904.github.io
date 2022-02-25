@@ -1,0 +1,14 @@
+chapter 1
+HTML5语义标签和CSS的float排版
+chapter 2
+引入HTML5的表达Web文档结构语义的标签（作为容器），探索页面中元素的盒装模型和排版关系，了解Web页中元素的四种定位方式，初步学会用CSS语言控制元素的这四种定位。初步学写CSS组合选择器，以精确选择特定元素。
+chapter 3
+header，nav ，section ，article ，footer ，* ，float ，box-sizing ，border-box ，content-box，<link rel="stylesheet" type="text/css" href="*.css">。
+chapter 4
+内有7个HTML文件，一个CSS外部样式文件，一个图片。017-021由浅入深演示了HTML5的表达Web文档结构语义的标签，header，nav ，section ，article ，footer ，并对这些标签组成的页面进行了CSSfloat排版的探索。 022是一个综合案例，在前面基础上，引用《长恨歌·白居易》的内容，综合演示在Web页中利用HTML5语义标签和CSS的float排版，实现一个语义清晰、排版效果较好的页面。综合案例中融入了css组合选择器，元素间盒装模型间的排版控制的一些技巧。023演示了如何把CSS样式代码与HTML内容代码分开，各自存放在独立文件中。
+chapter 5
+The position CSS property sets how an element is positioned in a document. The top, right, bottom, and left properties determine the final location of positioned elements.
+position: static . The element is positioned according to the normal flow of the document. The top, right, bottom, left, and z-index properties have no effect. This is the default value.
+position: relative . The element is positioned according to the normal flow of the document, and then offset relative to itself based on the values of top, right, bottom, and left. The offset does not affect the position of any other elements; thus, the space given for the element in the page layout is the same as if position were static.
+position: absolute . The element is removed from the normal document flow, and no space is created for the element in the page layout. It is positioned relative to its closest positioned ancestor, if any; otherwise, it is placed relative to the initial containing block. Its final position is determined by the values of top, right, bottom, and left.
+position: fixed . The element is removed from the normal document flow, and no space is created for the element in the page layout. 

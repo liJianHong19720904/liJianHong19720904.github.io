@@ -1,0 +1,10 @@
+chapter 1
+JavaScript快速入门
+chapter 2
+利用JavaScript对初学者的友好特性，用几个案例快速把JavaScript的变量定义、计算、输出等简单语法作一些介绍，其中对延时运行的代码这个有趣的功能按英语词汇方式学习。重点是了解JavaScript快速入门所需要的基本语法，对有其他高级语言的学习经历的学习者而言，这几个案例可以快速把学习者迁移到JavaScript的语境之中。
+chapter 3
+script ，function ，alert ，setTimeout ，var ，= ，"字符串" ，+  -  *  /   (  )  {   }  %  ++ ，document.write  ，if ，else，while ， for 。
+chapter 4
+内有7个HTML文件，其中script标签包含了JavaScript快速入门的案例。案例001用英语词汇学习的方式，给学习者对JavaScript一个初步认识；案例002引入了if/else逻辑语句；案例003可用来分析html脚本和JavaScript代码的运行次序；案例004综合了各种变量声明、while循环和if/else逻辑语句，同时用英文的简单语法快速介绍了对象这种强大的数据类型；案例005引入了浏览器的全局对象document的write方法，尝试用JavaScript动态输出HTML脚本；案例006在005基础上增加循环方法，让字符串和数字实现连接运算，了解JavaScript对+运算符强大改造；案例007在006基础上增加双重循环算法，实现了一个格式完美的九九乘法表的输出。
+chapter 5
+这里是拓展阅读区，拷贝一些内容,进入相应学习模式。

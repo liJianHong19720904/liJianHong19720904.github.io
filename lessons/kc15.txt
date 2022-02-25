@@ -1,0 +1,10 @@
+chapter 1
+Web图像的动态控制
+chapter 2
+在前面使用程序操控DOM元素对象的基础上，学习对Web页上图像的动态程序控制，加强理解Web页和外部图像文件的关系。案例分解为：用程序动态创建图像，用程序设置图像的CSS外观，为图像设置事件处理程序实现互动，引入异步程序实现视觉动画效果，最后将js代码从HTML代码中分离出来，践行的Web程序设计标准，即：“HTML实现内容，CSS只管外观，JS专攻行为”，初步实现不同层次代码的分离管理。
+chapter 3
+document.createElement("img") ，document.body.appendChild  ，.src ，.src  ，.alt ，.style.width ，.style.border ，.style.cursor ，.onmouseover ，.onmouseout ，.onclick ，.style.opacity ，.style.border ，setInterval ，document.querySelector ，window.onload 。
+chapter 4
+内有7个HTML文件，演示了用JavaScript程序为Web页动态添加外部图像的方法，并用JS代码对引入的图像src、alt、CSS属性进行控制，实现程序对Web上图像对象的动态操控。案例017先用程序把外部图像文件读入内存对象变量，再把关联图像的内存变量插入Web页的DOM树中，实现了动态插入图像的基本过程；案例018-021则演示了图像元素的各种属性设置所引发的图像变化，如src、alt、事件属性、CSS属性等；案例021-022则通过引入异步程序，实现动画效果，这二个案例的教学难点是，需要让学习者开始理解异步程序，其相对循环等同步程序是非常慢的，另外，这个案例还可以让学习者再console后台，观察全局变量j的变化；案例023将js代码从HTML代码中分离出来，放在window.onload事件函数中， 引入window.onload事件也属于异步事件的概念，在本例中需要分析整个Web页的读入和其中代码的执行，通过案例022误用同步程序的错误，更可以让学习者更深入理解整个浏览器代码运行的机制。
+chapter 5
+这里是拓展阅读区，拷贝一些内容,进入相应学习模式。

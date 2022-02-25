@@ -1,0 +1,13 @@
+chapter 1
+CSS语言控制下元素定位和排版
+chapter 2
+继续深入Web页中元素的盒装模型概念，了解Web页中元素的四种定位方式，初步学会用CSS语言控制元素的这四种定位。初步学写CSS组合选择器，以精确选择特定元素。
+chapter 3
+position，static ，relative ，fixed ，absolute ，z-index，left ，right ，top ，bottom ，float，div>tagName ，div#IdName 。
+chapter 4
+内有五个HTML文件，仍引用《古诗三百首》的内容，012-013初步演示了Web页中元素的四种position定位方式、014增加了学写css组合选择器，继续探讨盒装模型的定位、015-016从Web页文本流的浮动排版的角度，演示了从上到下、从左到右的Web排版方式，探索了定义为float的元素模型，会被周边inline文本流包裹起来的特征。
+chapter 5
+The process begins as the boxes of individual elements are laid out in such a way that any padding, margin, or border they happen to have is added to their content. This is what we call the box model.
+By default, a block level element's content fills the available inline space of the parent element containing it and grows along the block dimension to accommodate its content. The size of Inline elements just is the size of their content. You can't set width or height on inline elements — they just sit inside the content of block level elements. If you want to control the size of an inline element in this manner, you need to set it to behave like a block level element (e.g., with display: block; or display: inline-block;, which mixes characteristics from both.)
+Originally for floating images inside blocks of text, the float property became one of the most commonly used tools for creating multiple column layouts on webpages. 
+Positioning allows you to take elements out of normal document flow and make them behave differently, for example, by sitting on top of one another or by always remaining in the same place inside the browser viewport. 
