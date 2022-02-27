@@ -44,7 +44,7 @@
 	 margin:0 auto;
 	 color:white ;
 	 padding-top:20px;
-	 font-size:1.5em;
+	 font-size:1.6em;
 	 text-shadow:blue 3px 2px ;
 	}
 
@@ -112,6 +112,7 @@
 			}
 	article#chapter5{
 		font-family: 'ciclefina','仿宋';
+		font-size: 1.3em;
 			}
     article p{
      text-indent: 2em;
@@ -138,9 +139,7 @@
 	 background-color:rgb(222,222,220);
 	 border:inset;
 	}
-	article#chapter5{
-	 
-	}
+
 	footer{
 	font-family: 'zantroke';
 	background-color:rgb(0,50,0);
@@ -224,7 +223,7 @@
 			     end = theText.search("chapter "+(i+1)) ;
 			   }
 			   arr[i-1] = theText.substring(begin+1);//begin+1 因为chapter i后有回车键,在此不需要
-			   theText = arr ;
+			   //theText = arr ;
                ajaxObj.content = arr;//全局变量ajaxObj
 			} // success of GET TXT
 	       }//readyState === 4
@@ -246,10 +245,9 @@
       let b = document.createElement("b");
 	  let t = document.createTextNode(paraTxt);
       b.textContent =  "教学目标 : ";
-      p.appendChild(t);
 	  my$("#chapter2").appendChild(b);
+      p.appendChild(t);
 	  my$("#chapter2").appendChild(p);
-	  
 	  my$("#chapter3").textContent = "";
       var paraTxt = ajaxObj.content[2];
       let p1 = document.createElement("p"); 
@@ -263,26 +261,31 @@
 	showChapter4:function(){
 	  my$("#chapter4").textContent = "";
       var paras = ajaxObj.content[3].split("\n");
-	  paras.pop();
+	  if(paras[paras.length -1]==""){paras.pop();}
+	  if(paras[0]==""){ paras.shift(); }//在vsCode和gitHub传回的Ajax文本，ajaxObj.content[3]最前面有一个空行，paras前面会多一个空字符
       for (var i=0; i< paras.length; i++ ){
           let b = document.createElement("b");
 		  let p = document.createElement("p");
           var no;
 		  if (i < 9){
 			  no = "0" + (i+1) ;
+		  }else{
+			  no = i+1 ;
 		  }
-		  b.textContent =  "实践案例"+(i+1) +":";
+		  b.textContent =  "实践案例"+no +":";
 		  my$("#chapter4").appendChild(b);
+
           let bt = document.createElement("input");
 		  bt.type = "button" ; bt.id = no ;
-		  bt.value = "下载文件包" ;
+		  bt.value = "案例文件包: " + no +".zip";
 		  bt.onclick = function(){
 		   var url = Model.getUrlPath() + (this.id) + ".zip" ;
 		   window.open(url);
 		  };
-          let txt = document.createTextNode(paras[i]);
-		  p.appendChild(bt);
-		  p.appendChild(txt); 
+		  
+          let txt = document.createTextNode(i+":"+paras[i]);
+		   p.appendChild(bt);
+		   p.appendChild(txt); 
 		  my$("#chapter4").appendChild(p);
 			}//end for loop
 
@@ -290,7 +293,8 @@
 	showChapter5:function(){
 	  my$("#chapter5").textContent = "" ;
       var paras = ajaxObj.content[4].split("\n");
-	  //paras.pop();
+	  if(paras[paras.length -1]==""){paras.pop();}
+	  if(paras[0]==""){ paras.shift(); }
 	     for (var i=0; i< paras.length; i++ ){
           let p = document.createElement("p");
 		  let b = document.createElement("b");
