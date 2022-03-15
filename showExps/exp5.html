@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title> 基于class语法，构建更复杂的对象属性和方法。让每个对象具备相应鼠标hover和click的事件处理能力！</title>
+  <style type="text/css">
+    body{margin:0}
+    div{box-sizing:border-box;}
+	div#fbsWorld{
+	 position:relative ;
+	 border:10px solid red ;
+	 background-color:rgb(0,0,0) ;
+	 overflow:hidden;/*解决人物移出并消失的需要*/
+
+	}
+	div#fbsWorld>div{position:absolute;
+	                 border: 2px dotted brown ;
+					 cursor:pointer;
+					 }
+	div#fbsWorld>div>img{width:90%;height:90%}
+    div#fbsWorld>div>h1{color:white;font-size:1%;text-align:center}
+
+  </style> 
+ <script src="person/fbs.js"></script>
+ <script type="text/javascript">
+ <!--
+ 	class Person{
+	 constructor(name,info,pic){
+	  this.name = name ;
+	  this.info = info ;
+	  this.pic = pic ;
+	 } //end of  constructor
+	 showPerson(world){
+	     var div = document.createElement("div") ;
+		 var img = document.createElement("img") ;
+		 var divWidth = 100 + parseInt(100 * Math.random()) ;
+		 // 由于图片基本是正方形，因此没有设置divHeight变量，下面DOM节点的高度也采用宽度的值。
+		 div.style.width = div.style.height = divWidth + "px";
+		 img.src = this.pic ;          img.style.display = "block" ;
+		 img.style.margin = "auto"  ;  img.style.opacity = "0.6" ;
+		 div.appendChild(img);
+
+         var h1 = document.createElement("h1") ;
+		 h1.textContent = this.name + " -- " + this.info ;
+         div.appendChild(h1);
+
+         var maxX = world.clientWidth - divWidth;
+         var maxY = world.clientHeight - divWidth;
+		 var left = parseInt(( maxX - divWidth ) / 2);
+		 var top =  parseInt(( maxY - divWidth ) / 2);
+		 div.style.left = left + "px" ; 
+		 div.style.top = top + "px" ; 
+		 world.appendChild(div);
+		 //为了实现div对父亲对象person的控制，在div内增加一个指向person的属性
+		 div.dad = this ;
+		 this.div = div ;
+		 this.world = world ;
+		 
+		 //下面的算法实现随机速度，速度的符号有正负，表示不同的方向
+		 this.vw = this.vh = 0 ;
+		 while(this.vw===0 && this.vh===0){
+		  this.vw = Math.ceil(8*Math.random()) - 4 ;
+		  this.vh = Math.ceil(6*Math.random()) - 3;
+		 }
+	  } //end of showPerson Method
+	 moveDiv(){
+       var left = parseInt(this.div.style.left) ;
+       var top = parseInt(this.div.style.top) ;
+	 
+	   //clientWidth 和 clientHeight属性 记录了DOM节点对象的宽和高的数字（像素单位）
+	   if (left <= 0 ) {
+		   this.vw = - this.vw ;
+	   }
+	   if ( top <=0 ){
+		   this.vh = - this.vh ;
+	   }
+	   if (left >= this.world.clientWidth - this.div.clientWidth) {
+           this.vw = - this.vw ;
+	   }
+	   if (top >= this.world.clientHeight - this.div.clientHeight) {
+           this.vh = - this.vh ;
+	   }
+       this.div.style.left = (left - this.vw ) + "px" ;
+	   this.div.style.top =  (top - this.vh ) + "px" ;
+	 }//end of moveDiv Method
+	  chgV(){
+	    this.vh *= 2 ;
+		this.vw *= 2 ;
+     /**对this的试错代码
+		setTimeout(function(){
+		  //在这个异步代码中"this" is is window ,不是person实例，因此设置无效
+		  console.log("this:"+this);
+ 		  this.vh = 1 ;
+		  this.vw = 1 ;
+		},1000*4) ;
+	**/
+	 //把执行chgV中的this（也就是person实例传给that），最后利用函数的闭包特性，把that变量传给异步函数
+	    var that = this ;
+		setTimeout(function(){
+		  console.log("that:"+that);
+ 		  that.vh = 1 ;
+		  that.vw = 1 ;
+		},1000*10) ;
+ 	  }
+	}//end of class Person
+  //从外部js文件引入二个数组变量，内含全局变量：personName和personInfo 。
+  window.onload = function(){
+	var world = document.querySelector("div#fbsWorld");
+	world.style.width = window.innerWidth - 20  + "px";//要让div容器宽度除去
+	world.style.height = window.innerHeight * 0.9 + "px" ;
+	var person = [];
+	for (var i=0; i < personName.length; i++){
+		var picPath = "person/fbs-" + (i+1) + ".jpg" ;
+		person[i] = new Person(personName[i],personInfo[i],picPath) ;
+		person[i].showPerson(world);
+		//为每个person实例内的div对象，设定新的事件处理函数
+		 person[i].div.addEventListener("mouseover",function(){
+		  this.querySelector("img").style.opacity = "1" ;
+		 },false);
+		 person[i].div.addEventListener("mouseout",function(){
+		  this.querySelector("img").style.opacity = "0.5" ;
+		 },false);
+ /***下面的注释区的代码片段无效，因为 this 指向 div 而非实例 person[i]
+		  person[i].div.addEventListener("click",function(){
+		   this.vw *= 2 ;
+		   this.vh *= 2 ;
+		   console.log("What is this :" + this);
+		   },false);
+ 如何解决指向问题，****/
+         person[i].div.addEventListener("click",function(){
+            console.log("i :" + i);//所有i变量都已经变成了10。原因分析同步代码执行完成后，i已经成为了10 ，尽管按lexical语法规则，异步代码能够访问i，但已经不是，同步代码在执行addEventListener语句时的i的值了。
+			//在产生div时，为div添加一个dad属性，指向包含本div的person实例，再为person生成一个chgV(),增加对象碰撞和运动的速度。最后用下面的方法：this.dad.chgV();简单调用即可.
+            this.dad.chgV();
+		   },false);
+
+	 }//end of for loop of all ten persons
+   
+   setInterval(function(){
+        for (i=0 ; i < person.length ; i++){
+			person[i].moveDiv();
+        }
+    },30)
+  }//end of window.onload 
+ //-->
+ </script>
+
+ </head>
+
+ <body>
+ <h1>全球福布斯排行榜(2019)</h1>
+  <div id="fbsWorld">
+	
+  </div>
+  
+ </body>
+</html>

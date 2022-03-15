@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title> 基于class语法，构建更复杂的对象属性和方法。为每个对象的实例，创建不同的运动速度！</title>
+  <style type="text/css">
+    body{margin:0}
+    div{box-sizing:border-box;}
+	div#fbsWorld{
+	 position:relative ;
+	 border:10px solid red ;
+	 background-color:rgb(0,0,0) ;
+	 overflow:hidden;/*解决人物移出并消失的需要*/
+
+	}
+	div#fbsWorld>div{position:absolute;
+	                 border: 2px dotted brown ;
+					 }
+	div#fbsWorld>div>img{width:90%;height:90%}
+    div#fbsWorld>div>h1{color:white;font-size:1%;text-align:center}
+
+  </style>
+ </head>
+ <script src="person/fbs.js"></script>
+ <script type="text/javascript">
+ <!--
+ 	class Person{
+	 constructor(name,info,pic){
+	  this.name = name ;
+	  this.info = info ;
+	  this.pic = pic ;
+	 } //end of  constructor
+	 showPerson(world){
+	     var div = document.createElement("div") ;
+		 var img = document.createElement("img") ;
+		 var divWidth = 100 + parseInt(100 * Math.random()) ;
+		 // 由于图片基本是正方形，因此没有设置divHeight变量，下面DOM节点的高度也采用宽度的值。
+		 div.style.width = div.style.height = divWidth + "px";
+		 img.src = this.pic ;img.style.display = "block" ;
+		 img.style.margin = "auto"  ;  img.style.opacity = "0.5" ;
+		 div.appendChild(img);
+
+         var h1 = document.createElement("h1") ;
+		 h1.textContent = this.name + " -- " + this.info ;
+         div.appendChild(h1);
+
+         var maxX = world.clientWidth - divWidth;
+         var maxY = world.clientHeight - divWidth;
+		 var left = parseInt( maxX * Math.random() );
+		 var top = parseInt( maxY * Math.random() );
+		 div.style.left = left + "px" ; 
+		 div.style.top = top + "px" ; 
+		 world.appendChild(div);
+		 this.div = div ;
+		 this.vw = Math.ceil(4*Math.random()) ;
+		 this.vh = Math.ceil(3*Math.random()) ;
+	  } //end of showPerson Method
+	 moveDiv(){
+       var left = parseInt(this.div.style.left) ;
+       var top = parseInt(this.div.style.top) ;
+	   //下面用硬编码（直接使用数字数据）来实现统一的位移，配合异步定时器就可以实现动画
+	   //clientWidth 和 clientHeight属性 记录了DOM节点对象的宽和高的数字（像素单位）
+	   if (left < - this.div.clientWidth) {
+		   left = window.innerWidth ;
+	   }
+	   if (top < - this.div.clientHeight){
+		   top = window.innerHeight ;
+	   }
+       this.div.style.left = (left - this.vw ) + "px" ;
+	   this.div.style.top =  (top - this.vh ) + "px" ;
+	 
+	 }
+	}//end of class Person
+  //从外部js文件引入二个数组变量，内含全局变量：personName和personInfo 。
+  window.onload = function(){
+	var world = document.querySelector("div#fbsWorld");
+	world.style.width = window.innerWidth - 20  + "px";//要让div容器宽度除去
+	world.style.height = window.innerHeight * 0.9 + "px" ;
+	var person = [];
+	for (var i=0; i < personName.length; i++){
+		var picPath = "person/fbs-" + (i+1) + ".jpg" ;
+		person[i] = new Person(personName[i],personInfo[i],picPath) ;
+		person[i].showPerson(world);
+	 }
+   
+   setInterval(function(){
+        for (i=0 ; i < person.length ; i++){
+			person[i].moveDiv();
+        }
+    },30)
+  }//end of window.onload 
+ //-->
+ </script>
+ <body>
+ <h1>全球福布斯排行榜(2019)</h1>
+  <div id="fbsWorld">
+	
+  </div>
+  
+ </body>
+</html>

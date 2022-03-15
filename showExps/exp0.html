@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>添加输入基础数的UI，输出比基础数大的质数</title>
+  <style type="text/css">
+   body{font-size:2em}
+   input{font-size:0.8em;}
+  </style>
+  </head>
+ <body>
+  基础数字(万亿):<input type="text" value = "1234567890123" />
+  <div>输出基础数字更大质数，本次计算耗时： </div>
+  <input type="button" value = "算出一个更大的质数" />
+  <input type="button" value = "列出计算过所有的质数" />
+  <script type="text/javascript">
+	<!--
+	"use strict";
+    var div = document.querySelector("div"); 
+    var input = document.querySelectorAll("input");
+	var begin = parseInt(input[0].value) ;//由用户UI改变这个基础数字，程序算出更大的质数
+    isPrime.arr = [] ;
+    input[0].onblur = function(){
+	 var num = parseInt(input[0].value) ;
+	 if (num){
+	  begin = num ;
+	 }else{
+	  this.value = 123456789 ;
+	 }
+
+
+	}
+	input[1].onclick = function(){
+	 var timer0 = new Date() ;	
+     while ( ! isPrime(begin) ) {
+      begin ++ ;
+     }
+	 var timer1 = new Date() ;
+	 var cost =  timer1 - timer0   ;
+	  div.textContent ="本次算出的质数：" + begin + " ," + "本次耗时：" + cost + "毫秒 。";
+	  isPrime.arr[isPrime.arr.length] = begin ;
+	  begin ++ ; //你试试没有这句，将永远输出同一个质数
+	}//end of button[0] onclick
+
+	input[2].onclick = function(){
+	  var arr = isPrime.arr ;
+	  var s = "" ;
+      for (var i = 0; i < arr.length ; i++) {
+         s += arr[i] + " ," ;
+      }
+	  div.textContent ="列出所算的质数：" + s  ;
+	}//end of button[1] onclick
+  
+   function isPrime(n){
+     for (var i = 2 ; i < Math.ceil(Math.sqrt(n)) ; i++){
+		 if (n % i === 0){
+			 return false ;
+		 }
+	 }
+	 return true ;
+   }//end of isPrime(n) F declaration
+    //-->
+	</script>
+ </body>
+</html>

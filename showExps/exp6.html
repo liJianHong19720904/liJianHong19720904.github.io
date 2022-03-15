@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>VRW-5</title>
+  <style type="text/css">
+	body{margin:auto 1em;
+	font-size:1.5em;}
+  </style>
+  <script type="text/javascript">
+  <!--
+ var vrModel = {
+	  year : 0,
+	  month : 1,
+	  date : 1,
+	  addADay : function(){
+	   this.date += 1 ;
+	   if (this.date ===10 ) {
+		   this.month +=1 ;
+		   this.date = 1 ; 
+	   }
+	   if (this.month ===6) {
+		   this.year += 1 ;
+		   this.month = 1 ;
+	   }
+	   //自然灾难的日子和战争的日子，要随着每天过去而递减
+       if (this.daysInDisaster > 0){
+         this.daysInDisaster -- ;
+       }
+       if (this.daysInWar > 0){
+         this.daysInWar -- ;
+       }
+	 },
+	 population: 100000000,
+	 daysInDisaster: 0,
+	 daysInWar: 0,
+     //下面让人口每天变化,在单一发生战争和灾害的时期人口会有损减，同时发生战争和灾害人口损减率呈指数增长。
+     setPopulation: function(){
+		  if (this.daysInDisaster ===0 && this.daysInWar === 0){
+            this.population += Math.floor(this.population * 0.00022222);
+		  }
+		 if (this.daysInDisaster > 0 && this.daysInWar > 0){
+            this.population -= Math.floor(this.population * 0.00088341);
+		 }else{
+		    if (this.daysInDisaster > 0 ){
+              this.population -= Math.floor(this.population * 0.00011111);
+		    } 
+			if (this.daysInWar > 0 ){
+              this.population -= Math.floor(this.population * 0.00023456);
+			}
+		 } 
+	 },
+	 //下面增加随机发生的自然灾害,每年60天，则其最大值设为30
+	 addADisaster: function(){
+	           var days = 10+Math.floor(20*Math.random());
+			   this.daysInDisaster += days ;
+	   },
+	 //下面增加人为选择发生的战争灾害,每年60天，则其最大值设为60
+	 addAWar: function(){
+	           var days = 10+Math.floor(50*Math.random());
+			   this.daysInWar += days ;	 
+	 }
+	} ;
+  var vrUI ={
+        showTimer: function(){
+	            var timer = document.getElementById("timer") ;
+				var that = vrModel ;
+	  	        timer.textContent ="公元 " + that.year +" 年 "+ ` ${that.month}月 ${that.date}日` ;
+	     },
+		 showDisaster:function(){
+		  var disaster = document.getElementById("disaster") ;
+		  var that = vrModel ;
+		  var mesg = that.daysInDisaster > 0 ?  `自然灾害中……` : `风调雨顺中……` ;
+		  that.daysInDisaster > 0 ? disaster.style.color = "red" : disaster.style.color = "green" ;
+		  disaster.textContent =  mesg + "/" + that.daysInDisaster;
+		 },
+		 showWar:function(){
+		  var war = document.getElementById("war") ;
+		  var that = vrModel ;
+          var mesg = that.daysInWar > 0 ?  `人类战争中……` : `和平发展中……` ;
+		  that.daysInWar > 0 ? war.style.color = "red" : war.style.color = "blue" ;
+		  war.textContent = mesg + "/" + that.daysInWar;
+		 },
+		 showPopulation:function(){
+		  var population = document.getElementById("population") ;
+		  var that = vrModel ;
+		  population.textContent = `人口：${that.population} ……` ;
+		 }
+      };
+  window.onload = function(){
+    vrUI.showTimer() ;
+    vrUI.showPopulation() ;
+    setInterval(function () {
+		    	 vrModel.addADay();
+                 vrUI.showTimer();
+				 vrUI.showDisaster();
+				 vrUI.showWar();
+				 vrUI.showPopulation() ;
+			    },1000);
+    setInterval(function(){vrModel.setPopulation();},750);
+	setInterval(function(){vrModel.addADisaster();},60*1000);
+	document.body.onkeypress = function(eObj){
+		var keyCode = eObj.keyCode ;
+	    console.log("keyCode of the press key: " + keyCode + " , space for War");
+		if (keyCode === 32){
+           vrModel.addAWar();
+		}
+	};
+	document.querySelector("input").onclick = function(){
+	  var it = vrModel
+	  var msg = `造物主介入，时间暂停在：公元${it.year}年 ${it.month }月${it.date}日` ;
+	  alert(msg);
+	}
+  };//end of window.onload
+
+ 
+
+  //-->
+  </script> 
+ </head>
+ <body>
+  <p id="timer"></p>
+  <p id="disaster"></p>
+  <p id="war"></p>
+  <p id="population"></p>
+  <input type="button" value="Pause By God"> 
+ </body>
+</html>
