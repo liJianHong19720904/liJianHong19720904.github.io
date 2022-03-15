@@ -33,6 +33,7 @@
 	 font-family:"宋体";
 		}
 	header{
+	position: relative;
 	font-family: 'zantroke','黑体';
 	height:150px;
 	background:url("images/header.jpg") no-repeat center ;
@@ -165,6 +166,18 @@
 	font-size:20px;
 	top:-30px;
 	left:-50px;
+	}
+	input#homework{
+     font-size: 15px;
+	 position: absolute;
+	 left:10px;bottom:5px;
+	 padding:5px 10px;
+	}
+	input#showwork{
+	font-size: 15px;
+	 position: absolute;
+     right:10px;bottom:5px;
+	 padding:5px 10px;
 	}
   </style>
   <script>
@@ -437,6 +450,17 @@
     
 	 Model.getLessonById();
    },true);
+
+   my$("input#homework").onclick = function(){
+    var url = "cs2021/index.html" ;
+    window.open(url);
+   };
+   my$("input#showwork").onclick = function(){
+    const MAX = 7 ;
+	var rand = Math.floor(Math.random()*7) ;
+    var url = "showExps/exp" + rand +".html";
+	window.open(url);
+   };
   };//end of window.onload
   function my$(para){
   	if(!para){
@@ -465,6 +489,8 @@
     <input type="button" id="prev"  value=" 向前翻 ">
 	 第 <input type="text" id="lessonId"  value="简介"> 篇
 	<input type="button" id="next" value=" 向后翻 ">
+	<input type="button" id="homework" value="学生作业">
+	<input type="button" id="showwork" value="随机案例">
    </nav>
   </header>
   <section>
