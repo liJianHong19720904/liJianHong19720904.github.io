@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>coordinates</title>
+<style>
+ body {
+ background: #ccc;
+ }
+ #canvas {
+  background: #fff;
+  border: 10px inset rgba(50,100,230,0.5);
+  cursor: pointer;
+}
+#outputXY {
+ color: blue;
+ font-size:1.2em;
+}
+</style>
+</head>
+<body>
+<div id='outputXY'>(x,y)</div>
+<canvas id='canvas' width='500' height='350'>
+ Canvas not supported
+</canvas>
+<script >
+var canvas = document.getElementById('canvas'),
+    outputXY = document.getElementById('outputXY'),
+    context = canvas.getContext('2d'),
+    sprite = new Image();
+// Functions..........................................................
+function windowToCanvas(canvas, x, y) {
+ var bbox = canvas.getBoundingClientRect();
+    return 	{
+	  x: x - bbox.left * (canvas.width / bbox.width) ,
+	  y: y - bbox.top * (canvas.height / bbox.height)
+	 };
+  }
+function drawBackground() {
+   var VERTICAL_LINE_SPACING = 12,
+       backNum = context.canvas.height;
+   context.clearRect(0,0,canvas.width,canvas.height);
+   context.strokeStyle = 'lightgray';
+   context.lineWidth = 1;
+  while(backNum > 12) {
+   context.beginPath();
+   context.moveTo(0, backNum);
+   context.lineTo(context.canvas.width, backNum);
+   context.stroke();
+   backNum -= VERTICAL_LINE_SPACING;
+   }
+ }//drawBackground()
+function drawsprite() {
+ var x0 = (canvas.width-sprite.width)/2 ,
+     y0 = (canvas.height-sprite.height)/2 ;
+  context.drawImage(sprite, x0 , y0);
+}
+function drawGuidelines(x, y) {
+ context.strokeStyle = 'rgba(250,0,0,0.6)';
+ context.lineWidth = 1;
+ drawVerticalLine(x);
+ drawHorizontalLine(y);
+   function drawHorizontalLine (y) {
+	 context.beginPath();
+	 context.moveTo(0, y);
+	 context.lineTo(context.canvas.width, y);
+	 context.stroke();
+   }
+  function drawVerticalLine (x) {
+	 context.beginPath();
+	 context.moveTo(x , 0);
+	 context.lineTo(x , context.canvas.height);
+	 context.stroke();
+  }
+}//End of drawGuidelines
+
+ function updateXY(x, y) {
+  outputXY.textContent = '(x:' + x.toFixed(0) + ', y:' + y.toFixed(0) + ')';
+}
+
+// Event handlers.....................................................
+canvas.onmousemove = function (e) {
+ var loc = windowToCanvas(canvas, e.clientX, e.clientY);
+   drawBackground();
+   drawsprite();
+   drawGuidelines(loc.x, loc.y);
+   updateXY(loc.x, loc.y);
+};
+// Initialization.....................................................
+ sprite.src = 'images/elz.jpg';
+ sprite.onload = function(e) {
+  drawsprite();
+  };
+drawBackground();
+</script>
+</body>
+</html>

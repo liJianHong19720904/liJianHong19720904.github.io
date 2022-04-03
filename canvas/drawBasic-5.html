@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel = "stylesheet" href ="fullscreen.css">
+  <title>
+  canvas的绘画学习，实现一个4行2列绘画矩阵。列展示形状（text、rect、arc、circle共4种），行展示绘画模式（stroke、fill、stroke&fill共三种），总共绘制3*4==12个图形
+  </title>
+ </head>
+  
+ <body>
+   <canvas id="canvas">
+   此浏览器不支持canvas
+  </canvas>
+  <script type="text/javascript">
+  <!--
+   var canvas = document.querySelector("canvas#canvas") ;
+   var context = canvas.getContext("2d") ;
+
+    canvas.width = window.innerWidth  ;
+    canvas.height = window.innerHeight ;
+  //第一阶段，绘制花格背景
+ //为实现花格背景线，本例要重新分析drawBasic-2.html的drawBackground函数，并略作修改：drawVBackground函数用来绘制垂直背景线，drawHBackground函数绘制水平背景线。
+ //同时调用，如下代码所为，就实现能绘制水平和垂直的二种背景线，实现花格背景，函数分别命名为drawVBackground和drawHBackground，函数的二个入口参数为背景线的间距（lineSpacing）、背景线的粗细 （lineWidth）。
+    drawVBackground(20,2) ;
+    drawHBackground(20,2) ;
+
+   function drawVBackground(lineSpacing,lineWidth){
+ 	if (lineSpacing < lineWidth*2){
+      lineSpacing = lineWidth *2 ;
+	}
+    var  width = context.canvas.width - lineSpacing ;
+    context.strokeStyle = "rgba(100,100,250,0.1)" ; 
+	context.lineWidth = lineWidth ;
+	while(width >= lineSpacing - lineWidth){
+	 context.beginPath();
+	 context.moveTo(width,0);
+	 context.lineTo(width,context.canvas.height);
+	 context.stroke();
+	 width -= lineSpacing ;
+	}//End of while 
+   } //End of function drawVBackground
+
+  function drawHBackground(lineSpacing,lineWidth){
+  
+	if (lineSpacing < lineWidth*2){
+      lineSpacing = lineWidth *2 ;
+	}
+    var  height = context.canvas.height - lineSpacing ;
+    context.strokeStyle = "rgba(100,100,250,0.1)" ; 
+	context.lineWidth = lineWidth ;
+   //循环条件是控制绘制背景线的Y坐标的变量——height 
+	while(height >= lineSpacing - lineWidth){
+	 context.beginPath();
+	 context.moveTo(0,height);
+	 context.lineTo(context.canvas.width,height);
+	 context.stroke();
+	 height -= lineSpacing ;
+	 //每次绘制一条水平的线（从左到右，水平线从下到上）
+	 //同时 height 变量减去背景线的间距lineSpacing
+	}//End of while 
+   } //End of function drawHBackground
+
+    //第二阶段，对Paths, Stroking,  Filling开展绘制实践
+	// Drawing attributes.....
+	var fontSize =  39 ;
+	context.font = fontSize + 'px Helvetica';
+    context.strokeStyle = 'green';
+    context.fillStyle = 'rgba(200,0,0,0.4)';
+    context.lineWidth = '1';
+	context.shadowColor = 'lightgray' ;
+	context.shadowOffsetX = 10 ;
+    context.shadowOffsetY = 15 ;
+    context.shadowBlur = 2 ;
+	// x,y 输出坐标，输出
+	var x = [10,220,420] ; 
+	var y = [50,100,250,450] ;
+    // Text...........
+	context.strokeText('Stroke划线', x[0], y[0]);
+    context.fillText(' Fill填充 ', x[1] , y[0]);
+    context.strokeText('Stroke&Fill', x[2], y[0]);
+    context.fillText('Stroke&Fill', x[2], y[0]);
+    // Rectangles......
+	// Line width set to 10px 
+	context.lineWidth = '10'; 
+    context.beginPath();
+    context.rect(x[0], y[1], 150, 100);
+	context.stroke();
+	context.beginPath();
+	context.rect(x[1], y[1], 150, 100);
+	context.fill();
+	context.beginPath();
+	context.rect(x[2], y[1], 150, 100);
+	context.stroke();
+	context.fill();
+// Open arcs...................
+    var  r =  75 ;
+	context.beginPath();
+	context.arc(x[0] + r, y[2], r, 0, Math.PI);
+	context.stroke();
+	context.beginPath();
+	context.arc(x[1] + r, y[2], r, 0, Math.PI);
+	context.fill();
+	context.beginPath();
+	context.arc(x[2] + r, y[2], r, 0, Math.PI);
+	context.stroke();
+	context.fill();
+
+	// close arcs 角度从0到2*Math.PI 的arc会成为 circle.......
+    context.lineWidth = '5'; 
+    context.beginPath();
+	context.arc(x[0] + r, y[3], r, 0, 2*Math.PI);
+	context.stroke();
+	context.beginPath();
+	context.arc(x[1] + r, y[3], r, 0, 2*Math.PI);
+	context.fill();
+	context.beginPath();
+	context.arc(x[2] + r, y[3], r, 0, 2*Math.PI);
+	context.stroke();
+	context.fill();
+  //-->
+  </script>
+ </body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在canvas中画背景条纹</title>
+  <style type="text/css">
+	
+	html, body {
+	  margin: 0;
+	}
+	html {
+	  font-family:  Helvetica, Arial ;
+	  height: 100%;
+	}
+	body {
+	  overflow: hidden;
+	  height: inherit;
+      
+	}
+	/*** 用CSS代码为绘图区增加外框，不影响绘图区 **/
+	canvas{
+	  border:10px inset black ;
+	}
+  </style>
+ </head>
+  
+ <body>
+   <canvas id="canvas">
+   此浏览器不支持canvas
+  </canvas>
+  <script type="text/javascript">
+  <!--
+   var canvas = document.querySelector("canvas#canvas") ;
+   var context = canvas.getContext("2d") ;
+    //下面对绘图区大小的设计，要计算上面CSS设计的边框，否则绘图区将因为边框而被“撑大”，破话全屏的美感。
+    canvas.width = window.innerWidth - 10*2 ;
+    canvas.height = window.innerHeight - 10*2 ;
+ 
+   //调用背景绘制函数，函数第一个参数是背景线的间距，函数第二个参数是背景线的粗细宽度。
+    drawBackground(50,10) ;
+    drawBackground(10,2) ;
+   //用不同的参数，调用drawBackground函数绘制2次，避免了单调的背景，顺便也体现了函数的复用代码的价值。
+
+   function drawBackground(lineSpacing,lineWidth){
+  
+	if (lineSpacing < lineWidth*2){
+      lineSpacing = lineWidth *2 ;
+	}
+	//为让基本的条纹显现，要保证背景线的距离比背景线本身要宽，若有这样参数传入函数，上面的if逻辑就可纠正参数。
+
+    var  width = context.canvas.width - lineSpacing ;
+	 //width变量控制绘制背景线的X坐标，减去lineSpacing是让第一条绘线不要画在右边界上。
+
+    context.strokeStyle = "rgba(100,100,250,0.1)" ; 
+	context.lineWidth = lineWidth ;
+   //背景线的颜色偏灰蓝，透明度低至十分之一
+   //对context对象上的strokeStyle和lineWidth参数进行设置，Canvas绘制线条的基本参数还有一些，将在后面案例使用。
+   
+   //利用好循环，才能发挥计算机最大的计算优势！
+   //循环条件是控制绘制背景线的X坐标的变量——width 
+	while(width >= lineSpacing - lineWidth){
+	 context.beginPath();
+	 context.moveTo(width,0);
+	 context.lineTo(width,context.canvas.height);
+	 context.stroke();
+	 width -= lineSpacing ;
+	 //每次绘制一条垂直的线（从上自下）
+	 //同时width变量减去背景线的间距lineSpacing
+	}//End of while 
+	 
+   } //End of function drawBackground
+  //-->
+  </script>
+ </body>
+</html>

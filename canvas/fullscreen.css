@@ -1,0 +1,14 @@
+   /*
+   下面三条css语句，配合浏览器可用的区域大小，实现了任意屏幕的Canvas全屏绘图
+   */
+	html, body {
+	  margin: 0;
+	}
+	html {
+	  font-family:  Helvetica, Arial ;
+	  height: 100%;
+	}
+	body {
+	  overflow: hidden;
+	  height: inherit;
+	}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinearGradient绘制七彩渐变背景</title>
+  <link rel = "stylesheet" href ="fullscreen.css">
+ </head>
+ <body>
+    <canvas>
+    </canvas>  
+   <script type="text/javascript">
+   <!--
+	  //用一条语句获取canvas的作图上下文对象
+	var context = document.querySelector("canvas").getContext("2d") ;
+      //用一条语句实现绘图区的全屏设定，并获取绘图区的宽和高的数据
+	var width = context.canvas.width = window.innerWidth ;
+	var height = context.canvas.height = window.innerHeight ;
+
+     //createLinearGradient方法，通过产生渐变对象，实现线性渐变填充色的设定，入口参数为起点和终点这2个坐标数据，（x1,y1,x2,y2）共4个参数，下面参数使用了绘图区左上和右上二个点。
+    var gradient = context.createLinearGradient(0, 0, width, 0);
+
+	  //渐变对象gradient的addColorStop方法可以设定渐变位置和颜色，共2个参数
+	  //对于线性渐变比较好理解，在一条直线上，用数值划分好0至1的区段
+
+		gradient.addColorStop(0,"red");
+		gradient.addColorStop(1/6,"orange");
+		gradient.addColorStop(2/6,"yellow");
+		gradient.addColorStop(3/6,"green");
+		gradient.addColorStop(4/6,"cyan");
+		gradient.addColorStop(5/6,"blue");
+		gradient.addColorStop(1,"violet");
+    
+	  //上面实现了七彩彩虹色的均匀分布，上面代码参数传入的七种颜色，分别是人们熟悉的“红、橙、黄、绿、青、蓝、紫”
+		context.fillStyle = gradient ;
+		context.rect(0,0,width,height) ;
+		context.fill();
+     //渐变对象可以传递给context对象的填充属性，实现渐变填充，使用context的填充类方法实现渐变的填充
+   //-->
+   </script>
+ </body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel = "stylesheet" href ="fullscreen.css">
+  <title>从作图Path的视角，重新认识rect方法，使用lineTO定义rect方法的作图路径，然后实现路径合并的镂空效果</title>
+ </head>
+  
+ <body>
+   <canvas id="canvas">
+   此浏览器不支持canvas
+  </canvas>
+  <script type="text/javascript">
+  <!--
+   var canvas = document.querySelector("canvas#canvas") ;
+   var context = canvas.getContext("2d") ;
+
+    canvas.width = window.innerWidth  ;
+    canvas.height = window.innerHeight ;
+ //第一阶段，绘制花格背景
+   //修改drawBasic-2.html的drawVBackground函数，绘制水平和垂直的二种线，实现花格背景，函数分别命名为： drawVBackground和drawHBackground，函数的二个入口仍然为背景线的间距（lineSpacing）,和背景线的粗细 （lineWidth）。
+    drawBackground(30,2,"rgba(250,100,100,0.1)") ;
+    drawBackground(50,5,"rgba(100,100,250,0.1)") ;
+   function drawBackground(lineSpacing,lineWidth,bkColor){
+  	if (lineSpacing < lineWidth*2){
+      lineSpacing = lineWidth *2 ;
+	}
+    var  width = context.canvas.width - lineSpacing ;
+	var  height = context.canvas.height - lineSpacing ;
+	context.strokeStyle = bkColor ; 
+	context.lineWidth = lineWidth ;
+	while(width >= lineSpacing - lineWidth){
+	 context.beginPath();
+	 context.moveTo(width,0);
+	 context.lineTo(width,context.canvas.height);
+	 context.stroke();
+	 width -= lineSpacing ;
+	}//End of while 
+	while(height >= lineSpacing - lineWidth){
+	 context.beginPath();
+	 context.moveTo(0,height);
+	 context.lineTo(context.canvas.width,height);
+	 context.stroke();
+	 height -= lineSpacing ;
+	}//End of while
+   } //End of function drawBackground
+
+
+    //第二阶段，对自定义矩形路径开展cutout绘制实践
+	
+	 var width = context.canvas.width
+	 var height = context.canvas.height;
+	 
+	 
+	context.beginPath();
+   // 外部（Outer）:  用线段（lineTo）绘制一个路径为顺时钟（CW）矩形
+	 rectPath(width/10,height/10,8*width/10,8*height/10,true) ;
+   // 内部（Inner）:  用线段（lineTo）绘制一个路径为反时钟（CCW）矩形
+     rectPath(3*width/10,3*height/10,4*width/10,4*height/10,false) ;
+	context.closePath();
+     context.fillStyle = "rgba(0,0,200,0.5)" ;
+	 context.fill();
+
+	 function rectPath(x, y, w, h, direction) {
+		if (!direction) { // CCW
+		 context.moveTo(x, y);
+		 context.lineTo(x, y + h);
+		 context.lineTo(x + w, y + h);
+		 context.lineTo(x + w, y);
+		 context.lineTo(x , y);
+		}
+		else { // CW
+		 context.moveTo(x, y);
+		 context.lineTo(x + w, y);
+		 context.lineTo(x + w, y + h);
+		 context.lineTo(x, y + h);
+		 context.lineTo(x , y);
+		 }
+		}//End of function rectPath
+ 
+  //-->
+  </script>
+ </body>
+</html>
