@@ -1,11 +1,12 @@
 chapter 1
-浏览器端程序的简单输入和输出
+基于浏览器端的简便输入和输出
 chapter 2
-初步理解浏览器这个强大的编程学习环境，初步使用浏览器的console开发面板，会使用浏览器的全局对象document的几个简单方法，让程序实现用户输入和输出。能构初步分析代码的流程、理解代码逻辑（特别是逻辑的组合）、编写具备简单算法的程序。对于较好理解HTML和CSS的学习者，可以通过最后二个案例，理解浏览器的DOM概念，并编写有初步界面和交互性的程序。
+初步理解浏览器这个强大的编程学习环境，初步使用浏览器的console开发面板，会使用浏览器的全局对象document的几个简单方法，让程序实现用户输入和输出。能构初步分析代码的流程、理解代码逻辑（特别是逻辑的组合）、编写具备简单算法的程序。对于较好理解HTML和CSS的学习者，可以通过最后二个案例，理解浏览器的DOM概念，并编写有初步界面的交互性程序。
 chapter 3
 console.log ，Math ，floor，random ，prompt ，parseInt ，= ，== ，===  ，while(条件){ 循环体 }，break  ，document.querySelector，textContent ，onclick。
 chapter 4
 内有5个HTML文件，自此开始，要求学习者逐步了解浏览器编程环境和能利用Console后台的调试功能。案例008，在了解console.log和Math对象的基本功能后，通过window对象的prompt方法实现程序对数据输入；案例009在008基础上，增加了一个循环，顺便可以让学习者感受浏览器window对象的alert和prompt方法对代码运行的强大暂停作用，这点可以在初期程序调试中利用；案例010在009基础上，继续完善程序对用户输入数据的处理和逻辑判断；案例010-012三个案例开始，引入浏览器document对象的querySelector方法，实现对Web页元素的引用，并利用引用的DOM对象的textContent和onclick属性，实现对Web页的动态更新，在理解这些Web页DOM操作的基本方法后，案例最后结合二分法算法，实现了一个比较完整的案例，注：对英文不好的学习者，最后三个案例可暂作忽略，建议放在熟悉了JavaScript的语法和掌握了浏览器端概念之后再去学习。
+综合性较强的案例（展示唐诗三百首），内有数个HTML文件和1个JS文件，这个案例训练学习者利用循环代码，结合字符串方法（serach和substring），学习代码处理字符串的基本功力。
 chapter 5
 You’ve got some programming under your belt; now it’s time to really move things along with functions. Functions give you the power to write code that can be applied to all sorts of different circumstances, code that can be reused over and over, code that is much more manageable, code that can be abstracted away and given a simple name so you can forget all the complexity and get on with the important stuff. You’re going to find not only that functions are your gateway from scripter to programmer, they’re the key to the JavaScript programming style. In this chapter we’re going to start with the basics: the mechanics, the ins and outs of how functions really work, and then you’ll keep honing your function skills throughout the rest of the book.
 There’s more to JavaScript than numbers, strings and booleans. So far you’ve been writing JavaScript code with primitives simple strings, numbers and booleans, like “Fido”, 23, and true. And you can do a lot with primitive types, but at some point you’ve got to deal with more data. Say, all the items in a shopping cart, or all the songs in a playlist, or a set of stars and their apparent magnitude, or an entire product catalog. For that we need a little more ummph. The type of choice for this kind of ordered data is a JavaScript array, and in this chapter we’re going to walk through how to put your data into an array, how to pass it around and how to operate on it. We’ll be looking at a few other ways to structure your data in later chapters but let’s get started with arrays.
