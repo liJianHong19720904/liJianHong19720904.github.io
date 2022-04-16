@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+	   /*
+   下面三条css语句，配合浏览器可用的区域大小，实现了任意屏幕的Canvas全屏绘图
+   */
+	html, body {
+	  margin: 0;
+	}
+	html {
+	  font-family:  Helvetica, Arial ;
+	  height: 100%;
+	}
+	body {
+	  overflow: hidden;
+	  height: inherit;
+	}
+  </style>
+  <title>window对象动画设置的API：requestAnimationFrame，探索context.rotate(angle)</title>
+ </head>
+  
+ <body>
+   <canvas id="canvas">
+   此浏览器不支持canvas
+  </canvas>
+  <script type="text/javascript">
+  <!--
+   var canvas = document.querySelector("canvas#canvas") ;
+   var context = canvas.getContext("2d") ;
+
+    canvas.width = window.innerWidth  ;
+    canvas.height = window.innerHeight ;
+
+
+
+  var r1 = canvas.width > canvas.height ?  canvas.height/2.5 : canvas.width/2.5 ;
+  var r2 = canvas.width > canvas.height ?  canvas.height/3 : canvas.width/3 ;
+  var x0 = canvas.width / 2 ;
+  var y0 = canvas.height / 2 ;
+  var EM = parseInt((r1-r2)/2) + 5 ;
+  context.translate(x0,y0);
+
+ drawClock();
+ secondHander();
+ HourHander();
+ MinuteHander();
+ requestAnimationFrame(RotateText);//window对象动画设置的API：requestAnimationFrame
+  setInterval(function(){
+	 drawClock();
+     secondHander();
+     HourHander();
+     MinuteHander();
+  },1000); 
+ 
+ function drawClock(){
+  context.clearRect(-canvas.width/2,-canvas.height/2,canvas.width,canvas.height);
+  //按新的（0，0）原点设定，绘制2个同心圆
+  context.beginPath();
+  context.moveTo( 0+r1 , 0);
+  context.arc(0,0,r1,0,2*Math.PI);
+  context.moveTo( 0+r2 , 0);
+  context.arc(0,0,r2,0,2*Math.PI);
+  context.stroke();
+  context.fillRect(-r2/20,-r2/20,r2/10,r2/10);//用填充矩形简易地绘制一个圆心
+  context.closePath();
+
+/**** 在大圆周边，标记1至12的时刻 **/
+  var Numbers = [];
+  for (var i=1;i <= 12 ; i++ ){
+    Numbers[i-1]= i ;
+  }
+  context.textAlign = "center" ;
+  context.textBaseline = "middle" ;
+  Numbers.forEach(function(num){
+	var angle = (num-3) * 360 /12 * Math.PI / 180 ; //要考虑，时钟刻度的传统的起点，与数学0度的差距，这点数学不熟练者，先用num，然后用num-3试试
+    var r = r1 + EM ;
+	context.font = EM +'px Verdana';
+	var x = r * Math.cos(angle) ;
+	var y = r * Math.sin(angle);
+	context.fillText(num,x,y);
+  });
+
+ //在二圆之间，每到数字位置，绘制长刻度，其他分钟位置为短刻度
+   var Delta = (r1 - r2)*2/3 ;
+   context.beginPath();
+    for (var angle = 0 ; angle < 360 ; angle++ ){
+	 if (angle % (360/12/5) === 0 ){
+	   var x1 = (r2+2) * Math.cos(angle/180*Math.PI) ;
+	   var y1 = (r2+2) * Math.sin(angle/180*Math.PI) ;
+	   context.moveTo(x1 , y1); 
+	   if (angle % (360/12) === 0 ) {
+	    var x2 = (r1-2) * Math.cos(angle/180*Math.PI) ;
+        var y2 = (r1-2) * Math.sin(angle/180*Math.PI) ;
+	   }else{
+	    var x2 = (r1-Delta) * Math.cos(angle/180*Math.PI) ;
+        var y2 = (r1-Delta) * Math.sin(angle/180*Math.PI) ;
+	   }
+	   context.lineTo(x2 , y2);
+	  }
+   }
+   context.closePath();
+   context.stroke();
+}//End of drawClock 
+
+//绘制秒针函数
+  function secondHander(){
+   var time = new Date() ;
+   var angle = (time.getSeconds()-15) * 6 * Math.PI /  180 ; // 6 = 360 / 60
+   //console.log(time.getSeconds());//这条后台输出语句，可以证明秒针多移动了15秒
+   var x1 = (r1+r2)/2 * Math.cos(angle);
+   var y1 = (r1+r2)/2 * Math.sin(angle);
+   context.beginPath();
+   context.moveTo(0,0);
+   context.lineTo(x1,y1);
+   context.stroke() ;
+   context.closePath();
+   }
+ 
+//绘制时针函数（HourHander） 和分针函数（MinuteHander）
+
+  function HourHander(){
+   var time = new Date() ;
+   var hours = time.getHours() > 12 ? time.getHours() - 12 : time.getHours() ;
+   //console.log(time.getHours());//这条后台输出语句，可以证明时针多移动了3小时
+   var angle = (hours - 3 ) * 30 * Math.PI /  180 ; //时钟每小时30度 (360/12=30)
+   angle += time.getMinutes()/60 * 30 * Math.PI /  180; //调整分钟带来的偏差
+   var x1 = r2/2 * Math.cos(angle);
+   var y1 = r2/2 * Math.sin(angle);
+   context.save();
+   context.lineWidth = 10 ;
+   context.beginPath();
+   context.moveTo(0,0);
+   context.lineTo(x1,y1);
+   context.stroke() ;
+   context.closePath();
+   context.restore();
+   }
+
+  function MinuteHander(){
+   var time = new Date() ;
+   var minutes = time.getMinutes() ;
+   var angle = (minutes - 15) * 6 * Math.PI /  180 ; 
+   var x1 = r2*3/4 * Math.cos(angle);
+   var y1 = r2*3/4 * Math.sin(angle);
+   context.save();
+   context.lineWidth = 5 ;
+   context.beginPath();
+   context.moveTo(0,0);
+   context.lineTo(x1,y1);
+   context.stroke() ;
+   context.closePath();
+   context.restore();
+   }
+
+  var rotateAngle = 0 ;
+  function RotateText(time,text){
+   if (!time){
+     time = new Date() ; 
+   }
+   if (!text){
+	   text = "江西科技师范大学软件动漫学院" ;
+   }
+   var angle = 2 * Math.PI /text.length  ; 
+   var r = (r1+r2) / 2 ;
+
+   context.save();
+   context.font = parseInt((r1-r2)/2) +'px 仿宋' ;
+   context.strokeStyle = 'rgba(0,0,0,0.05)' ;
+   context.textAlign = "center" ;
+   context.textBaseline = "middle" ;
+   context.rotate(rotateAngle);
+   rotateAngle -=  Math.PI/3000 ;
+     for (var i=0; i< text.length ; i++ )  {
+	    
+	    var x1 = r * Math.cos( i * angle - Math.PI);
+        var y1 = r * Math.sin( i * angle - Math.PI);
+		 context.strokeText(text[i],x1,y1);
+   }
+   context.restore();
+   requestAnimationFrame(RotateText);
+   }
+
+  //-->
+  </script>
+ </body>
+</html>
