@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>探索4个字节组成的二字符Unit编码组成的emoji部分字符,JSON数据新增emoji编码数据，再把String.fromCharCode方法，改动为理解支持emoji字符的String.fromCodePoint方法</title>
+  <style type="text/css">
+	body{
+	margin:80px auto ;
+	font-size:16px;
+	}
+	table{
+	 margin:auto ;
+	 text-align:center;
+	}
+	table th {
+	 font-size:1.5em;
+	}
+	table td.face{
+	 font-size:4em;
+	 
+	 }
+	table td,table th{
+	 border:1px solid blue ;
+	 padding:5px;
+	}
+	/***
+	本例使用CSS浮动排版，增加了用户菜单栏，让用户可以选择语系，把该语系的所有字符输出。
+	***/
+  div#glassPane{
+    position:absolute ;
+	right:30px;
+	top:5px ;
+	width: 80%;
+	height:50px;
+	padding-top:20px;
+	background:rgba(0,0,100,0.5);
+	border:thin solid black ;
+	border-radius: 10px;
+	color:rgb(255,255,255);
+	box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+   }
+   div#glassPane input{
+    font-size:20px;
+	padding:5px;
+	width:15%;
+	color:black;
+	border-style: outset;
+	}
+  div#glassPane input:hover{
+	color:darkred ;
+	cursor:pointer ;
+	}
+  div#glassPane input:active{
+    border-style: inset ;
+	background:gray;
+	color:lightgreen ;
+	}
+
+  </style>
+  
+ </head>
+ <body>
+    <div id="glassPane">
+	选择语系:
+	<input type="button" value="拉丁语" id="Latin">
+	<input type="button" value="俄语" id="Cyrillic">
+	<input type="button" value="泰语" id="Thai">
+	<input type="button" value="汉语" id="Han">
+	<input type="button" value="emoji" id="emoji">
+   </div>
+  <h1>ASCII编码-字符face表</h1>
+  <table>
+  	  <tr>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+	  </tr>
+  </table>
+  <script src="scripts.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+
+	var tableDom = document.querySelector("table") ;
+	var inputs =  document.querySelectorAll("input") ;
+    listAscii() ;
+	for (let input of inputs ){ //利用ES6经典的遍历数组循环的优雅语法
+		input.onclick = function(){
+		  deleteLastScript() ;
+		 //每个DOM按钮对象，都带了id和value属性，代码可以用这些属性来判断用户点击了哪个按钮
+           var h1Dom =  document.querySelector("h1") ;
+		   h1Dom.textContent = this.value + '编码-字符face表' ;
+           var script ;
+		   for (let s of  SCRIPTS) {
+              if (s.name === this.id) {
+				  script = s ;
+				  break ;
+              }
+		   }
+		   var ranges = [] ,
+		       index = 0 ;
+		   for (let range of script.ranges) {
+			   for (let i=range[0]; i<range[1]; i++){
+				   ranges[index] = i ;
+				   index++ ;
+			   }
+		   }
+		   console.log(ranges.length);
+		   document.querySelector("h1").textContent += ' 共' +ranges.length + '个.' ;
+		   //ranges数组中，每个元素都是该选择语系的Unicode编码
+             index = 0 ;
+ 		 var charCode,
+		     column = 8 ;
+		     
+		 while (index < ranges.length -1) {
+			  var newTr = document.createElement('tr') ;
+			  for (var j = 0 ; j < column ; j++ ){
+				var tdDom = document.createElement('td') ;
+				if (j%2 ===0){
+				  charCode = ranges[index] ;
+				  tdDom.textContent = charCode ;
+                  if (index < ranges.length-1){
+                     index++ ; //这个逻辑判断，会被许多编程者忽略，导致index超出ranges.length -1
+                  }
+				 }else{
+				  tdDom.textContent = String.fromCodePoint(charCode) ;
+                  tdDom.className = 'face' ;
+				   	}
+			  newTr.appendChild(tdDom);
+			 }//End of For
+			tableDom.appendChild(newTr);
+			}//End of While
+
+		};//End of input.onclick
+	}//End of for inputs按钮
+
+ function deleteLastScript(){
+   var tableDom = document.querySelector("table") ;
+   var trsDom = document.querySelectorAll("tr");
+   for (var i=1;i<trsDom.length ;i++ ) {
+	   tableDom.removeChild(trsDom[i]);
+   }
+ }	  
+ function listAscii(){
+    var tableDom = document.querySelector("table") ;
+ 	var column = 8 ;//这个参数，用于和静态Web页面表格的8列设计对应
+	var codeBegin =  0 ,
+	    codeEnd = 255 ,
+		i = 0 ,
+		charCode = 0 ;
+    while (charCode < codeEnd) {
+      var newTr = document.createElement('tr') ;
+      for (var j = 0 ; j < column ; j++ ){
+		var tdDom = document.createElement('td') ;
+       	if (i%2 ===0){
+          tdDom.textContent = charCode ;
+		 }else{
+		  tdDom.className = 'face' ;
+          tdDom.textContent = String.fromCharCode(charCode) ;
+		  charCode++ ;
+		 }
+		newTr.appendChild(tdDom);
+		i++ ;
+	  }//End of For
+     tableDom.appendChild(newTr);
+    }//End of While
+ }
+  //-->
+  </script>
+ </body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>探索1个字节组成的ASCII字符,同时训练用JavaScript代码为Web页面增加DOM元素</title>
+  <style type="text/css">
+	body{
+	font-size:16px;
+	}
+	table{
+	 margin:auto ;
+	 text-align:center;
+	}
+	table th {
+	 font-size:1.5em;
+	}
+	table td.face{
+	 font-size:3em;
+	 color:blue ;
+	}
+	table td,table th{
+	 border:1px solid blue ;
+	 padding:5px;
+	}
+  </style>
+  
+ </head>
+ <body>
+  <h1>ACII编码-字符face表</h1>
+  <table>
+  	  <tr>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+	  </tr>
+  </table>
+  <script type="text/javascript">
+  <!--
+    /***
+	 使用String对象（类）的fromCharCode方法，利用编码创建字符，输出至页面。而反向的字符的charCodeAt方法在本程序中暂未使用，大家可以在Console中练习，对比理解这二个方法。
+	**/
+	var tableDom = document.querySelector("table");
+	var column = 8 ;//这个参数，用于和静态Web页面的表格的8列设计对应
+	var codeBegin =  0 ,
+	    codeEnd = 255 ,
+		i = 0 ,
+		charCode = 0 ;
+    while (charCode < codeEnd) {
+      var newTr = document.createElement('tr') ;
+      for (var j = 0 ; j < column ; j++ ){
+		var tdDom = document.createElement('td') ;
+        if (j%2 !== 0) {
+			tdDom.className = 'face' ;
+        }
+		if (i%2 ===0){
+          tdDom.textContent = charCode ;
+		 }else{
+          tdDom.textContent = String.fromCharCode(charCode) ;
+		  charCode++ ;
+		}
+        
+		newTr.appendChild(tdDom);
+		i++ ;
+	  }//End of For
+     tableDom.appendChild(newTr);
+    }//End of While
+	
+	
+	
+	    
+  //-->
+  </script>
+ </body>
+</html>

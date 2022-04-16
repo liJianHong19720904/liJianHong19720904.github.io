@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>探索2-3个字节组成的Unicode部分字符,UI界面和数据准备部分</title>
+  <style type="text/css">
+	body{
+	font-size:16px;
+	}
+	table{
+	 margin:auto ;
+	 text-align:center;
+	}
+	table th {
+	 font-size:1.5em;
+	}
+	table td.face{
+	 font-size:3em;
+	 color:blue ;
+	}
+	table td,table th{
+	 border:1px solid blue ;
+	 padding:5px;
+	}
+	/***
+	本例使用CSS浮动排版，增加了用户菜单栏，让用户可以选择语系，把该语系的所有字符输出。
+	***/
+  div#glassPane{
+    position:absolute ;
+	right:30px;
+	top:10px ;
+	width: 60%;
+	height:50px;
+	padding-top:20px;
+	background:rgba(0,0,100,0.5);
+	border:thin solid black ;
+	border-radius: 10px;
+	color:rgb(255,255,255);
+	box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+   }
+   div#glassPane input{
+    font-size:20px;
+	padding:5px;
+	width:20%;
+	color:black;
+	border-style: outset;
+	}
+  div#glassPane input:hover{
+	color:darkred ;
+	cursor:pointer ;
+	}
+  div#glassPane input:active{
+    border-style: inset ;
+	background:gray;
+	color:lightgreen ;
+	}
+
+  </style>
+  
+ </head>
+ <body>
+    <div id="glassPane">
+	选择语系:
+	<input type="button" value="拉丁语" id="Latin">
+	<input type="button" value="俄语" id="Cyrillic">
+	<input type="button" value="泰语" id="Thai">
+	<input type="button" value="汉语" id="Han">
+   </div>
+  <h1>Latin编码-字符face表</h1>
+  <table>
+  	  <tr>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+	  </tr>
+  </table>
+  <script src="scripts.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+    /***
+	用代码来深刻理解2-3个字节组成的Unicode部分字符，以4个语言系为例。
+	
+	这四个语系仅为Unicode编码体系的一个部分，但字符量已经很大，尤其是汉语系的字符，汉语系的字符数量所有语系中，字符量最大的，因此汉语系的人年幼学习识字时间相对较长。
+
+	**/
+
+
+	var tableDom = document.querySelector("table");
+	var column = 10 ;//这个参数，用于和静态Web页面的表格的10列设计对应
+	var codeBegin =  0 ,
+	    codeEnd = 255 ,
+		i = 0 ,
+		charCode = 0 ;
+    while (charCode < codeEnd) {
+      var newTr = document.createElement('tr') ;
+      for (var j = 0 ; j < column ; j++ ){
+		var tdDom = document.createElement('td') ;
+        if (j%2 !== 0) {
+			tdDom.className = 'face' ;
+        }
+		if (i%2 ===0){
+          tdDom.textContent = charCode ;
+		 }else{
+          tdDom.textContent = String.fromCharCode(charCode) ;
+		  charCode++ ;
+		}
+        
+		newTr.appendChild(tdDom);
+		i++ ;
+	  }//End of For
+     tableDom.appendChild(newTr);
+    }//End of While
+	
+	
+	
+	    
+  //-->
+  </script>
+ </body>
+</html>
