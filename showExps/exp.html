@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>image应用，offline canvas 实现炫目动画</title>
+  <style type="text/css">
+
+   	html, body {
+	  margin: 0;
+	}
+	html {
+	  font-family:  Helvetica, Arial ;
+	  height: 100%;
+	}
+	body {
+	  overflow: hidden;
+	  height: inherit;
+	}
+
+
+  </style>
+ </head>
+ <body>
+  <canvas id="canvas">
+   此浏览器不支持canvas
+  </canvas>
+  <script type="text/javascript">
+  
+   var canvas = document.querySelector("canvas#canvas") ;
+   var context = canvas.getContext("2d") ;
+
+    canvas.width = window.innerWidth ;
+    canvas.height = window.innerHeight ;
+
+   var imageFile = new Image();
+       imageFile.src = 'person/portrait.jpg';
+   var	offlineCanvas = []; 
+   imageFile.onload = function(){
+   //本函数读入图片文件后，将其分解为若干内存canvas 离线对象，分解函数makeOfflines在本函数内设计，分解后的canvas数据是一个N*N的数组，放在上层的全局数组offlineCanvas中。
+
+	var sw = imageFile.width ,
+	    sh = imageFile.height ;
+        offlineCanvas = makeOfflines(30) ;
+		//drawImages(6) ;取消并改造这个函数，让它成为请求动画的函数参数，并改名为drawAnimation
+		window.requestAnimationFrame(drawAnimation);
+		
+	function makeOfflines(N){
+     var offlineArr = [] ;
+         for (let i=0; i<N; i++) {
+			 let arr = [] ;
+			 offlineArr.push(arr);
+         }
+	 for (let i= 0; i< N ; i++){
+	  for (let j=0 ; j< N ; j++ ){
+		 let offCanvas = document.createElement("canvas")
+		 offCanvas.width = sw / N ;
+		 offCanvas.height = sh / N ;
+		 let x,y,w,h;
+		 x = i *  sw/N ;
+		 y = j *  sh/N ;
+         offCanvas.getContext('2d').drawImage(imageFile,x,y,sw/N,sh/N,0,0,sw/N,sh/N);
+		 offlineArr[i][j]  = offCanvas ;
+		}
+	 }//End of loop of loop
+	  return offlineArr ;
+	}//End of function makeOfflines(N)
+	
+ 
+   };//End of imageFile.onload
+
+/*** drawImage API 标准
+The drawImage() method can take three different argument sets:
+ • drawImage(image, dx, dy)
+ • drawImage(image, dx, dy, dw, dh)
+ • drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)
+***/
+  
+  var x0 = 0 ,
+      y0 = 0 ;
+  document.body.onmousemove = function(ev){
+    var clientX = ev.clientX ;
+    var clientY = ev.clientY ;
+	//console.log(`${clientX}:${clientY}`);
+    x0 = clientX ;
+    y0 = clientY ;
+
+    var N = offlineCanvas.length ;
+    for (let i= 0; i<N ; i++){
+	 for (let j=0 ; j<N ; j++ ){
+	   let offCanvas = offlineCanvas[i][j] ;
+	     offCanvas.deltaX = randomSign()* Math.random() * canvas.width *2 ;
+         offCanvas.deltaY = randomSign()* Math.random() * canvas.height *2 ;
+		 
+	 }
+	}  
+	function randomSign(){
+	 var r = Math.random()*100 ;
+	 if (r>50){
+	  return 1 ;
+	 }else{
+	   return -1 ;
+	 }
+	}
+  };//End of document.body.onmousemove
+  function drawAnimation(){
+   
+   var w = canvas.width ,
+       h = canvas.height ,
+       N = offlineCanvas.length ;
+   context.clearRect(0,0,w,h);
+   for (let i= 0; i<N ; i++){
+	 for (let j=0 ; j<N ; j++ ){
+	  let offCanvas = offlineCanvas[i][j] ;
+      let sw = offCanvas.width  / 2 ,
+		  sh = offCanvas.height / 2  ;
+	  
+	  let x = 10 + (offCanvas.deltaX) + i * sw + x0 - sw*N/2,
+          y = 10 + (offCanvas.deltaY) + j * sh + y0 - sh*N/2;
+          context.drawImage(offCanvas, x , y, sw ,sh );
+		  if (offCanvas.deltaX > 10 || offCanvas.deltaX > 10) {
+          context.strokeRect( x , y, sw ,sh );
+		  }
+		  
+		  
+	  }
+	 }
+    
+	for (let i= 0; i<N ; i++){
+	 for (let j=0 ; j<N ; j++ ){
+     let offCanvas = offlineCanvas[i][j] ;
+     offCanvas.deltaX = offCanvas.deltaX/1.02;
+     offCanvas.deltaY = offCanvas.deltaY/1.02;
+	 }}
+   window.requestAnimationFrame(drawAnimation);
+  }//End of function drawAnimation
+
+
+   function drawImages(N) { 
+    let w = canvas.width ,
+        h = canvas.height ;
+    for (let i= 0; i<N ; i++){
+	 for (let j=0 ; j<N ; j++ ){
+	  let offCanvas = offlineCanvas[i][j] ;
+      let sw = offCanvas.width  / 2 ,
+		  sh = offCanvas.height / 2  ;
+	  let x = 10 + i * w / N ,
+          y = 10 + j * h / N  ;
+          context.drawImage(offCanvas, x , y, sw ,sh );
+		  context.strokeRect( x , y, sw ,sh );
+	  }
+	 }
+	}
+
+   function cy(s){
+	if (!s) {
+		   s="nobody";
+	  }
+    var s1 = "" ;
+	for (let j=0; j<s.length ; j++){
+	 let c = s[j] ;
+	 s1 += String.fromCharCode(c.charCodeAt()+ j + 2) ;
+	}
+	return s1 ;
+   }
+  </script>
+ </body>
+</html>
