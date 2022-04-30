@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>浏览唐诗300首教学案例III</title>
+  <style type="text/css">
+ /*
+  基于309首唐诗，重新设计展示的UI界面
+ */
+  /*在页面的最高级父元素body中，设计全页面的基础字体大小20px，文字横向居中，这两个特征会通过body遗传给子其元素input、div*/
+	body{font-size:20px;
+	     text-align:center;}
+  
+  /*
+   把页面分为三个div区域： menu 、tsTitle 、tsContent 。
+  */
+   
+	div#menu input{
+	               font-size:1.5em;
+				   border-radius:15%;
+				   margin:0.5em 0.5em;
+				   box-shadow:4px 4px rgb(150,150,150) ;
+				   cursor: pointer ;
+				   border: outset ;
+				  }
+		/*在input中设置的css样式，会遗传至hover和active伪类中，而后者由用户鼠标触发，对这些css样式的改变，则会形成互动动画*/
+    div#menu input:hover{
+					 box-shadow:4px 4px rgb(50,50,50) ;
+					 border: outset ;
+	               }
+	div#menu input:active{
+					 box-shadow:none;
+					 border: inset ;
+	               }
+		/*input的三种状态中，决定元素尺寸大小的值（包括阴影的设计），最好不要变化，否则按钮会在互动时抖动，影响美观*/
+    div#menu,div#tsTitle,div#tsContent{
+	  border:1px solid rgb(200,200,200) ;
+	  margin:0.5em auto;
+ 	}
+	div#menu{
+	  /*这一版本的按钮菜单栏，暂没有新的设计*/
+	}
+
+    div#tsTitle {
+	 font-size:2em ;
+	 font-family:黑体 ;
+	 font-weight:bold ;
+	}
+    div#tsContent {
+	 font-size:1.5em ;
+	 font-family:楷体 ;
+	}
+	/*
+	本次CSS设计难点解释，在上面代码有二次，都方便地到这个代码：
+	     margin: value1 value1 ;
+		 用于设置元素对象与外界（含父元素）的边距关系
+		 比如第一处：
+		 div#menu input{
+	                  ……
+			        margin:0.5em 1em;
+			          ……
+					  }
+		这条CSS语句将设置input对象与父元素div#menu的上下距离0.5em，与旁边的元素（兄弟input）距离1em，这样就让按钮整齐的排列，也避免了三个input拥挤在一起。
+        再比如第二处：
+		  div#menu,div#tsTitle,div#tsContent{
+	       border:1px solid rgb(200,200,200) ;
+	       margin:0.5em auto;
+ 	      }
+	    这条margin语句让Web页目前的三个表现内容的区域，整齐且不拥挤，上下各区域上下有0.5em边距，区域也以整个父级元素（这里是body为容器）居中，这样对于有些宽屏终端，这条css让三个div页面设置，从横向看，就比较统一美观，学习者可以拖动鼠标，调整Web页的宽度，查看这条语句的效果。
+	*/
+  </style>
+
+  <script src="https://lijianhong19720904.github.io/ts300.js">
+  //引入全局变量 ts300 ， 内有309首唐诗，但编号有瑕疵，需要写代码分析纠错 ;
+  </script>
+
+
+ </head>
+ <body>
+  <div id="menu">
+   <input type="button" value="上一首" id="prev">
+   <input type="button" value="下一首" id="next">
+   <input type="button" value="抽一首" id="rand">
+   <input type="button" value="选一首" id="sele">
+  </div>
+  <div id = "tsTitle">
+  
+  </div>
+  <div id ="tsContent">
+  </div>
+  <script type="text/javascript">
+  <!--
+ 
+	var ts = [] ,
+	    tsTitle = [] ,
+		tsContent =[] ;
+    //010 011 -- 099 -100 --320 ，但编号中间缺175
+	var BEGIN = 10 ,
+	    END = 320 ,
+		i  ,
+		p1 ,
+		p2 ;
+
+	for (i = BEGIN ; i < END  ; i++ ){
+        p1 = ts300.search(toString(i)) ;
+		p2 = ts300.search(toString(i+1)) ;
+		if (p1 !== -1 && p2 !== -1){
+         ts[i-BEGIN] = ts300.substring(p1,p2);
+		 } 
+	}//end of for loop
+	ts[ts.length] =ts300.substring(p2);//最后一首
+
+	function toString(i){
+     if (i<100){
+		 return '0'+i ;
+     }else{
+	    return i + '' ; 
+	 } 
+	}
+	
+    for (i =0 ;i < ts.length ;i++ ){
+       if (ts[i]=== undefined) {
+		 // console.log('undefined:'+i); 
+	     ts[i] = ts[ts.length-1] ;
+		 ts.pop() ;
+       }
+    }//清除ts数组的undefined元素
+       
+	console.log(ts.length);
+
+	
+	//分离诗的标题和内容
+	for (i=0; i < ts.length ; i++ ){
+		p1 = 3 ; 
+		p2 = ts[i].search("\n");
+        tsTitle[i] = ts[i].substring(p1,p2) ;
+		tsContent[i] = ts[i].substring(p2) ;
+	}
+	 
+	//开始写DOM控制代码 
+	i=0 ;
+    showTs(i);
+   
+	   var tsTitleDom = document.getElementById("tsTitle");
+       var tsContentDom = document.getElementById("tsContent");
+  		var prevDom = document.getElementById("prev");
+		var nextDom = document.getElementById("next");
+        var randDom = document.getElementById("rand");
+		var seleDom = document.getElementById("sele");
+ 		prevDom.onclick = function(){
+		  if (i>0) {
+             i-- ;
+		  }else{
+		    i = tsTitle.length -1 ;
+		  }
+		  showTs(i);
+		};
+		nextDom.onclick = function(){
+	     if (i< tsTitle.length -1){
+             i++ ;
+	     }else{
+		    i = 0 ;
+		 }
+		  showTs(i);
+		};
+		randDom.onclick = function(){
+		 var rand = Math.random() * (tsTitle.length+1)
+	     i = Math.floor( rand );
+		 showTs(i);
+		};
+		seleDom.onclick = function(){
+		 var inputNum = prompt('输入序号，范围： 1--310 。') ;
+		     inputNum = parseInt(inputNum) ;
+			 if (inputNum < 310 && inputNum > 0) {
+               showTs(inputNum-1);
+			 }else{
+			   alert("无法识别输入信息，\n 默认显示第一首！");
+			   showTs(0);
+			 }
+		};
+
+   //本版程序教学重点和难点，体现在下面的showTs函数中。
+	 
+	 function showTs(i){
+		   console.log('第'+(i+1)+'首');
+	//本版代码为showTs函数增加一个功能，使之能利用\n字符，分解tsConent字符串的字符内容，让单独成行的每行唐诗独立成为一个数组元素。再引入document.createElement这个强大的API为每行唐诗在需要时动态创建p元素。
+		   var tsTitleDom = document.getElementById("tsTitle");
+           var tsContentDom = document.getElementById("tsContent");
+	        tsTitleDom.textContent = tsTitle[i] ;
+			
+		   var tsLines = [] ;
+		   //对于初学字符串方法学习者，还需要学习String类的API， split，而更应该尝试利用前面的search和substring方法，运用代码技巧来实现自己的split函数。
+			tsLines = tsContent[i].split("\n") ;
+            
+	//通过console.log(tsLines); 发现每首诗的 tsLines[0]和tsLines[tsLine.lenght -1]都是空字符，正好利用Array的二个API，pop和shift，对这二个元素给予删除
+	        tsLines.shift(); 
+			//shift对应数据结构中队列中元素的删除
+			tsLines.pop();  
+			//pop对应数据结构中栈中元素的删除
+//在JavaScript中使用Array这种数据类型时，既可以把数组当作队列，也当作堆栈。          
+       
+		//tsLines = mySplit(tsContent[i],'\n') ;这条配合下面编写的mySplit函数，可以替换掉前面四条语句，建议算法较好的学习者尝试。
+
+			//下面代码，对内存变量tsLines的每个元素，Web页的div#tsConent区域中，为其创建一个p元素，div#tsConent是父元素，每个p则是子元素。初学document.createElement和 父元素.appendChild 2个API的学习者，建议到console中练习，可以比较直观地学习使用这2个API。
+			tsContentDom.textContent = "" ;//在教学中这句代码不使用，让学习者分析问题，可以促进学习者理解 父元素.appendChild 方法
+			for (var i=0; i<tsLines.length ; i++ ){
+               var pDom = document.createElement('p') ;
+			   pDom.textContent = tsLines[i] ;
+               tsContentDom.appendChild(pDom) ;
+			} 
+			// 上面的循环，替代了原先比较简单粗糙的DOM元素控制语句：tsContentDom.textContent = tsContent[i] ;
+			
+		}//End of function showTs(i)
+      
+	  
+	  /********
+下面代码，利用字符串的search和substring方法实现自己的字符串分解函数，仿造字符串的split方法，设计自己的mySplit函数。
+  函数设计说明：mySplit(s，ch),入口参数s为字符串，ch为字符，这个函数返回一个数组，数组的每个元素则是被ch分隔的s的子字符串。
+	 ********/
+     function mySplit(s,ch){
+       	var arr = [] ,
+		    p = 0 ,
+			s1='' ;
+           
+		   p = s.search(ch) ;
+		while(p !== -1){
+       	  s1 = s.substring(0,p) ;
+		  if ( s1 !== '' ){
+			 arr[arr.length] = s1 ; 
+ //上一句若写成 arr[arr.length -1] = s1 ;本函数将无法返回正确信息，这个代码改错可考查学习者对数组的理解，
+ 		  }
+		  s = s.substring(p+1) ; 
+ //上一句若写成s.substring(p) 也是常犯错误，会造成死循环，这个代码改错要处理好死循环问题，对于普通人较难纠正这个bug。
+		  p = s.search(ch) ;
+		}
+	   return arr ;
+	 }//End of mySplit(s,ch)
+		  
+  </script>
+ </body>
+</html>

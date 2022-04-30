@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>浏览唐诗300首教学案例V</title>
+<!--
+  基于前面代码对文本的分析和处理，我们得到了比较完美的309首唐诗数据。这些唐诗存放在tsArr数组中，共计309个对象作为数组元素。
+  此时的唐诗数据呈现高度的结构化，并按人类容易理解和表达的方式，以对象作为每首诗存储的基本格式。之后，我们可以轻松地用代码，获取这些信息，实现对唐诗的各种个性化学习，而非简单的逐个浏览。
+  前面的代码还存在一些结构上的缺陷，体现在以下几点：
+  1、处理唐诗数据时，临时产生的全局变量太多，我们将在这个版本的代码优化中，仅保留一个全局变量，采用最初的命名ts300，取代之前用的tsArr名字。
+  2、处理唐诗数据的代码比较复杂，无需让参与唐诗学习开发的其他开发者关心，我们本版设计把这些代码独立出来，放在外部js文件中，为了和以前的原始字符串ts300.js区别开来，这个文件命名为ts300plus.js，我们后续的开发只要在使用ts300变量前，用script引入该文件即可。
+-->
+  <style type="text/css">
+	body{font-size:20px;
+	     text-align:center;
+		 margin:0;}
+	h1{
+	  letter-spacing:0.5em;
+	  color:rgb(100,100,100);
+	  margin:0.5em ;
+	  }
+ 	div#menu input{
+	               font-size:1.5em;
+				   border-radius:15%;
+				   margin:0.5em 0.5em;
+				   box-shadow:4px 4px rgb(150,150,150) ;
+				   cursor: pointer ;
+				   border: outset ;
+				  }
+
+    div#menu input:hover{
+					 box-shadow:4px 4px rgb(50,50,50) ;
+					 border: outset ;
+	               }
+	div#menu input:active{
+					 box-shadow:none;
+					 border: inset ;
+	               }
+
+    div#menu,div#tsTitle,div#tsContent{
+	  border:1px solid rgb(200,200,200) ;
+	  margin:0.5em auto;
+ 	}
+	div#menu{
+		}
+
+    div#tsTitle {
+	 font-size:2em ;
+	 font-family:黑体 ;
+	 font-weight:bold ;
+	}
+	/**div#tsTitle被2个span元素划为标题区和作者名**/
+	 div#tsTitle span#writer {
+	 font-size:0.6em ;
+	 font-family:宋体 ;
+	 font-weight:lighter ;
+	 margin-left:2em;
+	}
+    div#tsContent {
+	 font-size:1.5em ;
+	 font-family:楷体 ;
+	}
+	div#tsContent p{
+	}
+/*为展现唐诗内容中的序言，编写一个类*/
+	div#tsContent p.xv{
+	 text-indent:1em;
+	 text-align:left;
+	 font-size:0.7em;
+	 color:rgb(50,50,50) ;
+	}
+
+  </style>
+
+  <script src="ts300plus.js">
+  //导入ts300plus.js文件后，程序立刻获取一个全局变量 ts300，这个变量类型是数组，而数组的元素是对象，每个对象即是一首唐诗。
+  //ts300数组本身的数据结构：
+  /******
+   ts300[i]的对象数据结构为：
+       { 
+		title : '' ,
+		writer: '' ,
+		content: [],
+		letters：5或7 ,
+		preface: ''
+	   }
+	  其中，各属性说明如下：
+	  title记载了诗的标题名字； writer记载了诗人的名字；
+	  content记载了诗文的内容，其数据类型为数组，每个元素是一整句古诗；
+      letters若为5，表示该诗为五言格式，letters若为7，则为七言；
+      preface记载了诗的序言，为字符串类型，
+	  多数唐诗并无序言，所以ts300数组的多数元素对象不存preface属性。
+  *********/
+  </script>
+ </head>
+ <body>
+  <h1>学习唐诗三百首</h1>
+  <div id="menu">
+   <input type="button" value="上一首" id="prev">
+   <input type="button" value="下一首" id="next">
+   <input type="button" value="抽一首" id="rand">
+   <input type="button" value="选一首" id="sele">
+  </div>
+  <div id = "tsTitle">
+   <span id="title"></span>
+   <span id="writer"></span>
+  </div>
+  <div id ="tsContent">
+  </div>
+  <script type="text/javascript">
+  <!--
+ 	//直接开始写DOM控制代码 
+	i=0 ;
+    showTs(i);
+   		var prevDom = document.getElementById("prev");
+		var nextDom = document.getElementById("next");
+        var randDom = document.getElementById("rand");
+		var seleDom = document.getElementById("sele");
+ 		prevDom.onclick = function(){
+		  if (i>0) {
+             i-- ;
+		  }else{
+		    i = ts300.length -1 ;
+		  }
+		  showTs(i);
+		};
+		nextDom.onclick = function(){
+	     if (i< ts300.length -1){
+             i++ ;
+	     }else{
+		    i = 0 ;
+		 }
+		  showTs(i);
+		};
+		randDom.onclick = function(){
+		 var rand = Math.random() * (ts300.length+1)
+	     i = Math.floor( rand );
+		 showTs(i);
+		};
+		seleDom.onclick = function(){
+		 var inputNum = prompt('输入序号，范围： 1--310 。') ;
+		     inputNum = parseInt(inputNum) ;
+
+			 if (inputNum < ts300.length+1 && inputNum > 0) {
+               i = inputNum-1
+			    }else{
+				   i = 0;
+			 }
+            showTs(i);
+		 };
+	 
+	 function showTs(i){
+		   console.log('第'+(i+1)+'首');
+		   //ts300是全局变量  
+           var ts = ts300[i] ; 
+		   //在showTs(i)函数内部，简便地使用ts变量指向选择的唐诗对象
+           var titleDom = document.querySelector('div#tsTitle span#title') ,
+		       writerDom = document.querySelector('div#tsTitle span#writer') ;
+			   //全局变量ts300对象的数据结构
+               titleDom.textContent = ts.title ; 
+			   writerDom.textContent = ts.writer ;
+
+	var tsContentDom = document.getElementById("tsContent");
+	    tsContentDom.textContent = "" ;
+		//每次显示新诗之前，要清空唐诗诗文内容中的p元素，因为新的唐诗内容是动态地使用appendChild方法，一行一行用代码循环添加的。
+        if (ts.preface) { 
+          var pDom = document.createElement('p') ;
+		      pDom.className = "xv" ;
+			  pDom.textContent = ts.preface ;
+              tsContentDom.appendChild(pDom) ;
+         }
+		
+		var tsLines = ts.content ;
+		for (var i=0; i<tsLines.length ; i++ ){
+             var pDom = document.createElement('p') ;
+	     	   pDom.textContent = tsLines[i] ;
+               tsContentDom.appendChild(pDom) ;
+			} 
+		}//End of function showTs(i)
+  </script>
+ </body>
+</html>
