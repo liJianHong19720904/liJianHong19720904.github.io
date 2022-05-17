@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+			 <style type="text/css">
+				input
+				{ 
+					border:outset 2px solid ; 
+					text-align:center;
+					border-radius:10px; 
+					width:70px;  
+					height:50px; 
+					font-size:40px; 
+					text-align:center; 
+					margin:10px;
+					color:rgb(50,250,0); 
+					background-color:rgb(100,100,100);  
+					cursor:pointer; 
+				}
+				input#output
+				{
+					width:330px;
+					height:40px;
+					border:inset;/* 边框凹陷 */
+					box-shadow:none;
+					text-align:center;
+				}
+			 </style>
+		<title>计算器</title>
+	</head>
+	<body>
+		<input type="text" value="" id="output">
+		<script type="text/javascript">
+			var box=['AC','%','<-','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='];
+			var i,j,m=0;
+			for(i=0;i<box.length/4;i++)		//行
+				{
+					var div=document.createElement('div');		//创建盒子
+					for(j=0;j<4;j++,m++)	//列
+						{
+							{
+								var input=document.createElement('input');	//创建input标签
+								input.type="button";	//input类型
+								input.value=box[i*4+j];		//input名称
+								input.id="x"+m;		//input的id
+								input.onclick=function()	//input触发的事件
+										{
+											output.value+=this.value;	//显示输入内容
+										}
+								div.appendChild(input);		//显示input
+							}
+						}
+					document.body.appendChild(div);		//显示div
+				}
+			var inputs=document.querySelectorAll('input');		//获取所有input，形成数组
+			x0.onclick=function()	//执行清零
+					{
+						var a=output.value;
+						a=a.substring(0,0);
+						output.value=a;
+					}
+			x19.onclick=function()	//执行计算
+					{
+						var a=output.value;
+						var result;
+						try
+						{
+							result=eval(a);		//计算结果
+						}
+						catch (err)
+						{
+							result=err;
+						}
+						output.value=result;	//显示结果
+					};
+			x2.onclick=function()	//执行删除
+					{
+						var a=output.value;
+						a=a.substring(0,a.length-1);
+						output.value=a;
+					};
+		</script>
+	</body>
+</html>

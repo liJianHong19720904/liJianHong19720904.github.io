@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>计算器</title>
+  <style>
+  *{font-size:40px;
+	font-family:黑体;
+	}/*设置总体属性*/
+  input{/*设置按钮属性*/
+	  text-align:center;/*文字居中*/
+	  width:90%;/*宽度占据表格一格的95%*/
+	  height:90%;/*高度占据表格一格的95%*/
+	  background:rgb(210,210,230);/*按钮的背景色格式为rgb（红，绿，蓝）*/
+	  box-shadow:3px 2px 2px black;/*设置阴影格式为水平半径 垂直半径 模糊半径 颜色*/
+	  border-radius:20px;/*圆角*/
+	  cursor:pointer;}
+    input:hover{/*鼠标放在上面时*/
+	background:red;/*背景色为红色，更明显*/
+	color:white;}/*字体颜色变换*/
+  input#xianshi{/*设置一个class为xianshi的input属性*/
+  text-align:right;/*文字向右对齐*/
+  border:0px;/*边框为0*/
+  height:90px;/*输入框高度为60像素*/}
+	table{/*设置表格总体属性*/
+	position:absolute;/*绝对定位，元素的位置通过 “left”, “top”,属性进行规定*/
+	width:500px;
+	height:500px;
+	top:10%;
+	left:30%;
+	}
+	input:active {/*设置点击时的属性*/
+    box-shadow: 0 0 3px 3px yellow;/*设置阴影但可以达到高光的效果*/
+	}
+</style>
+ </head>
+ <body>
+  <table border="5"><!-- 大边框大小为像素 -->
+  <tr>
+  <td colspan="4">  <!-- 在第一行创建一个占据四个格子大小的输入框 -->
+  <input type="text" value="" id=xianshi>
+  </td>
+  </tr>
+  <tr>
+	<td><input type="button" value="清空" id="清空"></td>
+	<td><input type="button" value=" &#8592 " id="撤回"></td>
+	<td><input type="button" value=" ²  " id="²"></td>
+	<td><input type="button" value=" /" id=" /"></td>
+  </tr>
+  	<td><input type="button" value="7" id="7"></td>
+	<td><input type="button" value="8" id="8"</td>
+	<td><input type="button" value="9" id="9"></td>
+	<td><input type="button" value="*" id="*"></td>
+    <tr>
+	<td><input type="button" value="4" id="4"></td>
+	<td><input type="button" value="5" id="5"></td>
+	<td><input type="button" value="6" id="6"></td>
+	<td><input type="button" value="-" id="-"></td>
+  </tr>
+    <tr>
+	<td><input type="button" value="1" id="1"></td>
+	<td><input type="button" value="2" id="2"></td>
+	<td><input type="button" value="3" id="3"></td>
+	<td><input type="button" value="+" id="+"></td>
+  </tr>
+    <tr>
+	<td><input type="button" value="." id="."></td>
+	<td><input type="button" value="0" id="0"></td>
+	<td><input type="button" value="+/-" id="-"></td>
+	<td><input type="button" value="=" id="="></td>
+  </tr>
+  </table>
+  <script>
+  var a=0;
+  var jieguo=document.getElementById('xianshi');/*获取文档中 class="xianshi" 的元素并取名为jieguo*/
+  var inputs=document.querySelectorAll('input');/*获取文档中 class="input" 的所有元素为 数组并取名为inputs*/
+	for(i=4;i<inputs.length-2;i++){/*让按钮显示*/
+		inputs[i].onclick=function(){
+			jieguo.value=jieguo.value+this.value;
+			}}
+	inputs[inputs.length-1].onclick=function(){/*点击等于的函数*/
+		var a=document.getElementById('xianshi').value/*再次获取*/
+		jieguo.value=eval(a);}/*用eval函数进行计算*/
+	inputs[1].onclick=function(){/*把xianshi的value清空*/
+		jieguo.value="";}
+	inputs[2].onclick=function(){/*减去最后一位*/
+		jieguo.value=jieguo.value.substring(0,jieguo.value.length-1);}
+	inputs[3].onclick=function(){/*计算平方*/
+		var b="";
+		b=jieguo.value*jieguo.value;
+		jieguo.value=eval(b);}
+	inputs[inputs.length-2].onclick=function(){
+		jieguo.value=jieguo.value*-1;}
+	document.onkeydown=function(event){/*键盘时间，按下回车等于等于*/
+		if(event.keyCode == 13){/*判断assic码是否为回车*/
+		jieguo.value=eval(document.getElementById('xianshi').value);}}
+  </script>
+ </body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>计算器</title>
+  <style>
+   body{text-align:center;/*文本居中*/}
+   input{  border:white 2px solid ; /*修改边框的颜色、粗细、实线*/ 
+		border-radius:40px; /*边框角的圆角半径*/
+		width:80px; /*宽度*/ 
+		height:80px; /*长度*/ 
+		font-size:30px; /*字体大小*/
+		text-align:center;
+		margin:10px;/*外边距*/
+		color:red;/*字体颜色*/
+		background-color:rgb(245,245,245);/*背景颜色*/ 
+		cursor:pointer;/*鼠标样式*/
+		}
+   input:hover{background-color:rgb(248,248,255);} /*鼠标放在按钮时*/
+   input:active{background-color:rgb(220,220,220);} /*点击鼠标*/
+   input#output{width:350px;
+               color:blue;}
+  </style>
+ </head>
+ <body>
+  <input type="text" id='output' value="">  
+  <script>
+   var bt=[['+','-','*','/'],['0','1','2','3'],['4','5','6','7'],['8','9','.','<-'],['Enter','AC']];//二维数组
+   var x;
+   var output=document.querySelector('input#output');//抓取id为output的input元素
+   for(var i=0;i<bt.length;i++){
+	   var div=document.createElement('div');
+	   document.body.appendChild(div);//指定新元素插入的位置
+	   for(var j=0;j<bt[i].length;j++){
+		   var input=document.createElement('input');//创建新元素
+		   input.type='button';
+		   input.value=bt[i][j];
+		   input.id=bt[i][j];
+        input.onclick=function() {
+	         output.value=output.value+this.value;//this指向的是函数的调用者，而不是函数的声明者
+			 }
+		   div.appendChild(input);}   
+   } //布局按钮
+   var inputs=document.querySelectorAll('input');//抓取所有input元素，且inputs为数组
+   inputs[inputs.length-1].style.width="160px";//定义宽度
+   inputs[inputs.length-2].style.width=inputs[inputs.length-1].style.width;
+   inputs[inputs.length-1].onclick=function (){
+	   var sum=output.value;
+	   sum=sum.substring(0,0);
+	   output.value=sum;}//全删除功能
+   inputs[inputs.length-3].onclick=function (){
+	   var sum=output.value;
+	   sum=sum.substring(0,sum.length-1);
+	   output.value=sum;}//删除功能
+   inputs[inputs.length-2].onclick=function () {
+	   var result;
+	   var sum=output.value;
+	   try//尝试
+	   {
+		result=eval(sum);//eval()将字符串转为代码形式
+	   }
+	   catch (err)//try执行出错而执行
+	   {
+		   result='错误';
+	   }
+	   output.value=result;
+   }//计算功能
+  document.body.onkeydown=function() {
+	  if(event.keyCode == 13){
+		  var result;
+	   var sum=output.value;
+	   try//尝试
+	   {
+		result=eval(sum);//eval()将字符串转为代码形式
+	   }
+	   catch (err)//try执行出错而执行
+	   {
+		   result='错误';
+	   }
+	   output.value=result;
+   }//计算功能
+	  }
+  </script>
+ </body>
+</html>

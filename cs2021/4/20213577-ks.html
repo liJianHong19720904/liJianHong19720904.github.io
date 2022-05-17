@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>20213577-ks</title>
+  <style type="text/css">
+	body{	
+	text-align:center;/**全体中间对齐**/
+	}
+	input{
+     margin:5px;/**每个input按钮的外边距为10px**/
+	 width:50px;
+     height:50px;
+	 border-radius:12px;/**设置元素的外边框圆角**/
+	 background-color:rgb(100,200,300);
+	}
+	input#output{
+	 width:200px;
+	}
+  </style>
+ </head>
+ <body>
+ <h1>计算器</h1>
+  <input type="text" value="" id="output"><!--创建一个文本框，即运算框-->
+  <script type="text/javascript">
+  <!--
+    var output = document.querySelector('input#output') ;
+	var i,
+	    j;
+	var button = ["ac","+","-","*","/","0","1","2","3","4","5","6","7","8","9","="];//定义数组button
+	for (i=0;i<button.length/4;i++ ){
+        var div = document.createElement('div') ; //创立四个div元素，实现换行
+	    for (j=0;j<4 ;j++ ){
+		   if (i * 4 + j <button.length){
+			   var input = document.createElement("input") ;//循环创立16个按钮
+			   input.type = "button" ;//定义创建元素的属性为按钮
+			   input.value = button[i * 4 + j] ;
+			   input.id = button[i * 4 + j] ;//确定按钮的value和id
+			   input.onclick = function(){
+			      output.value += this.value
+			   }//将点击按钮的数值传递到运算框		      
+		       div.appendChild(input) ;
+			   }
+	   }
+	           document.body.appendChild(div) ;
+	} 
+	//利用点击事件实现点击清空运算框
+	  var ac = document.getElementById("ac") ;
+	  ac.onclick = function(){ 
+		  var s = output.value ;
+		  s = "" ;
+		  output.value = s ;
+	  }
+	  //计算
+	  var enter = document.getElementById("=") ;
+	  enter.onclick = function(){ 
+	  var s = output.value ;
+		  var result ;
+		  result = eval(s);
+		  output.value = result ;
+		  }
+		  //有问题会将第二个输入的值放在结果末尾
+	  document.body.onkeydown = function(e){
+		 if (e.keyCode = 13)
+		 {var k = output.value ;
+		  var result ;
+		  result = eval(k);
+		  output.value = result ;
+		 }
+	  }
+  //-->
+  </script>
+ </body>
+</html>

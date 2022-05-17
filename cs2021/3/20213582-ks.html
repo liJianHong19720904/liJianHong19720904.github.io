@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>2021358211</title>
+  <style type="text/css">
+	body
+	{
+		text-align:center;/*body中的文本居中*/
+	}
+	h1
+	{
+		font-size:60px;/*字体大小*/
+		font-family:华文新魏,黑体;/*字体风格*/
+		color:red;/*字体颜色*/
+		/*text-shadow:6px 2px 6px rgba(255,48,48,0.5);/*设置阴影,依次为水平 垂直 模糊距离 颜色*/
+	}
+	input
+	{
+		border:outset 2px solid;/*按钮边缘凸起，边缘为实线*/
+		width:70px;/*设置宽度*/
+		height:50px;/*设置高度*/
+		margin:7px;/*按钮之间的间隔*/
+		font-size:22px;/*设置字体大小*/
+		background-color:rgb(150,230,180);/*设置背景颜色*/
+		border-radius:10px;/*方框边缘半径*/
+		cursor:pointer;/*光标*/
+	}
+	input:hover
+	{
+		background-color:rgb(250,150,150);/*设置背景颜色*/
+	}/*鼠标放上去的样子*/
+	input:active
+	{
+		color:rgba(100,100,250,0.7);/*字体颜色*/
+		border:inset 2px solid;/*按钮边缘凹陷，边缘为实线*/
+	}/*鼠标点击时的样子*/
+	input#content
+	{
+		font-size:40px;/*文本框中字体大小*/
+		width:315px;/*宽度*/
+		height:45px;/*高度*/
+		color:blue;/*文本框中字体颜色为蓝色*/
+		margin:auto;/*自动居中*/
+	}
+  </style>
+ </head>
+ <body>
+  <h1>计算器</h1>
+  <input type="text" value="" id="content" ><!--放置一个文本框 -->
+  <script type="text/javascript">
+	var fuhao = 
+	['AC','%','√x','x^2','+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'];
+	for (var i = 0 ; i < fuhao.length/4 ; i++ )//把数组分成6行
+	{
+		var div = document.createElement('div');//在内存中创建div元素
+		for (var j = 0; j < 4 ; j++ )//每行最多放4个按钮（每个div中最多放四个按钮）
+		{
+			if (i*4+j < fuhao.length)//判断是否到数组尾部
+			{
+				var input = document.createElement('input');//在内存中创建一个元素
+					input.type = "button";//该元素类型为按钮
+					input.value = fuhao[i*4+j];//按钮外观为数组对应元素
+					input.id = fuhao[i*4+j];//按钮的id为数组对应元素
+					input.onclick = function(){ 
+						content.value += this.value ; 
+						};//点击按钮将按钮内容放于文本框中
+				div.appendChild(input);//将按钮放于创建的div中
+			}
+			
+		}
+		document.body.appendChild(div);//将div全部放于body中
+	}
+	    document.getElementById('Enter').style.width = '320px';//对最后一个按钮设置宽度 
+		document.getElementById('AC').onclick = function(){
+			content.value = '';
+			};//清空内容
+		document.getElementById('%').onclick = function(){
+		 var s = content.value;
+			 s = content.value/100;
+			 content.value = s;	
+			};//实现%计算
+		document.getElementById('√x').onclick = function(){
+			content.value = Math.sqrt(content.value);//实现开根
+			};
+		document.getElementById('x^2').onclick = function(){
+			content.value = Math.pow(content.value,2);//实现平方
+			};
+	    document.getElementById('<-').onclick = function(){ 
+		 var s = content.value;   
+		     s = s.substring(0, s.length - 1);  
+		     content.value = s ; 
+			}; //按钮实现逐个删除
+		document.getElementById('Enter').onclick = function(){
+			var result ;   
+			try { //判断计算式是否出错
+				result = eval(content.value) ; //实现计算
+				} 
+			catch (err) {//抓取出错原因 
+				result = err ;
+				}  
+			content.value = result ;
+			}; //按钮实现计算
+		document.body.onkeydown = function(e){
+			if (e.keyCode==13)
+			{   
+				var s = content.value;
+				var result;
+				try { //判断计算式是否出错
+					result = eval(s) ; //实现计算
+					} 
+				catch (err) {//抓取出错原因 
+					result = err ;
+					}  
+				content.value = result ;
+			}	
+		};/*还不完善*/
+	</script> 
+   </body>
+ </html>

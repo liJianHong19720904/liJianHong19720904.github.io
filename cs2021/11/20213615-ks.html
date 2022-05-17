@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head> <meta charset="UTF-8"> 
+<title>我的计算器</title> 
+<style type="text/css"> 
+  input{  
+        border:outset 2px solid ; /*边框凹陷*/
+        border-radius:35px; /*边框圆角*/ 
+        width:70px; /*设置内容区域的宽度*/
+        height:70px; /*定义元素内容区的高度*/
+        font-size:40px; 
+        text-align:center; /*文本居中*/
+        margin:10px; /*设置所有外边距*/
+        color:white;rgb(200,150,250); 
+        background-color:black;rgb(100,150,200); 
+        cursor:pointer; /*用来设置鼠标样式*/
+		} 
+  input:hover{  background-color:rgb(200,150,150); } /*hover表示鼠标移动改变颜色*/
+  input:active{  color:rgb(100,250,250); /*active表示鼠标点击瞬间变大*/ 
+        border:inset 2px solid ; } 
+  input#output{   display:block; width:280px; } /*display表示用于定义建立布局时元素生成的显示框类型*/
+</style>
+</head>
+<body> 
+<h1>计算器</h1>
+  <input type="text" value="" id= "output" >
+<script> 
+  var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','del','Enter'] ; 
+  var output = document.querySelector('input#output') ;  /*获取文档中id="output"的元素*/
+  for (var i=0; i < SYMBOL.length / 4; i++)
+       {  var div = document.createElement('div') ; /*表示在对象中创建一个对象div*/  
+  for (var j=0; j<4; j++ )
+       {   if (i * 4 + j < SYMBOL.length) 
+       {  var input = document.createElement('input') ; /*表示在对象中创建一个对象input*/      
+  input.type = "button" ;    
+  input.value = SYMBOL[i * 4 + j] ; 
+  input.onclick = function()
+  {   output.value += this.value ;  }; //匿名函数；this表示元素本身；
+   div.appendChild(input) ;      }  }  /*在input中的最后一个子节点之后添加节点*/
+   document.body.appendChild(div) ;  } /*一次追加所有的div*/
+    var inputs = document.querySelectorAll('input'); /*找出input中所有匹配的节点并返回数组中*/
+   inputs[inputs.length -1].style.width = '200px'; 
+   inputs[inputs.length -2].onclick = function()
+   { var s = output.value ; 
+         s = s.substring(0, s.length - 1);  
+         output.value = s ; };
+   inputs[inputs.length -1].onclick = function()
+   { var s = output.value ; 
+     var result ;   
+     try {  result = eval(s) ; } 
+     catch (err) {    result = err ; }  
+     output.value = result ; };  
+</script>
+</body>
+</html>

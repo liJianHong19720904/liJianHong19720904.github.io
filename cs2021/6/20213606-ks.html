@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"> 
+ <head>
+  <meta charset="UTF-8">
+  <title>我的计算器</title>
+  <style type="text/css">
+  *{
+    margin:0;
+    padding:0;
+   }
+  body {
+        text-align: center;
+        background-image: url(https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00592-1081.jpg);
+        background-repeat: no-repeat;
+        background-size: 100%;
+		}/*使整个页面居中展示，定义背景图及其大小占比*/
+   input{
+		  border:outset 2px solid #cccccc; 
+          border-radius:10px; 
+          width:50px;
+          height:50px;
+          font-size:40px;
+          text-align:center; 
+          margin:10px;
+          color:rgb(50,100,50);
+          cursor:pointer;
+          }/*定义按钮盒子大小及颜色，按钮内容居中展示*/
+	input:hover{
+                background-color:rgb(50,50,50);
+				} /*定义光标指向按钮时的颜色变化*/
+	input:active{ 
+	             color:rgb(50,100,50);
+				 border:inset 2px solid ; 
+				 } 
+	input#output{
+				 width:500px;
+				 text-align:center;
+				 } /*定义输出框的大小及输出内容居中展示*/
+	</style>
+ </head>
+<body> 
+<h1>用用我的计算器</h1> 
+ <input type="text" value="" id= "output" >
+  <script>
+    //定义所有所需的按钮
+	var SYMBOL= ['C','/','*','<-','7','8','9','-','4','5','6','+','1','2','3','.','0','='] ;
+    //使用两个for循环动态创造出18个按钮
+	var output =  document.querySelector('input#output') ;
+    for (var i=0; i < SYMBOL.length / 4; i++)
+	{
+	  var div = document.createElement('div') ;
+	      for (var j=0; j<4; j++ )
+		  {
+		    if (i * 4 + j < SYMBOL.length)
+			{
+			var input = document.createElement('input') ;
+			    input.type = "button" ;
+		        input.value = SYMBOL[i * 4 + j] ;
+				input.onclick = function()
+				{
+				  output.value += this.value ;
+				};
+		    div.appendChild(input) ;
+            }
+		  }
+        document.body.appendChild(div) ;
+	  }
+			var inputs=document.querySelectorAll('input');
+            //定义清零键按钮及其功能
+			inputs[1].onclick=function()
+					{
+						var a=output.value;
+						a=a.substring(0,0);
+						output.value=a;
+					}
+			//定义删除键按钮及其功能
+			inputs[4].onclick=function()
+					{
+						var a=output.value;
+						a=a.substring(0,a.length-1);
+						output.value=a;
+					};
+			//定义指定按钮大小
+			inputs[inputs.length-2].style.width = '120px';
+			inputs[inputs.length-1].style.width = '120px';
+			//定义输出键按钮及其功能
+			inputs[inputs.length-1].onclick=function()
+					{
+						var a=output.value;
+						var result;
+						try
+						{
+							result=eval(a);
+						}
+						catch (err)
+						{
+							result=err;
+						}
+						output.value=result;
+					};
+		</script>
+	</body>
+</html>

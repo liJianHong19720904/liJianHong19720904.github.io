@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>document</title>
+<style>
+    body{
+        width: 1500px ;/*宽度*/
+    }
+    input{
+      font-size: 40px ;/*按钮字体大小*/
+      padding: 3px ;/*按钮内边距*/
+      margin: auto ;/*按钮外边距*/
+      width: 300px ;/*按钮宽度*/
+      color: aqua ;/*按钮颜色*/
+      background-color: rgb(80,80,100) ;/*背景颜色*/
+      cursor: pointer ;/*光标*/
+    }
+    input#output{/*对input中id为output的按钮进行CSS*/
+        width: 1500px ;/*宽度*/
+    }
+    input:hover{/*当鼠标悬浮到按钮上时*/
+        border: outset ;/*边框突出*/
+        background-color: rgb(200,200,200) ;/*背景颜色*/
+    }
+    input:active{/*当按钮点击瞬间时*/
+        color:greenyellow ;/*按钮颜色*/
+        border: inset ;/*边框凹陷*/
+    }
+</style>
+<body>
+<input type="text" value="" id="output">
+</body>
+<script>
+   var calCulator = ['CE','+','-','*','/','.','√x','x^2','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ;//计算器按钮各个值
+   var output = document.querySelector('input#output') ;//获取选择器input中id为output的对象
+
+   for(var i = 0;i < calCulator.length / 5;i++){//放4个div,总共4行
+       var div = document.createElement("div") ;//在内存中创建一个元素标签div
+       for(var j = 0;j < 5;j++){//一行5个按钮
+           if(i * 5 + j < calCulator.length){//只有数组号小于calCulator长度，才能够建立按钮，防止出现一个value为undefined的按钮
+           var input = document.createElement("input") ;//在内存中创建一个元素标签input
+           input.type = "button" ;//按钮类型是按钮
+           input.value = calCulator[i * 5 + j] ;//将数组中各个元素赋值给每个按钮的值
+           input.id = calCulator[i * 5 + j] ;
+           input.onclick = function(){//按钮所实现的功能
+               output.value += this.value ;//将所点击的按钮的值与output的值加起来赋给output，注this在这里指代的是所点击的按钮
+               //该代码是为了让按钮与文本进行交互       
+           }
+           div.appendChild(input) ;//将input添加到div中  
+           }      
+       } //end of the loop
+    document.body.appendChild(div) ;//将div添加到body中   
+   } // end of the loop
+
+    var inputs  = document.querySelectorAll("input");//获取所有选择器为input的对象，并放在一个数组中[input#output,input,...,input];
+    document.getElementById("Enter").style.width = '300px' ; //inputs数组中最后一个数组的CSS中的宽度
+    document.getElementById("<-").onclick = function(){//从内存中找Id为"<-"的按钮，点击功能
+        var backSpace = output.value ; //将当前text的值赋给backSpace
+        backSpace = backSpace.substring(0 , backSpace.length - 1) ;//从backSpace中将起始字符到倒数第二个字符的内容赋给backSpace
+        output.value = backSpace ;  //将backSpace的值赋给output的value
+    }
+
+   document.getElementById("Enter").onclick = function(){//从内存中找Id为"Enter"的按钮，点击功能
+        var sTring = output.value ; //将output的值赋给sTring
+        var result ;//定义变量result
+        try{//先检查该语句结果是否满足sTring的算法
+            result = eval(sTring) ; //如果参数是表达式,则 eval() 计算表达式。如果为函数,则计算函数
+            if(sTring == ''){//防止直接按Enter时，输入框出现undefined
+                result = '' ;//result清0
+            }         
+        }
+        catch(error){
+            result = error ; //如果满足则跳过该部分，不满足则将错误原因赋给result，并使它显示出来 
+        }
+        output.value = result ;//检查计算结果是否有错误，如果有则返回错误，如果没有则返回计算结果,防止手动在文本框中输入字符
+    }
+
+    document.body.onkeydown = function(e){//在body中按键盘，注：按键盘时，必须先鼠标点击空白处，否则有错误！！！
+        var sTring = output.value ; //将output的值赋给sTring
+        var result ;//定义变量result
+        if(e.keyCode == 13){//如果所按键盘为Enter键
+            try{
+                result = eval(sTring) ; //output的值计算出来并赋给result
+                if(sTring == ''){//防止直接按Enter时，输入框出现undefined
+                    result = '' ;//result清0
+                }     
+            }
+            catch(error){
+                result = error ; //如果满足则跳过该部分，不满足则将错误原因赋给result，并使它显示出来 
+            } 
+        }
+        output.value = result ;//将result的结果赋值给output的值
+    }
+
+    document.getElementById("CE").onclick = function(){//从内存中找Id为"CE"的按钮，点击功能,CE是清0
+        var result = "" ; //result为空字符
+        output.value = result ;//将空字符赋值给output的value
+    }
+
+    document.getElementById("√x").onclick = function(){//从内存中找Id为"√"的按钮，点击功能,求√的函数
+        output.value = Math.sqrt(output.value) ;//调用Math库中求根函数求output的值的平方根
+    }
+
+    document.getElementById("x^2").onclick = function(){//从内存中找Id为"x^2"的按钮，点击功能,求平方的函数
+        output.value = Math.pow(output.value,2) ;//调用Math库中pow函数,pow() 方法可返回 x 的 y 次幂 (xy) 的值
+    }
+   
+</script>
+</html>

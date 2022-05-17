@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>简单计算器</title>
+<style>
+.b1{
+    width:50px;
+    height:35px;
+    margin-top:10px;
+    background-color:white;/*按钮颜色*/
+   }  
+.screen{
+        width:215px;
+        height:35px;
+        text-align: right;
+        padding-right:10px;
+        font-size:20px;
+        background-color:99FFFF;/*显示器颜色*/
+       }
+html{
+     padding:150px 550px  100px 550px; 
+     background-color:white;/*背景颜色*/
+    }
+</style>
+<script>
+function jsj(num){
+	        //赋值函数
+            document.getElementById("result").value+=document.getElementById(num).value;
+}
+function eva() {
+            //计算输入结果函数
+            document.getElementById("result").value = eval(document.getElementById("result").value);
+}
+function tuiGe() {
+    //退格函数
+    var arr = document.getElementById("result");
+    arr.value = arr.value.substring(0, arr.value.length - 1);
+}
+</script>
+</head>
+<body>
+<div id="screen"><input type="text" name="result" id="result" class="screen" placeholder="请输入计算公式"/></div>
+<!-- <div id="buttonArea"> -->
+<div>
+<input type="button" name="b1" value="1" id="1" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b2" value="2" id="2" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b3" value="3" id="3" class="b1" onclick="jsj(this.id)"/>
+<br/>
+</div>
+<div>
+<input type="button" name="b4" value="4" id="4" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b5" value="5" id="5" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b6" value="6" id="6" class="b1" onclick="jsj(this.id)"/>
+<br/>
+</div>
+<div>
+<input type="button" name="b7" value="7" id="7" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b8" value="8" id="8" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b9" value="9" id="9" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="plus" value="back" id="back" class="b1" onclick="tuiGe()"/>
+<input type="button" name=".." value="." id="." class="b1" onclick="jsj(this.id)"/><br/>
+</div>
+<div>
+<input type="button" name="plus" value="+" id="+" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="plus" value="-" id="-" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="plus" value="*" id="*" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="//" value="/" id="/" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="total" value="=" id="t" class="b1" onclick="eva()"/>
+</body>
+</html>

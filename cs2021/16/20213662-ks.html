@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        input{
+            border:outset 5px solid;/*边框大小*/
+            border-radius: 10px;/*圆角*/
+            width: 70px; 
+            height: 70px; 
+            font-size: 25px; 
+            text-align: center;
+            margin: 5px;/*间距*/
+            color: red;
+            background-color: gray;
+            cursor: pointer;/*光标*/
+        }
+
+        input:hover{
+            background-color: aqua;
+        }/*光标浮动*/
+        input:active{
+            color: black;
+            border: inset 10px solid;
+        }/*光标点击*/
+        input#output{
+            display: block;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>这是一个计算器</h1>
+    <input type="text" value="" id="output">
+    <script>
+        var SYMBOL = ['+','-','*','/','0','1','2','3','4','5','6','7','8','9','.','Del','Enter'];/*符号*/
+
+        for(var i=0;i <SYMBOL.length/4;i++)
+        {
+            var div=document.createElement('div');/*获取div对象合集*/
+            for(var j=0;j<4;j++)
+            {
+                if(i*4+j<SYMBOL.length){
+                    var input = document.createElement('input');
+                    input.type="button";
+                    input.value=SYMBOL[i*4+j];
+                    div.appendChild(input);/*一行4个字符*/
+                    input.onclick=function(){
+                        output.value+=this.value
+                    }
+                }
+            }
+
+         document.body.appendChild(div);
+        }
+
+        var inputs=document.querySelectorAll('input');/*按文档顺序返回指定元素节点的子树中匹配选择器的元素集合，如果没有匹配返回空集合。*/
+        inputs[inputs.length -1].style.width = '200px'; /*输入序列的长度*/
+        inputs[inputs.length -2].onclick = function()
+        { 
+	        var s = output.value ; 
+            s = s.substring(0, s.length - 1);/*截取字符串得到字符*/
+            output.value = s ; 
+	    }; 
+            inputs[inputs.length -1].onclick = function(){ 
+	    var s = output.value ;
+	    var result ; 
+            try {
+                result = eval(s) ; 
+            } /*进行尝试*/
+            catch (err) {    
+                result = err ; 
+            } /*处理异常*/
+            output.value = result ; 
+        }
+    </script>
+</body>
+</html>

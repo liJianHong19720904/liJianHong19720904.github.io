@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>计算器</title>
+  <style type="text/css">
+    body{
+        height: 900px;
+        background: linear-gradient(dodgerblue,tomato); /*实现背景颜色渐变*/
+    }
+	h1{
+		color: black;
+        font-family: 楷体;
+        text-align: center;
+	}
+    .caculator{
+        margin: 300px auto;
+        width: 400px;
+    }/*计算器整体样式*/
+    #view{
+        border: 1px solid black;
+        height: 36px;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        width: 400px;
+    }/*输入框样式*/
+    .keyboard{
+        display: grid;/*网格布局*/
+        grid-template-columns: 1fr 1fr 1fr 1fr ;/*设置列间距*/
+        grid-auto-rows: 30px;/*设置行间距*/
+        grid-gap: 5px;/*设置行高*/
+        text-align: center;
+    }
+    .keyboard p{
+        cursor: pointer;/*鼠标光标经过有小手的样式*/
+    }
+  </style>
+ </head>
+ <script>
+     window.onload=function(){
+       var Btn=document.getElementsByClassName('Btn');
+       var view=document.getElementById('view');
+       for(var i=0; i<Btn.length; i++){
+           Btn[i].onclick=function(){
+               var char=this.getAttribute('data-char');
+               view.innerHTML=view.innerHTML+char;/*输入框里可以同时存在多个数字*/
+           };
+       }
+       var clearBtn=document.getElementById('clearBtn');
+       clearBtn.onclick=function(){
+           view.innerHTML='';
+       };/*定义清空按钮,功能*/
+       var resultBtn=document.getElementById('resultBtn');
+       resultBtn.onclick=function(){
+           var result=eval(view.innerHTML);
+           view.innerHTML=result;
+       };/*定义结果按钮，功能*/
+     };
+ </script>
+ <body>
+ <h1>我的计算器</h1>
+ <div class="caculator">
+ <div id="view"></div>
+ <div class="keyboard">
+     <p class="Btn" data-char="(">(</p>
+     <p class="Btn" data-char=")">)</p>
+     <p class="Btn" data-char="%">%</p>
+     <p id="clearBtn">AC</p>
+     <p class="Btn" data-char="7">7</p>
+     <p class="Btn" data-char="8">8</p>
+     <p class="Btn" data-char="9">9</p>
+     <p class="Btn" data-char="/">/</p>
+     <p class="Btn" data-char="4">4</p>
+     <p class="Btn" data-char="5">5</p>
+     <p class="Btn" data-char="6">6</p>
+     <p class="Btn" data-char="*">*</p>
+     <p class="Btn" data-char="1">1</p>
+     <p class="Btn" data-char="2">2</p>
+     <p class="Btn" data-char="3">3</p>
+     <p class="Btn" data-char="-">-</p>
+     <p class="Btn" data-char="0">0</p>
+     <p class="Btn" data-char=".">.</p>
+     <p id="resultBtn" >=</p>
+     <p class="Btn" data-char="+">+</p>
+    </div>
+</div>
+ </body>
+</html>

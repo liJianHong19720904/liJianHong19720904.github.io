@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>小小计算机</title>
+  <style type="text/css">
+	input{
+	  
+	  text-align: center; 
+	  border-radius:10px;
+	  width:50px;
+	  height:50px;
+	  font-size:40px;
+	  text-align:center;
+	  margin:10px;
+	  color:rgb(15, 145, 181);
+	  background-color:rgb(11, 18, 12);
+	  cursor:pointer;
+	}
+
+	input:hover{
+    cursor: pointer;
+	 border:outside ;
+	}
+	input:active{
+	  color:rgb(174, 26, 26) ;
+	  border:inside ;
+	}
+	input#output{
+	 width:250px;
+	}
+	h1 {
+      margin: 20px;
+      font-size: 30px;
+      font-weight: 590;
+      
+    }
+	</style>
+ </head>
+ <body>
+  <h1>小小计算机</h1>
+  <input type="text" value="" id= "output" >
+  <script>
+    var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','delete','Enter'] ;
+	var output =  document.querySelector('input#output') ;
+    for (var i=0; i < SYMBOL.length / 4; i++)
+	{
+	  var div = document.createElement('div') ;
+	      for (var j=0; j<4; j++ )//对sign数组中的内容进行排版
+		  {
+		    if (i * 4 + j < SYMBOL.length)
+			{
+			var input = document.createElement('input') ;//将input抓入inputs数组中
+			    input.type = "button" ;
+		        input.value = SYMBOL[i * 4 + j] ;
+				input.onclick = function()
+				{
+				  output.value += this.value ;
+				};
+		    div.appendChild(input) ;
+            }
+		  }
+
+        document.body.appendChild(div) ;
+	  }
+
+	var inputs = document.querySelectorAll('input');
+	inputs[inputs.length -1].style.width = '200px';
+	inputs[inputs.length -2].onclick = function()
+	{
+	 var s = output.value ;
+	     s = s.substring(0, s.length - 1);
+     output.value = s ;
+	};
+	inputs[inputs.length -1].onclick = function()
+	{
+	 var s = output.value ;
+	 var result ;
+    
+	 try {
+	  result = eval(s) ;//用eval()函数对s的表达式进行计算
+	 }
+	 catch (err) {
+       result = err ;//如果输入错误将返回err值
+	 }
+     output.value = result ;
+	};
+  
+  </script>
+ </body>
+</html>

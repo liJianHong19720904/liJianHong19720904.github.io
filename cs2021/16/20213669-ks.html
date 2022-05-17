@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器外观</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: rgba(250, 225, 225, 0.845);
+        }
+
+        input {
+            font-family: 微软雅黑;
+            color: rgb(0, 0, 0);
+            background-color: rgb(195, 204, 198);
+            width: 90px;
+            height: 60px;
+            margin: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            border-radius: 50px;
+        }
+
+        input:hover {
+            background-color: rgba(233, 237, 235, 0.845);
+
+        }
+
+
+        input:active {
+            background-color: rgb(100, 107, 108);
+            box-shadow: 0 5px rgb(252, 155, 155);
+            transform: translateY(4px);
+        }
+
+        input#output {
+            width: 410px;
+        }
+
+        body {
+            text-align: center;
+            background-color: rgba(250, 225, 225, 0.845);
+        }
+
+        input {
+            font-family: 微软雅黑;
+            color: rgb(0, 0, 0);
+            background-color: rgb(195, 204, 198);
+            width: 90px;
+            height: 60px;
+            margin: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            border-radius: 50px;
+        }
+
+        input:hover {
+            background-color: rgba(233, 237, 235, 0.845);
+
+        }
+
+
+        input:active {
+            background-color: rgb(100, 107, 108);
+            box-shadow: 0 5px rgb(252, 155, 155);
+            transform: translateY(4px);
+        }
+
+        input#output {
+            width: 410px;
+        }
+
+        body {
+            text-align: center;
+            background-color: rgba(250, 225, 225, 0.845);
+        }
+
+        input {
+            font-family: 微软雅黑;
+            color: rgb(0, 0, 0);
+            background-color: rgb(195, 204, 198);
+            width: 90px;
+            height: 60px;
+            margin: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            border-radius: 50px;
+        }
+
+        input:hover {
+            background-color: rgba(233, 237, 235, 0.845);
+
+        }
+
+
+        input:active {
+            background-color: rgb(100, 107, 108);
+            box-shadow: 0 5px rgb(252, 155, 155);
+            transform: translateY(4px);
+        }
+
+        input#output {
+            width: 410px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>简易计算器</h1>
+    <input type="text" id="output">
+    <script>
+        var Symbol = ["AC", "Del", "*", "/", "7", "8", "9", ".", "4", "5", "6", "+", "1", "2", "3", "-", "0", "="];//定于计算器按钮内容数组
+        for (var i = 0; i < Symbol.length / 4; i++) {//计算机外观通过for循环，4个一行将Symbol(符号数组)中的内容写入div中
+            var div = document.createElement('div');
+            for (var j = 0; j < 4; j++) {
+                if (i * 4 + j < Symbol.length) {
+                    var input = document.createElement('input');//创建类型为按钮button，其id为对应符号的input元素
+                    input.type = "button";
+                    input.value = Symbol[i * 4 + j];
+                    input.id = Symbol[i * 4 + j];
+                    input.onclick = function () {//通过调用函数使输入的字符显示在输入框中   
+                        output.value += this.value;
+                    };
+                    div.appendChild(input);
+                };
+            };
+            document.body.appendChild(div);
+        };
+        var inputs = document.querySelectorAll('input');//将input按钮都抓进input数组
+        inputs[inputs.length - 2].onclick = function () {
+            var s = output.value;   //将输入的字符累积存入s变量
+            s = s.substring(0, s.length - 1);
+            output.value = s;
+        };
+
+        //定义求和按钮 
+        var sum = document.getElementById("=")
+        sum.onclick = function () {
+            var s = output.value;
+            var result;
+            try {
+                result = eval(s); //eval()函数，对output.value中的表达式进行算数求值
+            }
+            catch (err) {  //当输入错误时返回内容“错误”  
+                result = '输入错误';
+            }
+            output.value = result;
+        };
+        //定义退格Del按钮
+        var Del = document.getElementById("Del");
+        Del.onclick = function () {
+            var Del1 = output.value;
+            Del1 = Del1.substring(0, Del1.length - 1);
+            output.value = Del1;//删除一个字符
+        }
+        // 定义清零AC按钮
+        var AC = document.getElementById("AC");
+        AC.onclick = function () {
+            output.value = "";//实现删除功能清空输出框
+        }
+    </script>
+</body>
+
+</html>

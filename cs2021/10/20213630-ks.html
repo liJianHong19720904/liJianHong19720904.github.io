@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>20213630-11</title>
+    <style>
+        * {
+            margin: 0 10px;
+            padding: 5px;
+        }
+        .button {
+            width: 50px;
+            height: 50px;
+            font-size: 25px;
+            margin: 2px;
+            cursor: pointer;
+			/*鼠标指针*/
+            background: RoyalBlue;
+			border: none;
+			/*无边框*/
+            color: white;
+        }
+		input:hover{
+			border:outset;/* 边框凸起 */
+			box-shadow:5px 3px rgba(0,0,255,0.2);
+		}
+		input:active{
+			border:inset;/* 边框凹陷 */
+			box-shadow:2.5px 1.5px rgba(0,0,255,0.2);
+		}
+        .textView {
+            width: 240px;
+            margin: 5px;
+            font-size: 25px;
+            padding: 5px;
+        }
+        .main {
+            position: absolute;
+            left: 50%;
+			/* 使其位置居中*/
+            transform: translateX(-50%);
+        }
+    </style>
+    <script>
+        function insert(num) {
+			//输入字符
+            document.form.textView.value = document.form.textView.value + num;
+        }
+
+        function equal() {
+			 //计算结果，并且结果保留四位小数
+            var exp = document.form.textView.value;
+            if (exp) {
+                 var eval1 = eval(document.form.textView.value);
+				 // eval() 执行括号内的语句 , 记录结果
+                var number = eval1.toString().indexOf(".");
+                if (number !== -1){
+					// 如果是小数，保留四位小数
+                    eval1 = eval1.toString().substring(0,number + 5);
+					// 截取
+                    document.form.textView.value = eval1;
+                }else {
+                    document.form.textView.value = eval1;
+					// 如果不是小数，直接赋值
+                }
+            }
+        }
+
+        function Mclean() {
+			//清理输入框的文字
+            document.form.textView.value = null;
+        }
+
+        function back() {
+			//删除文本框的一个字符
+            var exp = document.form.textView.value;
+            document.form.textView.value = exp.substring(0, exp.length - 1);
+			// 截取字符串
+        }
+    </script>
+</head>
+<body>
+	<div class="main"> 
+		<form name="form">
+			<input class="textView" name="textView" onkeydown = "text()"/ >
+			<!-- 生成字符输入框 -->
+		</form>
+		<table>
+			<tr>
+				<td><input type="button" class="button" value="C" onclick="Mclean()"></td><!-- 清零建 -->
+				<td><input type="button" class="button" value="<-" onclick="back()"></td><!-- 删除键 -->
+				<td><input type="button" class="button" value="/" onclick="insert('/')"></td>
+				<td><input type="button" class="button" value="x" onclick="insert('*')"></td>
+			</tr>
+			<tr>
+				<td><input type="button" class="button" value="7" onclick="insert(7)"></td>
+				<td><input type="button" class="button" value="8" onclick="insert(8)"></td>
+				<td><input type="button" class="button" value="9" onclick="insert(9)"></td>
+				<td><input type="button" class="button" value="-" onclick="insert('-')"></td>
+			</tr>
+			<tr>
+				<td><input type="button" class="button" value="4" onclick="insert(4)"></td>
+				<td><input type="button" class="button" value="5" onclick="insert(5)"></td>
+				<td><input type="button" class="button" value="6" onclick="insert(6)"></td>
+				<td><input type="button" class="button" value="+" onclick="insert('+')"></td>
+
+			</tr>
+			<tr>
+				<td><input type="button" class="button" value="1" onclick="insert(1)"></td>
+				<td><input type="button" class="button" value="2" onclick="insert(2)"></td>
+				<td><input type="button" class="button" value="3" onclick="insert(3)"></td>
+				<td rowspan="2"><input style="height: 115px" type="button" class="button" value="=" onclick="equal()"></td><!-- 列向占据两个表格 -->
+			</tr>
+			<tr>
+				<td colspan="2"><input style="width: 115px" type="button" class="button" value="0" onclick="insert(0)"></td><!-- 行向占据两个表格 -->
+				<td><input type="button" class="button" value="." onclick="insert('.')"></td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+		function text(){
+			if (window.event.keyCode == 13){	
+				// 显示输出值，但是只有一瞬间。。。输出值网址上也有
+			var exp = document.form.textView.value;
+            if (exp) {
+                 var eval1 = eval(document.form.textView.value);
+                var number = eval1.toString().indexOf(".");
+                if (number !== -1){
+                    eval1 = eval1.toString().substring(0,number + 5);
+                    document.form.textView.value = eval1;
+                }else {
+                    document.form.textView.value = eval1;
+                }
+            }
+			}
+		}
+
+	</script>
+
+</body>
+</html>

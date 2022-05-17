@@ -1,0 +1,70 @@
+
+
+<!doctype html>
+<html lang="en">
+<head> 
+	<meta charset="UTF-8">
+	<title>我的计算器</title>
+	<style type="text/css">
+		body{
+			text-align:center;       /* 文本居中*/
+		}
+		input{ 
+		border:outset 2px solid ;   /* 边框的粗细、实线 */
+		border-radius:15px;         /*边框角的弧度*/
+		width:70px;                 /*宽度*/
+		height:50px;                /*高度*/
+		font-size:25px;             /*字体大小*/
+		text-align:center;          /*文本居中*/
+		margin:10px;                /*外边距*/
+		color:#6600ff;              /*颜色*/
+		background-color:lightpink;  /*背景颜色*/
+		cursor:pointer; }               /*设置光标类型，为小手形状*/
+		input:hover{  background-color:#ff9900; } 
+		input:active{  color:#ffffff;  border:inset 2px solid ; }
+		input#output{   display:block; width:280px; margin:auto; }                /*#output是针对input里的output设置样式*/
+	</style>
+</head>
+<body> 
+<div id="B" class="">
+<h1>计算器</h1>
+<input type="text" value="" id= "output" > 
+<script> 
+var SYMBOL = ['归零','删除','%','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='] ;    /*定义数组*/
+var a=1
+for (var i=0; i < SYMBOL.length / 4; i++)            //定义数组i，i初始值为0，使每一行的按键为4个，i自加。
+{    var div = document.createElement('div') ;       //创建按钮
+for (var j=0; j<4; j++ ,a++)                         //定义数组j，j初始值为0，控制列数为4，j自加。
+{    if (i * 4 + j < SYMBOL.length)                  //如果按钮总数小于i乘4加j（就是按钮一行4个排列，如果最后一行不满四个）
+{    var input = document.createElement('input') ;   //则最后一行创建实际个数按钮
+    input.type = "button" ;  
+    input.value = SYMBOL[i * 4 + j] ;
+	input.id="input"+a;
+    input.onclick = function()
+{   output.value += this.value ;  };                 //显示输入内容
+    div.appendChild(input) ;                         //显示input
+} 
+}   
+document.body.appendChild(div) ;                     //显示div
+}
+  var inputs = document.querySelectorAll('input'); 
+input2.onclick = function()                         //点击按钮，删除output内容
+{ var s = output.value ;   s = s.substring(0, s.length - 1);   output.value = s ; };
+input1.onclick = function()                         //点击按钮，将output内容归零
+{   output.value = "" ; };
+input20.onclick = function()                        //计算结果，并显示在output
+{ var s = output.value ;
+  var result ;  
+  try {  result = eval(s) ; } 
+  catch (err) {    result = err ; }   output.value = result ; } 
+  document.body.onkeydown=function()               //实现键盘与按钮连接有待改进
+  {
+  if(event.keyCode == input20)
+  {var result;
+  var sum=output.value;
+  }
+	   }
+</script>
+</div>
+</body>
+</html>

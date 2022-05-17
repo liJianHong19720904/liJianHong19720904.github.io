@@ -1,0 +1,122 @@
+<!doctype html>
+<head>
+<meta charset="UTF-8">
+<title>简易计算器</title>
+<style type="text/css">
+*{
+margin: auto;
+padding: 0px;
+text-align: center;
+font-family: "正楷";
+/*整个背景的各项数据规定*/
+}
+.content{
+border-radius: 10%;
+width: 400px;
+height: 550px;
+background-color: orange;
+/*计算器部分的各项数据规定*/
+}
+.clear{
+border-radius: 50%;
+width: 20%;
+height: 72px;
+background-color: green;
+/*规定了“清除按钮“的形状颜色等参数*/
+}
+#result{
+margin-top: 25px;
+font-size: 15px;
+width: 60%;/*控制了“清除和运算结果”的总宽距占计算机总宽距的比例*/
+height: 70px;
+text-align: center;
+border-radius: 20px;
+background-color: pink;
+/*规定了“运算结果”按钮的各项参数*/
+}
+.symbol{
+margin-top: 36px;
+font-size: x-large;
+border-radius: 50%;
+width: 20%;
+height: 72px;
+background-color:bisque;
+}
+.number{
+margin-top: 36px;
+font-size: x-large;
+border-radius: 50%;
+width: 20%;
+height: 72px;
+background-color:beige;
+}
+.calculate{
+margin-top: 36px;
+font-size: x-large;
+border-radius: 50%;
+width: 20%;
+height: 72px;
+background-color: red;
+}
+/*此处规定了symbol number calculate三者的按钮的各项参数*/
+.content input:hover{
+box-shadow: 5px 5px 5px yellow;
+}
+.content input:active{
+background-color:white;
+}
+</style>
+<script type="text/javascript">
+function clearValue(){
+document.getElementById("result").value="";
+}
+function get(value){
+document.getElementById("result").value+=value;
+}
+function calculate(){
+var result=0;
+result=document.getElementById("result").value;
+document.getElementById("result").value="";
+document.getElementById("result").value=eval(result);
+};
+/*该部分对各个按钮赋予相对应的功能*/
+</script>
+</head>
+<body>
+<div class="banner">
+<h2>
+牛 河 青 的 计 算 器
+</h2>
+</div>
+<br />
+<div class="content">
+<input type="button" value="归 零" class="clear" onclick="clearValue()"/>
+<input type="text" id="result" readonly="readonly" placeholder="运 算 结 果 显 示"/>
+<!--对上述的clear result等进行功能定义-->
+<br /><!--换行符号-->
+<input type="button" value="7" class="number" onclick="get(this.value)"/>
+<input type="button" value="8" class="number" onclick="get(this.value)"/>
+<input type="button" value="9" class="number" onclick="get(this.value)"/>
+<input type="button" value="*" class="symbol" onclick="get(this.value)"/>
+<br />
+<input type="button" value="4" class="number" onclick="get(this.value)"/>
+<input type="button" value="5" class="number" onclick="get(this.value)"/>
+<input type="button" value="6" class="number" onclick="get(this.value)"/>
+<input type="button" value="-" class="symbol" onclick="get(this.value)"/>
+<br />
+<input type="button" value="1" class="number" onclick="get(this.value)"/>
+<input type="button" value="2" class="number" onclick="get(this.value)"/>
+<input type="button" value="3" class="number" onclick="get(this.value)"/>
+<input type="button" value="+" class="symbol" onclick="get(this.value)"/>
+<br />
+<input type="button" value="00" class="number"    onclick="get(this.value)"/>
+<input type="button" value="0"  class="number"    onclick="get(this.value)"/>
+<input type="button" value="."  class="symbol"    onclick="get(this.value)"/>
+<input type="button" value="="  class="calculate" onclick="calculate()"/>
+<!--以上三部分为第一二三四行的按钮分布，规定其属性
+分别定义了十六个按钮的基本属性
+并与css部分定义的内容相呼应-->
+</div>
+<br />
+</body>
+</html>

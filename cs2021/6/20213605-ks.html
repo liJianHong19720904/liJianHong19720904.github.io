@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"> <head> <meta charset="UTF-8"> <title>我的计算器
+</title>
+
+<style type="text/css">
+	body{
+		text-align:center;}
+	h1{
+	    font-family: 楷体;}
+	input{                                           /*  按钮外形等的参数 */
+		border:outset 2px solid ;
+		border-radius:10px; 
+		width:60px;
+		height:60px;
+		font-size:40px;
+		text-align:center;
+		margin:10px;
+		color:rgb(50,50,50);
+		background-color:rgb(250,250,250);
+		cursor:pointer;}      
+	input:hover{ 
+		background-color:rgb(190,190,190); }       /* 光标放置于上时所显示的参数 */
+	input:active{ 
+		color:rgb(250,250,250);
+		border:inset 2px solid ; }                  /* 常态时所显示的参数 */
+	input#output{
+		display:inline-block;                                     /* 使创造的对象单独成行 */           
+		width:300px; } 
+
+</style>
+</head> 
+<body>
+<h1>用用我的计算器</h1>
+<input type="text" value="" id= "output" >
+<script> 
+	var SYMBOL = ['1','2','3','+','4','5','6','-','7','8','9','*','0','.','ac','/','<-','='] ;  
+	var output = document.querySelector('input#output') ;
+
+	for (var i=0; i < SYMBOL.length / 4; i++)  
+	{   
+		var div = document.createElement('div') ;                  //与appendChild(div)联合使用，创建一个对象使点击的符号或数字加入其中 
+		for (var j=0; j<4; j++ )                                   //for循环使四个按钮成一行
+			{ 
+				if (i * 4 + j < SYMBOL.length) { 
+					var input = document.createElement('input') ;  //与appendChild(input)联合使用，创建一个对象使SYMBOL中符号或数字依次加入其中 
+					input.type = "button" ;                        // 使input变为按钮形
+					input.value = SYMBOL[i * 4 + j] ;              // 按钮上显示SYMBOL中的符号，数字
+					input.onclick = function(){ output.value += this.value ;};//使点击的数字或符号显示在output中
+					div.appendChild(input) ; }
+			}	
+		document.body.appendChild(div) ; 
+	}
+
+	var inputs = document.querySelectorAll('input');
+	inputs[inputs.length -1].style.width = '220px';                //“=”的按钮宽度
+	inputs[inputs.length -2].onclick = function(){                 //定义“<-”的作用
+		var s = output.value ;
+		s = s.substring(0, s.length - 1);
+		output.value = s ; };
+	inputs[inputs.length -1].onclick = function(){                 //定义“=”的作用，进行最后的运算
+		var s = output.value ; 
+		var result ;
+		try { result = eval(s) ; } 
+		catch (err) { result = err ; } output.value = result ;
+		};
+	inputs[inputs.length -4].onclick = function(){                //定义“ac”的作用，归零
+		var s = output.value ;
+		s = s.substring(0, s.length - s.length);
+		output.value = s ; }
+
+</script>
+</body>
+</html>

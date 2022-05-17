@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的计算器</title>
+    <style type="text/css">
+        div#header {
+            /*首行标题*/
+            margin: auto;
+            color: blueviolet;
+        }
+
+        body {
+            text-align: center;
+            /*页面居中*/
+        }
+
+        input {
+            border: 3px rgb(31, 32, 32) double;
+            /*边框属性*/
+            border-radius: 50px;
+            /*元素边框设置圆角*/
+            width: 50px;
+            /*元素宽度*/
+            height: 50px;
+            /*元素高度*/
+            font-size: 20px;
+            /*字体大小*/
+            margin: 10px;
+            /*外边距长度*/
+            color: rgb(17, 26, 30);
+            /*字体颜色*/
+            background-color: rgb(155, 219, 223);
+            /*背景颜色*/
+            cursor: pointer;
+            /*鼠标指针样式*/
+            box-shadow: 0 0 10px yellow;
+            /*边框阴影效果*/
+        }
+
+        input:hover {
+            background-color: rgb(228, 163, 33);
+            /*按钮背景颜色设置*/
+        }
+
+        input:active {
+            color: rgb(250, 250, 250);
+            border: inset 2px solid;
+        }
+
+        input#output {
+            display: block;
+            width: 280px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="header">
+        <h1>我的计算器</h1>
+        <input type="text" value="" id="output">
+        <script>
+            var SYMBOL = ['ae', 'c', '1/x', 'x^2', '7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '.', '0', '+', '-', '=', 'Enter'];
+            var output = document.querySelector('input#output');
+            for (var i = 0; i < SYMBOL.length / 4; i++) {   /*按钮基本面板*/
+                var div = document.createElement('div');
+                for (var j = 0; j < 4; j++) {
+                    if (i * 4 + j < SYMBOL.length) {
+                        var input = document.createElement('input');
+                        input.type = "button";
+                        input.value = SYMBOL[i * 4 + j];    /*定位一行有4个*/
+                        input.onclick = function () {
+                            output.value += this.value;     /*输入传输到输出*/
+                        };
+                        div.appendChild(input);
+                    }
+                }
+                document.body.appendChild(div);
+            };
+            var inputs = document.querySelectorAll('input');    /*清零程序*/
+            inputs[1].onclick = function () {
+                output.value = " ";
+            };
+            inputs[inputs.length - 1].style.width = '200px';
+            inputs[2].onclick = function () {    /*删除前一个字符*/
+                var a = output.value;
+                a = a.substring(0, a.length - 1);   /*截取下一个字符*/
+                output.value = a;
+            };
+
+            inputs[3].onclick = function () {/*开根号*/
+                var x = output.value;
+                x = 1/x;
+                output.value = x;
+            }
+            inputs[4].onclick = function () { /*平方*/
+                var x = output.value;
+                x = x ** 2;
+                output.value = x;
+            }
+         
+            inputs[inputs.length - 2].onclick = function () {     /*=得出结果*/
+                var b = output.value;
+                var result;
+                try {   /*报错程序*/
+                    result = eval(b);
+                } catch (err) {
+                    result = err;
+                }
+                output.value = result;  /*输出报错结果*/
+            };
+            inputs[inputs.length - 1].onclick = function () {  /*enter得出结果*/
+                var c = output.value;
+                var result;
+                try {   /*报错程序*/
+                    result = eval(c);
+                } catch (err) {
+                    result = err;
+                }
+                output.value = result;  /*输出报错结果*/
+            };
+            document.body.onkeydown = function (e) {
+                if (keyCode == 13) {
+                    inputs[inputs.length - 1].onclick;
+                }
+                else {
+                    try {   /*报错程序*/
+                        result = eval(c);
+                    } catch (err) {
+                        result = err;
+                    }
+                    output.value = result;  /*输出报错结果*/
+                }
+            };
+        </script>
+    </div>
+</body>
+
+
+</html>

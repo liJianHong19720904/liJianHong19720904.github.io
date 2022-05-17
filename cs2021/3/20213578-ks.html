@@ -1,0 +1,97 @@
+<!doctype html><html lang="en">
+<head> 
+<meta charset="UTF-8"> 
+<title>计算器</title> 
+<style type="text/css"> 
+h1{
+    font-size:40px;
+    text-align:center;
+    margin:10px;
+    color:rgb(200,150,20);
+    } /*控制标题外观*/
+div{
+    text-align: center;
+} /*按钮居中*/
+input{  
+    border:outset 4px solid ; /*边框突起*/
+    border-radius:20px;
+    width:50px;
+    height:50px;
+    font-size:40px;
+    text-align:center;
+    margin:10px;
+    color:rgb(50,50,20);
+    background-color:rgb(250,100,100);
+    cursor:pointer; 
+    }  /*按钮外观*/
+input:hover{  
+    background-color:rgb(90,190,190); 
+    }  /*悬浮在body上的样子*/
+input:active{ 
+     color:rgb(50,50,250); 
+     border:inset 4px solid ; 
+    } /*点击瞬间字的样子*/
+ input#output{  
+       border:inset;
+       margin:auto;
+       color:blue;
+       text-align:center; 
+       width:380px;
+       box-shadow:none; 
+       display:block;  
+    } 
+</style>
+</head>
+<body>
+    <h1>我的计算器</h1> 
+    <input type="text" value="" id= "output" > <!--设置文本-->
+<script>  
+    var mumber = ['AC','+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ; //存放符号的数组
+    var output = document.querySelector('input#output') ; 
+    for (var i=0; i < mumber.length / 4; i++){  
+            var div = document.createElement('div') ;   //确定分行为4个为一行
+                for (var j=0; j<4; j++ ){  //防止之后的enter一个按钮被分为4个
+                         if (i * 4 + j < mumber.length) { 
+                                    var input = document.createElement('input') ; //设置了一个动态的元素  
+                                    input.type = "button" ;    
+                                    input.value = mumber[i * 4 + j] ; //将数组中各个元素赋值给每个按钮的值
+                                    input.id = mumber[i * 4 + j] ;
+                                    input.onclick = function(){   
+                                         output.value += this.value ; 
+                                                        }; // 显示出现在点击按钮的内容
+                                     
+                            div.appendChild(input);     } //将每个div中的4个按钮存储起来
+                            } 
+    document.body.appendChild(div) ;//将存储的内容在body中展示出来
+ } //循环结束
+    var inputs = document.querySelectorAll('input') ;
+    inputs[inputs.length - 1].style.width = "200px" ;
+    inputs[inputs.length-18].style.width = "80px" ;
+//将Enter和AC的按钮大小设置成合适的大小
+document.getElementById("Enter").onclick = function(){//从内存中找Id为"Enter"的按钮，点击功能
+    var sign=output.value;//将output.value的值赋给定义的sign
+    var result;
+    try{
+        result = eval(sign) ; //如果参数是表达式,则 eval() 计算表达式。如果为函数,则计算函数
+        if(sign == ''){//防止直接按Enter时，输入框出现未定义
+        result = '' ;//输出为空
+    }
+}
+    catch(err){
+        result = err ;
+    }
+    output.value = result ;//检查计算结果是否有错误，如果有则返回错误，如果没有则返回计算结果,防止手动在文本框中输入字符
+}
+document.getElementById("AC").onclick = function(){//从内存中找Id为"AC"的按钮，点击功能
+    output.value = "" ;//令文本为空
+}//清零
+document.getElementById("<-").onclick = function(){//从内存中找Id为"<-"的按钮，点击功能
+        var back = output.value ; //将当前text的值赋给back
+        back = back.substring(0 , back.length - 1) ;//从back中将起始字符到倒数第二个字符的内容赋给back
+        output.value = back ;  //将back的值赋给output的value
+    }
+
+
+</script> 
+</body>
+</html>

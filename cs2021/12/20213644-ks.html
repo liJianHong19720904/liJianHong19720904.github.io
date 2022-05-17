@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            /* overflow 属性用于控制内容溢出元素框时显示的方式*/
+            background: linear-gradient(rgb(138, 90, 240), rgb(74, 93, 239));
+            /*创建一个线性渐变，指定两种颜色*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*居中对齐弹性盒的各项 <div> 元素*/
+        }
+        
+        .container {
+            width: 360px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            /*盒子上方样式*/
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            /*盒子左方样式*/
+        }
+        
+        .container input[type="text"] {
+            width: 100%;
+            height: 100px;
+            margin: 5px;
+            outline: none;
+            /*outline设置元素周围的轮廓*/
+            border: none;
+            color: white;
+            font-size: 30px;
+            text-align: right;
+            padding-right: 10px;
+            background: transparent;
+            /*transparent为background-color的一个参数值，其表示背景透明*/
+        }
+        
+        .container input[type="button"] {
+            height: 65px;
+            color: white;
+            width: calc(100% / 4 - 5px);
+            /*计算 CSS 的属性值，动态计算长度值。*/
+            background: transparent;
+            border-radius: 12px;
+            margin-top: 15px;
+            outline: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .container input[type="button"]:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        /*鼠标放到按钮时产生的效果变化*/
+        
+        .container input[type="button"]:active {
+            background-color: rgb(144, 144, 222);
+            box-shadow: 0 3px rgb(120, 87, 231);
+            transform: translateY(2px);
+            /*定义转换，只是用 Y 轴的值，即Y轴的变化*/
+        }
+        /*点击按钮时Y轴产生的效果变化*/
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <form action="#" name="forms">
+            <input type="text" name="answer">
+            <div class="buttons">
+                <input type="button" value="AC" onclick="forms.answer.value =' '">
+                <input type="button" value="DEL" onclick="forms.answer.value = forms.answer.value.substr(0 ,forms.answer.value.length -1)">
+                <input type="button" value="%" onclick="forms.answer.value +='%'">
+                <input type="button" value="/" onclick="forms.answer.value +='/'">
+            </div>
+            <div class="buttons">
+                <input type="button" value="7" onclick="forms.answer.value +='7'">
+                <input type="button" value="8" onclick="forms.answer.value +='8'">
+                <input type="button" value="9" onclick="forms.answer.value +='9'">
+                <input type="button" value="*" onclick="forms.answer.value +='*'">
+            </div>
+            <div class="buttons">
+                <input type="button" value="4" onclick="forms.answer.value +='4'">
+                <input type="button" value="5" onclick="forms.answer.value +='5'">
+                <input type="button" value="6" onclick="forms.answer.value +='6'">
+                <input type="button" value="-" onclick="forms.answer.value +='-'">
+            </div>
+            <div class="buttons">
+                <input type="button" value="1" onclick="forms.answer.value +='1'">
+                <input type="button" value="2" onclick="forms.answer.value +='2'">
+                <input type="button" value="3" onclick="forms.answer.value +='3'">
+                <input type="button" value="+" onclick="forms.answer.value +='+'">
+            </div>
+            <div class="buttons">
+                <input type="button" value="00" onclick="forms.answer.value +='00'">
+                <input type="button" value="0" onclick="forms.answer.value +='0'">
+                <input type="button" value="." onclick="forms.answer.value +='.'">
+                <input type="button" value="=" onclick="forms.answer.value = eval(forms.answer.value)">
+            </div>
+        </form>
+    </div>
+
+
+
+
+</body>
+
+</html>

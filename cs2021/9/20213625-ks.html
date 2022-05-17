@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style type="text/css">
+    * {
+        text-align: center;
+        height: 40px;
+        font-size: 30px;
+        font-family: 楷体;
+    }
+    
+    input {
+        background-color: aqua;
+        width: 80px;
+        margin: 4px 4px;
+    }
+    
+    input:hover {
+        background-color: rgb(190, 190, 190);
+    }
+    
+    input:active {
+        color: rgb(250, 250, 250);
+        border: inset 2px solid;
+    }
+    
+    #output {
+        width: 340px;
+        background-color: blanchedalmond;
+    }
+</style>
+</head>
+
+<body>
+    <input type="text" value="" id="output">
+    <script>
+        var but = ['1', '2', '3', '+', '4', '5', '6', '-', '7', '8', '9', '*', '.', '0', 'AC', '/', "=", "->"];
+        var output = document.querySelector('input#output');
+        for (var i = 0; i < but.length / 4; i++) {
+            var div = document.createElement('div'); // 创建一个div
+            for (var j = 0; j < 4; j++) {
+                if (i * 4 + j < but.length) {
+                    var input = document.createElement('input'); // 创建一个input
+                    input.type = "button"; //规定input的风格
+                    input.value = but[i * 4 + j]; //规定input的value
+                    input.id = but[i * 4 + j]; //为每一个生成的input添加一个id
+                    input.onclick = function() {
+                        output.value += this.value; //将当前点击的value赋给output
+                    };
+                    div.appendChild(input); //在节点中添加一个新的input
+                }
+            }
+            document.body.appendChild(div); //在节点在添加一个新的div
+        }
+        document.getElementById("=").onclick = function() {
+                output.value = eval(output.value);
+            } //找到id为“=”，点击之后使其进行计算得出结果
+        document.getElementById("AC").onclick = function() {
+                output.value = "";
+            } //找到id为“AC”，点击之后使其归零
+        document.getElementById("->").onclick = function() {
+            var m = output.value.substring(0, output.value.length - 1); //截取output.value中第一位到它的前一位并赋值给m
+            output.value = m; //再将m赋值给output.value
+        }
+    </script>
+</body>
+
+</html>

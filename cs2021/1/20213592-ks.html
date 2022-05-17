@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <style lang="css">   /*style 修饰*/
+        body{
+            text-align: center;    /*让其内容居中*/
+            margin:50px;      /*设置边距*/
+            height: auto;    /*设置行高*/
+            text-shadow: 6px 6px;   /*设置shadow*/
+            border-radius: 5%;    /*设置边框的圆角*/
+        }
+        input{
+            text-shadow: 12px 12px;   /*设置shadow*/
+            border-radius: 10%;    /*设置边框的圆角*/
+            height: 50px;     /*定义行高*/
+            width: 70px;    /*定义宽度*/
+            margin-right: 9px;  /*边距有距离9px*/
+            margin-top: 9px;   /*设置顶部边距9px*/
+        }
+        input:active{
+            border: outset;   /*定义边框突起*/
+        }
+        input:hover{
+            background-color: brown;    /*当鼠标光电移动到input里时的背景颜色*/
+            font-display: green;        /*当鼠标光标移到input时的字体颜色*/
+            font-size: large;     /*定义字体大小*/
+            cursor: grab;  /*定义一个光标,抓取样式*/
+        }
+    </style>
+    <body></body><!--页面结构身体-->
+    <script lang="javascript">       //script的动态修饰
+    document.body.style.textAlign="center";                //区别于上述css中对程序中input的修改,可以让程序里的此input独立出来,不受css管辖,make whole content in the middle of window
+        document.body.style.margin="50px";                  //set margin 50px
+        document.body.style.lineHeight="50px";              //set lineheight 50px
+        var showText=document.createElement("input");      //creat a element which called input and has the same function in html
+        showText.type="text";                               //set this elemrnt's type in text
+        showText.style.width='307px';                       //set width 307px
+        showText.style.height="40px";                       //set height 40px
+        document.body.appendChild(showText);                //append this element into html structure
+        document.write("</br>")                    //定义换行
+    var set=["AC","1","2","3","+","4","5","6","-","7","8","9","*","0",".","/","="];  //定义一个数组,其包含计算器基本按键
+    var i;   //定义一个循环的数字
+    for(i=0;i<set.length;i++){   //定义一个循环,让每一个按键都可以被显示出来,并且具备功能 
+        var but=document.createElement("input");   //创建计算机按钮
+                but.type="button";               //按钮类型为按钮   
+                but.value=set[i];           //确定按钮的符号
+                document.body.appendChild(but);         //将elment加入页面中,body
+                but.onclick=function  show(){       //跟随循环,将按钮更能一并完成
+                    showText.value+=this.value;     //点击一次,显示按钮数在text中
+                }                       
+                if(i%4==0){                    //定义换行条件,如果取余为0,则换行
+                    document.write("</br>");
+                }  
+    }
+    var a=document.querySelectorAll("input");    //获取所有的input
+    a[1].onclick=function (){        //定义其清除功能
+        var thing=showText.value;     //定义thing,且获取文本value
+        thing=thing.substring(0,0);    //给thing一个不打印空的东西
+        showText.value=thing;  //将thing的null传给showtext里去
+    }
+    a[a.length-1].onclick=function(){     //定义其计算功能
+				var thing=showText.value;   //还是定义thing,也可以不,将showtext的value传给thing
+						var result;
+						try        //try,catch异常处理机制,并对结果进行计算
+						{
+							result=eval(thing);  //将值传递给result
+						}
+						catch (err)     //如若不,则有err负责显示
+						{
+							result=err;
+						}
+						showText.value=result;  //最后打印出结果到showtext.value上		
+	}
+    document.body.onkeydown=function(){  
+        var thing=showText.value;   //还是定义thing,也可以不,将showtext的value传给thing
+						var result;
+						try        //try,catch异常处理机制,并对结果进行计算
+						{
+							result=eval(thing);  //将值传递给result
+						}
+						catch (err)     //如若不,则有err负责显示
+						{
+							result=err;
+						}
+						showText.value=result;  //最后打印出结果到showtext.value上		
+    }
+    </script>
+</html>

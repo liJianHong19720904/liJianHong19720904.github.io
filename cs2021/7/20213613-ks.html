@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第十一次作业</title>
+    <style>
+        body{
+            text-align: center;/*将文本位置居中*/
+        }
+
+
+        #JIA,#JIAN,#CHU,#CHENG,#ENTER{
+            background-color: orange;/*将以上几个按钮的背景设为橘色*/
+        }
+
+        #C,#B,#BFZ{
+            background-color:rgb(211, 208, 208);/*将以上几个按钮的背景用rgb调色*/
+            color: black;/*将字体颜色设为黑*/
+        }
+
+        #ZERO{
+            width: 150PX;/*设置zero按钮的宽度为150px*/
+
+        }
+
+        h1{
+            font-size:50px;/*大标题h1字体大小设为50px*/
+            color: rgb(77, 32, 32); /*用rgb设置字体颜色*/
+        }
+
+        input{
+            cursor: pointer; /*当光标移动到input上时，将光标变为手指*/
+            font-size: 50px; /*设置input中的字体大小为50px*/
+            width: 75px; /*设置按钮宽度为75px*/
+            height: 75px; /*设置按钮高度为75px*/
+            border-radius: 37.5px;  /*设置按钮四个角的弧度，让按钮正好变成圆形*/
+            margin: 5px; /*设置每个按钮之间的间距为5px*/
+            background-color: rgb(76, 73, 73); /*用rgb设置背景颜色*/
+            color: white; /*将按钮中字体颜色设为白*/
+        }
+        input:active{
+            transform: scale(0.97);/*在点击时，让按钮产生形变，缩小为原来的0.97倍，从而产生向下凹陷的效果*/
+        }
+
+        #num{
+            border:2px solid white; /*设置该按钮边框宽度为2px，实线，变色*/
+            width: 320px; /*设置按钮宽度为320px*/
+            height: 75px; /*设置按钮高度为75px*/
+            background-color: black; /*将该按钮背景设为黑色*/
+            border-radius: 0px; /*将边框四个角的弧度变为0px*/
+        }
+      
+    </style>
+</head>
+
+<body>
+    <h1>简易在线计算器</h1>
+    <!--创建一个文本框作为计算器的显示屏幕，命名为num-->
+    <input type="text"  id="num">
+</body>
+
+<script>
+    var keyboard=["C","B","**","/","7","8","9","*","4","5","6","-","1","2","3","+","0",".","="];//创建一个数组，用于给后面循环产生的按钮赋值
+    var boardname=['C','B','BFZ','CHU','SEVEN','EIGHT','NINE','CHENG','FOUR','FIVE','SXI','JIAN','ONE','TWO','THREE',
+'JIA','ZERO','DIAN','ENTER'];//创建一个数组，用于给后面循环产生的按钮命名
+/*第一层循环，创建盒子，并且每四个元素一个盒子*/
+    for(var i=0;i<keyboard.length/4;i++){
+        var div=document.createElement("div");//创建盒子
+        /*第二层循环，生成按钮，并将按钮一一赋值、命名、确定类型*/
+            for(var j=0;j<4;j++){
+                if(i*4+j<keyboard.length){  //判断是否循环次数超过了keyboard中的元素数量
+                    var input=document.createElement("input");  //创建一个按钮
+                    input.type="button";    //将循环产生的按钮确定类型为“botton”
+                    input.value=keyboard[i*4+j];    //调用数组keyboard,将按钮一一赋值
+                    input.id=boardname[i*4+j];  //调用数组boardname，将按钮一一命名
+                    div.appendChild(input); //将按钮加入盒子
+                    input.onclick=function(){
+                        num.value += this.value;//将按钮中的值传递给文本框
+                    }
+                }
+            }
+        document.body.appendChild(div);//在body中加入创建的盒子
+    }
+
+    /*清空屏幕*/
+    C.onclick=function(){
+        num.value="";//将文本框num的内容替换为空，达到清空屏幕的目的
+    }
+
+    /*退一位*/
+    B.onclick=function(){
+        var lkhdsg=num.value; //将文本框num中的内容赋值给lkhdsg
+        num.value=lkhdsg.substring(0,lkhdsg.length-1); //用substring函数，截取字符串lkhdsg从0到倒数第二个字符的位置，生成一个子字符串并赋给文本框num的内容,达到退格的目的
+    }
+
+    /*计算结果*/
+    ENTER.onclick=function(){
+        num.value = eval(num.value); //用eval函数，将输入文本框的字符串当做一个表达式去执行，并将最终结果赋值到文本框的内容中
+    }
+
+    /*功能有待完善，需要先点击空白处再按enter才有效*/
+    document.onkeydown=function(e){
+        if(e.code=13){//当按下的按键为enter
+            num.value = eval(num.value);}
+ }
+
+       
+</script>
+</html>

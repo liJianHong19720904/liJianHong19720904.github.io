@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>简易计算器</title>
+		<style type="text/css">
+			*{
+				margin: auto;
+				padding: 0px;
+				text-align: center;
+				font-family: "微软雅黑";
+			}
+			.content{
+				border-radius: 10%;/*实现圆角边框*/
+				width: 400px;
+				height: 550px;
+				background-color: antiquewhite;
+			}
+			.clear{
+				border-radius: 50%;/*实现圆形边框*/
+				width: 20%;/*父元素宽度百分比*/
+				height: 72px;
+				background-color: #FF4500;
+			}
+			#result{
+				margin-top: 24px;
+				font-size: 16px;
+				width: 60%;/*父元素宽度百分比*/
+				height: 72px;
+				text-align: left;
+				border-radius: 20px;
+				background-color: #FFE4C4;
+			}
+			.symbol{
+				margin-top: 36px;
+				font-size: xx-large;/* medium的2倍( h1预设值)*/
+				border-radius: 50%;/*实现圆形边框*/
+				width: 20%;/*父元素宽度百分比*/
+				height: 72px;
+				background-color:bisque;/*橘黄色*/
+			}
+			.number{
+				margin-top: 36px;
+				font-size: xx-large;
+				border-radius: 50%;			
+				width: 20%;
+				height: 72px;
+				background-color:beige;/*米色 */
+			}
+			.calculate{
+				margin-top: 36px;/* 上外边距 */
+				font-size: xx-large;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color: #FF4500;
+			}
+			.content input:hover{
+				box-shadow: 5px 5px 5px #888888;/* 鼠标停留时盒子阴影改变*/
+			}
+			.content input:active{
+				background-color: #FF0000;
+			}/*鼠标点击一瞬间背景颜色改变*/
+		</style>
+		<script type="text/javascript">	
+			function clearValue(){
+				document.getElementById("result").value="";
+			}/*定义clear函数实现清除数据*/
+			function get(value){
+				document.getElementById("result").value+=value;
+			}
+			function calculate(){
+				var result=0;
+				result=document.getElementById("result").value;/*将按键内容以字符串形式存储在文本框中*/
+				document.getElementById("result").value="";
+				document.getElementById("result").value=eval(result);/*编译字符串算式*/
+			};
+		</script>
+	</head>
+	<body>
+	    <input >
+		<script type="text/javascript">
+     
+        </script>
+       <div class="banner">
+			<h2>
+				简 易 计 算 器
+			</h2>
+		</div>
+			<br />
+		<div class="content">
+			<input type="button" value="清 除" class="clear" onclick="clearValue()"/>
+			<input type="text" id="result" readonly="readonly" placeholder="运 算 结 果 显 示"/>
+				<br />
+			<input type="button" value="1" class="number" onclick="get(this.value)"/>
+			<input type="button" value="2" class="number" onclick="get(this.value)"/>
+			<input type="button" value="3" class="number" onclick="get(this.value)"/>
+			<input type="button" value="+" class="symbol" onclick="get(this.value)"/>
+				<br />
+			<input type="button" value="4" class="number" onclick="get(this.value)"/>
+			<input type="button" value="5" class="number" onclick="get(this.value)"/>
+			<input type="button" value="6" class="number" onclick="get(this.value)"/>
+			<input type="button" value="-" class="symbol" onclick="get(this.value)"/>
+				<br />
+			<input type="button" value="7" class="number" onclick="get(this.value)"/>
+			<input type="button" value="8" class="number" onclick="get(this.value)"/>
+			<input type="button" value="9" class="number" onclick="get(this.value)"/>
+			<input type="button" value="*" class="symbol" onclick="get(this.value)"/>
+				<br />
+			<input type="button" value="0" class="number" onclick="get(this.value)"/>
+			<input type="button" value="." class="symbol" onclick="get(this.value)"/>
+			<input type="button" value="/" class="symbol" onclick="get(this.value)"/>
+			<input type="button" value="=" class="calculate" onclick="calculate()"/>
+		</div>
+			<br />
+			</body>
+</html>
+

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>考试</title>
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+
+			html,
+			body {
+				height: 100%;
+				width: 100%;
+			}
+            .main{
+				width: 400px;
+				height: 700px;
+				margin: 0px auto;
+			}
+			.main .display {
+				height: 200px;
+				width: 400px;
+				background-color: rgb(233, 233, 233);
+				/* border: solid rgb(255,255,255) 1px; */
+			}
+
+			.main .display .line {
+				height: 100px;
+				line-height: 150px;
+				text-align: right;
+				font-size: 30px;
+				padding-right: 10px;
+				box-sizing: border-box;
+			}
+
+			.main .display .line#first-line {
+				letter-spacing: 12px;
+			}
+
+			.main .display .line#second-line {
+				font-size: 50px;
+				line-height: 140px;
+			}
+
+			.main .btn .table {
+				width: 400px;
+				height: 500px;
+				text-align: center;
+				font-size: 30px;
+				border: solid rgb(215, 215, 215) 1px;
+			}
+
+			.table td {
+				width: 100px;
+			}
+
+			.main .btn .table .num {
+				background-color: rgb(224, 224, 224);
+			}
+
+			.main .btn .table .step {
+				background-color: rgb(245, 146, 51);
+				color: white;
+			}
+
+			.main .btn .table .other {
+				background-color: rgb(214, 214, 214);
+			}
+
+			.main .btn .table .other:active {
+				background-color: rgb(200, 200, 200);
+			}
+
+			.main .btn .table .num:active {
+				background-color: rgb(200, 200, 200);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<div class="display">
+				<div class="line" id="first-line">
+
+				</div>
+				<div class="line" id="second-line">
+					0
+				</div>
+			</div>
+			<div class="btn">
+				<table border="" class="table">
+
+					<tr>
+						<td class="other btm" data-value="AC">AC</td>
+						<td class="other btm" id="abs">+/-</td>
+						<td class="other btm" id="percentage">%</td>
+						<td class="step btm" data-value="/">/</td>
+					</tr>
+					<tr>
+						<td class="num btm" data-value="7">7</td>
+						<td class="num btm" data-value="8">8</td>
+						<td class="num btm" data-value="9">9</td>
+						<td class="step btm" data-value="*">×</td>
+					</tr>
+					<tr>
+						<td class="num btm" data-value="4">4</td>
+						<td class="num btm" data-value="5">5</td>
+						<td class="num btm" data-value="6">6</td>
+						<td class="step btm" data-value="-">-</td>
+					</tr>
+					<tr>
+						<td class="num btm" data-value="1">1</td>
+						<td class="num btm" data-value="2">2</td>
+						<td class="num btm" data-value="3">3</td>
+						<td class="step btm" data-value="+">+</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="num btm" data-value="0">0</td>
+						<td class="num btm" data-value=".">.</td>
+						<td class="step btm" data-value="=">=</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var btm = document.getElementsByClassName('btm')
+			var persimmom = "";
+			var result = '';
+			var back = ''
+			var firstLine = document.getElementById('first-line')
+			var secondLine = document.getElementById('second-line')
+			var percentage = document.getElementById('percentage')
+            var abs = document.getElementById('abs')
+			var handleClick = function(value) {
+				
+				//获取值得到结果将其填入到页面中
+				if (value == null) {
+					return
+				} else {
+					if (value == '=') {
+        
+						//得出结果
+						// console.log(persimmom)
+						result = eval(persimmom);
+						secondLine.innerHTML = result;
+						//备份式子
+						 back  = persimmom
+						//按完等号之后让式子清空
+						persimmom = '';
+						return
+					} else {
+						persimmom = persimmom + value;
+					}
+
+
+				}
+				firstLine.innerHTML = persimmom;
+				
+				if (value == 'AC') {
+					persimmom = ''
+					result = ''
+					firstLine.innerHTML = ''
+					secondLine.innerHTML = 0
+				}
+
+			}
+             //获取你点击数字的值
+			for (var i = 0; i < btm.length; i++) {
+				btm[i].addEventListener('click', function() {
+					var dataValue = this.getAttribute('data-value')
+					handleClick(dataValue);
+					// console.log(this.getAttribute('data-value'))
+				})
+			}
+			//(有两个对象，1是在没有运算出结果的时候，这时候是一个式子，你要对她取反，需要考虑到这个式子是一个字符串，而对计算之后的结果取反，结果是一个数字类型，相对而言比较好操作)
+			//取百分数(对结果进行操作)
+			percentage.addEventListener("click", function(e) {
+
+				result = parseFloat(result) / 100
+				secondLine.innerHTML = result
+
+
+			})
+			//取相反数(对结果进行操作)
+			abs.addEventListener('click',function(){
+				console.log(result)
+				result =  -result 
+				secondLine.innerHTML = result
+				console.log(result)
+			})
+			//下面是对式子进行操控,让他取相反数,
+			//这个时候不要忘记,在handleClick函数中,你按完=之后,你将式子清零了,这时候式子是一个空字符串,需要在handleClick函数中将式子再备份一下.
+		</script>
+	</body>
+</html>
+
+

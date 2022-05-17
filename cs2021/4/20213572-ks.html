@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+    <title>智能计算机</title>
+	 <style type="text/css">
+				body
+				{
+					text-align:center;
+				}
+				input
+				{
+					color:blue;
+					border-radius:25px;/* 边框半径 */
+					font-size:38px;
+					cursor:pointer;/* 光标 */
+					box-shadow:4px 3px rgba(255,140,0,0.6);/* 阴影 */
+					background-color:red;
+					width:60px;
+					height:60px;
+					margin:15px;
+				}
+				input:hover
+				{
+					border:outset;/* 边框凸起 */
+					box-shadow:8px 6px rgba(255,140,0,0.8);
+				}
+				input:active
+				{
+					border:inset;/* 边框凹陷 */
+					box-shadow:4px 3px rgba(255,140,0,0.8);
+				}
+				input#output
+				{
+					width:350px;
+					height:40px;
+					border:inset;/* 边框凹陷 */
+					box-shadow:none;
+					text-align:center;
+				}
+			 </style>
+ </head>
+ <body>
+<p></p>
+ <input type="button" id="output">
+ <script type="text/javascript">
+ <!--
+ var bt=["1","2","3","4","5","6","7","8","9","0","+","-","*","/","ac","="];
+ var i=0,j=0;
+	 for(i=0;i<bt.length/4;i++){//循环设计行数
+		var div=document.createElement('div');/*设计盒子*/
+		for(j=0;j<4;j++){//循环设计每行按钮个数
+			var input=document.createElement("input");/*定义元素*/
+			input.type="button";/*变成按钮*/
+			input.value=bt[i*4+j];
+			input.id=bt[i*4+j];/*定义input的id*/ 
+			input.onclick=function(){
+		output.value+=this.value;/*显示在屏幕的东西*/
+	}
+            div.appendChild(input);
+		}document.body.appendChild(div);
+	 }
+	var ac=document.getElementById("ac");
+	 ac.onclick=function(){
+	 output.value="";
+	 }
+	 var Enter = document.getElementById("=");
+	 Enter.onclick=function(){
+							var a=output.value;
+							var result;
+							try
+							{
+								result=eval(a);
+							}
+							catch (err)
+							{
+								result=err;
+							}
+							output.value=result;
+					}
+		document.body.onkeydown = function(e){
+		   if(e.keyCode = 13){
+					    var a=output.value;
+						var result;
+						try
+						{
+							result=eval(a);
+						}
+						catch (err)
+						{
+							result=err;
+						}
+						output.value=result;
+					}//回车弹出答案，但答案不对，后面会连上第二个输入的数字
+		   
+		   }
+		
+
+ //-->
+ </script>
+  
+ </body>
+</html>

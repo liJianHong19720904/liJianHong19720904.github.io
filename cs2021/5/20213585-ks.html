@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>我的计算器</title>
+<style type="text/css">
+input{  
+      border:outset 2px solid;/*给文本加边框*/
+	  border-radius:60px;/*框四角的弧度*/
+	  width:50px;/*框的宽度*/
+	  height:50px;/*框的高度*/
+	  font-size:40px;/*数字和符号在框内的大小比列*/
+	  text-align:center;/*文本居中*/
+	  margin:10px;/*各个数字框之间的距离*/
+	  color:black;/*数字，符号和边框的颜色*/
+	  background-color:#F0FFF0;/*鼠标没放上去之前数字框内的颜色*/
+	  cursor:pointer;/*设定鼠标的形状为一只伸出食指的手*/
+	  } 
+input:hover{
+            background-color:#98FB98;/*鼠标放在数字和符号的框上变色*/
+			}
+input:active{
+            color:red;/*点击数字或符号后，数字和符号变色*/
+			
+			}
+input#output{
+            display:block;
+			width:280px;/*最上面计算框的宽度*/
+			}
+input#enter{  
+   width:100px;
+   border-radius: 5px;
+   } 
+input#calculator{  
+   width:50px;
+   border-radius: 5px;
+   }	
+</style>
+</head>
+<body>
+<h1>calculator</h1>
+<!--input元素的text类型创建基础的单行文本框,点击按钮有文本框显示内容-->
+<input type="text"  id= "output" >
+<script>
+var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ;
+//设置数组
+var output = document.querySelector('input#output') ;
+//抓取output
+for (var i=0;i < SYMBOL.length / 4;i++)//每行四个按钮排列
+    {  
+	var div = document.createElement('div');//创建div元素
+
+for(var j=0;j<4;j++ )
+    {
+    if (i * 4 + j < SYMBOL.length)
+	{var input = document.createElement('input');//创建input元素并定义名字为input
+	     input.type = "button" ;//设置input的属性为按钮
+	     input.value = SYMBOL[i * 4 + j];//按钮显示的为之前定义的数组的内容
+		 //设置input的匿名函数的功能
+	     input.onclick = function()
+	     {
+	      output.value += this.value;
+	     }; 
+	      div.appendChild(input);//input的内容放入div
+	     }
+	     }
+          document.body.appendChild(div);//将上面的刚刚加入的div加入到body中(bad)
+	      }
+     var inputs = document.querySelectorAll('input');
+         inputs[inputs.length -1].style.width = '200px';
+         inputs[inputs.length -2].onclick = function()
+         { var s = output.value;
+               s = s.substring(0, s.length - 1);
+               output.value = s;
+         }; 
+         inputs[inputs.length -1].onclick = function()
+         { var s = output.value;
+    var result;//输出结果
+    try {
+	     result = eval(s);
+	    }
+    catch (err) {result = err;}
+          output.value = result;
+        };
+enter.onclick = function(){
+         output.value=eval(output.value);
+        }; //归零函数，把输出东西清空
+AC.onclick = function(){
+         output.value=" ";
+        }; 
+</script>
+</body>
+</html>

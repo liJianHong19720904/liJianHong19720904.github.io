@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>简易计算器</title>
+		<style type="text/css">
+			*{
+				margin: auto;
+				padding: 0px;
+				text-align: center;
+				font-family: 宋体;
+			}
+			.content{
+				border-radius: 10%;
+				width: 400px;
+				height: 650px;
+				background-color: purple;
+			}
+			.clear{
+			    font-size:25px;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color: #FF4500;
+			}
+			#result{
+				margin-top: 24px;
+				font-size: 40px;
+				width: 60%;
+				height: 72px;
+				text-align: left;
+				border-radius: 20px;
+				background-color: #FFE4C4;
+			}
+			.symbol{
+				margin-top: 36px;
+				font-size: xx-large;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color:bisque;
+			}
+			.number{
+				margin-top: 36px;
+				font-size: xx-large;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color:orange;
+			}
+			.calculate{
+				margin-top: 36px;
+				font-size: xx-large;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color: #FF4500;
+			}
+			.back{
+			    margin-top: 36px;
+				font-size: xx-large;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color: white; 
+			}
+			.content input:hover{/*鼠标放在按钮上出现阴影*/
+				box-shadow: 5px 5px 5px #888888;
+			}
+			.content input:active{/*按下按钮出现颜色变化*/
+				background-color: #FF0000;
+			}
+		</style>
+		<script type="text/javascript">
+			function clearValue(){
+				document.getElementById("result").value="";
+				//出现的value会变成空字符串
+			}
+			function get(value){
+				document.getElementById("result").value+=value;
+                //原来的value加上后来出现的value组成新的value
+			}
+			function calculate(){
+				var result=0;
+				result=document.getElementById("result").value;
+				document.getElementById("result").value="error";
+				//不能得到value则输出错误
+				document.getElementById("result").value=eval(result);
+				//计算result中的式子
+			}
+			function back(){
+			     var result=document.getElementById("result");
+				 document.getElementById("result").value=result.value.substring(0,result.value.length-1);
+				 //原来的value被赋值后来的value的字符串的长度-1
+			};
+           
+		</script>
+	</head>
+	<body>
+		<div class="banner">
+			<h2>
+				简 易 计 算 器
+			</h2>
+		</div>
+			<br/>
+		<div class="content">
+			<input type="button" value="清 除" class="clear" onclick="clearValue()"/><!--点击按钮后会运用函数 -->
+			<input type="text" id="result" readonly="readonly" placeholder="运 算 结 果 显 示"/>
+				<br/>
+			<input type="button" value="1" class="number" onclick="get(this.value)"/>
+			<input type="button" value="2" class="number" onclick="get(this.value)"/>
+			<input type="button" value="3" class="number" onclick="get(this.value)"/>
+			<input type="button" value="+" class="symbol" onclick="get(this.value)"/>
+				<br/>
+			<input type="button" value="4" class="number" onclick="get(this.value)"/>
+			<input type="button" value="5" class="number" onclick="get(this.value)"/>
+			<input type="button" value="6" class="number" onclick="get(this.value)"/>
+			<input type="button" value="-" class="symbol" onclick="get(this.value)"/>
+				<br/>
+			<input type="button" value="7" class="number" onclick="get(this.value)"/>
+			<input type="button" value="8" class="number" onclick="get(this.value)"/>
+			<input type="button" value="9" class="number" onclick="get(this.value)"/>
+			<input type="button" value="*" class="symbol" onclick="get(this.value)"/>
+				<br/>
+			<input type="button" value="0" class="number" onclick="get(this.value)"/>
+			<input type="button" value="." class="symbol" onclick="get(this.value)"/>
+			<input type="button" value="/" class="symbol" onclick="get(this.value)"/>
+			<input type="button" value="=" class="calculate" onclick="calculate()"/>
+			    <br/>			
+			<input type="button" value="退格" class="back"
+			onclick="back()"/>
+		</div>
+			<br/>
+		
+	</body>
+</html>
+

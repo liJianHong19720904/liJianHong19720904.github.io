@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<title>计算器</title> 
+<style type="text/css"> 
+input{ 
+		border:outset 10px solid ; 
+		border-radius:100px;  
+		width:100px;  
+		height:100px;  
+		font-size:110px;  
+		text-align:center;  
+		margin:20px;  
+		color:rgb(205,92,92);  
+		background-color:rgb(255,127,36);  
+		cursor:pointer; 
+	} 
+input:hover{  
+			background-color:rgb(255,127,80); 
+			} 
+input:active{  
+			color:rgb(255,48,48);  
+			border:inset 2px solid ; 
+			} 
+input#output{   
+			display:block; 
+			width:200px; 
+			} 
+</style> 
+</head> 
+<body> 
+<h1>计算器</h1> 
+<input type="text" value="" id= "output" > 
+<script>  var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ;  
+var output = document.querySelector('input#output') ;  
+for (var i=0; i < SYMBOL.length / 4; i++)
+{  
+	var div = document.createElement('div') ;    
+	for (var j=0; j<4; j++ )
+	{   
+		if (i * 4 + j < SYMBOL.length) 
+		{  
+			var input = document.createElement('input') ;
+			input.type = "button" ;
+			input.value = SYMBOL[i * 4 + j] ;
+			input.onclick = function()
+			{   
+				output.value += this.value ;
+			};   
+				div.appendChild(input) ; 
+		} 
+	}    
+	document.body.appendChild(div) ;  
+} 
+    var inputs = document.querySelectorAll('input'); 
+	inputs[inputs.length -1].style.width = '200px'; 
+	inputs[inputs.length -2].onclick = function()
+	 { 
+	   var s = output.value ;
+	   s = s.substring(0, s.length - 1);   
+	   output.value = s ; 
+	  }; 
+	 inputs[inputs.length -1].onclick = function()
+	 { 
+		var s = output.value ; 
+		var result ;   
+		try 
+		{  
+			result = eval(s) ; 
+	    } 
+	    catch (err) 
+	     {    
+		   result = err ; 
+	     }   
+		output.value = result ; 
+	  }  ;  
+	</script>
+	</body>
+	</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>简易计算机</title>
+  <style type="text/css">
+   body{
+         text-align:center;/*调整位置使其居中对齐*/
+       }
+  input{
+         border:outset 2px solid;/*实线外斜面边框*/
+		 border-radius:20px;/*设置元素的外边框圆角*/
+		 width:50px;/*按钮宽度*/
+		 height:50px;/*按钮高度*/
+		 font-size:40px;/*字体大小*/
+		 margin:10px;/*按钮之间的间距*/
+		 color:rgb(20,50,100,);/*颜色调整*/
+		 cursor:crosshair;/*光标形状*/
+       }
+   input:hover{
+               font-size:45px;/*当鼠标放在按钮上字体大小变化*/
+              }
+  input:active{
+               color:rgb(200,10,20);/*颜色变化*/
+			   border:inset 2px solid;/*实线内斜面边框*/
+              }
+  input#output{
+               display:block;/*元素显示为块级元素*/
+			   width:280px;/*设置宽度*/
+              }
+  input[value="Enter"]{
+	   width:150px;}/*调整Enter按钮的宽度*/
+ </style>
+ </head>
+ <body>
+ <center>
+ <input type="text" value="" id="output">
+ </center>
+ <script>
+ var aa=['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','C','<-','Enter'];/*定义数组*/
+ for(i=0;i<aa.length/4;i++)
+ {var div=document.createElement('div');
+   for(j=0;j<4;j++){
+   if(i * 4 + j < aa.length){
+	  var input=document.createElement('input');
+        input.type="button";
+		input.value=aa[i*4+j];
+		input.onclick=function(){output.value+=this.value;}
+		/*使用循环动态生成按钮，并使用div来完成格式调整*/
+	 div.appendChild(input);/*将生成的input加到生成的div中*/
+
+   }
+   }
+ 
+  document.body.appendChild(div);/*将div加到body中*/
+ }
+ </script>
+ <script>
+ var inputs=document.querySelectorAll("input");/*通过选择器将所有按钮抓取进一个数组*/
+ inputs[inputs.length-2].onclick=function(){
+	                                         var str=output.value;
+											 str=str.substring(0,str.length-1);/*运用substring完成回退*/
+											 output.value=str;/*定义回退相关函数*/
+ }
+ inputs[inputs.length-1].onclick=function(){
+	                                         var str=output.value;
+											 var result;
+											 try{
+											 result=eval(str);}/*运用eval函数计算*/
+											 catch(err){
+												        result=err;}
+											 output.value=result;/*定义enter函数并检错*/
+ }
+ inputs[inputs.length-3].onclick=function(){
+	                                         var str=output.value;
+											 str="";
+											 output.value=str;/*定义全删函数*/
+ }
+ </script>
+
+  
+ </body>
+</html>

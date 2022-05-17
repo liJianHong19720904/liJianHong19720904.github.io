@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"> 
+<head>
+<meta charset="UTF-8">
+<title>我的计算器</title> 
+<style type="text/css"> 
+
+input{ 
+cursor:pointer;
+transition-duration: 0.4s; /* 检索或设置对象过渡的持续时间 */
+background-color:#bd2062;
+display: inline-block;
+width: 100px;
+height: 100px;
+font-size: 10px;
+border-radius: 10px;/*允许为元素添加圆角边框*/
+}
+input#output{  
+display:block;
+width: 400px;
+} /*设置id属性（id选择器）*/
+input:hover{ 
+background-color: #71da1b;
+    color: rgb(234, 13, 215);
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}/*设置背景颜色和盒子背景阴影效果*/
+input:active{
+  background-color: #3e8e41;
+  box-shadow:0 5px #666;
+  transform: translateY(4px);/*通过给定Y方向的数目指定一个translation*/
+}
+
+
+</style>
+		<title>计算器</title>
+	</head>
+	<body>
+		<input type="text" value="" id="output">
+		<script type="text/javascript">
+			var box=['CE','%','DEL','/','1','2','3','4','5','6','7','-','8','9','*','+','00','0','.','ENTER'];/*button命名*/
+			var i,j;
+			for(i=0;i<box.length/4;i++)
+				{
+					var div=document.createElement('div');
+					for(j=0;j<4;j++)
+						{
+							if(i*4+j<box.length)
+								{
+									var input=document.createElement('input');
+									input.type="button";
+									input.value=box[i*4+j];
+									input.onclick=function()
+											{
+												output.value+=this.value;
+											}
+									div.appendChild(input);
+									document.body.appendChild(div);
+								}
+						}
+				}
+			var inputs=document.querySelectorAll('input');
+			inputs[1].onclick=function()
+					{
+						var a=output.value;
+						a=a.substring(0,0);
+						output.value=a;
+					}
+			inputs[inputs.length-1].onclick=function()
+					{
+						var a=output.value;
+						var result;
+						try
+						{
+							result=eval(a);
+						}
+						catch (err)/*错误检索*/
+						{
+							result=err;
+						}
+						output.value=result;
+					};
+			inputs[3].onclick=function()
+					{
+						var a=output.value;
+						a=a.substring(0,a.length-1);
+						output.value=a;
+					};
+		</script>
+	</body>
+</html>
+
+
+  

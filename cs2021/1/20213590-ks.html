@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<style type ="text/css">
+	
+			#calculator {     /* 整体计算器 */
+				background-color: cadetblue;
+				margin: 15px auto;
+				width: 300px;
+				height: 480px;
+				border: 1px solid lightblue;
+				padding: 15px;
+			}
+			   
+			#input {
+				margin-top: 15px;	
+			}
+				
+			.screen { /* 计算机输入行*/
+				margin-top: 5px;
+				width: 284px;
+				height: 40px;
+				text-align: right;
+				padding-right: 10px;
+				font-size: 20px;
+			}
+				
+			#keys {
+				border: 1px solid rgb(239, 72, 11);/*按钮边框 */
+				height: 345px;
+				margin-top: 25px;
+				padding: 8px;
+			}
+			
+			#keys .key { 	/*按钮本身  */
+				float: left;
+				width: 50px;
+				height: 35px;
+				text-align: center;
+				background-color: lightblue;
+				margin: 5px 10px 20px 10px;
+			}
+
+			
+
+        </style>
+            </head>
+
+            <body onload="onLoad()">   <!--加载完成后光标自动到输入框 -->
+
+		<div id="calculator">
+			<div id="input">
+				<div class="screen">
+					<input type="text" id="Screen" name="Screen" class="screen" value="" onfocus="cal(this)">
+				</div>
+			</div>
+		<div id="keys">
+			<!--第1至第4排的按键 种类为按钮 给各个按钮id class规定为同一类便于css    onclick为点击后触发函数或计算 value定义按钮显示的文本-->
+
+			
+			<input type="button" id="(" class="key" onclick="cal(this.id)" value="(" />
+			<input type="button" id=")" class="key" onclick="cal(this.id)" value=")" />
+			<input type="button" id="Back" class="key" onclick="back()" value="Back" />
+			<input type="button" id="C" class="key" onclick="clearNum()" value="C" />
+
+			<input type="button" id="7" class="key" onclick="cal(this.id)" value="7" />
+			<input type="button" id="8" class="key" onclick="cal(this.id)" value="8" />
+			<input type="button" id="9" class="key" onclick="cal(this.id)" value="9" />
+			<input type="button" id="/" class="key" onclick="cal(this.id)" value="/" />
+
+			<input type="button" id="4" class="key" onclick="cal(this.id)" value="4" />
+			<input type="button" id="5" class="key" onclick="cal(this.id)" value="5" />
+			<input type="button" id="6" class="key" onclick="cal(this.id)" value="6" />
+			<input type="button" id="*" class="key" onclick="cal(this.id)" value="*" />
+
+			<input type="button" id="1" class="key" onclick="cal(this.id)" value="1" />
+			<input type="button" id="2" class="key" onclick="cal(this.id)" value="2" />
+			<input type="button" id="3" class="key" onclick="cal(this.id)" value="3" />
+			<input type="button" id="-" class="key" onclick="cal(this.id)" value="-" />
+
+			<input type="button" id="0" class="key" onclick="cal(this.id)" value="0" />
+			<input type="button" id="." class="key" onclick="cal(this.id)" value="." />
+			<input type="button" id="=" class="key" onclick="eva()" value="=" />
+			<input type="button" id="+" class="key" onclick="cal(this.id)" value="+" />
+	
+			
+		</div>
+    <script>
+	function cal(num) { //获取输入
+		document.getElementById("Screen").value += document.getElementById(num).value;
+	}
+
+	function eva() {
+		document.getElementById("Screen").value = eval(document.getElementById("Screen").value);
+	}
+	//eval() 函数计算 JavaScript 字符串，并把它作为脚本代码来执行。
+
+	function back() {
+		var n = document.getElementById("Screen");
+		n.value = n.value.substring(0, n.value.length - 1);
+	}
+
+	function clearNum() {
+		var n = document.getElementById("Screen").value="";//清零//
+		
+	}
+
+	function onLoad() {
+		//加载完毕后光标自动对应到输入框
+		document.getElementById("Screen").focus();
+	}
+</script>
+</body>

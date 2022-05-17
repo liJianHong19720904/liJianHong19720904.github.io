@@ -1,0 +1,91 @@
+
+
+<!doctype html>
+<html lang="en"> 
+<head> <meta charset="UTF-8">
+<title>我的计算器</title> 
+<style type="text/css">
+  input{  
+  border:outset 20px solid ; 
+  border-radius:50px;/*弯曲程度，我选择它完全变得圆的*/ 
+  width:50px;
+  height:50px;
+  font-size:40px;
+  margin:10px; 
+  color:green;
+  background-color:yellow;
+  cursor:pointer;
+  } 
+   input:hover{  
+   background-color:red;
+   } 
+   input:active{  
+    color:black;
+	border:inset 2px solid ;
+	}
+   input#output{  
+   display:block;
+   width:250px;}
+   input#enter{  
+   width:100px;
+   border-radius: 5px;
+   } 
+   input#AC{  
+   width:50px;
+   border-radius: 5px;
+   }
+   </style>
+</head> 
+ <body>
+  <h1>用用我的计算器</h1>
+ <!--input元素的text 类型创建基础的单行文本框,这就是为什么计算机点击按钮有文本框显示内容-->
+	<input type="text" value="AC" id= "AC" > 
+    <input type="text" value="" id= "output" > 
+	 <script>
+	 var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-'];
+	 //设置数组
+	 var output = document.querySelector('input#output') ;
+	 //抓取output
+	 
+	 for (var i=0; i < SYMBOL.length / 4; i++){
+		 //确认每行最多有四个按钮
+		 
+		 var div = document.createElement('div') ;
+		 //创建div元素
+	       for (var j=0; j<4; j++ ){ 
+			   if (i * 4 + j < SYMBOL.length) {  
+				   var input = document.createElement('input') ; 
+					//创建input元素并定义名字为input
+				   input.type = "button" ;
+					//设置input的属性为按钮
+				   
+
+				   input.value = SYMBOL[i * 4 + j] ; 
+				   //按钮显示的为之前定义的数组的内容
+
+					//设置input的匿名函数的功能，即output.value=output.value+this.value
+				   input.onclick = function(){
+					   output.value += this.value ; 
+					   }; 
+				   div.appendChild(input) ;//input的内容放入div,因该叫添加
+				   }  
+				   } 
+				   document.body.appendChild(div) ;//将上面的刚刚加入的div加入到body中，因为body是最大的dad
+				   }
+		
+    </script> 
+	
+    <input type="text" value="enter" id= "enter" >
+	<script>
+	//enter函数，把输入的结果输出
+enter.onclick = function(){
+					    output.value=eval(output.value);
+					   }; 
+
+	//归零函数，把输出东西清空，以便下一次使用
+AC.onclick = function(){
+					    output.value=" ";
+					   }; 
+	</script>
+ </body>
+</html>

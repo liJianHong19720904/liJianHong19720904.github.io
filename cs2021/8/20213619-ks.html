@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>20213619-ks.html</title>
+<style>
+/*全部按钮*/
+.b1{
+    width:50px;
+    height:35px;
+    margin-top:10px;
+    background-color:white;/*按钮颜色*/
+   }  
+/*显示器*/  
+.screen{
+        width:215px;
+        height:35px;
+        text-align: right;
+        padding-right:10px;
+        font-size:20px;
+        background-color:gray;
+       }
+/*计算器大小*/
+html{
+     width:225px;
+	 height:140px;
+     background-color:white;
+    }
+body{
+     background-color: #F2F2F2;
+     border: 5px solid #C2C3C6;
+     margin: 50px auto;
+    }
+</style>
+<script>
+
+
+function jsj(num){
+            document.getElementById("result").value+=document.getElementById(num).value;
+}
+
+
+//eval()的参数是一个字符串。如果字符串表示的是表达式，eval()会对表达式进行求值。
+function eva() {
+            document.getElementById("result").value = eval(document.getElementById("result").value);
+}
+//退格
+function tuiGe() {
+    var arr = document.getElementById("result");
+    arr.value = arr.value.substring(0, arr.value.length - 1);
+}
+</script>
+</head>
+<body>
+简易计算器
+<div id="screen"><input type="text" name="result" id="result" class="screen" placeholder=""/></div>
+<!-- <div id="buttonArea"> -->
+<!-- 创建计算器按钮-->
+<div>
+<input type="button" name="b1" value="1" id="1" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b2" value="2" id="2" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b3" value="3" id="3" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name=".." value="." id="." class="b1" onclick="jsj(this.id)"/><br/>
+</div>
+<div>
+<input type="button" name="b4" value="4" id="4" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b5" value="5" id="5" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b6" value="6" id="6" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="//" value="/" id="/" class="b1" onclick="jsj(this.id)"/>
+<br/>
+</div>
+<div>
+<input type="button" name="b7" value="7" id="7" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b8" value="8" id="8" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="b9" value="9" id="9" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="plus" value="back" id="back" class="b1" onclick="tuiGe()"/>
+</div>
+<div>
+<input type="button" name="plus" value="+" id="+" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="plus" value="-" id="-" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="plus" value="*" id="*" class="b1" onclick="jsj(this.id)"/>
+<input type="button" name="total" value="=" id="t" class="b1" onclick="eva()"/>
+</div>
+</body>
+</html>

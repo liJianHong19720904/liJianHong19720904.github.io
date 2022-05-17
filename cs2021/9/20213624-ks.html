@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的计数器</title>
+    <style>
+        body {
+            text-align: center;
+            /* 让文本居中 */
+        }
+        
+        input {
+            border: outset 2px solid;
+            /* 加上实线边框与突出效果 */
+            border-radius: 45px;
+            /* 给按钮加上弧度 */
+            width: 50px;
+            /* 设置按钮的宽度 */
+            height: 50px;
+            /* 设置按钮的高度 */
+            font-size: 40px;
+            /* 设置字体的大小 */
+            margin: 10px;
+            /* 按钮与按钮之间的边距 */
+            background-color: rgb(100, 100, 100);
+            /* 给按钮设置背景颜色 */
+            cursor: pointer;
+            /* 让鼠标放在按钮上时会变成小手 */
+        }
+        
+        input[id="清空"] {
+            width: 120px;
+            /* 给id为“清空”的input设置宽度 */
+        }
+        
+        input[id="显示"] {
+            text-align: center;
+            /* 使得显示屏中的值居中 */
+            display: block;
+            /* 将其改变为块级元素 */
+            width: 300px;
+        }
+        /* 给id为“显示”的input设置宽度 */
+        
+        input[value="Enter"] {
+            width: 150px;
+        }
+        /* 给值为Enter的inout设置宽度 */
+        
+        input:hover {
+            background-color: rgb(190, 190, 190);
+        }
+        /* 鼠标滑过按钮时让背景颜色改变 */
+        
+        input:active {
+            color: rgb(250, 250, 250);
+            border: inset 2px solid;
+        }
+        /* 鼠标点击时让按钮有凹陷效果与改变背景颜色 */
+    </style>
+</head>
+
+<body>
+    <h1>我的计算器</h1>
+    <center>
+        <div><input type="text" value="" id="显示"></div>
+        <div><input type="button" value="清空" id="清空"></div>
+        <!-- 设置一个text类型的按钮 并使其居中-->
+    </center>
+    <script>
+        var sb = ['1', '2', '3', '+', '4', '5', '6', '-', '7', '8', '9', '*', '.', '0', '<-', '/', 'Enter']; /* 设置一个数组来装按钮的值 */
+        var output = document.querySelector('input#显示'); /* 将id为“显示”的抓取后给到新声明的output */
+        var qk = document.querySelector('input#清空'); /* 将id为“清空”的抓取后给到新声明的qk*/
+        for (var i = 0; i < sb.length / 4; i++) {
+            var div = document.createElement('div'); /* 每次循环创建一个div类型的标签 */
+            for (var j = 0; j < 4; j++) {
+                if (i * 4 + j < sb.length) {
+                    var input = document.createElement('input'); /* 每次循环创建一个input类型的标签 */
+                    input.type = "button"; /* 给input设置类型 */
+                    input.value = sb[i * 4 + j]; /* 每次循环都给按钮赋值 */
+                    input.onclick = function() {
+                        output.value += this.value; /* 使得每一个按钮都有功能，将按钮本来的值赋给显示屏，可以在显示屏上显示 */
+                    };
+                    div.appendChild(input); /* 将按钮的父亲设置为div，也就是让div来装按钮 */
+                }
+            } /* 利用循环结构来排版按钮的格式使得每行只有四个按纽 */
+            document.body.appendChild(div); /* 将div的父亲设置为body，也就是让div在body中显示 */
+        }
+        qk.onclick = function() { /* 给值为‘清空’的按钮定义函数功能 */
+            var s = output.value; /* 将显示屏上的值赋给新声明的S */
+            s = s.substring(0, 0); /* 每一次点击后会删除显示屏上字符串的最后一位，此过程发生在内存中的不会在显示屏上显示 */
+            output.value = s; /* 最后又将删除后的值赋给显示屏，在显示屏上显示 */
+        }
+        var inputs = document.querySelectorAll('input'); /* 将上面循环产生的input全部抓取过来并放在一个数组内 */
+        inputs[inputs.length - 3].onclick = function() { /* 给值为‘<-’的按钮定义函数功能 */
+            var s = output.value; /* 将显示屏上的值赋给新声明的S */
+            s = s.substring(0, s.length - 1); /* 每一次点击后会删除显示屏上字符串的最后一位，此过程发生在内存中的不会在显示屏上显示 */
+            output.value = s; /* 最后又将删除后的值赋给显示屏，在显示屏上显示 */
+        };
+        inputs[inputs.length - 1].onclick = function() { /* 给值为‘Enter’的按钮定义函数功能 */
+            var s = output.value; /* 将显示屏上的值赋给一个新声明的S */
+            var result; /* 新声明一个空的值 */
+            result = eval(s); /* eval的函数功能是计算值，比如“eval(13+7-10)”,的意义是"10" 此过程是将显示屏上的数学公式的计算值赋给result*/
+            output.value = result; /* 最后将result的值赋给显示屏，让其可以在显示屏上显示 */
+        };
+        document.body.onkeydown = function(syjp) { /* 将键盘的值可用于计算器 */
+            var n = syjp.keyCode;
+            if (syjp.keyCode == 13) {
+                var s = output.value; /* 将显示屏上的值赋给一个新声明的S */
+                var result; /* 新声明一个空的值 */
+                result = eval(s); /* eval的函数功能是计算值，比如“eval(13+7-10)”,的意义是"10" 此过程是将显示屏上的数学公式的计算值赋给result*/
+                output.value = ""; /* 让显示屏变成空值 */
+                alert(结果为result);
+                output.value = result /* 最后将result的值赋给显示屏，让其可以在显示屏上显示 */
+            }
+        };
+    </script>
+</body>
+
+</html>

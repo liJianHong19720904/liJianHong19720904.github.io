@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易计算器</title>
+    <style>
+        input{
+            border:outset 2px solid;
+            border-radius: 20px;/* 设置圆角边框 */
+            width: 50px;
+            height: 50px;
+            font-size: 25px;
+            text-align: center;
+            margin: 10px;
+            color: rgb(240, 106, 10);
+            background-color: rgb(99, 96, 96);
+            cursor:pointer;
+        }
+        input:hover{
+            background-color: rgb(13, 124, 235);
+        }
+        input:active{
+            color: rgb(79, 31, 155);
+            border:inset 2px solid;
+        }
+        input#output{
+            display:block;
+            width:280px;
+        }
+    </style>
+</head> 
+<body> 
+    <h1>用用我的计算器</h1>
+    <input type="text" value="" id= "output" > 
+    <script> 
+        var SYMBOL = ['ac','x²','1/x','√x','+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ; /*将数组里的内容放进键盘里*/
+        var output = document.querySelector('input#output') ; 
+            for (var i=0; i < SYMBOL.length / 4; i++){/*将键盘分为四个一行*/
+                var div = document.createElement('div') ;
+                for (var j=0; j<4; j++ ){
+                   if (i * 4 + j < SYMBOL.length) { 
+                        var input = document.createElement('input') ;
+                        input.type = "button" ;
+                        input.value = SYMBOL[i * 4 + j] ;
+                        input.onclick = function(){
+                            output.value = output.value + this.value ;
+                        };
+                        div.appendChild(input) ;
+                    }  
+                }    
+                document.body.appendChild(div) ; 
+            } 
+            var inputs = document.querySelectorAll('input'); 
+            inputs[inputs.length -1].style.width = '260px';
+            inputs[inputs.length -2].onclick = function(){
+                var s = output.value ;
+                s = s.substring(0, s.length - 1); 
+                output.value = s ; 
+            };
+            inputs[inputs.length -1].onclick = function(){/*报出存在错误*/
+                var t = output.value ;
+                var result ; 
+                try {  result = eval(t) ; }
+                catch (err) {  result = err ; }  
+                output.value = result ; 
+            }; 
+            inputs[1].onclick = function(){/*设定ac的逻辑*/
+                var z = output.value;
+                z = '';
+                output.value = z;
+            };
+            inputs[2].onclick = function(){/*设定x²的逻辑*/
+                var q = output.value;
+                p=q*q;
+                output.value = p;
+            };
+            inputs[3].onclick = function(){/*设定1/x的逻辑*/
+                var q = output.value;
+                p=1/q;
+                output.value = p;
+            };
+            inputs[4].onclick = function(){/*设定根号的逻辑*/
+                var s = output.value;
+                t=Math.sqrt(s);
+                output.value = t;
+            };
+    
+    </script> 
+</body>
+</html>

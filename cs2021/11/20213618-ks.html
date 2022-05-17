@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>计算器</title>
+		<style type="text/css">
+	body{
+		background:url(https://pic1.zhimg.com/80/v2-1a7ebb14b552898b2751a5358354e017_720w.jpg?source=1940ef5c) no-repeat center top;
+		background-size:cover;
+		text-align: center;
+		
+	}
+		h1{
+		color:cyan;
+        font-size:60px;
+		text-shadow:2px 4px 4px green;/*字体呈现阴影的位置，可以进行赋值进行控制阴影大小*/
+	}
+      input { 
+	  border:outset 1.5px solid ; 
+      border-radius:40px;  /*控制边框的四个圆角的弧度*/
+      width:200px; 
+      height:75px; 
+      font-size:70px; /*控制边框里数字的大小*/
+      margin: auto ;/* auto为自动意思，可以控制居中*/
+	  padding-bottom:20px;
+      color:darkblue; 
+      background-color:white; 
+      cursor:pointer; /*控制光标*/
+	  } 
+
+      input:hover        /*鼠标放在input上呈现的状态*/
+	  {  background-color:gray; } 
+
+      input:active      /*鼠标点击后数字呈现的状态*/
+	  {  color:green; 
+	     border:outset 2px solid ; }
+    #show input
+	{width:1000px;height:60px;font-size:75px;}
+      </style> 
+<script>
+function $(id){return document.getElementById(id);}//定义$为函数名，可以直接将函数放入$(id)中
+var str;     //声明，定义字符串变量
+var result;  //声明，定义结果变量
+function display(str0)	//显示到文本框
+{
+	str = document.getElementById("text");//通过id获得文本元素对象
+	str.value = str.value + str0;//对字符进行累加
+}
+function equals()	//等于
+{
+	str = document.getElementById("text");
+	result = eval(str.value);//eval函数执行参数
+	str.value = result; //显示出字符串结果
+}
+function back()		//退格
+{
+	str = document.getElementById("text");
+	str.value = str.value.substring(0,str.value.length-1);//截取掉字符串的最后一位
+}
+function reset()	//清除
+{
+	str = document.getElementById("text");
+	str.value = "";
+}
+</script>
+	</head>
+	<body>
+		<div id="calculator">
+			<div id="head"><h1>网页版简单计算器</h1></div>
+			<div id="show" align="center"><input type="text" id="text" ></div>
+			  <table align="center">
+                    <tr>
+						<td><input type="button" value="7" onclick="display(7)"></td>
+						<td><input type="button" value="8" onclick="display(8)"></td>
+						<td><input type="button" value="9" onclick="display(9)"></td>
+						<td><input type="button" value="+" onclick="display('+')"></td>
+						<td><input type="button" value="-" onclick="display('-')"></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="4" onclick="display(4)"></td>
+						<td><input type="button" value="5" onclick="display(5)"></td>
+						<td><input type="button" value="6" onclick="display(6)"></td>
+						<td><input type="button" value="*" onclick="display('*')"></td>
+						<td><input type="button" value="/" onclick="display('/')"></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="1" onclick="display(1)"></td>
+						<td><input type="button" value="2" onclick="display(2)"></td>
+						<td><input type="button" value="3" onclick="display(3)"></td>
+						<td><input type="button" value="(" onclick="display('(')"></td>
+						<td><input type="button" value=")" onclick="display(')')"></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="." onclick="display('.')"></td>
+						<td><input type="button" value="0" onclick="display(0)"></td>
+						<td><input type="button" value="←" onclick="back()"></td>
+						<td><input type="button" value="c" onclick="reset()"></td>
+						<td><input type="button" value="=" onclick="equals()"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

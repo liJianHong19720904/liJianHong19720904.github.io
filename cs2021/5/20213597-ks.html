@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>20213597</title> 
+  <style type="text/css"> 
+  h1{
+  color:pink;
+  }
+  input{  
+  border:outset 2px solid ;  
+  border-radius:10px;  
+  width:50px;  
+  height:50px;  
+  font-size:40px; 
+  text-align:center;
+  margin:10px;  
+  color:white;  
+  background-color:pink;  
+  cursor:pointer; 
+  } 
+  input:hover{  
+  background-color:rgb(190,190,190);
+  } 
+  input:active{  
+  color:rgb(250,250,250);  
+  border:inset 2px solid ; 
+  text-align:center;
+  } 
+  input#output{   
+  display:block; 
+  width:280px; 
+  text-align:center;
+  } 
+  </style> 
+  </head> 
+  <body> 
+  <h1>
+  计算器 ~ 
+  </h1> 
+  <input type="text" value="" id= "output" > 
+  <script>  
+  var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ; //按钮内容
+  var output = document.querySelector('input#output') ;//算法  
+  for (var i=0; i < SYMBOL.length / 4; i++){  
+   var div = document.createElement('div') ;  //算法  
+  for (var j=0; j<4; j++ ){   
+   if (i * 4 + j < SYMBOL.length) //算法
+   {  var input = document.createElement('input') ;    
+   input.type = "button" ;     //表示按钮
+   input.value = SYMBOL[i * 4 + j] ;  //算法
+   input.onclick = function()
+   {   
+    output.value += this.value ;  
+    };   
+    div.appendChild(input) ;      
+    }  
+    }    
+    document.body.appendChild(div) ;  
+    } 
+    var inputs = document.querySelectorAll('input'); 
+    inputs[inputs.length -1].style.width = '200px'; //宽度
+    inputs[inputs.length -2].onclick = function()
+	{ 
+     var s = output.value ;   
+     s = s.substring(0, s.length - 1);   
+     output.value = s ; 
+     }; 
+     inputs[inputs.length -1].onclick = function()
+	 { 
+      var s = output.value ; 
+      var result ;   
+      try {  result = eval(s) ; 
+      } 
+      catch (err) {    result = err ; }   
+      output.value = result ;//捕捉异常并进行处理
+	  };  
+      </script>
+      </body>
+      </html>

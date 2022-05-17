@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算器</title>
+ <style >
+    body {
+	border: none;}
+ 
+    h1{
+        text-align: center;}
+    
+    button{
+        cursor: pointer;
+        width:65px;
+        height:45px;
+        background-color: hsla(182, 93%, 45%, 0);
+        border-radius: 15px;/*添加圆角的边框：*/
+        box-shadow: 3px 3px 5px rgb(165, 11, 11);/*盒子阴影*/
+        outline: none;/*默认,定义无轮廓*/
+        font-size: 25px;}
+
+    input{
+        font-size: 25px;
+        border-radius: 10px;
+        width: 200px;
+        height: 40px;
+        color:rgb(226, 62, 21); 
+        background-color:rgb(23, 203, 95);}
+
+    #main{
+        text-align:center;
+        width:300px;
+        height: 287px;
+        margin: 0 auto;
+        border:2px solid #ccc;}
+
+    .num{
+        margin: 10px;}
+    
+</style>
+ 
+</head>
+<body>
+	<h1>计算器</h1>
+	<div id="main" onclick="cal(event);">
+		<div class="num" >
+			<input type="text" value="0" readonly="readonly" id="screen" />
+			<button>C</button>
+		</div>
+		<div class="num">
+			<button>7</button>
+			<button>8</button>
+			<button>9</button>
+			<button>/</button>
+		</div>
+		<div class="num">
+			<button>4</button>
+			<button>5</button>
+			<button>6</button>
+			<button>*</button>
+		</div>
+		<div class="num">
+			<button>1</button>
+			<button>2</button>
+			<button>3</button>
+			<button>-</button>
+		</div>
+		<div class="num">
+			<button>0</button>
+			<button>.</button>
+			<button>=</button>
+			<button>+</button>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+function cal(e) {
+	//获取触发事件的元素
+	var obj = e.target||e.srcElement;
+	if(obj.nodeName != "BUTTON"){
+		return;
+	}
+	var v = obj.innerHTML;
+	var screen = document.getElementById("screen");
+	if(v == "C"){
+		screen.value = 0;//C做清屏处理：判断触发事件的按钮值是否为C，若为C，屏幕中只显示0；
+	}
+    else if(v == "="){
+		//获取到输入框的值
+		var exp = screen.value;//=做计算处理：判断触发事件的按钮值是否为=，若为=，利用eval()方法计算屏幕上的公式；
+		try{
+			var result = eval("("+exp+")");
+			//将计算结果赋值给输入框
+			screen.value = result;
+		}
+        catch(e){
+			console.log(e);
+			screen.value = "error";
+		}
+	}else{
+		if(screen.value == 0){
+			screen.value = "";
+		}
+		screen.value += v;
+	}	
+}
+</script>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>calculator</title>
+</head>
+<style type="text/css">
+	*{
+    /* 按键里面的字符无法被选中 */
+    user-select: none;
+}
+/* 背景图(网上找的) */
+body{
+    background-image:linear-gradient(-90deg, #29bdd9 0%, #276ace 100%);
+}
+#cal{
+    width: 280px;
+    height: 440px;
+    background-color:#f4f1f4;
+    /* 改变形状  边框圆角;圆角半径 */
+    border-radius: 10px;
+    margin: 10% auto;
+}
+/*输出框上面的那一部分，增加35px的高度更加美观*/
+#kong{
+    width: 100%;
+    height: 35px;
+}
+/* 对于 id="shuchukuang" 模块*/
+#shuchukuang{
+    width: 100%;
+    height: 65px;
+    background-color: #f4f1f4;
+}
+#shuchukuang input{
+    margin: 6px;
+    width: 95%;
+    height: 60px;
+    text-align: right; 
+    border: none;
+    /* 改变字体 */
+    color:#60afe4;
+    font-size: 30px;
+}
+
+#button{
+    width: 100%;
+    height: 330px;
+    background-color: cyan;
+    float: left;
+}
+ /* 数字按钮 */
+#button li{
+    /* 去掉标签前面默认的小点点 */
+	list-style-type: none;
+    float: left;
+}
+
+#button .an1{
+    width: 50px;
+    height: 50px;
+    background-color: #7fc1ee;
+    /* 添加li之间的间隔 */
+    margin: 5px;
+    /* 将形状变成圆形 */
+    -webkit-border-radius:50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    /* 文字居中 */
+    text-align: center;
+    line-height: 50px;
+    /* 改变字体 */
+    color:#f4f1f4;
+    font-size: 25px;
+}
+
+#button .an2{
+ width: 50px;
+    height: 50px;
+    background-color:#FF77FF;
+    /* 添加li之间的间隔 */
+    margin: 5px;
+    /* 改变形状 */
+    -webkit-border-radius:50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    /* 文字居中 */
+    text-align: center;
+    line-height: 50px;
+    /* 改变字体 */
+    font-size: 25px;
+}
+/* 按钮位置 */
+#button .center{
+    position: relative;
+    right: 20px;
+}
+#button .an3{
+    width: 50px;
+    height: 50px;
+    background-color: #60afe4;
+    /* 添加li之间的间隔 */
+    margin: 5px;
+    /* 改变形状 */
+    -webkit-border-radius:50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    /* 文字居中 */
+    text-align: center;
+    line-height: 50px;
+    /* 改变字体颜色 */
+    color:#f4f1f4;
+    font-size: 25px;
+}
+#button .an4{
+    width: 50px;
+    height: 50px;
+    background-color: #FF8888;
+    /* 添加li之间的间隔 */
+    margin: 5px;
+    /* 改变形状 */
+    -webkit-border-radius:50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    /* 文字居中 */
+    text-align: center;
+    line-height: 50px;
+    /* 改变字体颜色 */
+    color:#f4f1f4;
+    font-size: 25px;
+}
+#button .an5{
+    width: 50px;
+    height: 50px;
+    background-color:#FF77FF;
+    /* 添加li之间的间隔 */
+    margin: 5px;
+    /* 改变形状 */
+    -webkit-border-radius:50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    /* 文字居中 */
+    text-align: center;
+    line-height: 50px;
+    /* 改变字体 */
+    font-size: 25px;
+}
+
+</style>
+<body>
+    <div id="cal">
+        <div id="kong"></div><!--输出框上面一层空白部分，存在意义为使页面更加美观-->
+        <div id="shuchukuang"><!--所输入数据和计算结果的显示框-->
+            <input type="text" id="shu"><!--输出框，定义类型为文本-->
+        </div>
+        <div id="button"><!--定义按钮-->
+            <ul class="center"><!--将ul标签水平居中-->
+                <li class="an2" onclick="clear_num()">C</li>
+                <li class="an3" onclick="show('.')"  >.</li>
+                <li class="an5" onclick="back_one()" >←</li>
+                <li class="an3" onclick="show('/')"  >÷</li>
+                <li class="an1" onclick="show('1')"  >1</li>
+                <li class="an1" onclick="show('2')"  >2</li>
+                <li class="an1" onclick="show('3')"  >3</li>
+                <li class="an3" onclick="show('*')"  >×</li>
+                <li class="an1" onclick="show('4')"  >4</li>
+                <li class="an1" onclick="show('5')"  >5</li>
+                <li class="an1" onclick="show('6')"  >6</li>
+                <li class="an3" onclick="show('+')"  >+</li>
+                <li class="an1" onclick="show('7')"  >7</li>
+                <li class="an1" onclick="show('8')"  >8</li>
+                <li class="an1" onclick="show('9')"  >9</li>
+                <li class="an3" onclick="show('-')"  >-</li>
+                <li class="an3" onclick="show('(')"  >(</li>
+                <li class="an1" onclick="show('0')"  >0</li>
+                <li class="an3" onclick="show(')')"  >)</li>
+                <li class="an4" onclick="equal()"    >=</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        function show(num){
+            // value的意思是：获取输入的值
+            var result=document.getElementById('shu').value;// 获得输入框的文本，并将其定义为result
+            document.getElementById('shu').value +=num;//先将id为'shu'的元素选出来，再将num赋值给'shu'元素的value属性
+
+        }
+
+        function equal(){
+            var shuchu=document.getElementById('shu').value;//将'shu'元素的value属性赋给'shuchu'
+            var result=eval(shuchu);// eval是js提供的一个计算表达式的函数,将shuchu放入函数中会自动计算出答案,并将其赋值给result
+            document.getElementById('shu').value =result;//将计算出的result直接赋给文本框
+        }
+
+        function clear_num(){
+            var result=document.getElementById('shu').value;// 获得输入框的文本，并将其定义为result
+            document.getElementById('shu').value =' ';//直接将' '赋值给'shu'的value属性，相当于实现清零功能
+
+        }//进行清零功能的函数
+
+        function back_one(){
+            var backone=document.getElementById('shu');
+            backone.value=backone.value.substring(0,backone.value.length-1); //运用substring截取开头到文本框倒数第二位再重新赋值到文本框中，从而实现删除一格的功能
+        }//进行删除功能的函数
+
+    </script>
+    
+</body>
+</html>

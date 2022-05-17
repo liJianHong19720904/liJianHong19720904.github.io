@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>计算器</title>
+  
+ </head>
+ <body>
+  <h1>My Calculator</h1>
+  <input type="text" value="" id= "output" >
+  <script>
+    var BUTTN = ['AC','<-','%','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='] ;/*--将所有所需的按钮放进一个数组内在下面的循环中处理而不用把每个按钮都进行处理*/
+    
+	var output =  document.querySelector('input#output') ;//设置一个输出来做显示
+     /*将BUTTN中的元素用for循环分成四个一个div方便对按钮进行排版*/
+	for (var i=0; i < BUTTN.length / 4; i++)            
+	{
+	  var div = document.createElement('div') ;
+	      for (var j=0; j<4; j++ )
+		  {
+		    if (i * 4 + j < BUTTN.length)           
+			{
+			var input = document.createElement('input') ;//如果符合要求则创建一个input
+			    input.type = "button" ;     //inpute类型为按钮
+		        input.value = BUTTN[i * 4 + j] ;//inpute的值等于按钮的符号
+				input.onclick = function()
+				{
+				  output.value += this.value ;//将点击的按钮的符号加在output.value上
+				};
+		    div.appendChild(input) ;         //inpute放在div列表中
+            }
+		  }
+
+        document.body.appendChild(div) ;    //让div中的内容在body中显示出来
+	  }
+
+	var inputs = document.querySelectorAll('input');//AC功能使output.value等于空数组达到清零目的
+	inputs[1].onclick = function()
+	{  
+		output.value = [] ;
+	}
+
+	inputs[2].onclick = function()//消除字符功能，将output.value作为字符串来处理，消除最后一位字符达到清除功能
+	{
+	 var s = output.value ;
+	     s = s.substring(0, s.length - 1);
+     output.value = s ;
+	};
+
+	inputs[inputs.length -1].onclick = function()//'='功能同样将output.value作为字符串进行处理，用eval计算字符串结果，把结果传递给result 
+	{                                          
+	 var s = output.value ;                      
+	 var result ;
+    
+	 try {
+	  result = eval(s) ;       //如果计算出错result=err则显示出错    
+	 }
+	 catch (err) {
+       result = err ;
+	 }
+     output.value = result ;    //将结果传递给output.value,输出结果
+	};
+  //按会车键输出结果
+    document.body.onkeydown = function(e){
+	if (keyCode = '13')
+	{var s = output.value ;                      
+	 var result ;
+	 try {
+	  result = eval(s) ;
+	  
+	 }
+	 catch (err) {
+       result = err ;
+	 }
+	
+     output.value = result ;    
+	}
+	
+	}
+  </script>
+  <style type="text/css">
+    body{ background-color:#E0FFFF;
+         }
+	input{
+	  text-align: center; 
+	  width:50px;
+	  height:50px;
+	  font-size:40px;
+	  text-align:center;
+	  margin:15px;
+	  color:#6495ED;
+	  background-color:rgb(100,100,100);
+	  cursor:pointer;
+	}
+
+	input:hover{
+	background-color:#6495ED; 
+    border: none;
+    color:rgb(100,100,100);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+	}
+	input:active{
+	  color:white
+	  border:inset 2px solid ;
+	}
+	input#output{
+     display:block;
+	 width:300px;
+	}
+	h1 {
+      margin: 20px;
+      font-size: 30px;
+      font-weight: 590;
+      font-family: 楷体;
+    }
+
+  </style>
+ </body>
+</html>
