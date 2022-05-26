@@ -59,9 +59,6 @@
 
                     }
                     
-                   
-                    
-
                     
                 }
                 document.body.appendChild(line);
@@ -79,6 +76,12 @@
                 s=s.substring(0,s.length-1);
                 output.value=s;
             }
+            bts[bts.length-4].onclick=function(){
+                var s = output.value;
+                s = -s;
+                output.value = s;
+
+            }
             bts[bts.length-1].onclick=function(){
                 var s=output.value;
                 var result;
@@ -91,18 +94,16 @@
                 output.value=result;
 
             }
+   
+
             document.body.onkeydown=function(e){
                 // alert(e.keyCode);
                 if(e.keyCode==13){
+                    e.preventDefault();
                     bts[bts.length-1].onclick();
                 }
             }
-
-            
-
-
-           
-            
+      
         </script>
     </body>
 </html>

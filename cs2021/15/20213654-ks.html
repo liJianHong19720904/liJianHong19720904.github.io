@@ -85,6 +85,18 @@
             catch (err) { result = err; }
             output.value = result;
         }
+        document.body.onkeydown = function(event){
+            if (event.keyCode = 13) 
+            {
+                event.preventDefault(); 
+                var s = output.value;
+                var result;
+                try{result = eval(s);}
+                catch (err) { result = err; }
+                output.value = result;
+            }
+            
+        }
     </script>
 </body>
 

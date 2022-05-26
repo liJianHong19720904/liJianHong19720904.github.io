@@ -35,8 +35,9 @@
     </style>
 </head>
 <body>
-    <h1>简易计算器</h1>
-    <input type="text" id="output">
+    <h1>夏豪的计算器</h1>
+    <h2>(可按Enter键进行计算，Delete键清零)</h2>
+    <input type="text" id="output" onkeydown="test()"><!-- onkeydown事件，实现按下enter进行计算功能 -->
     <script>
         var Symbol=["AC","Del","*","/","7","8","9",".","4","5","6","+","1","2","3","-","0","="] ;//定于计算器按钮内容数组
         for(var i = 0;i < Symbol.length/4;i++){//计算机主要布局（通过for循环，4个一行将Symbol(符号数组)中的内容写入div中）
@@ -56,7 +57,7 @@
         document.body.appendChild(div);//给body节点添加最后一个子节点
     };
         var inputs = document.querySelectorAll('input');//将input按钮都抓进input数组
-        inputs[inputs.length -2].onclick = function(){ 
+        inputs[inputs.length -1].onclick = function(){ 
             var s = output.value ;   //将输入的字符累积存入s变量
             s = s.substring(0, s.length - 1);   
             output.value = s ; 
@@ -72,8 +73,9 @@
             }
             catch (err) {  //当输入错误时返回内容“错误”  
                 result = '输入错误' ; 
-            }   
-        output.value = result ; 
+            }
+            result = parseFloat(result.toFixed(5));//保留五位小数,并去掉小数点后多余的0   
+            output.value = result ; 
         };
         //定义退格Del按钮
         var Del = document.getElementById("Del");
@@ -81,12 +83,33 @@
             var Del1 = output.value;
             Del1 = Del1.substring(0, Del1.length - 1);
             output.value = Del1;
-        }
+        };
         // 定义清零AC按钮
         var AC = document.getElementById("AC");
         AC.onclick = function () {
             output.value = "";//将id为output的value的内容清空
-        }
+        };
+        //按下enter键进行计算的函数
+        function test(){
+            if(event.keyCode == 13){
+                var s = output.value ; 
+                var result ;   
+                try {  
+                    result = eval(s) ; //eval()函数，对output.value中的表达式求值
+                }
+                catch (err) {  //当输入错误时返回内容“错误”  
+                    result = '输入错误' ; 
+                }
+                result = parseFloat(result.toFixed(5));//保留五位小数,并去掉小数点后多余的0   
+                output.value = result ;
+            }
+            //实现按下Del键即清零
+            if(event.keyCode == 46){
+                output.value = "";
+            }
+
+        };
+
     </script>
 </body>
 </html>

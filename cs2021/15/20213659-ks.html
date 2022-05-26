@@ -93,6 +93,19 @@
             ac = " ";
             output.value = " ";
         }
+        document.body.onkeydown = function(event){
+            if (event.keyCode = 13) /*如果按下回车键*/
+            {
+                event.preventDefault(); /*阻止元素发生默认的行为*/
+                var s = output.value;
+                var result;
+                try{result = eval(s);}
+                catch (err) { result = err; }
+                output.value = result;
+            }
+            
+        }
+
     </script>
 </body>
 </html>

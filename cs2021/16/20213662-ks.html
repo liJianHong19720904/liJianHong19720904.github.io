@@ -74,6 +74,7 @@
             catch (err) {    
                 result = err ; 
             } /*处理异常*/
+            result = parseFloat(result.toFixed(5));//保留五位小数,并去掉小数点后多余的0   
             output.value = result ; 
         }
     </script>

@@ -48,7 +48,7 @@
     <input type="textt" value="" id="output">
     <script>
         var SYMBOL = [ 'x²', '√x', '<x' ,'AC','1', '2', '3', '/', '4', '5', '6', '*', 
-                            '7', '8', '9', '+', '.','0','=','-'];
+                            '7', '8', '9', '+', '0','.','=','-'];
         var output = document.querySelector('input#output');
 
         for (var i = 0; i < SYMBOL.length / 4; i++) { /*将SYMBOL按钮分成四个一行*/
@@ -98,6 +98,18 @@
             try { result = eval(s); }  /*eval() 函数计算 JavaScript 字符串，并把它作为脚本代码来执行。*/
             catch (err) { result = err; }
             output.value = result;
+        }
+        document.body.onkeydown = function(event){
+            if (event.keyCode = 13) /*如果按下回车键*/
+            {
+                event.preventDefault(); /*阻止元素发生默认的行为*/
+                var s = output.value;
+                var result;
+                try{result = eval(s);}
+                catch (err) { result = err; }
+                output.value = result;
+            }
+            
         }
     </script>
 </body>

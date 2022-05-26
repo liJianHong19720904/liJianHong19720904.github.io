@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>郭昕奕的计算器</title>
+  <style type="text/css">
+  body{
+    text-align: center;
+  }
+	h1{
+		color: #d0a518;
+	}
+	input{
+    width:80px;
+    margin: 5px 5px;
+    padding: 0px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #E48930;
+    box-shadow:5px 5px #49548C;
+    cursor: pointer;
+  }
+  input:hover{
+    background-color: #49548C;
+    box-shadow: 5px 5px #E48930;
+  }
+  input:active{
+    background-color: #E48930;
+    box-shadow:2px 2px #49548C;
+    transform: translateY(4px);
+  }
+	input#output{
+	  width: 400px;
+    height: 40px;
+	  margin: 20px;
+	}
+  input#ooutput{
+	  width:350px;
+	  margin: 10px;
+	}
+  </style>
+ </head>
+ <body>
+  <h1>郭昕奕的计算器</h1>
+  <input type="text" value="" id= "output" ><!--定义一个输入框-->
+  <script>
+    var Button = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','AC'] ;
+    for (var i=0; i < Button.length / 4; i++){//实现每四个元素换一行的功能
+	  var div = document.createElement('div') ;//定义一个div对象
+	      for (var j=0; j<4; j++ ){
+			      var input = document.createElement('input') ;//定义一个input对象
+			      input.type = "button" ;//类型为button
+		        input.value = Button[i * 4 + j] ;//input的值为数组Button的值
+			    	input.onclick=function(){
+					output.value += this.value; //点击按键，则该按键上的内容传送到输入框
+				};
+		    div.appendChild(input) ;//将input的内容传送进div
+           
+		  }
+
+        document.body.appendChild(div) ;//将div的内容传送到body
+	  }
+	var inputs = document.querySelectorAll('input');//inputs为数组
+  inputs[inputs.length-1].onclick=function(){
+    var a=output.value;
+    a=a.substring(0,0);
+    output.value=a;
+  }//实现AC键清空的功能
+  </script>
+  <input type="button" value="=" id= "ooutput" ><!--定义一个名为“=”的键-->
+  <script>
+    ooutput.onclick=function(){
+      var a=output.value;
+      var reasult;
+      try{
+        reasult=eval(a);
+      }
+      catch(err){
+        reasult=err;
+      }
+      output.value=reasult;
+    }//"="键的功能为实现计算，并将结果输出
+  </script>
+ </body>
+</html>
