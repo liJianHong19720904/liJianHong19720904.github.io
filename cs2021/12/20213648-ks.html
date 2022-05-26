@@ -1,88 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <title>我的计算器</title>
-  <style type="text/css">
-  body{
-    text-align: center;
-  }
-	h1{
-		color: #d0a518;
-	}
-	input{
-    width: 50px;
-    display: inline-block;/*设置对象作为行内元素显示*/
-    padding: 10px 20px;/*框内元素距离边框上下，左右的距离*/
-    font-size: 20px;/*字体大小*/
-    cursor: pointer;/*光标*/
-    text-align: center;/*相对页面居中*/
-    text-decoration: none;/*取消下划线*/
-    color: #000000;/*字体颜色*/
-    background-color: #ffffff;
-    border: 2px solid  rgb(208, 165, 24);/*边框大小及颜色*/
-    border-radius: 8px;/*圆角*/
-    box-shadow: 0 9px  rgb(208, 165, 24);/*阴影大小及颜色*/
-    margin: 20px;/*相对页面上下的距离*/
-  }
-  input:hover{
-	  background-color:  #d0a518;
-	}
-  input:active{
-    background-color: #ffffff;
-    box-shadow: 0 5px  rgb(208, 165, 24);/*阴影部分变小*/
-    transform: translateY(4px);/*变形*/
-  }
-	input#output{
-	  width:280px;
-	  margin: auto;
-	}
-  input#ooutput{
-	  width:280px;
-	  margin: auto;
-	}
-  </style>
- </head>
- <body>
-  <h1>用用我的计算器</h1>
-  <input type="text" value="" id= "output" ><!--定义一个输入框-->
-  <script>
-    var Button = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','AC'] ;
-    for (var i=0; i < Button.length / 4; i++){//实现每四个元素换一行的功能
-	  var div = document.createElement('div') ;//定义一个div对象
-	      for (var j=0; j<4; j++ ){
-			      var input = document.createElement('input') ;//定义一个input对象
-			      input.type = "button" ;//类型为button
-		        input.value = Button[i * 4 + j] ;//input的值为数组Button的值
-			    	input.onclick=function(){
-					output.value += this.value; //点击按键，则该按键上的内容传送到输入框
-				};
-		    div.appendChild(input) ;//将input的内容传送进div
-           
-		  }
-
-        document.body.appendChild(div) ;//将div的内容传送到body
-	  }
-	var inputs = document.querySelectorAll('input');//inputs为数组
-  inputs[inputs.length-1].onclick=function(){
-    var a=output.value;
-    a=a.substring(0,0);
-    output.value=a;
-  }//实现AC键清空的功能
-  </script>
-  <input type="text" value="=" id= "ooutput" ><!--定义一个名为“=”的键-->
-  <script>
-    ooutput.onclick=function(){
-      var a=output.value;
-      var reasult;
-      try{
-        reasult=eval(a);
-      }
-      catch(err){
-        reasult=err;
-      }
-      output.value=reasult;
-    }//"="键的功能为实现计算，并将结果输出
-  </script>
- </body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>朱红燕的计算器</title>
+    <style>
+        *{
+            margin: auto;
+            padding: auto;
+        }
+        body{
+             text-align: center;
+             width: 400px;
+        }
+        input#output{
+            width:400px;
+            height:40px ;
+            border-radius: 20px;
+            font-size: 20px;
+        }
+        input{
+            width:80px;
+            margin: 5px 5px;
+            padding: 0px;
+            height: 50px;
+            border-radius: 25px;
+            background-color: #D6C5B4;
+            box-shadow:5px 5px #442F29;
+            cursor: pointer;
+        }
+        input:hover{
+            background-color: #442F29;
+            box-shadow: 5px 5px #D6C5B4;
+        }
+        input:active{
+            background-color: #D6C5B4;
+            box-shadow:5px 5px #442F29;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+    <h1>朱红燕的计算器</h1>
+        <input type="text" value="" id= "output" >
+        <input type="button" value="AC"onclick="Empty() "style="width:180px">
+        <input type="button" value="DEL"onclick="Delete()"style="width:180px">
+        <input type="button" value="7"onclick="Input(this.value)"> 
+        <input type="button" value="8"onclick="Input(this.value)"> 
+        <input type="button" value="9"onclick="Input(this.value)"> 
+        <input type="button" value="*"onclick="Input(this.value)"> 
+        <input type="button" value="4"onclick="Input(this.value)"> 
+        <input type="button" value="5"onclick="Input(this.value)"> 
+        <input type="button" value="6"onclick="Input(this.value)"> 
+        <input type="button" value="-"onclick="Input(this.value)">
+        <input type="button" value="1"onclick="Input(this.value)"> 
+        <input type="button" value="2"onclick="Input(this.value)"> 
+        <input type="button" value="3"onclick="Input(this.value)"> 
+        <input type="button" value="+"onclick="Input(this.value)"> 
+        <input type="button" value="."onclick="Input(this.value)"> 
+        <input type="button" value="0"onclick="Input(this.value)"> 
+        <input type="button" value="/"onclick="Input(this.value)"> 
+        <input type="button" value="="onclick="Reasult()"> 
+    <script>
+        function Input(value){
+            document.getElementById('output').value+=value;
+        }//实现接收的功能
+        function Reasult(){
+            var a=output.value;
+            var reasult;
+            try{
+                reasult=eval(a);
+            }
+            catch(err){
+                reasult=err;
+            }
+            output.value=reasult;
+        }//实现计算的功能
+        function Empty(){
+            var a=output.value;
+            a=a.substring(0,0);
+            output.value=a;
+        }//实现AC键清空的功能
+        function Delete(){
+            var a=output.value;
+            a=a.substring(0,a.length-1);
+            output.value=a;
+        }//实现delete逐个删除的功能
+    </script>
+</body>
 </html>

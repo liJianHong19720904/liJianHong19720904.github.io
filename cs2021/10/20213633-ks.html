@@ -1,118 +1,108 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>简易计算器</title>
-		<style type="text/css">
-			*{
-				margin: auto;
-				padding: 0px;
-				text-align: center;
-				font-family: "微软雅黑";
+ <head>
+   <meta charset="utf-8">
+   <title>简易计算器</title>
+   <style type="text/css">
+    *{
+	    margin: auto;
+	    padding: 0px;
+	    text-align: center;
+	    font-family: "微软雅黑";
 			}
-			.content{
-				border-radius: 10%;/*实现圆角边框*/
-				width: 400px;
-				height: 550px;
-				background-color: antiquewhite;
-			}
-			.clear{
-				border-radius: 50%;/*实现圆形边框*/
-				width: 20%;/*父元素宽度百分比*/
-				height: 72px;
-				background-color: #FF4500;
-			}
-			#result{
-				margin-top: 24px;
-				font-size: 16px;
-				width: 60%;/*父元素宽度百分比*/
-				height: 72px;
-				text-align: left;
-				border-radius: 20px;
-				background-color: #FFE4C4;
-			}
-			.symbol{
-				margin-top: 36px;
-				font-size: xx-large;/* medium的2倍( h1预设值)*/
-				border-radius: 50%;/*实现圆形边框*/
-				width: 20%;/*父元素宽度百分比*/
-				height: 72px;
-				background-color:bisque;/*橘黄色*/
-			}
-			.number{
-				margin-top: 36px;
-				font-size: xx-large;
-				border-radius: 50%;			
-				width: 20%;
-				height: 72px;
-				background-color:beige;/*米色 */
-			}
-			.calculate{
-				margin-top: 36px;/* 上外边距 */
-				font-size: xx-large;
-				border-radius: 50%;
-				width: 20%;
-				height: 72px;
-				background-color: #FF4500;
-			}
-			.content input:hover{
-				box-shadow: 5px 5px 5px #888888;/* 鼠标停留时盒子阴影改变*/
-			}
-			.content input:active{
-				background-color: #FF0000;
-			}/*鼠标点击一瞬间背景颜色改变*/
-		</style>
-		<script type="text/javascript">	
-			function clearValue(){
-				document.getElementById("result").value="";
-			}/*定义clear函数实现清除数据*/
-			function get(value){
-				document.getElementById("result").value+=value;
-			}
-			function calculate(){
-				var result=0;
-				result=document.getElementById("result").value;/*将按键内容以字符串形式存储在文本框中*/
-				document.getElementById("result").value="";
-				document.getElementById("result").value=eval(result);/*编译字符串算式*/
-			};
-		</script>
-	</head>
-	<body>
-	    <input >
-		<script type="text/javascript">
-     
-        </script>
-       <div class="banner">
-			<h2>
-				简 易 计 算 器
-			</h2>
-		</div>
-			<br />
-		<div class="content">
-			<input type="button" value="清 除" class="clear" onclick="clearValue()"/>
-			<input type="text" id="result" readonly="readonly" placeholder="运 算 结 果 显 示"/>
-				<br />
-			<input type="button" value="1" class="number" onclick="get(this.value)"/>
-			<input type="button" value="2" class="number" onclick="get(this.value)"/>
-			<input type="button" value="3" class="number" onclick="get(this.value)"/>
-			<input type="button" value="+" class="symbol" onclick="get(this.value)"/>
-				<br />
-			<input type="button" value="4" class="number" onclick="get(this.value)"/>
-			<input type="button" value="5" class="number" onclick="get(this.value)"/>
-			<input type="button" value="6" class="number" onclick="get(this.value)"/>
-			<input type="button" value="-" class="symbol" onclick="get(this.value)"/>
-				<br />
-			<input type="button" value="7" class="number" onclick="get(this.value)"/>
-			<input type="button" value="8" class="number" onclick="get(this.value)"/>
-			<input type="button" value="9" class="number" onclick="get(this.value)"/>
-			<input type="button" value="*" class="symbol" onclick="get(this.value)"/>
-				<br />
-			<input type="button" value="0" class="number" onclick="get(this.value)"/>
-			<input type="button" value="." class="symbol" onclick="get(this.value)"/>
-			<input type="button" value="/" class="symbol" onclick="get(this.value)"/>
-			<input type="button" value="=" class="calculate" onclick="calculate()"/>
-		</div>
-			<br />
-			</body>
-</html>
+	h1{
+	    font-family:楷体 ;}
+	input{                                           /*  按钮外形等的参数 */
+		border:outset 2px solid ;
+		border-radius:10px; 
+		width:60px;
+		height:60px;
+        padding: 0px;
+		font-size:40px;
+		text-align:center;
+		margin:10px;
+		color:rgb(50,50,50);
+		background-color:rgb(250,250,250);
+		cursor:pointer;}      
+	input:hover{ 
+		background-color:rgb(190,190,190); }
+		box-shadow: 5px 5px 5px #888888;/* 光标放置于上时所显示的参数 */
+	input:active{ 
+		color:rgb(250,250,250);
+		border:inset 2px solid ;
+		background-color: #FF0000;}                  /* 常态时所显示的参数 */
+	input#output{
+		display:inline-block;                                     /* 使创造的对象单独成行 */       
+		width:300px; } 
+</style>
+</head> 
+<body>
+<h1>计算器</h1>
+<input type="text"  size = "20"   style ="color:black" id= "output" >
+<script> 
+	var SYMBOL = ['1','2','3','+','4','5','6','-','7','8','9','*','0','.','ac','/','<-','='] ;  
+	var output = document.querySelector('input#output') ;
 
+	for (var i=0; i < SYMBOL.length / 4; i++)  
+	{   
+		var div = document.createElement('div') ;                  //与appendChild(div)联合使用，创建一个对象使点击的符号或数字加入其中 
+		for (var j=0; j<4; j++ )                                   //for循环使四个按钮成一行
+			{ 
+				if (i * 4 + j < SYMBOL.length) { 
+					var input = document.createElement('input') ;  //与appendChild(input)联合使用，创建一个对象使SYMBOL中符号或数字依次加入其中 
+					input.type = "button" ;                        // 使input变为按钮形
+					input.value = SYMBOL[i * 4 + j] ;              // 按钮上显示SYMBOL中的符号，数字
+					input.onclick = function(){ output.value += this.value ;};//使点击的数字或符号显示在output中
+					div.appendChild(input) ; }
+			}	
+		document.body.appendChild(div) ; 
+	}
+
+	var inputs = document.querySelectorAll('input');
+	inputs[inputs.length -1].style.width = '220px';                //“=”的按钮宽度
+	inputs[inputs.length -2].onclick = function(){                 //定义“<-”的作用
+		var s = output.value ;
+		s = s.substring(0, s.length - 1);
+		output.value = s ; };
+	inputs[inputs.length -1].onclick = function(){                 //定义“=”的作用，进行最后的运算
+		var s = output.value ; 
+		var result ;
+		try { result = eval(s) ; } 
+		catch (err) { result = err ; } output.value = result ;
+		};
+	inputs[inputs.length -4].onclick = function(){                 //定义“ac”的作用，归零
+		var s = output.value ;
+		s = s.substring(0, s.length - s.length);
+		output.value = s ; }
+			document.body.onkeydown = function(e){
+	 var keyCode = e.keyCode ;
+	 
+	 console.log(keyCode);
+
+     if (keyCode >= 96 && keyCode <= 105) {                          //96-105对应小键盘0至9
+		 output.value += String(keyCode - 96);
+     }
+	 switch (keyCode){ 
+	  case  107 :  output.value += '+' ;break;
+	  case  109 :  output.value += '-' ;break;
+	  case  106 :  output.value += '*' ;break;
+	  case  111 :  output.value += '/' ;break;
+	  case  110 :  output.value += '.' ;break;
+	 }
+	 
+     if (keyCode === 13) {                                            //13对应键盘的回车
+	  var s = output.value ;
+	  var result ; 	 
+		 try {
+		  result = eval(s) ;
+		 }
+		 catch (err) {
+		   result = "输入错误" ;
+		 }
+		  output.value = result ;
+	     }
+        e.preventDefault();                                          //避免一种特殊情况：鼠标指针在其他按钮上，按回车键会触发其他按钮click事件，导致输出增加字符情况
+    };
+</script>
+</body>
+</html>

@@ -3,6 +3,11 @@
 <head> <meta charset="UTF-8"> 
 <title>我的计算器</title> 
 <style type="text/css"> 
+   body{
+       background:url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202105%2F17%2F20210517002730_546a4.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1656064449&t=ce0a518a90783470a6c1150a11e530b6"); 
+	   background-attachment:fixed;
+	   background-size:100% 100%;
+	   background-repeat:no-repeat;}
   input{  
         border:outset 2px solid ; /*边框凹陷*/
         border-radius:35px; /*边框圆角*/ 
@@ -17,39 +22,59 @@
 		} 
   input:hover{  background-color:rgb(200,150,150); } /*hover表示鼠标移动改变颜色*/
   input:active{  color:rgb(100,250,250); /*active表示鼠标点击瞬间变大*/ 
-        border:inset 2px solid ; } 
-  input#output{   display:block; width:280px; } /*display表示用于定义建立布局时元素生成的显示框类型*/
+                 border:inset 2px solid ; } 
+  input#output{   display:block; 
+                  width:280px; } /*display表示用于定义建立布局时元素生成的显示框类型*/
 </style>
 </head>
 <body> 
-<h1>计算器</h1>
-  <input type="text" value="" id= "output" >
-<script> 
-  var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','del','Enter'] ; 
-  var output = document.querySelector('input#output') ;  /*获取文档中id="output"的元素*/
-  for (var i=0; i < SYMBOL.length / 4; i++)
-       {  var div = document.createElement('div') ; /*表示在对象中创建一个对象div*/  
-  for (var j=0; j<4; j++ )
-       {   if (i * 4 + j < SYMBOL.length) 
-       {  var input = document.createElement('input') ; /*表示在对象中创建一个对象input*/      
-  input.type = "button" ;    
-  input.value = SYMBOL[i * 4 + j] ; 
-  input.onclick = function()
-  {   output.value += this.value ;  }; //匿名函数；this表示元素本身；
-   div.appendChild(input) ;      }  }  /*在input中的最后一个子节点之后添加节点*/
-   document.body.appendChild(div) ;  } /*一次追加所有的div*/
-    var inputs = document.querySelectorAll('input'); /*找出input中所有匹配的节点并返回数组中*/
-   inputs[inputs.length -1].style.width = '200px'; 
-   inputs[inputs.length -2].onclick = function()
-   { var s = output.value ; 
-         s = s.substring(0, s.length - 1);  
-         output.value = s ; };
-   inputs[inputs.length -1].onclick = function()
-   { var s = output.value ; 
-     var result ;   
-     try {  result = eval(s) ; } 
-     catch (err) {    result = err ; }  
-     output.value = result ; };  
-</script>
-</body>
+<div id="box">
+	 <h1>
+     计算机
+	 </h1>
+	 </div>
+		<input type="text" value="" id="output">
+		<script>
+			var box=['AC','%','<X','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='];/*数组*/
+			var i,j;
+			for(i=0;i<box.length/4;i++){
+			 var div=document.createElement('div');/*document.createElement(“div”)是创建的新元素，每次执行都创建新元素，用div实现换行*/
+					for(j=0;j<4;j++){
+						if(i*4+j<box.length){
+							var 
+							input=document.createElement('input');
+							input.type="button";
+							input.value=box[i*4+j];
+							input.onclick=function(){/*匿名函数，往output中加上当前按钮内容*/
+							output.value+=this.value;/*this指的是元素按钮本身，使得点击时把字母加上去*/
+							}
+							div.appendChild(input);/*appendChild() 是将已存在的元素节点从一个位置移动到另一个位置*/
+						}								
+					}
+					document.body.appendChild(div);/**/
+				}/*动态将input，div弄出来*/
+			var inputs=document.querySelectorAll('input');/*一次性全部抓住input元素数组*/
+			inputs[1].onclick=function(){
+						var a=output.value;
+						output.value='  ';
+					}/*清零*/
+			inputs[inputs.length-1].onclick=function(){
+						var a=output.value;
+						var result;
+						try{
+							result=eval(a);/*通过eval函数求解结果*/
+						}/*调试执行*/
+						catch (err){
+							result=err;
+						}/*抓住错误并进行反馈*/
+						output.value=result;
+					};
+			inputs[3].onclick=function(){
+						var a=output.value;
+						a=a.substring(0,a.length-1);
+						output.value=a;
+					};
+		</script>
+	</body>
 </html>
+

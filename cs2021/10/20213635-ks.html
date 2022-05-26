@@ -10,7 +10,7 @@
 				border:5px solid green;
 				width:400px;
 				margin:auto;
-    box-shadow: 5px 5px gray;	        
+    box-shadow: 10px 10px #e1c7c0;	        
             font-size: 20px;
             border-radius: 10px;
 				}
@@ -22,10 +22,13 @@
 					cursor:pointer;/* 光标 */
 					box-shadow:4px 3px rgba(255,140,0,0.6);/* 阴影 */
 					:0px 10px;
-					border-radius:25px;/* 边框半径 */
-					width:60px;
-					height:60px;
+					border-radius:30px;/* 边框半径 */
+					width:65px;
+					height:65px;
 					margin:15px;
+					/*  控制格子大小*/
+					font-weight: bold;
+					font-family:"Comic Sans MS";
 				}
 				input:hover
 				{
@@ -45,13 +48,24 @@
 					box-shadow:none;
 					text-align:center;
 				}
+				h1
+				{
+				font: 500 50px 楷体, 微软雅黑;				color:black;					
+				}
+				.zhu{
+				font: 500 20px 楷体, 微软雅黑;
+				}
 			 </style>
 		<title>计算器</title>
 	</head>
-	<body> 
 
-		<input type="text" value="" id="output"   onkeydown="test()"/>
+	<body> 
+<h1>
+计算器
+</h1>
+		<input type="text" value="" id="output"   onkeydown="test()" />
 		<script type="text/javascript">
+			alert("实现空格清零，回车出结果" );
 			var box=['AC','%','<X','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='];
 			var i,j;
 			for(i=0;i<box.length/4;i++)
@@ -128,9 +142,15 @@
 							result=err;
 						}
 						output.value=result;
+						
 		}
-	}	
+		if (window.event.keyCode ==32) {//window.可以省略不写
+			 var a=output.value;
+						a=a.substring(0,0);
+						output.value=a;          
+		}
 	
-</script>
+	
+	}</script>
 	</body>
 </html>

@@ -4,40 +4,46 @@
   <meta charset="UTF-8">
   <title>计算器</title>
   <style>
-  *{font-size:40px;
-	font-family:黑体;
+  *{font-size: 40px;
+	font-family: 黑体;
+	background: url("https://pic1.zhimg.com/80/v2-f5da1a2f817d9913cc99c52ca43ab124_720w.jpg");
+	background-size: cover;
 	}/*设置总体属性*/
-  input{/*设置按钮属性*/
-	  text-align:center;/*文字居中*/
-	  width:90%;/*宽度占据表格一格的95%*/
-	  height:90%;/*高度占据表格一格的95%*/
-	  background:rgb(210,210,230);/*按钮的背景色格式为rgb（红，绿，蓝）*/
-	  box-shadow:3px 2px 2px black;/*设置阴影格式为水平半径 垂直半径 模糊半径 颜色*/
-	  border-radius:20px;/*圆角*/
-	  cursor:pointer;}
+	input{/*设置按钮属性*/
+		text-align: center;/*文字居中*/
+		width: 90%;/*宽度占据表格一格的95%*/
+		height: 90%;/*高度占据表格一格的95%*/
+		background: rgb(252,230,201);/*按钮的背景色格式为rgb（红，绿，蓝）*/
+		box-shadow: 5px 3px 1px rgb(237,145,33);/*设置阴影格式为水平半径 垂直半径 模糊半径 颜色*/
+		border-radius: 20px;/*圆角*/
+		cursor:pointer;}
     input:hover{/*鼠标放在上面时*/
-	background:red;/*背景色为红色，更明显*/
-	color:white;}/*字体颜色变换*/
-  input#xianshi{/*设置一个class为xianshi的input属性*/
-  text-align:right;/*文字向右对齐*/
-  border:0px;/*边框为0*/
-  height:90px;/*输入框高度为60像素*/}
-	table{/*设置表格总体属性*/
-	position:absolute;/*绝对定位，元素的位置通过 “left”, “top”,属性进行规定*/
-	width:500px;
-	height:500px;
-	top:10%;
-	left:30%;
-	}
+		background: red;/*背景色为红色，更明显*/
+		color: white;}/*字体颜色变换*/
+	input#xianshi{/*设置一个class为xianshi的input属性*/
+		text-align: right;/*文字向右对齐*/
+		border: 0px;/*边框为0*/
+		height: 90px;/*输入框高度为60像素*/}
 	input:active {/*设置点击时的属性*/
-    box-shadow: 0 0 3px 3px yellow;/*设置阴影但可以达到高光的效果*/
+		box-shadow: 0 0 3px 3px yellow;/*设置阴影但可以达到高光的效果*/
 	}
+	table{/*设置表格总体属性*/
+		position: absolute;/*绝对定位，元素的位置通过 “left”, “top”,属性进行规定*/
+		width: 500px;
+		height: 500px;
+		top: 10%;
+		left: 30%;
+		box-shadow: 5px 3px 1px rgba(237,145,33,0.5),
+					-5px -3px 1px rgba(237,145,33,0.5);
+		border-radius: 10px;
+		}
+
 </style>
  </head>
  <body>
   <table border="5"><!-- 大边框大小为像素 -->
   <tr>
-  <td colspan="4">  <!-- 在第一行创建一个占据四个格子大小的输入框 -->
+  <td colspan="5">  <!-- 在第一行创建一个占据四个格子大小的输入框 -->
   <input type="text" value="" id=xianshi>
   </td>
   </tr>
@@ -79,21 +85,23 @@
 			jieguo.value=jieguo.value+this.value;
 			}}
 	inputs[inputs.length-1].onclick=function(){/*点击等于的函数*/
-		var a=document.getElementById('xianshi').value/*再次获取*/
-		jieguo.value=eval(a);}/*用eval函数进行计算*/
+		var a=document.getElementById('xianshi').value;/*再次获取*/
+		a='1000*'+a+'*1000';
+		jieguo.value=eval(a);
+		jieguo.value=jieguo.value/1000;};//用eval函数进行计算
 	inputs[1].onclick=function(){/*把xianshi的value清空*/
-		jieguo.value="";}
+		jieguo.value="";};
 	inputs[2].onclick=function(){/*减去最后一位*/
-		jieguo.value=jieguo.value.substring(0,jieguo.value.length-1);}
+		jieguo.value=jieguo.value.substring(0,jieguo.value.length-1);};
 	inputs[3].onclick=function(){/*计算平方*/
 		var b="";
-		b=jieguo.value*jieguo.value;
-		jieguo.value=eval(b);}
+		b= jieguo.value*jieguo.value;
+		jieguo.value=eval(b);};
 	inputs[inputs.length-2].onclick=function(){
-		jieguo.value=jieguo.value*-1;}
+		jieguo.value= jieguo.value*-1;};
 	document.onkeydown=function(event){/*键盘时间，按下回车等于等于*/
 		if(event.keyCode == 13){/*判断assic码是否为回车*/
-		jieguo.value=eval(document.getElementById('xianshi').value);}}
+		jieguo.value=eval(document.getElementById('xianshi').value);}};
   </script>
  </body>
 </html>

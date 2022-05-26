@@ -1,108 +1,155 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Calculate</title>
-			 <style type="text/css">
 
-			 * {
-			    text-align:center;
-                padding: 3px;
-                margin: 8px;
-        }       /* 设置全局的外观 */
+<head>
+	<meta charset="UTF-8">
+    <title>Examination test</title>
+	<style type="text/css">
+      * {
+			 text-align:center;/*设置居中*/
+             padding: 3px;/*设置内边距*/
+             margin: 8px;/*设置外边距*/
+        }    /* 设置全局的外观 */
 		    	
-		    input{
-			    color:red;
-			    background-color:yellow;
-			    width: 60px;
-                height:25px;
-				cursor: pointer;/* 添加手指光标形式 */
-                font-size: 15px;
-                border-radius: 20px;
+	   input{
+			 color:red;/*设置字体颜色*/
+			 background-color:yellow;/*设置背景颜色*/
+			 width: 200px;/*设置宽度*/
+             height:50px;/*设置高度*/
+		     cursor: pointer;/* 添加手指光标形式 */
+             font-size: 30px;/*设置字体大小*/
+             border-radius: 20px;/*边界半径*/
 		}	   
+		body{
+			
+		     border:5px solid blue;
+		     width:900px;
+			 margin:auto;
+             background-image: url(https://i0.hippopx.com/photos/174/613/190/mountain-landscape-mountains-landscape-steinweg-thumb.jpg);
+			 background-repeat: no-repeat;
+             background-size: 100%;
+		}
+		p{
+		     color:red;
+			 font-size:23px;
+	    }
+		input:hover
+			{
+			 border:outset;/* 边框凸起 */
+			 box-shadow:8px 6px rgba(255,140,0,0.8);
+		}
+		input#output
+			{
+			 width:500px;
+			 height:40px;
+			 border:inset;/* 边框凹陷 */
+			 box-shadow:none;
+			 text-align:center;
+		}/*是指输入框的长度
+		/*active是指点完之后的效果
              </style>
 				
 	</head>
 	<body>
-		<input type="text" value="" id="output" onkeydown="text"/>
-        <!-- 逻辑，源于逻辑控制，即生成按钮，产生input -->
-		<script type="text/javascript">
-		//外联js语句，添加计算功能
+	    <p>可以使用键盘，ctrl清零；使用enter的方法：先鼠标点击输入框，然后再按enter</p>
+		<input type="text" value="" id="output"   onkeydown="test()"/><!-- 逻辑，源于逻辑控制，即生成按钮，产生input -->
+		<script type="text/javascript">//外联js语句，添加计算功能
 			var box=['AC','%','退格','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='];
-			//定义box数组，用js代替写入html，解决反复写多条代码问题
-			var i,j;
-			//定义i，j对象
+			var i,j;//定义box数组，用js代替写入html，解决反复写多条代码问题
 			for(i=0;i<box.length/4;i++)
 				{
+				//i控制列数
 					var div=document.createElement('div');
 					for(j=0;j<4;j++)
+					//j控制行数
 						{
 							if(i*4+j<box.length)
 								{
-									var input=document.createElement('input');
-									input.type="button";
-									input.value=box[i*4+j];
-									//数组解决反复写多条代码的问题
-									input.onclick=function()
-									//onlink指事件，function指匿名函数
-											{
-												output.value+=this.value;
-											}
-								    //this指写元素本身，即高级知识；这个程序生成动态效果。
-									//this指的是调用函数的对象，此处指的是input
-									div.appendChild(input);
+						var input=document.createElement('input');
+						//creatElement是在对象中创建一个对象
+						input.type="button"						;
+						input.value=box[i*4+j];			
+						//value是指按钮上的文本box[i*4+j]			
+						input.onclick=function()//onlink指事件，function指匿名函数
+									{
+						output.value+=this.value;
+						//将点击值返还给output；this指写元素本身，即高级知识；这个程序生成动态效果。this指的是调用函数的对象，此处指的是input;将点击值返还给output
 								}
-								    //通过div加进来，及父与子关系
+						div.appendChild(input);
+						//通过div加进来，及父与子关系;appendChild将创建的对象在节点的子节点列表末添加新的子节点		    
+						document.body.appendChild(div);
+								} //有关逻辑问题，即分工思维		    
 						}
-									document.body.appendChild(div);
-
-				}                   //有关逻辑问题，即分工思维
-			var inputs=document.querySelectorAll('input');
-			//把input标记全部引过来，下面程序定义数组
-			inputs[1].onclick=function()
+				}
+		     	var inputs=document.querySelectorAll('input'); //把input标记全部引过来，下面程序定义数组
+			    inputs[1].onclick=function()
 					{
 						var a=output.value;
 						a=a.substring(0,0);
 						output.value=a;
-					}//截取字符串
-			inputs[inputs.length-1].onclick=function()
+					}
+			    //input[1]控制AC进行清空；截取字符串
+			    inputs[inputs.length-1].onclick=function()
 					{
 						var a=output.value;
 						var result;
 						try
 						{
 							result=eval(a);
-						}
-						// 定义清零AC按钮
+						}// 定义清零AC按钮
 						catch (err)
 						{
 							result=err;
 						}
 						output.value=result;
-					};//从1开始，length-1即结束; 定义最后输出内容按钮
-			inputs[3].onclick=function()
+					};
+
+				//inputs[inputs.length-1]控制=的计算；从1开始，length-1即结束; 定义最后输出内容按钮
+		     	inputs[3].onclick=function()
 					{
 						var a=output.value;
 						a=a.substring(0,a.length-1);
 						output.value=a;
-					};//加入三条循环语句
-		   
-        function text() {
-			if (window.event.keyCode == 13){
+					};
+			   //控制length的单个减少；加入三条循环语句
+
+
+		</script>
+
+		<script>	
+	
+	          function test() {
+		        if (window.event.keyCode == 13) {//window.可以省略不写
 			            var a=output.value;
 						var result;
 						try
 						{
 							result=eval(a);
 						}
-						// 定义清零AC按钮
 						catch (err)
 						{
 							result=err;
 						}
 						output.value=result;
-			}
 		}
+	}	
+		</script>
+
+		<script>	
+	
+	          function test() {
+		        if (window.event.keyCode == 17) {//定义ctrl键实现清空功能
+
+						var a=output.value;
+						a=a.substring(0,0);
+						output.value=a;
+				}  
+			}
 		</script>
 	</body>
 </html>
+	<!-- document.body.onkeydown = function(e){
+	
+		 e.preventDefault();
+			避免一张特殊情况：鼠标指针在其他按钮上，按回车键会触发其他按钮click事件，导致输出增加字符情况
+			}；	 -->

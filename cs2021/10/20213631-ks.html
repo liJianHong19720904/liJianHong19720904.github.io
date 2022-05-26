@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<title>简易计算器</title>
 		<style type="text/css">
 			*{
@@ -12,22 +13,22 @@
 			}
 			.content{
 				border-radius: 10%;
-				width: 400px;
-				height: 650px;
+				width: 800px;
+				height: 850px;
 				background-color: purple;
 			}
 			.clear{
 			    font-size:25px;
 				border-radius: 50%;
 				width: 20%;
-				height: 72px;
+				height: 100px;
 				background-color: #FF4500;
 			}
 			#result{
 				margin-top: 24px;
 				font-size: 40px;
-				width: 60%;
-				height: 72px;
+				width: 70%;
+				height: 100px;
 				text-align: left;
 				border-radius: 20px;
 				background-color: #FFE4C4;
@@ -37,7 +38,7 @@
 				font-size: xx-large;
 				border-radius: 50%;
 				width: 20%;
-				height: 72px;
+				height: 100px;
 				background-color:bisque;
 			}
 			.number{
@@ -45,7 +46,7 @@
 				font-size: xx-large;
 				border-radius: 50%;
 				width: 20%;
-				height: 72px;
+				height: 100px;
 				background-color:orange;
 			}
 			.calculate{
@@ -53,7 +54,7 @@
 				font-size: xx-large;
 				border-radius: 50%;
 				width: 20%;
-				height: 72px;
+				height: 100px;
 				background-color: #FF4500;
 			}
 			.back{
@@ -61,8 +62,12 @@
 				font-size: xx-large;
 				border-radius: 50%;
 				width: 20%;
-				height: 72px;
+				height: 100px;
 				background-color: white; 
+			}
+			h2{
+			    font-size:50px;
+				color:red;
 			}
 			.content input:hover{/*鼠标放在按钮上出现阴影*/
 				box-shadow: 5px 5px 5px #888888;
@@ -75,25 +80,31 @@
 			function clearValue(){
 				document.getElementById("result").value="";
 				//出现的value会变成空字符串
-			}
+			};
 			function get(value){
 				document.getElementById("result").value+=value;
                 //原来的value加上后来出现的value组成新的value
-			}
+			};
 			function calculate(){
 				var result=0;
 				result=document.getElementById("result").value;
 				document.getElementById("result").value="error";
 				//不能得到value则输出错误
-				document.getElementById("result").value=eval(result);
+				
+				document.getElementById("result").value=Number(eval(result)).toFixed(8);
 				//计算result中的式子
-			}
+				
+			};
 			function back(){
 			     var result=document.getElementById("result");
 				 document.getElementById("result").value=result.value.substring(0,result.value.length-1);
 				 //原来的value被赋值后来的value的字符串的长度-1
 			};
-           
+            window.onkeydown=function(e){
+			     if(e.keyCode==13){//当键盘输入Enter后执行calculate函数
+				    calculate();  
+				 }
+			};	 
 		</script>
 	</head>
 	<body>
@@ -105,7 +116,7 @@
 			<br/>
 		<div class="content">
 			<input type="button" value="清 除" class="clear" onclick="clearValue()"/><!--点击按钮后会运用函数 -->
-			<input type="text" id="result" readonly="readonly" placeholder="运 算 结 果 显 示"/>
+			<input type="text" id="result" placeholder="运 算 结 果 显 示"/>
 				<br/>
 			<input type="button" value="1" class="number" onclick="get(this.value)"/>
 			<input type="button" value="2" class="number" onclick="get(this.value)"/>
@@ -130,8 +141,9 @@
 			<input type="button" value="退格" class="back"
 			onclick="back()"/>
 		</div>
-			<br/>
-		
+		<h2>	
+		    已实现键盘输入，并且按下Enter键可以输出结果
+        </h2>
 	</body>
 </html>
 

@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>计算器</title>
   <style type="text/css">
+      body,html{
+          overflow: hidden ;
+      }
     body{
         height: 900px;
         background: linear-gradient(dodgerblue,tomato); /*实现背景颜色渐变*/
@@ -13,6 +16,11 @@
         font-family: 楷体;
         text-align: center;
 	}
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
     .caculator{
         margin: 300px auto;
         width: 400px;
@@ -32,7 +40,13 @@
         text-align: center;
     }
     .keyboard p{
+        background-color: lightgray;/*按键背景颜色*/
+        border-radius: 10px;/*设置圆角边框*/
+        line-height: 30px;
         cursor: pointer;/*鼠标光标经过有小手的样式*/
+    }
+    .keyboard p:hover{
+        background-color: gray;
     }
   </style>
  </head>
@@ -43,18 +57,18 @@
        for(var i=0; i<Btn.length; i++){
            Btn[i].onclick=function(){
                var char=this.getAttribute('data-char');
-               view.innerHTML=view.innerHTML+char;/*输入框里可以同时存在多个数字*/
+               view.innerHTML=view.innerHTML+char;/*实现输入框中有多个内容*/
            };
-       }
+       }/*实现计算器输入框接受功能*/
        var clearBtn=document.getElementById('clearBtn');
        clearBtn.onclick=function(){
            view.innerHTML='';
-       };/*定义清空按钮,功能*/
+       };/*实现清空功能*/
        var resultBtn=document.getElementById('resultBtn');
        resultBtn.onclick=function(){
            var result=eval(view.innerHTML);
            view.innerHTML=result;
-       };/*定义结果按钮，功能*/
+       };/*实现结果功能*/
      };
  </script>
  <body>

@@ -2,108 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>计算器</title>
- <style >
-    body {
-	border: none;}
- 
-    h1{
-        text-align: center;}
-    
-    button{
-        cursor: pointer;
-        width:65px;
-        height:45px;
-        background-color: hsla(182, 93%, 45%, 0);
-        border-radius: 15px;/*添加圆角的边框：*/
-        box-shadow: 3px 3px 5px rgb(165, 11, 11);/*盒子阴影*/
-        outline: none;/*默认,定义无轮廓*/
-        font-size: 25px;}
-
-    input{
-        font-size: 25px;
-        border-radius: 10px;
-        width: 200px;
-        height: 40px;
-        color:rgb(226, 62, 21); 
-        background-color:rgb(23, 203, 95);}
-
-    #main{
-        text-align:center;
-        width:300px;
-        height: 287px;
-        margin: 0 auto;
-        border:2px solid #ccc;}
-
-    .num{
-        margin: 10px;}
-    
-</style>
- 
+    <title>试试这个计算器</title>
+    <style>
+        input {  
+            color: rgb(218, 206, 206);      
+            width: 60px;
+            height: 60px;
+            line-height: 10px;  /*行高*/
+            margin: 20px;   /*外边距属性*/
+            border-radius: 35px;  /*添加圆角边框*/
+            background: rgb(27, 25, 25);
+            text-align: center;
+            font-size: 30px;
+            cursor: pointer;   /*设定网页浏览时用户鼠标指针的样式*/
+        }
+        
+        input:hover{  
+            background-color:rgb(104, 98, 103); }
+        input:active{color:rgb(113, 100, 100); 
+            border:inset 3px solid ; }
+        input#output{display:block; width:350px; } 
+    </style>
 </head>
 <body>
-	<h1>计算器</h1>
-	<div id="main" onclick="cal(event);">
-		<div class="num" >
-			<input type="text" value="0" readonly="readonly" id="screen" />
-			<button>C</button>
-		</div>
-		<div class="num">
-			<button>7</button>
-			<button>8</button>
-			<button>9</button>
-			<button>/</button>
-		</div>
-		<div class="num">
-			<button>4</button>
-			<button>5</button>
-			<button>6</button>
-			<button>*</button>
-		</div>
-		<div class="num">
-			<button>1</button>
-			<button>2</button>
-			<button>3</button>
-			<button>-</button>
-		</div>
-		<div class="num">
-			<button>0</button>
-			<button>.</button>
-			<button>=</button>
-			<button>+</button>
-		</div>
-	</div>
+    <h1>试试这个计算器</h1>
+    <input type="text"value=""id="output">
+    <script>
+        var SYMBOL=
+        ['0','-','*','/','7','8','9','.','4','5','6','+','1','2','3','del','='];//创建按钮数组
+        for(var i=0;i < SYMBOL.length / 4;i++){    //创建循环，循环每层有四层
+            var div = document.createElement('div');  //创建JS变量div
+                for (var j=0;j<4;j++){              //创建循环，循环每层每次有四个
+                    if (i * 4 + j < SYMBOL.length){      //判断按钮编号是不是在数组长度内
+                        var input = document.createElement('input');  //创建JS变量input
+                            input.type = "button" ;             //给input一个属性“button”
+                            input.value = SYMBOL[i * 4 + j] ;  //将数组里的字符串给input
+                            input.onclick = function(){  output.value += this.value ;  };  //给input一个onclick属性，之后又将一个函数功能符给onclick属性
+                        div.appendChild(input);
+                    }
+                    }
+                    document.body.appendChild(div) ;  } //将所有内容传到body
+                    var inputs = document.querySelectorAll('input'); //将input的内容传到数组inputs里
+                    inputs[inputs.length -1].style.width = '350px'; //按钮数组最后一个元素的长度
+                    inputs[inputs.length -2].onclick = function(){ //按钮数组倒数第二个的功能：逐个删除
+                        var s = output.value ;      
+                        s = s.substring(0, s.length - 1); 
+                        output.value = s ; };
+                        inputs[inputs.length -1].onclick = function(){  //"="的功能
+                            var s = output.value ;
+                            var result ; 
+                            try {  result = eval(s) ; } 
+                            catch (err) {  result = err ; }  
+                            output.value = result ; }; 
+
+
+    </script>
+    
 </body>
-<script type="text/javascript">
-function cal(e) {
-	//获取触发事件的元素
-	var obj = e.target||e.srcElement;
-	if(obj.nodeName != "BUTTON"){
-		return;
-	}
-	var v = obj.innerHTML;
-	var screen = document.getElementById("screen");
-	if(v == "C"){
-		screen.value = 0;//C做清屏处理：判断触发事件的按钮值是否为C，若为C，屏幕中只显示0；
-	}
-    else if(v == "="){
-		//获取到输入框的值
-		var exp = screen.value;//=做计算处理：判断触发事件的按钮值是否为=，若为=，利用eval()方法计算屏幕上的公式；
-		try{
-			var result = eval("("+exp+")");
-			//将计算结果赋值给输入框
-			screen.value = result;
-		}
-        catch(e){
-			console.log(e);
-			screen.value = "error";
-		}
-	}else{
-		if(screen.value == 0){
-			screen.value = "";
-		}
-		screen.value += v;
-	}	
-}
-</script>
 </html>

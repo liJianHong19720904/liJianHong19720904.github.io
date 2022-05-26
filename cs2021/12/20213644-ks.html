@@ -21,8 +21,7 @@
             background: linear-gradient(rgb(138, 90, 240), rgb(74, 93, 239));
             /*创建一个线性渐变，指定两种颜色*/
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: left;
             /*居中对齐弹性盒的各项 <div> 元素*/
         }
         
@@ -36,6 +35,14 @@
             /*盒子上方样式*/
             border-left: 1px solid rgba(255, 255, 255, 0.5);
             /*盒子左方样式*/
+        }
+        
+        .hdd {
+            text-align: center;
+            width: 360px;
+            padding: 15px;
+            font-size: 20px;
+            color: rgb(71, 44, 50);
         }
         
         .container input[type="text"] {
@@ -54,7 +61,7 @@
         }
         
         .container input[type="button"] {
-            height: 65px;
+            height: 60px;
             color: white;
             width: calc(100% / 4 - 5px);
             /*计算 CSS 的属性值，动态计算长度值。*/
@@ -83,12 +90,14 @@
 </head>
 
 <body>
-
+    <div class="hdd">
+        <p>欢迎使用黄丹丹的计算器</p>
+    </div>
     <div class="container">
         <form action="#" name="forms">
             <input type="text" name="answer">
             <div class="buttons">
-                <input type="button" value="AC" onclick="forms.answer.value =' '">
+                <input type="button" value="C" onclick="forms.answer.value =' '">
                 <input type="button" value="DEL" onclick="forms.answer.value = forms.answer.value.substr(0 ,forms.answer.value.length -1)">
                 <input type="button" value="%" onclick="forms.answer.value +='%'">
                 <input type="button" value="/" onclick="forms.answer.value +='/'">
@@ -112,7 +121,7 @@
                 <input type="button" value="+" onclick="forms.answer.value +='+'">
             </div>
             <div class="buttons">
-                <input type="button" value="00" onclick="forms.answer.value +='00'">
+                <input type="button" value="<--|" onclick="forms.answer.value = eval(forms.answer.value)">
                 <input type="button" value="0" onclick="forms.answer.value +='0'">
                 <input type="button" value="." onclick="forms.answer.value +='.'">
                 <input type="button" value="=" onclick="forms.answer.value = eval(forms.answer.value)">
