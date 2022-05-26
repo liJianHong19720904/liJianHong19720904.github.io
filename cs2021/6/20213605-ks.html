@@ -62,10 +62,41 @@
 		try { result = eval(s) ; } 
 		catch (err) { result = err ; } output.value = result ;
 		};
-	inputs[inputs.length -4].onclick = function(){                //定义“ac”的作用，归零
+	inputs[inputs.length -4].onclick = function(){                 //定义“ac”的作用，归零
 		var s = output.value ;
 		s = s.substring(0, s.length - s.length);
 		output.value = s ; }
+			document.body.onkeydown = function(e){
+	 var keyCode = e.keyCode ;
+	 
+	 console.log(keyCode);
+
+     if (keyCode >= 96 && keyCode <= 105) {                          //96-105对应小键盘0至9
+		 output.value += String(keyCode - 96);
+     }
+	 switch (keyCode){ 
+	  case  107 :  output.value += '+' ;break;
+	  case  109 :  output.value += '-' ;break;
+	  case  106 :  output.value += '*' ;break;
+	  case  111 :  output.value += '/' ;break;
+	  case  110 :  output.value += '.' ;break;
+	 }
+	 
+     if (keyCode === 13) {                                            //13对应键盘的回车
+	  var s = output.value ;
+	  var result ;
+ 	 
+		 try {
+		  result = eval(s) ;
+		 }
+		 catch (err) {
+		   result = "输入错误" ;
+		 }
+		  output.value = result ;
+
+	 }
+        e.preventDefault();                                          //避免一种特殊情况：鼠标指针在其他按钮上，按回车键会触发其他按钮click事件，导致输出增加字符情况
+    };
 
 </script>
 </body>

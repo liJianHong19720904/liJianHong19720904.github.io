@@ -6,16 +6,14 @@
 	input{  
 	  text-align: center; 
 	  border-radius:15%;
-	  width:60px;
+	  width:58px;
 	  height:50px;
 	  font-size:40px;
 	  text-align:center;
-	  margin:10px;
+	  margin:10px ;
 	  color:rgb(100 , 150 , 200);
 	  box-shadow: 5px 10px rgb(150,150,100);
-	  cursor:pointer; 
 	}
-
 	input:hover{
 	 border:outset ; 
 	}
@@ -31,20 +29,17 @@
  <body>
   <input type="text" value="" id= "output" >
   <script>
-    var fh = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ;//定义全部所需的按钮
+    var fh = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','del','Enter'] ;//定义全部所需的按钮
 	var output =  document.querySelector('input#output') ;    //计算机显示和答案输出
     for (var i=0; i < fh.length / 4; i++)
 	{
 	  var div = document.createElement('div') ;//创建div这个对象
-	      for (var j=0; j<4; j++ )
-		  {
-		    if (i * 4 + j < fh.length)
-			{
+	      for (var j=0; j<4; j++ ){
+		    if (i * 4 + j < fh.length){
 			var input = document.createElement('input') ;
 			    input.type = "button" ;
 		        input.value = fh[i * 4 + j] ;
-				input.onclick = function()
-				{
+				input.onclick = function(){
 				  output.value += this.value ;//计算值
 				};
 		    div.appendChild(input) ;
@@ -55,16 +50,14 @@
 	  }
 //按钮点击输入部分
 	var all= document.querySelectorAll('input');
-	all[all.length -1].style.width = '220px';
-	all[all.length -2].onclick = function()
-	{
+	    all[all.length -1].style.width = '240px';
+	    all[all.length -2].onclick = function(){
 	 var ji = output.value ;
 	     ji = ji.substring(0, ji.length - 1);//将按钮输入的放在s中，让s在output中显示
-     output.value = ji ;
+         output.value = ji ;
 	};
 //输入后enter的执行功能
-	all[all.length -1].onclick = function()
-	{
+	all[all.length -1].onclick = function(){
 	 var ji = output.value ;
 	 var result ;
      output.value = result ;

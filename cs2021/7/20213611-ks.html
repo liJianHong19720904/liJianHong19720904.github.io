@@ -204,7 +204,12 @@ body{
             var backone=document.getElementById('shu');
             backone.value=backone.value.substring(0,backone.value.length-1); //运用substring截取开头到文本框倒数第二位再重新赋值到文本框中，从而实现删除一格的功能
         }//进行删除功能的函数
-
+		document.onkeydown=cdk;
+		function cdk(){
+			if(event.keyCode==13){
+				
+			}
+		}
     </script>
     
 </body>

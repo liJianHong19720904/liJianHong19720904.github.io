@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第十一次作业</title>
+    <title>简易在线计算器</title>
     <style>
         body{
             text-align: center;/*将文本位置居中*/
@@ -56,14 +56,15 @@
 </head>
 
 <body>
-    <h1>简易在线计算器</h1>
+    <h1>刘可汉的简易在线计算器</h1>
+    <p>-------------------------实现所有功能的键盘输入：Backspace键退格；Enter键输出结果；Shift键清空；0~9及加减乘除同样支持键盘输入-------------------------</p>
     <!--创建一个文本框作为计算器的显示屏幕，命名为num-->
     <input type="text"  id="num">
 </body>
 
 <script>
     var keyboard=["C","B","**","/","7","8","9","*","4","5","6","-","1","2","3","+","0",".","="];//创建一个数组，用于给后面循环产生的按钮赋值
-    var boardname=['C','B','BFZ','CHU','SEVEN','EIGHT','NINE','CHENG','FOUR','FIVE','SXI','JIAN','ONE','TWO','THREE',
+    var boardname=['C','B','BFZ','CHU','SEVEN','EIGHT','NINE','CHENG','FOUR','FIVE','SIX','JIAN','ONE','TWO','THREE',
 'JIA','ZERO','DIAN','ENTER'];//创建一个数组，用于给后面循环产生的按钮命名
 /*第一层循环，创建盒子，并且每四个元素一个盒子*/
     for(var i=0;i<keyboard.length/4;i++){
@@ -91,21 +92,103 @@
 
     /*退一位*/
     B.onclick=function(){
-        var lkhdsg=num.value; //将文本框num中的内容赋值给lkhdsg
-        num.value=lkhdsg.substring(0,lkhdsg.length-1); //用substring函数，截取字符串lkhdsg从0到倒数第二个字符的位置，生成一个子字符串并赋给文本框num的内容,达到退格的目的
+        BackSpace();
     }
 
     /*计算结果*/
     ENTER.onclick=function(){
-        num.value = eval(num.value); //用eval函数，将输入文本框的字符串当做一个表达式去执行，并将最终结果赋值到文本框的内容中
+        Count();
     }
 
-    /*功能有待完善，需要先点击空白处再按enter才有效*/
-    document.onkeydown=function(e){
-        if(e.code=13){//当按下的按键为enter
-            num.value = eval(num.value);}
- }
+    function BackSpace(){
+        var lkhdsg=num.value; //将文本框num中的内容赋值给lkhdsg
+        num.value=lkhdsg.substring(0,lkhdsg.length-1); //用substring函数，截取字符串lkhdsg从0到倒数第二个字符的位置，生成一个子字符串并赋给文本框num的内容,达到退格的目的
+    }
 
-       
+    function Count(){
+        try{
+            var result=eval(num.value)
+            var z=num.value;
+            var x = String(result).indexOf(".")+1;//得到小数点的位置
+            var y = String(result).length - x;//小数点的位数
+            if(x==0){
+                num.value=eval(num.value);
+            }
+            else if(y>0&&y<=4){
+                num.value=eval(num.value);
+            }
+            else if(y>4){
+                num.value=result.toFixed(4);//当小数点位数大于4，将保留小数点后四位
+            } }
+        catch{
+             num.value="输入错误！";
+            }}
+
+    
+    function ShowNum(CODE){
+        switch(CODE){
+            case CODE=48:var oDiv = document.getElementById('ZERO');
+                            oDiv.click(); 
+                            break;
+            case CODE=49:var oDiv = document.getElementById('ONE');
+                            oDiv.click(); 
+                            break  ;  
+            case CODE=50:var oDiv = document.getElementById('TWO');
+                            oDiv.click(); 
+                            break;
+            case CODE=51:var oDiv = document.getElementById('THREE');
+                            oDiv.click(); 
+                            break;
+            case CODE=52:var oDiv = document.getElementById('FOUR');
+                            oDiv.click(); 
+                            break;
+            case CODE=53:var oDiv = document.getElementById('FIVE');
+                            oDiv.click(); 
+                            break;
+            case CODE=54:var oDiv = document.getElementById('SIX');
+                            oDiv.click(); 
+                            break;
+            case CODE=55:var oDiv = document.getElementById('SEVEN');
+                            oDiv.click(); 
+                            break;
+            case CODE=56:var oDiv = document.getElementById('EIGHT');
+                            oDiv.click(); 
+                            break;
+            case CODE=57:var oDiv = document.getElementById('NINE');
+                            oDiv.click(); 
+                            break;
+            case CODE=191:var oDiv = document.getElementById('CHU');
+                            oDiv.click(); 
+                            break;
+            case CODE=187:var oDiv = document.getElementById('JIA');
+                            oDiv.click(); 
+                            break;
+            case CODE=189:var oDiv = document.getElementById('JIAN');
+                            oDiv.click(); 
+                            break;
+            case CODE=220:var oDiv = document.getElementById('CHENG');
+                            oDiv.click(); 
+                            break;
+        }} 
+
+    /*键盘事件*/
+    window.onload = function(){
+            document.onkeydown = function(event){
+                var CODE=event.keyCode
+                if(CODE==13){
+                   Count();
+                   event.preventDefault();
+                }else if(CODE==8){
+                   BackSpace();
+                }else if(CODE>=48&&CODE<=57||CODE==191||CODE==189||CODE==220||CODE==187){
+                   ShowNum(CODE);
+                }else if(CODE==16){
+                    num.value="";
+                }else{
+                    num.value="请按正确按键！"
+                }
+            };
+		};
+
 </script>
 </html>

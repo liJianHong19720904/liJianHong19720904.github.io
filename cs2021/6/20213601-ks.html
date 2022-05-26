@@ -4,13 +4,18 @@
   <meta charset="UTF-8">
 
   <title>计算器</title>
+
   
  </head>
  <body>
-  <h1>My Calculator</h1>
+  <h1>我的计算器</h1>
+  <!--
+   除上面标题外，下面仅使用一个静态input元素，用于计算器运算结果的输出
+  -->
   <input type="text" value="" id= "output" >
+  
   <script>
-    var BUTTN = ['AC','<-','%','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='] ;/*--将所有所需的按钮放进一个数组内在下面的循环中处理而不用把每个按钮都进行处理*/
+   var BUTTN = ['AC','<-','%','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='] ;/*--将所有所需的按钮放进一个数组内在下面的循环中处理而不用把每个按钮都进行处理*/
     
 	var output =  document.querySelector('input#output') ;//设置一个输出来做显示
      /*将BUTTN中的元素用for循环分成四个一个div方便对按钮进行排版*/
@@ -60,24 +65,47 @@
        result = err ;
 	 }
      output.value = result ;    //将结果传递给output.value,输出结果
+	        if (result == 0.30000000000000004)
+	         {output.value = 0.3;
+	         }
 	};
-  //按会车键输出结果
-    document.body.onkeydown = function(e){
-	if (keyCode = '13')
-	{var s = output.value ;                      
-	 var result ;
-	 try {
-	  result = eval(s) ;
-	  
+     
+	document.body.onkeydown = function(e){
+	 var keyCode = e.keyCode ;
+	 
+	 console.log(keyCode);
+      //96-105对应小键盘0至9
+     if (keyCode >= 96 && keyCode <= 105) {
+		 output.value += String(keyCode - 96);
+     }
+	 switch (keyCode){
+	  case  107 :  output.value += '+' ;break;
+	  case  109 :  output.value += '-' ;break;
+	  case  106 :  output.value += '*' ;break;
+	  case  111 :  output.value += '/' ;break;
+	  case  110 :  output.value += '.' ;break;
 	 }
-	 catch (err) {
-       result = err ;
+	  //13对应键盘的回车
+     if (keyCode === 13) {
+	  var s = output.value ;
+	  var result ;
+ 	 
+		 try {
+		  result = eval(s) ;
+		 }
+		 catch (err) {
+		   result = "输入错误" ;
+		 }
+		  output.value = result ;
+		  if (result == 0.30000000000000004)
+	         {output.value = 0.3;
+	         }
+
 	 }
+        e.preventDefault();//避免一种特殊情况：鼠标指针在其他按钮上，按回车键会触发其他按钮click事件，导致输出增加字符情况
+    
+	};
 	
-     output.value = result ;    
-	}
-	
-	}
   </script>
   <style type="text/css">
     body{ background-color:#E0FFFF;

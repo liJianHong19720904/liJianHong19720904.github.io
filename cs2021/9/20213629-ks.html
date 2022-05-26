@@ -93,6 +93,17 @@
             var s = output.value;
             output.value = '';
         }; /*实现清除*/
+        document.body.onkeydown = function(e) {
+            var n = e.keyCode;
+            if (e.keyCode == 13) {
+                var s = output.value; /*将显示屏的值赋给一个新声明的s*/
+                var result; /*新声明一个空的值*/
+                result = eval(s); /*将数学公式的计算值赋给result*/
+                output.value = ""; /*显示屏清屏*/
+                output.value = result; /*将result显示在显示屏上*/
+                e.preventDefault();
+            }
+        }
     </script>
 </body>
 

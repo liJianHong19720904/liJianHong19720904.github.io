@@ -14,7 +14,7 @@
 			height:50px;  
 			font-size:40px;    
 			margin:10px;  
-			color:rgb(0,50,250);  
+			color:#00ffff;  
 			background-color:rgb(100,100,100);  
 			cursor:pointer; 
 			} 
@@ -46,7 +46,7 @@
 			{
 				if (i * 4 + j < symbol.length)
 				{
-					var input = document.createElement('input') ;
+					var input = document.createElement('input') ;//按键
 					input.type = "button" ;
 					input.value = symbol[i * 4 + j] ;
 					input.onclick = function(){
@@ -59,17 +59,17 @@
 			document.body.appendChild(div) ;
         }
 		var inputs = document.querySelectorAll('input');
-		inputs[inputs.length -2].onclick = function(){
+		inputs[inputs.length -2].onclick = function(){  /*退格*/
 			var s = output.value ;
 			s = s.substring(0, s.length - 1);
 			output.value = s ;
 		}
-		inputs[inputs.length -20].onclick = function(){
+		inputs[inputs.length -20].onclick = function(){  /*归零*/
 			var c = output.value ;
 			c = " ";
 			output.value = c ;
 		}
-		inputs[inputs.length -1].onclick = function(){
+		inputs[inputs.length -1].onclick = function(){  /*运算*/
 			var s = output.value ;
 			var result ;
 			try {
@@ -79,6 +79,22 @@
 				result = err ;
 			}
 			output.value = result ;
+		}
+		document.body.onkeydown = function(e) {  
+			var n = e.keyCode;
+			if (e.keyCode == 67){  //键盘c键表示全删
+				output.value = "";
+			}
+			if (e.keyCode == 13) {  //键盘enter键可用
+				var s = output.value;
+				alert(output.value);
+				var result;
+				result = eval(s);
+				alert(result);
+				output.value = "";
+				output.value = result;
+				e.preventDefault();		
+			}
 		}
  </script>
  </body>

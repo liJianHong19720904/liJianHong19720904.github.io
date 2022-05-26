@@ -66,6 +66,7 @@
 <body>
     <h1>我的计算器</h1>
     <center>
+        <p>实现了按Enter键进行计算与按Shift键进行全部清除</p>
         <div><input type="text" value="" id="显示"></div>
         <div><input type="button" value="清空" id="清空"></div>
         <!-- 设置一个text类型的按钮 并使其居中-->
@@ -113,8 +114,11 @@
                 var result; /* 新声明一个空的值 */
                 result = eval(s); /* eval的函数功能是计算值，比如“eval(13+7-10)”,的意义是"10" 此过程是将显示屏上的数学公式的计算值赋给result*/
                 output.value = ""; /* 让显示屏变成空值 */
-                alert(结果为result);
-                output.value = result /* 最后将result的值赋给显示屏，让其可以在显示屏上显示 */
+                output.value = result; /* 最后将result的值赋给显示屏，让其可以在显示屏上显示 */
+                syjp.preventDefault(); /* 避免按回车键触发按钮click事件，导致输出增加字符 */
+            }
+            if (syjp.keyCode == 16) {
+                output.value = ""; /* 按shift可以快捷全清 */
             }
         };
     </script>

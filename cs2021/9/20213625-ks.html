@@ -69,6 +69,15 @@
             var m = output.value.substring(0, output.value.length - 1); //截取output.value中第一位到它的前一位并赋值给m
             output.value = m; //再将m赋值给output.value
         }
+        document.body.onkeydown = function(e) {
+            if (e.keyCode == 13) {
+                document.getElementById("=").click();
+            }
+            if (e.keyCode == 8) {
+                document.getElementById("->").click();
+            }
+            e.preventDefault();
+        }
     </script>
 </body>
 

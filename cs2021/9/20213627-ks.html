@@ -7,6 +7,9 @@
    body{
          text-align:center;/*调整位置使其居中对齐*/
        }
+      p{
+	     color:red;
+	   }
   input{
          border:outset 2px solid;/*实线外斜面边框*/
 		 border-radius:20px;/*设置元素的外边框圆角*/
@@ -33,6 +36,9 @@
  </style>
  </head>
  <body>
+ <p>
+ 实现Enter和C全删键的键盘交互
+ </p>
  <center>
  <input type="text" value="" id="output">
  </center>
@@ -76,6 +82,23 @@
 											 str="";
 											 output.value=str;/*定义全删函数*/
  }
+ document.body.onkeydown = function(e) { /* 将键盘的值可用于计算器 */
+            if (e.keyCode == 67){
+				output.value = "";
+			}
+            if (e.keyCode == 13) {
+                var s = output.value; /* 将显示屏上的值赋给一个新声明的S */
+                alert(output.value);
+                var result; /* 新声明一个空的值 */
+                result = eval(s); /* eval的函数功能是计算值，比如“eval(13+7-10)”,的意义是"10" 此过程是将显示屏上的数学公式的计算值赋给result*/
+                alert(result);
+                output.value = ""; /* 让显示屏变成空值 */
+                output.value = result; /* 最后将result的值赋给显示屏，让其可以在显示屏上显示 */
+				e.preventDefault();/*避免一种特殊情况：鼠标指针在其他按钮上，按回车键会触发其他按钮的click事件，导致输出增加字符情况*/
+            }
+        };
+	
+ 
  </script>
 
   

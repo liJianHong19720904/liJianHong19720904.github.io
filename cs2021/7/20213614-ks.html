@@ -182,7 +182,13 @@
                     break;
             }
         }
+        document.onkeydown = function (event) {
+                e = event ? event : (window.event ? window.event : null);
+                if (e.keyCode=== 13) {
+                document.getElementById("list").value = eval(document.getElementById("list").value);
+            }
+                e.preventDefault();
+    }
     </script>
 </body>
- 
 </html>
