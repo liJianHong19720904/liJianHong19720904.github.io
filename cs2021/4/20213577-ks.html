@@ -6,28 +6,43 @@
   <style type="text/css">
 	body{	
 	text-align:center;/**全体中间对齐**/
+	background-color:yellow;
 	}
 	input{
      margin:5px;/**每个input按钮的外边距为10px**/
-	 width:50px;
-     height:50px;
+	 width:100px;
+     height:100px;
 	 border-radius:12px;/**设置元素的外边框圆角**/
 	 background-color:rgb(100,200,300);
+	 font-size:2em;
 	}
 	input#output{
-	 width:200px;
+	 width:450px;
+	}
+	h1{
+	font-size:100px;
+	}
+	input#ac{
+	cursor:pointer;
+	}
+	input:hover{
+	background-color:red;
+	}
+	input:active{ 
+	color:rgb(250,250,250);  
+	border:inset 2px solid ;  
 	}
   </style>
  </head>
  <body>
- <h1>计算器</h1>
-  <input type="text" value="" id="output"><!--创建一个文本框，即运算框-->
-  <script type="text/javascript">
-  <!--
+   <h1>计算器</h1>
+   <input type="text" value="" id="output"><!--创建一个文本框，即运算框-->
+   <script type="text/javascript">
+   <!--
     var output = document.querySelector('input#output') ;
 	var i,
 	    j;
-	var button = ["ac","+","-","*","/","0","1","2","3","4","5","6","7","8","9","="];//定义数组button
+    var  button = ["ac","+","-","*","/","0","1","2","3","4","5","6","7","8","9","="];//定义数组button
 	for (i=0;i<button.length/4;i++ ){
         var div = document.createElement('div') ; //创立四个div元素，实现换行
 	    for (j=0;j<4 ;j++ ){
@@ -46,20 +61,23 @@
 	} 
 	//利用点击事件实现点击清空运算框
 	  var ac = document.getElementById("ac") ;
-	  ac.onclick = function(){ 
-		  var s = output.value ;
-		  s = "" ;
-		  output.value = s ;
+	  ac.onclick = function(){ 		 
+		  output.value = "" ;
 	  }
 	  //计算
 	  var enter = document.getElementById("=") ;
 	  enter.onclick = function(){ 
 	  var s = output.value ;
 		  var result ;
-		  result = eval(s);
+		  try {
+			  result = eval(s) ;   
+			  }  
+		  catch (err) {
+			  result = "输入错误" ;  
+			  }  
 		  output.value = result ;
-		  }
-		  //有问题会将第二个输入的值放在结果末尾
+		  } 
+		  //enter实现结果显示	    
 	  document.body.onkeydown = function(e){
 		 if (e.keyCode = 13)
 		 {var k = output.value ;
@@ -67,8 +85,16 @@
 		  result = eval(k);
 		  output.value = result ;
 		 }
-	  }
+		 e.preventDefault() ;
+	  }	//delete按键可以发挥删除功能
+	  document.body.onkeydown = function(j){
+		  if (j.keyCode = 127)
+		  {var s = output.value ;  
+	       s = s.substring(0, s.length - 1); 
+	       output.value = s ;  }; 
+		  }
   //-->
   </script>
+  
  </body>
 </html>

@@ -63,11 +63,14 @@
 	   {
 		   result='错误';
 	   }
+	    result=result.toFixed(3);
 	   output.value=result;
    }//计算功能
   document.body.onkeydown=function() {
+	  output.focus();
 	  if(event.keyCode == 13){
-		  var result;
+       output.focus();//output锁定焦点
+	   var result;
 	   var sum=output.value;
 	   try//尝试
 	   {
@@ -77,9 +80,15 @@
 	   {
 		   result='错误';
 	   }
+	   result=result.toFixed(3);//截取小数点后几位，但只能精确0-20
 	   output.value=result;
+       
    }//计算功能
 	  }
+   
+	   
+
+	  
   </script>
  </body>
 </html>

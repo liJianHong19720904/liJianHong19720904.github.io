@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
-<title>document</title>
+<title>万一苇的计算器</title>
 <style>
     body{
-        width: 1500px ;/*宽度*/
+        margin: auto ;
+        width: 750px ;/*宽度*/
+    }
+    h1{
+        text-align: center;
     }
     input{
       font-size: 40px ;/*按钮字体大小*/
       padding: 3px ;/*按钮内边距*/
       margin: auto ;/*按钮外边距*/
-      width: 300px ;/*按钮宽度*/
+      width: 150px ;/*按钮宽度*/
+      height: 100px ;
       color: aqua ;/*按钮颜色*/
       background-color: rgb(80,80,100) ;/*背景颜色*/
       cursor: pointer ;/*光标*/
     }
     input#output{/*对input中id为output的按钮进行CSS*/
-        width: 1500px ;/*宽度*/
+        width: 740px ;/*宽度*/
+        margin-top: 50px;
     }
     input:hover{/*当鼠标悬浮到按钮上时*/
         border: outset ;/*边框突出*/
@@ -28,12 +34,16 @@
     }
 </style>
 <body>
-<input type="text" value="" id="output">
+  <h1>万一苇的计算器</h1>
+  <input type="text" value="" id="output">
 </body>
 <script>
-   var calCulator = ['CE','+','-','*','/','.','√x','x^2','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ;//计算器按钮各个值
+   var calCulator = ['CE','+','-','*','/','√x','x^2','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ;//计算器按钮各个值
    var output = document.querySelector('input#output') ;//获取选择器input中id为output的对象
-
+   output.value = "0" ;
+   var flag = true ; //若output的初始值为0，则为真
+   var flags ;//下一次输入框是否要清零的标志
+   
    for(var i = 0;i < calCulator.length / 5;i++){//放4个div,总共4行
        var div = document.createElement("div") ;//在内存中创建一个元素标签div
        for(var j = 0;j < 5;j++){//一行5个按钮
@@ -43,42 +53,60 @@
            input.value = calCulator[i * 5 + j] ;//将数组中各个元素赋值给每个按钮的值
            input.id = calCulator[i * 5 + j] ;
            input.onclick = function(){//按钮所实现的功能
+                if(flag){//如果output初始值为0,就将里面清零
+                    if(this.value !== "."){//如果所按的按钮不等于.
+                        output.value = "" ;//清零
+                    }
+                    
+            }
+                flag = false ;
                output.value += this.value ;//将所点击的按钮的值与output的值加起来赋给output，注this在这里指代的是所点击的按钮
-               //该代码是为了让按钮与文本进行交互       
-           }
+               //该代码是为了让按钮与文本进行交互      
+           } ;
            div.appendChild(input) ;//将input添加到div中  
-           }      
+           } ;     
        } //end of the loop
     document.body.appendChild(div) ;//将div添加到body中   
-   } // end of the loop
+   } ; // end of the loop
 
     var inputs  = document.querySelectorAll("input");//获取所有选择器为input的对象，并放在一个数组中[input#output,input,...,input];
-    document.getElementById("Enter").style.width = '300px' ; //inputs数组中最后一个数组的CSS中的宽度
+    document.getElementById("Enter").style.width = '150px' ; //inputs数组中最后一个数组的CSS中的宽度
+    document.getElementById("output").readOnly = true ;//将文本框设置为只读的状态
     document.getElementById("<-").onclick = function(){//从内存中找Id为"<-"的按钮，点击功能
         var backSpace = output.value ; //将当前text的值赋给backSpace
         backSpace = backSpace.substring(0 , backSpace.length - 1) ;//从backSpace中将起始字符到倒数第二个字符的内容赋给backSpace
         output.value = backSpace ;  //将backSpace的值赋给output的value
-    }
+    } ;
 
    document.getElementById("Enter").onclick = function(){//从内存中找Id为"Enter"的按钮，点击功能
         var sTring = output.value ; //将output的值赋给sTring
-        var result ;//定义变量result
+        var result ;//定义变量result      
         try{//先检查该语句结果是否满足sTring的算法
             result = eval(sTring) ; //如果参数是表达式,则 eval() 计算表达式。如果为函数,则计算函数
+            //接上述例子,eval(sTring) = '3' 前面乘了power，则后面要除以power,并且还要乘以10,因为小数
             if(sTring == ''){//防止直接按Enter时，输入框出现undefined
                 result = '' ;//result清0
-            }         
+            }        
         }
         catch(error){
             result = error ; //如果满足则跳过该部分，不满足则将错误原因赋给result，并使它显示出来 
         }
         output.value = result ;//检查计算结果是否有错误，如果有则返回错误，如果没有则返回计算结果,防止手动在文本框中输入字符
-    }
+    } ;
 
     document.body.onkeydown = function(e){//在body中按键盘，注：按键盘时，必须先鼠标点击空白处，否则有错误！！！
         var sTring = output.value ; //将output的值赋给sTring
         var result ;//定义变量result
+        var wait = sTring ;//将sTring赋给wait,wait是一个暂时存储output的值的变量
+        var sTr ;//sTr是一个计算后面wait[1]中0位置的变量
+        var S ;//S是找寻后面wait数组中整数的位置
+        var lengTh ;//lengTh是wait[2]的长度
+        var reSult ;//存放计算式的变量
+        var c ;//存放计算符号的变量
+        var SLength ;//计算S长度的变量
+
         if(e.keyCode == 13){//如果所按键盘为Enter键
+            document.getElementById("Enter").focus() ;//当按下Enter键后，获取Enter按钮的焦点
             try{
                 result = eval(sTring) ; //output的值计算出来并赋给result
                 if(sTring == ''){//防止直接按Enter时，输入框出现undefined
@@ -87,23 +115,128 @@
             }
             catch(error){
                 result = error ; //如果满足则跳过该部分，不满足则将错误原因赋给result，并使它显示出来 
-            } 
+            }  
+            output.value = result ;//将result的结果赋值给output的值
+
+            if(output.value < 1){//如果output的值小于1，即为小数计算
+                wait = sTring.split(".") ;//在sTring中以"."为分界线拆分成数组
+                //例如output.value = "0.1+0.2",则wait为["0","1+0","2"]
+                sTr = wait[1].search("0") ;//搜索数组wait[1]中"0"的位置,例如上述wait[1]=["1+0"]中找0的位置
+                S = wait[1].substring(0,sTr - 1) ;//将wait[1]中获取整数,例如上述wait[1]中的1
+                SLength = S.length ;//将S的长度赋值给SLength
+                c = wait[1].substring(1,sTr) ;//从wait[1]中获取计算符号，例如上述wait[1]中的+
+                lengTh = wait[2].length - 1 ;//获取wait[2]的长度并减1，为后面乘10的多少次方做准备
+                //例如是0.1+0.256则wait[2]=["256"],要将1变成与256一样的长度，即要乘以10的256的长度-1的次方，即10^2
+                reSult = " S * Math.pow(10,lengTh)" + c + " wait[2] * 1 " ;//计算式子
+                
+                if(c == "*"){//判断计算符号为*
+                    output.value = eval(reSult)/Math.pow(10,lengTh + SLength + 1);//因为乘法特殊
+                    //例如0.1*0.256，则lengTh=2，SLength=1，所以lengTh+SLength=3，而0.1*0.256=0.0256
+                    //且前面lengTh减过1,故output的值为这个式子
+                }
+                else{//如果不为*
+                    output.value = eval(reSult)/Math.pow(10,lengTh + 1) ;//前面乘以多少，后面只需除以多少加1即可
+                } 
+                
+            }
+            flags = true ;//当按下Enter键后，flags为真，确定要在下一次输入时候清空输入框
         }
-        output.value = result ;//将result的结果赋值给output的值
+        
+        if(e.keyCode == 8){//按键盘上的Backspace，可退格
+            var backSpace = output.value ; //将当前text的值赋给backSpace
+            backSpace = backSpace.substring(0 , backSpace.length - 1) ;//从backSpace中将起始字符到倒数第二个字符的内容赋给backSpace
+            output.value = backSpace ;  //将backSpace的值赋给output的value
+        }
+        
+        if(e.keyCode == 27){//按键盘上的Esc，实现清零
+            output.value = "0" ;
+            flag = true ;
+        }
+
+        for(var i = 96 ; i <= 111 ; i++){
+                if(e.keyCode == i){
+                if(output.value == "0"){//如果输入框为"0"
+                    flag = true ;
+                }
+                
+                if(flag){//如果output初始值为0,就将里面清零
+                    if(e.keyCode !== 110 ){//如果所按的按钮不等于.
+                        output.value = "" ;//清零
+                    }                
+            }                
+
+                flag = false ;
+                var Key ;
+
+                if(i == 106){
+                    Key = '*' ;
+                }
+
+                if(i == 107){
+                    Key = '+' ;       
+                }
+
+                if(i == 109){
+                    Key = '-' ;                   
+                }
+
+                if(i == 111){
+                    Key = '/' ;                   
+                }
+
+                if( i == 110){
+                    Key = "." ;                  
+                }
+
+                if(i <=111 && i >=106){
+                    output.value += document.getElementById(Key).value ;
+                }
+                else{
+                    clear() ;//调用clear()函数
+                    output.value += document.getElementById(i - 96).value ;//output的值为Id是i-96的按钮值
+                    flags = false ;//已经清空了输入框，将其转换为flase状态,准备下一次的清空
+                    
+                }
+            }          
+        }
+
+        for(var j = 48 ; j <= 57 ; j++){//可以让数字0-9在键盘上输入
+            if(e.keyCode == j){
+                if(output.value == "0"){//如果输入框为"0"
+                    flag = true ;
+                }
+                
+                if(flag){//如果output初始值为0,就将里面清零
+                    if(e.keyCode !== 110 ){//如果所按的按钮不等于.
+                        output.value = "" ;//清零
+                    }                
+                }
+                flag = false;
+                output.value += document.getElementById(j - 48).value ;
+            }
+            
+        }
+    } ;
+
+    function clear() {//为了让下一次输入的时候，直接清空原本的输入框
+        if(flags){//判断如果flags为真
+            output.value = "" ;//清空输入框
+        }
     }
 
     document.getElementById("CE").onclick = function(){//从内存中找Id为"CE"的按钮，点击功能,CE是清0
-        var result = "" ; //result为空字符
+        var result = "0" ; //result为空字符
+        flag = true ;
         output.value = result ;//将空字符赋值给output的value
-    }
+    } ;
 
     document.getElementById("√x").onclick = function(){//从内存中找Id为"√"的按钮，点击功能,求√的函数
         output.value = Math.sqrt(output.value) ;//调用Math库中求根函数求output的值的平方根
-    }
+    } ;
 
     document.getElementById("x^2").onclick = function(){//从内存中找Id为"x^2"的按钮，点击功能,求平方的函数
         output.value = Math.pow(output.value,2) ;//调用Math库中pow函数,pow() 方法可返回 x 的 y 次幂 (xy) 的值
-    }
+    } ;
    
 </script>
 </html>

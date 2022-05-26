@@ -47,7 +47,7 @@
  <h1>
  计算器
  </h1>
- <input type="text" value="" id="output"><!--input标签的value属性的作用是由input标签的type属性的值决定的-->
+ <input type="text" value="" id="output"><!--input 标签的 value 属性的作用是由 input 标签的 type 属性的值决定的。当 type 的取值为 button、reset、submit 中的其中一个时，此时 value 属性的值表示的是按钮上显示的文本。当 type 的取值为 text、password、hidden 中的其中一个时，此时 value 属性的值表示的是输入框中显示的初始值，此初始值可以更改，并且在提交表单时，value 属性的值会发送给服务器（既是初始值，也是提交给服务器的值）。当 type 的取值为 checkbox、radio 中的其中一个时，此时 value 属性的值表示的是提交给服务器的值。当 type 的取值为 image 时，点击它提交表单后，会将用户的点击位置相对于图像左上角的 x 坐标和 y 坐标提交给服务器-->
   <script type="text/javascript">
   var SYMBOL=['c','+','-','*','/','0','1','2','3','4','5','6','7','8','9','.','x^3','√','x^2','<-','enter'];//定义数组
   var i,
@@ -70,6 +70,7 @@
 		document.body.appendChild(div);//向body中添加一个div
   }
   var inputs=document.querySelectorAll('input');//把所有的标记（input）全部抓住，
+  document.getElementById("output").readOnly=true;
   document.getElementById("enter").style.width='455px';
   document.getElementById("<-").onclick=function(){
 												var s=output.value;
@@ -100,8 +101,50 @@
 	 output.value = "";//全部清除
  }
   document.getElementById("x^3").onclick=function(){
-	 output.value = output.value**3;//三次方
+	 output.value = Math.pow(output.value,3);//三次方
  }
+ document.body.onkeydown=function(e){
+     var i=96;
+	 var Key;
+
+	 for(i;i<=111;i++){
+	 if(e.keyCode==i){
+        if(i==106){
+			Key="*";
+
+     }
+	 if(i==107){
+		 Key="+";
+     }
+	 if(i==111){
+		 Key="/";
+
+     }
+	 if(i==109){
+		 Key="-";
+     }
+	 if(i==110){
+		 Key=".";
+
+     }
+	 if(i>=106&&i<=111){
+		 output.value += document.getElementById(Key).value;
+	 }
+	 else{
+		 output.value += document.getElementById(i-96).value; 
+ }
+ }
+	 }
+	 if(e.keyCode==13){
+	     output.value = eval(output.value);
+	 }
+	 if(e.keyCode==8){
+		 var s=output.value;
+		s=s.substring(0,s.length-1);
+		output.value=s;//退位
+												} 
+	 }	
+ 
   </script>
  </body>
 <html>

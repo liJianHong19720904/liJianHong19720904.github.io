@@ -2,88 +2,192 @@
 <html lang="en">
 <head> 
 	<meta charset="UTF-8">
-	<title>计算器</title>
+	<title>计算器(完善键盘功能)</title>
 	<style type="text/css">
 		body{
             font-size: 50px;
             background-color: 
             rgba(0, 0, 0, 0.497);
             text-align: center;
+            
         }
         h1{
             font-size: 1em;
         }
+        
+        p{
+            font-size: 0.3em;
+            color:rgba(255, 0, 0, 0.497);
+            text-shadow: 1px 0px 0px rgb(0, 0, 0);
+        }
 		input{
             font-size: 1em;
             border: 0px;
-            background-color: rgb(255, 255, 255);
+            background-color: rgb(0, 0, 0);
             cursor: pointer;/*改变光标*/
             box-shadow: 0px 9px 0px rgb(0, 0, 0);
-            color: rgb(249, 11, 11);
+            color: rgb(58, 240, 240);
             border-radius:2.5em;           
-            margin: 0px 1em;
+            margin: 0px 0em; /*按键间距 */
             height: 1.5em;
             width: 1.5em;
         }
+        input#off,input#start{
+            font-size: 1em;            
+            background-color: rgb(0, 0, 0);
+            cursor: pointer;/*改变光标*/           
+            color: rgb(58, 240, 240);                                  
+            height: 1.5em;
+            width: 3em;
+            box-shadow: 0px 9px 0px rgb(0, 0, 0);
+       }
 		input:hover{  
-            background-color:rgb(190,190,190);
+            background-color:rgba(254, 208, 73, 0.858);      
+            color: rgba(2, 255, 255);
+            font-size: 1.25em;
         } 
-		input:active{  
-            color:rgb(250,250,250);  
-            border:inset 2px solid ;
-        }
 		input#output{   
             display:block; 
-            width:5.5em; 
+            width:7em;  /*输出界面大小 */
             margin:auto; 
             text-align: center;
-            
-        } 
+
+        }
+        input::placeholder {
+           font-size: 0.75em;
+           color: rgb(2, 255, 255);
+           font-family: 黑体;
+           text-shadow: 3px 3px 1px rgb(0, 0, 0);
+       }
+       div{
+           width: 7em;
+           margin: auto;
+       }
+       div#B,div#C,div#E{
+           display:none;
+       }
+       input#output:hover,input#start:hover,input#off:hover{  
+            background-color: rgb(58, 240, 240);
+            color: rgb(0, 0, 0);
+            font-size: 1em;
+        }   
 	</style>
 </head>
-<body> 
+
+<body>
+ <div id="D"><!-- 开机键 -->
+     <input type="button" value="开机" id="start">
+     <script>
+         var start=document.querySelector("input#start");
+         start.onclick=function(){
+             document.getElementById("B").style.display="block";
+             document.getElementById("C").style.display="block";
+             document.getElementById("E").style.display="block";
+             document.getElementById("D").style.display="none";
+             alert("开机成功");
+         }
+     </script>
+ </div>
+ 
+    
 <div id="B" class="">
-<h1>计算器</h1>
-<input type="text" value="" id= "output" > 
-<script> 
-var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ;  
-var output = document.querySelector('input#output') ; //抓取输入的内容
-var m=0;
-for (var i=0; i < SYMBOL.length / 4; i++)//分行
-  {  var div = document.createElement('div') ;//创造div    
-     for (var j=0; j<4; j++ )//分列
-        {   
-        if (i * 4 + j < SYMBOL.length) //判断最后一行是否全部显示
-            {  
-                var input = document.createElement('input') ;  
-                input.type = "button" ;  
-                input.value = SYMBOL[i * 4 + j] ; 
-                
-                input.onclick = function()
-                {   
-                    output.value += this.value ;  //把点击的元素显示在按钮output上
-                };  //output.value =output.value+ this.value（元素本身） 
-            div.appendChild(input) ;      
-        }  
-        }   
-    document.body.appendChild(div) ; 
-  } 
-var inputs = document.querySelectorAll('input'); //抓取全部的input成数组
-inputs[inputs.length -1].style.width = '200px'; 
-inputs[inputs.length -2].onclick = function()//删除按键
-        { 
+    <h1>计算器</h1>
+    <p>空格键实现全删功能</p>
+    <input type="text" value="" id= "output" placeholder="显示运算" > 
+    <script> 
+    var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','ac','Enter'] ;  
+    var output = document.querySelector('input#output') ; //抓取输入的内容
+    var m=0;
+    var e;
+    var div = document.createElement('div') ;//创造div
+    for (var i=0; i < SYMBOL.length / 4; i++)//分行
+
+    {   
+         
+        for (var j=0; j<4; j++ )//分列
+            {   
+            if (i * 4 + j < SYMBOL.length) //判断最后一行是否全部显示
+                {  
+                    var input = document.createElement('input') ;  
+                    input.type = "button" ;  
+                    input.value = SYMBOL[i * 4 + j] ; 
+                    
+                    input.onclick = function(e)
+                    {   
+                        output.value += this.value ;  //把点击的元素显示在按钮output上
+                        e.target.blur();//除去焦点
+                         
+                    };  //output.value =output.value+ this.value（元素本身） 
+                div.appendChild(input) ;      
+            }  
+            }   
+            document.body.appendChild(div) ;        
+    } 
+    div.id="C";
+    
+    var inputs = document.querySelectorAll('input'); //抓取全部的input成数组
+    inputs[inputs.length -1].style.width = '2.55em';
+    inputs[inputs.length -2].style.width = '2.55em';
+    inputs[inputs.length -3].onclick = function()//删除按键
+            { 
+                var s = output.value ;   
+                s = s.substring(0, s.length - 1);   
+                output.value = s ;
+            }; 
+    inputs[inputs.length -1].onclick = function()//等于按键
+            { 
+            var s = output.value ;
+            var result ;  
+            result = eval(s) ;//计算结果
+            output.value = result ;
+            
+            };
+    inputs[inputs.length -2].onclick = function()//全删按键
+            { 
+            
+            output.value = "" ;
+            
+            };        
+    document.onkeydown=function(event){
+        var e = event || window.event//获取键盘
+        if(e.keyCode==13)//启用enter键
+        {
+            var s = output.value ;
+            var result ; 
+            result = eval(s) ;//计算结果
+            output.value = result ;       
+            }
+        else if(e.keyCode==8)//启用删除键
+        {
             var s = output.value ;   
             s = s.substring(0, s.length - 1);   
             output.value = s ;
-        }; 
-inputs[inputs.length -1].onclick = function()//等于按键
-        { 
-         var s = output.value ;
-         var result ;  
-         result = eval(s) ;//计算结果
-         output.value = result ; 
-        };  
-</script>
+            e.target.blur();//除去焦点
+            }
+        else if(e.keyCode==32)//启用全删除键
+        {
+            output.value = "" ;
+            }
+
+        }
+        
+
+
+        
+    </script>
+</div>
+<div id="E"><!-- 关机键 -->  
+    <input type="button" value="关机" id="off">
+    <script>
+        var start=document.querySelector("input#off");
+        off.onclick=function(){
+            document.getElementById("B").style.display="none";
+            document.getElementById("C").style.display="none";
+            document.getElementById("E").style.display="none";
+            document.getElementById("D").style.display="block";
+            alert("关机成功");
+        }
+    </script>
 </div>
 </body>
 </html>

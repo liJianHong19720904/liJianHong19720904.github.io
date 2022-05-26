@@ -48,6 +48,8 @@ input:active{
 <script>  
     var mumber = ['AC','+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'] ; //存放符号的数组
     var output = document.querySelector('input#output') ; 
+    var flag = true ; //若output的初始值为0，则为真
+    var flags ;//下一次输入框是否要清零的标志
     for (var i=0; i < mumber.length / 4; i++){  
             var div = document.createElement('div') ;   //确定分行为4个为一行
                 for (var j=0; j<4; j++ ){  //防止之后的enter一个按钮被分为4个
@@ -56,8 +58,15 @@ input:active{
                                     input.type = "button" ;    
                                     input.value = mumber[i * 4 + j] ; //将数组中各个元素赋值给每个按钮的值
                                     input.id = mumber[i * 4 + j] ;
-                                    input.onclick = function(){   
-                                         output.value += this.value ; 
+                                    input.onclick = function(){  
+                                        if(flag){//如果output初始值为0,就将里面清零
+                                        if(this.value !== "."){//如果所按的按钮不等于.
+                                        output.value = "" ;//清零
+                                 }
+                    
+                         }
+                                        flag = false ; 
+                                        output.value += this.value ; 
                                                         }; // 显示出现在点击按钮的内容
                                      
                             div.appendChild(input);     } //将每个div中的4个按钮存储起来
@@ -82,6 +91,7 @@ document.getElementById("Enter").onclick = function(){//从内存中找Id为"Ent
     }
     output.value = result ;//检查计算结果是否有错误，如果有则返回错误，如果没有则返回计算结果,防止手动在文本框中输入字符
 }
+document.getElementById("output").readOnly = true ;//将文本框设置为只读的状态
 document.getElementById("AC").onclick = function(){//从内存中找Id为"AC"的按钮，点击功能
     output.value = "" ;//令文本为空
 }//清零
@@ -90,8 +100,75 @@ document.getElementById("<-").onclick = function(){//从内存中找Id为"<-"的
         back = back.substring(0 , back.length - 1) ;//从back中将起始字符到倒数第二个字符的内容赋给back
         output.value = back ;  //将back的值赋给output的value
     }
+document.body.onkeydown = function(e){
+    if(e.keyCode == 13){//如果所按键盘为Enter键
+            document.getElementById("Enter").focus() ;//当按下Enter键后，获取Enter按钮的焦点
+            try{
+                result = eval(sTring) ; //output的值计算出来并赋给result
+                if(sTring == ''){//防止直接按Enter时，输入框出现undefined
+                    result = '' ;//result清0
+                }     
+            }
+            catch(error){
+                result = error ; //如果满足则跳过该部分，不满足则将错误原因赋给result，并使它显示出来 
+            }  
+            output.value = result ;//将result的结果赋值给output的值
+        }
+
+    if(e.keycode == 8){
+    var back = output.value ; //将当前text的值赋给back
+    back = back.substring(0 , back.length - 1) ;//从back中将起始字符到倒数第二个字符的内容赋给back
+    output.value = back ;  //将back的值赋给output的value
+                   }
 
 
+    if(e.keycode == 27){//键盘上的esc实现清零
+        output.value = "0" ;
+        flag = true ;
+    }   
+    for(var i = 96 ; i <= 110 ; i++){
+        if(e.keyCode == i){
+                if(output.value == "0"){//如果输入框为"0"
+                    flag = true ;
+                }
+                
+                if(flag){//如果output初始值为0,就将里面清零
+                    if(e.keyCode !== 110 ){//如果所按的按钮不等于.
+                        output.value = "" ;//清零
+                    }                
+            }   
+                flag = false ;
+                var key ;
+                
+                if(i == 106){
+                    Key = '*' ;
+                }
+
+                if(i == 107){
+                    Key = '+' ;       
+                }
+
+                if(i == 109){
+                    Key = '-' ;                   
+                }
+
+                if(i == 111){
+                    Key = '/' ;                   
+                }
+
+                if( i == 110){
+                    Key = "." ;                  
+                }
+
+                if(i <=111 && i >=106){
+                    output.value += document.getElementById(Key).value ;
+                }
+                else{             
+                    output.value += document.getElementById(i - 96).value ;//output的值为Id是i-96的按钮值                    
+                }             
+    }               
+         }
+ }
 </script> 
 </body>
 </html>

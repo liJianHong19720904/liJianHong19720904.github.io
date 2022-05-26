@@ -101,6 +101,15 @@ input#output
 						a=a.substring(0,a.length-1);
 						output.value=a;
 					}
+	document.body.onkeydown = function(e){
+		   if(e.keyCode = 13){
+					    output.value = eval(output.value);
+						output.value=result;
+		   }
+						e.preventDefault();
+		   }
+		
+
 				
     </script>
  </body>

@@ -3,16 +3,13 @@
     <head>
         <meta charset="UTF-8">
     </head>
-    <style lang="css">   /*style 修饰*/
+    <style>   /*style 修饰*/
         body{
             text-align: center;    /*让其内容居中*/
-            margin:50px;      /*设置边距*/
-            height: auto;    /*设置行高*/
-            text-shadow: 6px 6px;   /*设置shadow*/
-            border-radius: 5%;    /*设置边框的圆角*/
         }
         input{
-            text-shadow: 12px 12px;   /*设置shadow*/
+            background-color: aqua ;/*设置一个背景颜色为青蓝色*/
+            font-size: large;/*定义显示的字体大小*/
             border-radius: 10%;    /*设置边框的圆角*/
             height: 50px;     /*定义行高*/
             width: 70px;    /*定义宽度*/
@@ -25,15 +22,11 @@
         input:hover{
             background-color: brown;    /*当鼠标光电移动到input里时的背景颜色*/
             font-display: green;        /*当鼠标光标移到input时的字体颜色*/
-            font-size: large;     /*定义字体大小*/
             cursor: grab;  /*定义一个光标,抓取样式*/
         }
     </style>
-    <body></body><!--页面结构身体-->
-    <script lang="javascript">       //script的动态修饰
-    document.body.style.textAlign="center";                //区别于上述css中对程序中input的修改,可以让程序里的此input独立出来,不受css管辖,make whole content in the middle of window
-        document.body.style.margin="50px";                  //set margin 50px
-        document.body.style.lineHeight="50px";              //set lineheight 50px
+    <body><p>ctrl显示结果</p></body><!--页面结构身体-->
+    <script lang="javascript">       //script的动态修饰 
         var showText=document.createElement("input");      //creat a element which called input and has the same function in html
         showText.type="text";                               //set this elemrnt's type in text
         showText.style.width='307px';                       //set width 307px
@@ -57,7 +50,7 @@
     var a=document.querySelectorAll("input");    //获取所有的input
     a[1].onclick=function (){        //定义其清除功能
         var thing=showText.value;     //定义thing,且获取文本value
-        thing=thing.substring(0,0);    //给thing一个不打印空的东西
+        thing="";    //给thing一个不打印的空的东西
         showText.value=thing;  //将thing的null传给showtext里去
     }
     a[a.length-1].onclick=function(){     //定义其计算功能
@@ -65,7 +58,7 @@
 						var result;
 						try        //try,catch异常处理机制,并对结果进行计算
 						{
-							result=eval(thing);  //将值传递给result
+							result=Math.floor(eval(thing)*100)/100;  //将值传递给result,并且规范无限小数结果至后两位
 						}
 						catch (err)     //如若不,则有err负责显示
 						{
@@ -73,18 +66,19 @@
 						}
 						showText.value=result;  //最后打印出结果到showtext.value上		
 	}
-    document.body.onkeydown=function(){  
-        var thing=showText.value;   //还是定义thing,也可以不,将showtext的value传给thing
-						var result;
+            document.body.onkeydown=function(e){
+                console.log(e);
+                if(event.key=="Control"){      //判断是否是右箭头
+                        var thing=showText.value;   //还是定义thing,也可以不,将showtext的value传给thing
 						try        //try,catch异常处理机制,并对结果进行计算
 						{
-							result=eval(thing);  //将值传递给result
+							result=Math.floor(eval(thing)*100)/100;  //将值传递给result
 						}
 						catch (err)     //如若不,则有err负责显示
 						{
 							result=err;
 						}
-						showText.value=result;  //最后打印出结果到showtext.value上		
-    }
+						showText.value=result;  //最后打印出结果到showtext.value上
+                        console.log(result);}	}
     </script>
 </html>

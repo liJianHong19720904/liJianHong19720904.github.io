@@ -22,7 +22,7 @@
 		cursor:pointer; }               /*设置光标类型，为小手形状*/
 		input:hover{  background-color:#ff9900; } 
 		input:active{  color:#ffffff;  border:inset 2px solid ; }
-		input#output{   display:block; width:280px; margin:auto; }                /*#output是针对input里的output设置样式*/
+		input#output{   display:block; width:350px; margin:auto; }                /*#output是针对input里的output设置样式*/
 	</style>
 </head>
 <body> 
@@ -31,7 +31,8 @@
 <input type="text" value="" id= "output" > 
 <script> 
 var SYMBOL = ['归零','删除','%','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='] ;    /*定义数组*/
-var a=1
+var a=1;
+var e;
 for (var i=0; i < SYMBOL.length / 4; i++)            //定义数组i，i初始值为0，使每一行的按键为4个，i自加。
 {    var div = document.createElement('div') ;       //创建按钮
 for (var j=0; j<4; j++ ,a++)                         //定义数组j，j初始值为0，控制列数为4，j自加。
@@ -40,8 +41,8 @@ for (var j=0; j<4; j++ ,a++)                         //定义数组j，j初始�
     input.type = "button" ;  
     input.value = SYMBOL[i * 4 + j] ;
 	input.id="input"+a;
-    input.onclick = function()
-{   output.value += this.value ;  };                 //显示输入内容
+    input.onclick = function(e)
+{   output.value += this.value ; e.target.blur();};                 //显示输入内容
     div.appendChild(input) ;                         //显示input
 } 
 }   
@@ -54,14 +55,34 @@ input1.onclick = function()                         //点击按钮，将output�
 {   output.value = "" ; };
 input20.onclick = function()                        //计算结果，并显示在output
 { var s = output.value ;
-  var result ;  
-  try {  result = eval(s) ; } 
+  var result ; 
+  var a,
+      b;
+  try {  result = eval(s) ;
+         a=result;
+		 b=Math.floor(a);                          //向下取整数
+		 if (a-b==0)
+		 {result=result}
+		 else{result=result.toFixed(3)             //取三位小数
+		 }
+		 } 
   catch (err) {    result = err ; }   output.value = result ; } 
-  document.body.onkeydown=function()               //实现键盘与按钮连接有待改进
-  {
-  if(event.keyCode == input20)
-  {var result;
+  document.body.onkeydown=function(event) 
+  {var e=event ||window.event;
+  if(e.keyCode == 13)
+	  {
   var sum=output.value;
+  var result;
+  var a,
+      b;
+  result=eval(sum);
+  a=result;
+		 b=Math.floor(a);                         //向下取整数
+		 if (a-b==0)
+		 {result=result}
+		 else{result=result.toFixed(3)            //取三位小数
+		 }
+  output.value=result;
   }
 	   }
 </script>

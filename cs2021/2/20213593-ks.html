@@ -13,22 +13,35 @@
         }
         input
             {
-                margin: 10px;                               
+                margin: 5px;                               
                 text-align: center;                          
                 font-size: 30px;        
                 background-color: rgb(196, 250, 232);
                 color: rgb(224, 80, 13);
-                height: 60px;
-                width: 130px;
+                height: 100px;
+                width: 7%;
+                box-shadow: 4px 3px rgb(39, 202, 6);
+                border-radius: 30px ;
+                
+                border: outset rebeccapurple ;
+                /* border: outset; */
+            }
+            input:hover{
+                color: rgb(7, 7, 34);
+                background-color: rgb(176, 223, 249);
+            }
+            input:active{
+                border: inset;
             }
         input#output
             {
-               width: 570px; /* 为id为output的按钮单独设置宽度 */
+               width: 30%; /* 为id为output的按钮单独设置宽度 */
             }
             
         body{
             text-align: center;
-            background-color: rgb(239, 177, 203);
+            background-color: lightpink;
+
         }
     </style>
 </head>
@@ -38,16 +51,17 @@
             我的计算机
         </h1>
         <input type="text" value="" id="output">
+        <input type="button" value="=" id="dengyu">
         <script>
-            var SYMBOL = ['+','-','*','/','1','2','3','.','4','5','6','<-','7','8','9','0','enter','AC'];//创建一个数组
+            var SYMBOL = ['1','2','3','²','√','4','5','6','+','-','7','8','9','*','/','00','.','0','delete','清空'];//创建一个数组
             var output = document.querySelector('input#output');
-            for (var i = 0,m=0;i <SYMBOL.length/4;i++){    //分行
+            for (var i = 0,m=0;i <SYMBOL.length/5;i++){    //分行
                 var div = document.createElement('div');      
-                for(var j=0;j<4;j++,m++){
-                    if(i*4+j<SYMBOL.length){
+                for(var j=0;j<5;j++,m++){
+                    if(i*5+j<SYMBOL.length){
                         var input =document.createElement("input");   
                         input.type="button";                           // 创建一个div，并定义为按钮
-                        input.value = SYMBOL[i*4+j];                   // 为按钮命名
+                        input.value = SYMBOL[i*5+j];                   // 为按钮命名
                         input.id="x"+m;                                // 为每个按钮创建id
                         input.onclick = function(){
                             output.value += this.value ;               //显示点击的按钮的内容
@@ -58,37 +72,82 @@
                 document.body.appendChild(div);                         //在body里显示div
             } 
             var inputs = document.querySelectorAll('input'); 
-            
-            x16.style.width = '280px';
-            x17.style.width = '280px';
+          
               /*用函数写<-的删除功能*/
-            x11.onclick = function(){
+            x18.onclick = function(){
                 var s = output.value ;   
 	            s = s.substring(0, s.length - 1);  
 	            output.value = s ;
             }
+            x3.onclick=function(){
+                    var s =output.value;
+                    s = s+"**2"
+                    output.value = s;
+            }
+
               /*用函数写enter的计算输出功能*/
-            x16.onclick = function(){
+            var func = function(){
                 var s = output.value;
                 var result;
+                var a,b,c;
                 try{
                     result = eval(s);
+                    a = Math.floor(result)
+                    if (result-a==0){
+                        result=result;
+                    }
+                    else{
+                        a=result;
+                        a=a.toString();
+                        b=a.indexOf('.');
+                        c=a.substring(b)
+                        if(c.length<=3){
+                            result=result.toFixed(c.length-1);
+                        }
+                        else{
+                            result=result.toFixed(3);
+                        }
+                    }   
                 }
                 catch(err){
                     result = err;
                 }
                 output.value = result;
             }
+            dengyu.onclick=func;
               /*归零*/
-            x17.onclick = function func(){
+            x19.onclick = function(){
                 output.value = "";
             }
-            function keyOnClick(e){
-                var theevent = e;
-                var code = theevent.keycode;
-                if(code==13)
-                    func();
+            document.onkeydown = function(e){
+                var theEvent = e;
+                var code = e.keyCode;
+                if(code == 13){
+                    e.target.blur();
+                    func ();
+                }
             }
+            // function Sqrt() {
+            //     if (input.value > 0) {
+            //         input.value = Math.sqrt(output.value);
+            //         // output.value = "";
+            //     } else {
+            //         output.value = "Erro";
+            //     }
+            // }
+            function Sqrt(){
+
+                output.value = Math.sqrt(output.value);
+            }
+            x4.onclick=function(){
+                Sqrt();
+            }
+            // function pow(){
+                
+            // }
+            // x4.onclick=function(){
+            //     pow();
+            // }
         </script>
     </div>
 </body>

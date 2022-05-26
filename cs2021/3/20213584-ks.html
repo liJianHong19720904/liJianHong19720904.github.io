@@ -2,18 +2,21 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>我的计算器</title>
+  <title></title>
   <style type = "text/css">
+   body{
+        text-align:center;
+   }
   input{
         border:outset 2px solid;
-		border-radius:10px;
-		width:50px;
-		height:50px;
-		font-size:40px;
+		border-radius:40px;
+		width:100px;
+		height:70px;
+		font-size:50px;
 		text-align:center;
 		margin:10px;
-		color:rgb(50,250,0);
-		background-color:rgb(100,100,100);
+		color:rgb(250,144,70);
+		background-color:rgb(250,250,250);
 		cursor:pointer;
   }
   input:hover{
@@ -24,16 +27,17 @@
 			   border:inset 2px solid;
   }
   input#output{
-               display:block;
-			   width:280px;
+               display:black;
+			   width:460px;
+			   height:80px;
   }
   </style>
  </head>
  <body>
- <h1>用用我的计算器</h1>
+ <h1></h1>
  <input type = "text"value = ""id = "output">
  <script>
-         var SYMBOL = ['+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'];
+         var SYMBOL = ['AC','<-','%','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','Enter'];
          var output = document.querySelector("input#output");
 		 for(var i=0;i<SYMBOL.length/4;i++){
 			 var div = document.createElement('div');
@@ -42,6 +46,7 @@
 				 var input=document.createElement('input');
 				 input.type="button";
 				 input.value=SYMBOL[i*4 + j];
+				 input.id=SYMBOL[i*4 + j];
 				 input.onclick=function(){
 					 output.value +=this.value;
 				 };
@@ -53,13 +58,13 @@
 		 document.body.appendChild(div);
 	}
 	var inputs=document.querySelectorAll("input");
-	inputs[inputs.length -1].style.width="200px";
-	inputs[inputs.length -2].onclick=function(){
+	inputs[inputs.length -1].style.width="220px";
+	document.getElementById('<-').onclick=function(){
 		var s = output.value;
 		s = s.substring(0,s.length -1);
 		output.value = s;
 	};
-	inputs[inputs.length -1].onclick=function(){
+	document.getElementById('Enter').onclick=function(){
 		var s = output.value;
 		var result;
 		try{
@@ -70,6 +75,41 @@
 		}
 		output.value = result;
 	}
+    document.getElementById('AC').onclick=function(){
+	    output.value="";
+	}
+    document.getElementById('%').onclick=function(){
+		var s = output.value;
+		var result;
+		try{
+			result = eval(s/100)
+		}
+		catch(err){
+			result = err;
+		}
+        output.value = result;
+    }
+  document.body.onkeydown=function(e){
+    if(e.keyCode==8){
+	   var s = output.value;
+		s = s.substring(0,s.length -1);
+		output.value = s;
+   }
+	if(e.keyCode==13){
+	   document.getElementById('Enter').focus();
+	   var s = output.value;
+		var result;
+		try{
+			result = eval(s);
+		}
+		catch(err){
+			result = err;
+		}
+		output.value = result;
+	}
+ }
+
+ 
 	</script>
  </body>
 </html>

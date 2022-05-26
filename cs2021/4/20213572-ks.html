@@ -80,24 +80,15 @@
 					}
 		document.body.onkeydown = function(e){
 		   if(e.keyCode = 13){
-					    var a=output.value;
-						var result;
-						try
-						{
-							result=eval(a);
-						}
-						catch (err)
-						{
-							result=err;
-						}
+					    output.value = eval(output.value);
 						output.value=result;
-					}//回车弹出答案，但答案不对，后面会连上第二个输入的数字
-		   
+		   }//回车弹出答案，但答案不对，后面会连上第二个输入的数字
+						e.preventDefault();
 		   }
 		
 
  //-->
- </script>
+ </script> 
   
  </body>
 </html>

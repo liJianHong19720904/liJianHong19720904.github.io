@@ -46,11 +46,12 @@
   </style>
  </head>
  <body>
-  <h1>计算器</h1>
+  <h1>20213582唐恒彬的计算器</h1>
+  <p>支持大小键盘输入数字并运算，小键盘输入运算符并运算，Esc键清零，退格键逐个删除</p>
   <input type="text" value="" id="content" ><!--放置一个文本框 -->
   <script type="text/javascript">
 	var fuhao = 
-	['AC','%','√x','x^2','+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','<-','Enter'];
+	['AC','%','√x','x^2','+','-','*','/','.','0','1','2','3','4','5','6','7','8','9','=','<-'];
 	for (var i = 0 ; i < fuhao.length/4 ; i++ )//把数组分成6行
 	{
 		var div = document.createElement('div');//在内存中创建div元素
@@ -69,9 +70,10 @@
 			}
 			
 		}
+		
 		document.body.appendChild(div);//将div全部放于body中
 	}
-	    document.getElementById('Enter').style.width = '320px';//对最后一个按钮设置宽度 
+	    document.getElementById('<-').style.width = '320px';//对最后一个按钮设置宽度 
 		document.getElementById('AC').onclick = function(){
 			content.value = '';
 			};//清空内容
@@ -91,10 +93,19 @@
 		     s = s.substring(0, s.length - 1);  
 		     content.value = s ; 
 			}; //按钮实现逐个删除
-		document.getElementById('Enter').onclick = function(){
+		document.getElementById('=').onclick = function(){
+			var a;
 			var result ;   
 			try { //判断计算式是否出错
-				result = eval(content.value) ; //实现计算
+				if (content.value == '')//防止没有内容时出现错误
+					{
+						result = '';
+					}
+					else
+					{
+					a = eval(content.value) ;//实现计算
+					result = a.toFixed(6);//四舍五入并保留六位小数
+					}
 				} 
 			catch (err) {//抓取出错原因 
 				result = err ;
@@ -102,18 +113,69 @@
 			content.value = result ;
 			}; //按钮实现计算
 		document.body.onkeydown = function(e){
+			if (e.keyCode==107)
+			{
+				content.value += '+' ;
+			}
+			if (e.keyCode==109)
+			{
+				content.value += '-';
+			}
+			if (e.keyCode==106)
+			{
+				content.value += '*' ;
+			}
+			if (e.keyCode==111)
+			{
+				content.value += '/';
+			}
+			if (e.keyCode==110)
+			{
+				content.value += '.';
+			}
+			if (e.keyCode==8)
+			{
+				var s = content.value;   
+					s = s.substring(0, s.length - 1);  
+					content.value = s ; 
+			}//键盘退格逐个删除
 			if (e.keyCode==13)
+			{
+				document.getElementById('=').focus();//误触到Enter时，仍进行计算
+			}
+			if (e.keyCode>=96&&e.keyCode<=105)//小键盘输入数字
+			{ 
+				content.value += document.getElementById(e.keyCode-96).value;
+			}
+			if (e.keyCode>=48&&e.keyCode<=57)//大键盘输入数字
+			{
+				content.value += document.getElementById(e.keyCode-48).value;
+			}
+			if (e.keyCode==27)
+			{
+				content.value = '';//键盘按Esc时清零
+			}
+			if (e.keyCode==187)//键盘按=进行计算
 			{   
-				var s = content.value;
+				var a;
 				var result;
 				try { //判断计算式是否出错
-					result = eval(s) ; //实现计算
+					if (content.value == '')//防止没有内容时出现错误
+					{
+						result = '';
+					}
+					else
+					{
+					a = eval(content.value) ;//实现计算
+					result = a.toFixed(6);//四舍五入并保留六位小数
+					}
+						
 					} 
 				catch (err) {//抓取出错原因 
 					result = err ;
 					}  
-				content.value = result ;
-			}	
+				content.value = result;
+			}
 		};/*还不完善*/
 	</script> 
    </body>

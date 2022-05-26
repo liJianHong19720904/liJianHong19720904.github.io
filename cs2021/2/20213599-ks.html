@@ -9,8 +9,8 @@
 				}
 				input
 				{
-					color:red;
-					background-color:orange;
+					color:rgba(255,0,0,0.8);
+					background-color:rgba(255,140,0,0.6);
 					font-size:38px;
 					cursor:pointer;/* 光标 */
 					box-shadow:4px 3px rgba(255,140,0,0.6);/* 阴影 */
@@ -29,68 +29,427 @@
 					border:inset;/* 边框凹陷 */
 					box-shadow:4px 3px rgba(255,140,0,0.8);
 				}
-				input#output
+				input#output	/* 输入显示框样式 */
 				{
 					width:330px;
 					height:40px;
-					border:inset;/* 边框凹陷 */
+					box-shadow:none;	
+					text-align:right;
+					margin:0px;
+					background-color:rgba(0,0,0,0);
+					border:none;
+				}
+				input#xs	/* 答案显示框样式 */
+				{
+					background-color:rgba(0,0,0,0);
+					width:330px;
+					height:40px;
 					box-shadow:none;
-					text-align:center;
+					border:none;
+					text-align:right;
+					margin:0px;
+					
+				}
+				div
+				{
+					border:2px solid red;
+					width:380px;
+					margin:auto;
+					border-radius:25px;
+				}
+				div#abox
+				{
+					border-bottom:0px solid red;
 				}
 			 </style>
 		<title>计算器</title>
 	</head>
-	<body>
-		<input type="text" value="" id="output">
+	<body >
+		<div id="abox" class="">
+			<input type="text" value="" id="output" >
+			<input type="text" value="" id="xs" >
+		</div>
 		<script type="text/javascript">
-			var box=['AC','%','<X','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','='];
-			var i,j,m=0;
+			var box=['AC','%','<X','/','7','8','9','*','4','5','6','-','1','2','3','+','00','0','.','=','(',')','x²','x½'];
+			var i,j,m=0,e;
+			var div=document.createElement('div');		//创建盒子
 			for(i=0;i<box.length/4;i++)		//行
 				{
-					var div=document.createElement('div');		//创建盒子
+							
 					for(j=0;j<4;j++,m++)	//列
 						{
 							{
 								var input=document.createElement('input');	//创建input标签
 								input.type="button";	//input类型
 								input.value=box[i*4+j];		//input名称
-								input.id="x"+m;		//input的id
-								input.onclick=function()	//input触发的事件
-										{
-											output.value+=this.value;	//显示输入内容
-										}
+								if(box[m]=="AC")	//功能按键赋予id名称
+									{
+										input.id="AC";	//清零键
+									}
+								else if(box[m]=="<X")
+									{
+										input.id="X";	//删除键
+									}
+								else if(box[m]=="=")
+									{
+										input.id="enter";	//计算键
+									}
+								else if(box[m]=="x½")
+									{
+										input.id="kx";	//开根键
+									}
+								else if(box[m]=="x²")
+									{
+										input.id="px";	//平方键
+									}
+								else if(box[m]=="+")
+									{
+										input.id="plus";	//加号键
+									}
+								else if(box[m]=="-")	
+									{
+										input.id="redu";	//减号键
+									}
+								else if(box[m]=="*")
+									{
+										input.id="ride";	//乘号键
+									}
+								else if(box[m]=="/")
+									{
+										input.id="exc";	//除号键
+									}
+								else if(box[m]=="%")
+									{
+										input.id="per";	//百分号键
+									};
+								input.onclick=function(e)	//input触发的事件
+									{
+										output.value+=e.target.value;//显示输入内容
+										e.target.blur();	//去除最后点击的焦点
+									};
 								div.appendChild(input);		//显示input
 							}
 						}
 					document.body.appendChild(div);		//显示div
 				}
 			var inputs=document.querySelectorAll('input');		//获取所有input，形成数组
-			x0.onclick=function()	//执行清零
+			AC.onclick=function()	//执行清零
+				{
+					var a=output.value;
+					a=a.substring(0,0);
+					output.value=a;
+					xs.value=a;
+				}
+			enter.onclick=function()	//执行计算
+				{
+					var a=output.value;
+					var result;
+					var b,c,x;
+					if(a=="")
+						{
+							xs.value="";
+						}
+					else
+						{						
+							try
+							{
+								result=eval(a);	//计算结果
+								b=result;
+								b=Math.floor(b);	//数值向下取整
+								if((result-b)!=0)	//判断小数
+									{
+										c=result;
+										c=c.toString();	//转换成字符串类型
+										b=c.indexOf(".");	//找到小数点位置
+										c=c.substring(b);	//取小数点及小数点后数位
+										if(c.length<=4)
+											{
+												result=result.toFixed(c.length-1);	
+											}
+										else
+											{
+												result=result.toFixed(4);//若为小数，最多取四位
+											}
+									}
+								else
+									{
+										result=result;
+									}
+							}
+							catch (err)
+							{
+								result="算式错误";
+							}
+							if(result=="算式错误")
+								{
+									alert("算式错误");
+								}
+							else
+								{
+									xs.value=result;//显示结果
+								}							
+						}	
+				}
+			X.onclick=function()	//执行删除
+				{
+					var a=output.value;
+					a=a.substring(0,a.length-1);
+					output.value=a;
+					xs.value=a.substring(0,0);
+				}
+			plus.onclick=function() //加号运算时
+				{
+					var a=output.value;
+					var b=a.substring(a.length-1,a.length);
+					var c=a.substring(0,a.length-1);
+					if(b=="+" || b=="-" || b=="*" || b=="/")	//避免符号冲突
+						{
+							output.value=c+"+";
+						}
+					else 
+						{
+							if(xs.value!="")
+								{
+									output.value=xs.value;//继承上一次计算结果
+								}	
+							output.value+=this.value;
+							xs.value="";
+						}
+				}
+			redu.onclick=function()	//减号运算时
+				{
+					var a=output.value;
+					var b=a.substring(a.length-1,a.length);
+					var c=a.substring(0,a.length-1);
+					if(b=="+" || b=="-" || b=="*" || b=="/")	//避免符号冲突
+						{
+							output.value=c+"-";
+						}
+					else 
+						{
+							if(xs.value!="")
+								{
+									output.value=xs.value;//继承上一次计算结果
+								}
+							output.value+=this.value;
+							xs.value="";
+						}		
+				}
+			ride.onclick=function()	//乘号运算时
+				{
+					var a=output.value;
+					var b=a.substring(a.length-1,a.length);
+					var c=a.substring(0,a.length-1);
+					if(a=="")
+						{
+							output.value=c;
+						}
+					else if(b=="+" || b=="-" || b=="*" || b=="/")	//避免符号冲突
+						{
+							output.value=c+"*";
+						}
+					else 
+						{
+							if(xs.value!="")
+								{
+									output.value=xs.value;	//继承上一次计算结果
+								}
+							output.value+=this.value;
+							xs.value="";
+						}
+				}
+			exc.onclick=function()	//除号运算时
+				{
+					var a=output.value;
+					var b=a.substring(a.length-1,a.length);
+					var c=a.substring(0,a.length-1);
+					if(a=="")
+						{
+							output.value=c;
+						}
+					else if(b=="+" || b=="-" || b=="*" || b=="/")	//避免符号冲突
+						{
+							output.value=c+"/";
+						}
+					else 
+						{
+							if(xs.value!="")
+								{
+									output.value=xs.value;	//继承上一次计算结果
+								}
+							output.value+=this.value;
+							xs.value="";
+						}
+				}
+			per.onclick=function()	//百分号运算时
+				{
+					var a=output.value;
+					var b,c;
+					if(a=="")
+						{
+							alert("无算式");
+						}
+					a=eval(a);
+					b=a.toFixed(0);
+					if(a-b!=0)	//判断小数
+						{
+							c=a;
+							c=c.toString();	//转换成字符串类型
+							b=c.indexOf(".");
+							c=c.substring(b);
+							if(c.length<=2)
+								{
+									output.value=a.toFixed(c.length-1);
+								}
+							else
+								{
+									output.value=a.toFixed(2);//保留两位小数
+								}					
+						}
+					else
+						{
+							output.value=a;
+						}
+					a=output.value/100;
+					b=a.toString();
+					if(b.length>=5)
+						{
+							a=a.toFixed(4);
+						}
+					else
+						{
+							a=a;
+						}
+					xs.value=a;
+				}
+			kx.onclick=function()	//开根运算时
+				{
+					var a=output.value;
+					var b,c;
+					a=eval(a);
+					if(output.value=="")
+						{
+							alert("无算式");
+						}
+					else if(xs.value!="")
+						{
+							output.value=xs.value;	//持续开根
+							a=Math.sqrt(xs.value);
+						}
+					else
+						{
+							output.value=a;	//首次开根
+							a=Math.sqrt(a);
+						}
+					b=a;
+					b=b.toFixed(0);
+					if(a-b!=0)	//判断小数
+						{
+							c=a;
+							c=c.toString();	//转换成字符串类型
+							b=c.indexOf(".");
+							c=c.substring(b);
+							if(c.length<=3)
+								{
+									a=a.toFixed(c.length-1);
+								}
+							else
+								{
+									a=a.toFixed(3);	//保留三位小数
+								}	
+						}
+					else
+						{
+							a=a;
+						}	
+					xs.value=a;
+				}
+			px.onclick=function()	//平方运算时
+				{
+					var a=output.value;
+					var b,c;
+					b=a.substring(a.length-1,a.length);
+					c=a.substring(a.length-3,a.length);
+					if(c=="**2")
+						{
+							output.value=a;
+						}
+					else if(b!="+" && b!="-" && b!="*" && b!="/" && output.value!="")	//避免符号冲突
+						{
+							output.value=a+"**2";
+						}
+					else
+						{
+							output.value=a;
+						}
+				}
+			document.addEventListener("keydown",function (e)
+				{
+					
+					if(e.keyCode=="13")	//使用键盘上回车键
+						{
+							re(document.getElementById('output').value);
+							e.target.blur();	//去除最后点击的焦点
+						}
+					else if(e.keyCode=="8")	//使用键盘上删除键
+						{
+							bs(document.getElementById('output').value);
+						}
+				},false);
+			function re(out)	//回车键执行计算
+				{
+					var a=out;
+					var result;
+					var b;
+					try
 					{
-						var a=output.value;
-						a=a.substring(0,0);
-						output.value=a;
+						result=eval(out);
+						b=result;
+						b=Math.floor(b);
+						if((result-b)!=0)	//判断小数
+							{
+								c=result;
+								c=c.toString();	//转换成字符串类型
+								b=c.indexOf(".");
+								c=c.substring(b);
+								if(c.length<=4)
+									{
+										result=result.toFixed(c.length-1);	
+									}
+								else
+									{
+										result=result.toFixed(4);//若为小数，最多取四位
+									}
+							}
+						else
+							{
+								result=result;
+							}
 					}
-			x19.onclick=function()	//执行计算
+					catch (err)
 					{
-						var a=output.value;
-						var result;
-						try
+						result="算式错误";
+					}
+					if(result=="算式错误")
 						{
-							result=eval(a);		//计算结果
+							alert("算式错误");
 						}
-						catch (err)
+					else
 						{
-							result=err;
+							xs.value=result;//显示结果
 						}
-						output.value=result;	//显示结果
-					};
-			x2.onclick=function()	//执行删除
-					{
-						var a=output.value;
-						a=a.substring(0,a.length-1);
-						output.value=a;
-					};
+				}
+			function bs(out)	//删除键执行单次删除
+				{
+					var a=out;
+					a=a.substring(0,a.length-1);
+					output.value=a;
+					xs.value=a.substring(0,0);
+				}
+			xs.onkeypress=function(e)	//答案显示框禁止输入
+				{
+					e.preventDefault();
+				}
 		</script>
 	</body>
 </html>
