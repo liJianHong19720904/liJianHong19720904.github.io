@@ -1,0 +1,19 @@
+﻿1.title
+ Hardware 
+
+2.introduction
+ 能理解和表达硬件和软件的概念： A computer’s hardware is a host of electronic circuitry, components, and connections. Software is programs that allow people to use a computer’s hardware.增加使用HTML文档的img元素，了解图像文件的概念，实现对硬件和软件内容的Web页排版。
+
+3.keyword
+  hardware ，software ，computing system ， img ，image file  。 
+
+4.project
+  <a src=pad.jpg>本例提供一个jpg图像文件，文件名：pad.jpg 。即可浏览器打开，也可下载到本地，用于HTML文件图文排版。
+  <a src=hardSoft.html>本例使用上面的图像文件，演示了使用img标记，实现把图像嵌入Web页。
+  <a src=hardware.jpg>本例提供一个jpg图像文件，文件名：hardware.jpg 。可浏览器打开，也可下载到本地，用于下面的HTML文件图文排版。
+  <a src=hardware.html>本例使用上面的图像文件，可演示img标记的其他属性（本例为align）使用，实现把图像嵌入Web页的调整。
+5.reading
+<img src=pad.jpg>When talking about computers, people often refer to hardware,particularly in terms of upgrading or replacing it. Hardware combines with software to form a usable computing system.
+  The physical parts of a computer are called hardware. These include things we can see, such as the monitor and computer case, as well as things we can’t see, such as the motherboard and microprocessor inside the computer case.
+ Things like programs, the operating system, and firmware (a type of program that is embedded into the microprocessor) are called software. They allow users to access the capabilities of the hardware.
+ <img src=hardware.jpg>Hardware is everything in, or connected to, a computer that’s part of the physical world and can be touched. This includes the computer itself, with a screen, keyboard, and mouse. It also includes devices connected to a computer, such as speakers and memory cards. The computer’s internal components are considered hardware as well.
