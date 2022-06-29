@@ -1,5 +1,5 @@
 ﻿1.title
- Computer Science & Digital technology 
+ Computer Science || Digital technology 
 
 2.introduction
 

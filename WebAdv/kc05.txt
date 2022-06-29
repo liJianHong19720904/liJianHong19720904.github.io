@@ -1,25 +1,25 @@
 ﻿1.title
- Software
+ Programming（编程）
 2.introduction
- 能理解计算机的软件的大致分类，基本可以分为2类：操作系统 operating system (OS)和应用软件 applications。能对生活中的软件举出一些实例。
- 在Web实践中，学习CSS脚本对颜色值、padding、border、margin的控制。
+ 理解编程对使用计算机的意义。对于简单地利用计算机，可以使用现成的软件，而对于个性化或开放的计算机应用的需求，我们必须编制程序，学习编程的意义也在于此。可以说，廉价的现代计算机，以其强大计算能力，结合人类的抽象思维能力，可为每一个人提供了数字化发展机会和巨大的潜力。
+ 在本课的Web代码实践中，新增了CSS对类的设计，逐步实现Web元素的盒装模型的padding、border、margin的综合使用。
 
 3.keyword
-  Software categories ，operating system (OS)，application (APP) ，framework ， utility  ；color   ， rgb(red,green,blue)  ，text-align , padding , border , margin , line-height , text-indent 。 
+  Programming ，complex，instruction ，framework ， abstract thinking  ；font-size:25px;  ， font-size:1.5em;  ，margin:0;   ， padding:10px 20px; ， 	p,h1{ } 。 
 
+	
 4.project
-  <a src=software-1.html>本例提供软件分类的部分文字，用于简单HTML标记的复习。
-  <a src=software-2.html>本例演示在Web页的元素的背景和前景，设置颜色值，使用rgb(red,green,blue)表达颜色。
-  <a src=software-3.html>本例演示Web页的元素的border属性的使用。
-  <a src=software-4.html>本例演示Web页的元素的padding属性的使用。
-  <a src=software-5.html>本例演示Web页的元素的margin属性使用，注意移动端的全屏设定。
+  <a src=program-1.html>本例提供介绍编程意义的文本，用于简单标记和CSS类的学习实践。
+  <a src=program-2.html>本例继续演示子元素p对body父元素的属性继承和变异。
+  <a src=program-3.html>本例继续演示子元素h1对body父元素的属性继承和变异。
+  <a src=program-4.html>本例演示Web页的元素的BoxModel各属性的使用，让页面更加完美。
+  
 5.reading
-An operating system (OS) is a piece of software that manages a computer’s hardware and software resources, and makes it easier for us to use them. There are many types of OS, and they can be used for different purposes. 
+ Programming .   Computers are about as common as screwdrivers today, but they are quite a bit more complex, and making them do what you want them to do isn’t always easy.
 
-<img src=dos.jpg> One year earlier, 1975 ， Bill Gates and Paul Allen had founded Microsoft, developing operating system software that allowed users to interact with various personal  computers.
+If the task you have for your computer is a common, well-understood one, such as showing you your email or acting like a calculator, you can open the appropriate application and get to work. But for unique or open-ended tasks, there probably is no application.
+That is where programming may come in. Programming is the act of constructing a program——a set of precise instructions telling a computer what to do.
 
-A computer operating system manages a computer’s resources, such as its disk space, memory, and peripherals. The OS can be thought of as an intermediary between the computer’s hardware and its software. It receives instructions from applications,  peripherals, and the hard drive, and carries out these instructions on software, the hard drive, and other peripherals.
+Because computers are dumb, pedantic beasts, programming is fundamentally tedious and frustrating. Fortunately, if you can get over that fact, and maybe even enjoy the rigor of thinking in terms that dumb machines can deal with,  programming can be rewarding.
 
- An application is a type of software that allows its user to perform a specific task. The OS provides a framework for these applications to run. 
-
-  The operating system uses applications called  utilities, which allow users to manage their computer, its devices, and its programs. There are many different utility programs, and they vary across operating systems. Users can access these via a special menu or control panel.
+It allows you to do things in seconds that would take forever by hand. It is a way to make your computer tool do things that it couldn’t do before. And it provides a wonderful exercise in abstract thinking.

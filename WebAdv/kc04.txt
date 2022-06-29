@@ -1,5 +1,5 @@
 ﻿1.title
- Software
+ Software（软件）
 2.introduction
  能理解计算机的软件的大致分类，基本可以分为2类：操作系统 operating system (OS)和应用软件 applications。能对生活中的软件举出一些实例。
  在Web实践中，学习CSS脚本对颜色值、padding、border、margin的控制。

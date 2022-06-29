@@ -1,5 +1,5 @@
 ﻿1.title
- Hardware 
+ Hardware （硬件）
 
 2.introduction
  能理解和表达硬件和软件的概念： A computer’s hardware is a host of electronic circuitry, components, and connections. Software is programs that allow people to use a computer’s hardware.增加使用HTML文档的img元素，了解图像文件的概念，实现对硬件和软件内容的Web页排版。

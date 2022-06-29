@@ -1,5 +1,5 @@
 ﻿1.title
- Types of hardware device
+ Types of hardware device （硬件的分类）
 2.introduction
  能理解计算机的硬件大致分类，可以分为4类：处理器（传统的分类中，再分为运算器和控制器）、存储器、输入设备、输出设备。能对生活中的硬件举出一些实例。
  在Web实践中，用HTML的有序列表标记，对分类标题进行自动递增控制。同时引入对CSS的基本概念，初步控制HTML标记的样式。
