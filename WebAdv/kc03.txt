@@ -1,0 +1,21 @@
+﻿1.title
+ Types of hardware device （硬件的分类）
+2.introduction
+ 能理解计算机的硬件大致分类，可以分为4类：处理器（传统的分类中，再分为运算器和控制器）、存储器、输入设备、输出设备。能对生活中的硬件举出一些实例。
+ 在Web实践中，用HTML的有序列表标记，对分类标题进行自动递增控制。同时引入对CSS的基本概念，初步控制HTML标记的样式。
+
+3.keyword
+  categories ，Hardware devices ，processing devices ，peripherals ， ol(order list)，li(list) ，style , font size , font weight , color , display , block 。 
+
+4.project
+  <a src=hardwareType-1.html>本例初步提供硬件分类的部分文字和图片，用于前面HTML标记的操作的复习。
+  <a src=hardwareType-2.html>本例提供了所有的硬件分类图片和文字。
+  <a src=hardwareType-3.html>本例引入ol和li二个父子关系的标记，用于让HTML语言自动生成有数字递增的列表。
+  <a src=hardwareType-4.html>本例引入CSS语言，初步使用CSS语言控制文字字体的大小、胖瘦、颜色，还探讨了图像的display模式，本例更改的block模式。
+5.reading
+Hardware devices are grouped into several categories. They can either be integral to the computer (such as a motherboard) or attached to it via cables, Wi-Fi, or Bluetooth. Hardware devices that aren’t an integral part of the main computer unit, such as keyboards, mice, screens, printers, and scanners are called peripherals.
+Mobile phones and tablets usually have integrated hardware devices and don’t need peripherals. Here are some common hardware devices.
+  <img src=chip.jpg>Processing devices .		These devices take data and instructions to produce new variations of data. Computers may also have specialized  processing devices that deal with graphics or audio and video signals.
+  <img src=input.jpg >  Input devices .	These devices are used to input data or instructions. Some input devices, such as scanners and cameras, allow the input of digitized information that can be stored or processed.
+  <img src=output.jpg> Output devices .	These devices take data from the computer and present it to the user. Newer output devices include virtual reality (VR) goggles that immerse users in a 3D world.
+  <img src=storage.jpg> Storage devices.  These devices enable computers to save data when they are not powered on. Apart from hard drives and random access memory (RAM), storage devices also include USB pen drives and memory cards.

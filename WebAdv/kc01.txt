@@ -1,0 +1,26 @@
+﻿1.title
+ Computer Science || Digital technology （计算机科学 或 数字科技）
+
+2.introduction
+
+在理论上理解Computer Science学习几个相关概念，在实践中学会用最简单的HTML语言，即标题和段落，用Web页实现文字的排版。
+
+3.keyword
+ 
+ Computer ，Computer Science，Digital technology ，html ，tag ，html document。 
+
+4.project
+
+  <a src=first.html>提供一个只有基本的HTML框架标记的Web页，可以用于创建Web页的最初样版文件，请注意标记之间的嵌套。
+ 
+ <a src=second.html>在上面案例基础上，增加了二段文字，用来阐述Computer Science和Digital technology，在操作中，请尝试用记事本排版，用浏览器打开查看。
+   
+   <a src=third.html> 在上面文字和Web页基础上，增加2个HTML标记，p和h1，分别用于段落和标题。
+
+5.reading
+
+<img src=computer.jpg>Computers are everywhere, from smart phones to intelligent refrigerators. Technology might seem like magic, but computer science explores the secrets behind it.Digital technology is all around us, giving us access to information, communication, and entertainment that would have seemed unimaginable to people 100 years ago.Computer science is the study of how this technology works, from the microchips at the heart of devices, to the code that controls them. 
+<img src=learnCs.jpg> Most young people today are very comfortable using computers and technology, so it’s easy to assume there’s no point in studying computing. However, computer science isn’t simply about using digital tools, it also involves exploring how these technologies work. Studying computer science can help young people develop skills to solve problems, invent new things, and create new technologies for the future.
+People without computing skills are limited to using the websites, apps, and games that are already available. People with computing skills, on the other hand, are in a position to turn their ideas into reality, and to make the things that will shape the future of computers.
+
+
