@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>在构造函数创建对象模型基础上，利用Web的DOM技术展现内存信息的可视化外观！</title>
+  <style type="text/css">
+	div{
+	    width:20%;
+	    height:20%;
+	    margin:1em;
+		padding:0.5em;
+	    border:2px solid ;
+		display:inline-block;
+	  	}
+	div p{ 
+	      text-align:center;
+		  display:inline;
+		  }
+  </style>
+  <script type="text/javascript">
+  <!--
+	
+	 //构造函数与其他函数相比，区别为首字母大写。
+    function Person(name, age, male){
+	   this.name = name ;
+	   this.age = age ; 
+	   this.male = male ;
+	   this.addToDom = function(){
+		  var div = document.createElement('div') ;
+		  var p = document.createElement('p') ;
+		  p.textContent =  this.name +"/"+ this.age ;
+		  div.appendChild(p) ;
+		  var txtColor = this.male ? "blue" : "red" ;
+          div.style.borderColor = txtColor ;
+	      document.body.appendChild(div);
+			   };
+		}//end of function Person
+ 
+ //把自动产生的对象放在数组中，对象的属性（性名和年龄）用简单算法实现了随机变化
+    var student = [] ;
+    const stuNum = 200 ;
+	var name, age , male ;
+	for (var i=0; i< stuNum ; i++ ) {
+		  //下面展示“问号表达式”，可简洁地用一条语句处理if/else逻辑，这也JavaScript的现代高级语言的特色
+		  male = Math.random() > 0.5 ? true : false ;
+        if (male) {
+           name = "Boy" + i ;
+		   age = 20 + Math.floor(Math.random()*10) ;
+		}else{
+		   name = "Girl" + i ;
+		   age = 18 + Math.floor(Math.random()*10) ;
+		}
+		//下面是本例关键的语句
+	   student[i] = new Person(name ,age , male);
+    }//End for loop
+
+ 
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>随机产生内存对象，根据内存对象数据产生外观，蓝框代表boy，红框代笔girl。使用Console面板，可查看统计结果</h1>
+  <script type="text/javascript">
+  <!--
+	 //输出自动产生的数据
+  console.log("由于内存对象的addToDom方法，涉及Web页面的DOM操作，必须在文档的body元素准备好后，才能执行！因此把这段操作页面的元素代码放在body元素内。");
+   var countBoy = 0 ;
+   var countGirl = 0 ;
+   for (var i=0; i< stuNum ; i++ ) {
+     if (student[i].male)  {
+         countBoy ++ ;
+     }
+     if (!student[i].male)  {
+      
+	   countGirl ++ ;
+     } 
+	 student[i].addToDom();
+   }
+  console.log('There are ' +countBoy + ' boys!');
+  console.log('There are ' +countGirl + ' girls!');
+  //-->
+  </script>
+ </body>
+</html>

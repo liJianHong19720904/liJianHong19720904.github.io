@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <style type="text/css">
+   body{margin:0 auto;width:600px;}
+   h1{font-size:3em;text-align:center;}
+   p{font-size:1.5em;}
+   span{color:blue;font-size:2em;}
+   input{font-size:2em;margin:1em;}
+  </style>
+  <title>Web页的DOM元素实现UI界面，有界面的猜数游戏3</title>
+ </head>
+ <body>
+  <p>
+   从0到999，请你写下一个数字!<br>
+   并如实回答电脑每次猜的偏差，按这个程序算法，猜中可能性为50%！
+  </p>
+  <span id="times">第1次</span>
+  <h1 id="num">我猜：500</h1>
+  <input id="big" type="button" value="数字大了">
+  <input id="small" type="button" value="数字小了">
+
+    <script type="text/javascript">
+  <!--
+	var num = 500;
+    var times= 1 ;
+	//先实现一个粗略的算法
+	document.querySelector("input#big").onclick = function(){
+	 num = Math.floor( num / 2 ) ;
+	 document.querySelector("h1#num").textContent = '我猜：' + num ; 
+	 times ++ ;
+     document.querySelector("span#times").textContent = "第" + times + "次" ; 
+	}
+
+	document.querySelector("input#small").onclick = function(){
+	 num = num + Math.floor((1000- num)/2) ;
+	 document.querySelector("h1#num").textContent = '我猜：' + num ; 
+	 times ++ ;
+     document.querySelector("span#times").textContent = "第" + times + "次" ; 
+	}
+  //-->
+  </script>
+
+ </body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>对照前面案例的“假”的移动效果，本例探索图像真实移动的代码。我们可以为Web的DOM元素设定绝对定位，然后通过异步代码控制元素的style属性的坐标变化，实现图像逐渐移动的动画。 </title>
+ </head>
+ <style type="text/css">
+    body{
+	 margin:20;
+	 }
+    div{
+     position:absolute;
+	}
+	div img{
+	 width:150px ;
+		}
+	div p {
+	 position:absolute;
+	 font-size:1em;
+	 font-weight:bold;
+	 background-color:black;
+	 color:white;
+	 right:10%;
+	 bottom:5%;
+ 	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	  /***
+	 本例重新使用使用在内存中建立的图像对象————fbs数组，并使用DOM技术删除和添加图像，让5张图像看起来似乎在不断移动！
+	******/
+	var fbs = [] ;
+	const divWidth = 160 ;
+	for (var i=0; i < 10 ; i++){
+     var man = document.createElement("img") ;
+	     man.src =  "../images/fbs2019/fbs-" + (i+1) + ".jpg" ;
+		 man.alt = "FBS 第 "+ (i+1) + " 位" ;
+     var kk = document.createElement("div") ; 
+	     kk.id = 'fbs-' + i ;
+     var pp = document.createElement("p") ; 
+	     pp.textContent = man.alt ;
+		 kk.appendChild(man);
+		 kk.appendChild(pp);
+		 kk.style.left = divWidth * i +"px" ;
+		 
+		 fbs[i] = kk ;
+	}
+ //-->
+ </script>
+ <body>
+  
+   
+  </div>
+  <script type="text/javascript">
+	var dad = document.body;
+	const maxPic = 10;
+	
+	for (var i= 0; i< maxPic ; i++){
+	   dad.appendChild(fbs[i]) ;
+  	}
+
+	
+	 //异步执行的代码，每次更新maxPic设置的几张图片  
+    var moveLeft = 0 ;
+    var divDoms = document.querySelectorAll("div");
+	setInterval(function(){
+	       	moveLeft -= 2
+
+			for (var j=0; j< maxPic ; j++){
+			   divDoms[j].style.left = j * divWidth + moveLeft + "px";
+			}
+         
+		},50) ;
+
+  </script>
+ </body>
+</html>

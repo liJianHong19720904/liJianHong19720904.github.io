@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>添加While循环，实现猜数游戏2</title>
+  <script type="text/javascript">
+  <!--
+	var num1 = Math.floor(Math.random()*10) ;
+        console.log("偷偷告诉你，是 "+num1);
+	var i=1;
+	const NUM = 5 ;
+	while(i <= NUM){
+		var guess = prompt("第"+i+"次，"+"0到9，你猜几？");
+	    guess = parseInt(guess);
+	   if (num1===guess){
+		  alert("对了 !" + "\n你的成功率：" + Math.floor(1/i*100) + "%");
+		  break;
+	    }else{
+	      alert("错了 !"+ '还有'+ (NUM-i)+'次机会');
+	    }
+		i++ ;
+	}//end of while
+  //-->
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

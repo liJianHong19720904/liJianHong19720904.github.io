@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>探索经典的32位、64位、128位二进制数的十进制范围，学习函数的定义和调用。利用循环，研究JavaScript定义的Infinity这个所谓的最大值。</title>
+  <script type="text/javascript">
+  <!--
+    //先理解二进制的原理，才能理解2的n次方减1表达含义
+    console.log("最大的32位二进制数的十进制表示：" + (power2(32)-1) ) ;
+	console.log("最大的64位二进制数的十进制表示：" + (power2(64)-1) ) ;
+    console.log("最大的128位二进制数的十进制表示：" + (power2(128)-1) ) ;
+	//你的浏览器能表达的最大的数是多少？
+    var i = 128 ;
+	while (power2(i) !== Infinity){
+		i ++ ;
+	}
+	console.log("2的" + (i-1) + "次方，是本浏览器的JavaScript引擎能表达数字的最大值，十进制表达为：" + power2(i-1));
+	console.log("2的" + i + "次方，已经超出本浏览器JavaScript引擎能表达范围，记为：" + power2(i));
+    /***
+	2的1023次方，是本浏览器的JavaScript引擎能表达数字的最大值，十进制表达为：8.98846567431158e+307
+	***/
+	 function power2(x){
+	  var result=1;
+    	for (var i=1;i<=x ;i+=1 ) {
+          result=result*2;
+		   }
+	   return result;
+	}
+  //-->
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

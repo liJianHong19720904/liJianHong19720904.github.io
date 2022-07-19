@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>用代码动态（在程序运行的时刻，on the fly）向Web页添加元素对象</title>
+  <style type="text/css">
+	div{
+	    width:20%;
+	    height:20%;
+	    margin:1em;
+		padding:0.5em;
+	    border:2px solid ;
+		display:inline-block;
+	  	}
+	div p{ 
+	      text-align:center;
+		  display:inline;
+		  }
+  </style>
+  <script type="text/javascript">
+  <!--
+      function addToPage(){
+		  var div = document.createElement('div') ;
+		  var p = document.createElement('p') ;
+		  p.textContent = 'No:' + (new Date()) % 1000 ;
+		  div.appendChild(p) ;
+		  var txtColor = Math.random() > 0.5 ? "blue" : "red" ;
+          div.style.borderColor = txtColor ;
+	      document.body.appendChild(div);
+			   };
+	 console.log("由于涉及Web页面的DOM操作，代码运行到这里的时刻，document.body对象还未诞生，这就是系统报：\"Uncaught TypeError: Cannot read properties of null\"的原因！");
+   const domNum = 100 ;
+   for (var i=0; i< domNum ; i++ ) {
+    addToPage();
+   }
+   //-->
+  </script>
+ </head>
+ <body>
+  <h1>本例将在console面板产生报错信息，思考为什么会出错？</h1>
+
+ </body>
+</html>

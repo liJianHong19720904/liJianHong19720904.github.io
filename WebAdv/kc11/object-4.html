@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>利用构造函数创建对象，对象的创建可实现自动化</title>
+  <script type="text/javascript">
+  <!--
+	
+	 //构造函数与其他函数相比，区别为首字母大写。
+    function Person(name, age, male){
+	   this.name = name ;
+	   this.age = age ; 
+	   this.male = male ;
+	   this.showInfo = function(){
+	    console.log("My name is " + this.name +".");
+        console.log("I am " + this.age +" years old.");
+	   };
+	   //由于本例产生的数据太多，为方便查看重点信息，下面代码简化了输出对象信息。
+	}//end of function Person
+ 
+ //把自动产生的对象放在数组中，对象的属性（性名和年龄）用简单算法实现了随机变化
+    var student = [] ;
+    const stuNum = 200 ;
+	var name, age , male ;
+	for (var i=0; i< stuNum ; i++ ) {
+		  //下面展示“问号表达式”，可简洁地用一条语句处理if/else逻辑，这也JavaScript的现代高级语言的特色
+		  male = Math.random() > 0.5 ? true : false ;
+        if (male) {
+           name = "Boy" + i ;
+		   age = 20 + Math.floor(Math.random()*10) ;
+		}else{
+		   name = "Girl" + i ;
+		   age = 18 + Math.floor(Math.random()*10) ;
+		}
+		//下面是本例关键的语句
+	   student[i] = new Person(name ,age , male);
+    }//End for loop
+  //输出自动产生的数据
+  console.log("Here is Male students list:");
+   var countBoy = 0 ;
+   for (var i=0; i< stuNum ; i++ ) {
+     if (student[i].male)  {
+       student[i].showInfo();
+	   countBoy ++ ;
+     }
+   }
+  console.log("Here is Female students list:");
+  var countGirl = 0 ;
+  for (var i=0; i< stuNum ; i++ ) {
+     if (!student[i].male)  {
+       student[i].showInfo();
+	   countGirl ++ ;
+     }
+   }
+  console.log('There are ' +countBoy + ' boys!');
+  console.log('There are ' +countGirl + ' girls!');
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>本例要使用Console面板查看结果</h1>
+ </body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用onmouseover（异步代码）来逐一展现对象的动画！</title>
+  <style type="text/css">
+	div{
+	    width:20%;
+	    height:20%;
+	    margin:1em;
+		padding:0.5em;
+	    border:2px solid ;
+		display:block;
+		position:absolute;
+		top:25%;
+		left:0%;
+		cursor:pointer;
+		background-color:rgba(0,0,0,0.5);
+	  	}
+	div p{ 
+	      text-align:center;
+		  display:inline;
+		  color:white;
+		  }
+  </style>
+  <script type="text/javascript">
+  <!--
+	
+	 //构造函数与其他函数相比，区别为首字母大写。
+    function Person(name, age, male){
+	   this.name = name ;
+	   this.age = age ; 
+	   this.male = male ;
+       this.divDom = null ;
+	   this.x = 0 ;
+	   //只有第一次运行函数Person时，this关键字才指向Person的实例，也就是内存对象自己，异步执行函数goOut代码时，只有把this保存到另一个变量that中，利用JavaScript函数的lexical语法作用域特性，让异步代码能访问that。此处若用this，则再执行异步代码时，this会指向window，导致this.goOut代码和this.divDom为空。
+	   var that = this ;
+	   this.goOut = function(){
+		 that.x += 5 ;
+		 that.divDom.style.left = that.x + 'px' ;
+         if (that.x > window.innerWidth * 0.6) {
+			 that.divDom.style.display = "none" ;
+		 }
+		 setTimeout(that.goOut,30);
+		};
+	   
+	   this.addToDom = function(){
+		  var div = document.createElement('div') ;
+		  var p = document.createElement('p') ;
+		  p.textContent =  this.name +"/"+ this.age ;
+		  div.appendChild(p) ;
+		  var txtColor = this.male ? "blue" : "red" ;
+          div.style.borderColor = txtColor ;
+		  div.style.height = this.age *5 + 'px' ;
+          //设定dom元素的属性model，指向代表本内存对象本身，在本方法addToDom函数第一次运行时，可以用this获取该值。
+		  div.model = this ;
+		  div.onmouseover = function(){
+		   this.model.goOut() ;
+		  };
+		this.divDom  = div ;
+	    document.body.appendChild(div);
+			   };
+		}//end of function Person
+ 
+ //把自动产生的对象放在数组中，对象的属性（性名和年龄）用简单算法实现了随机变化
+    var student = [] ;
+    const stuNum = 200 ;
+	var name, age , male ;
+	for (var i=0; i< stuNum ; i++ ) {
+		  
+		  male = Math.random() > 0.5 ? true : false ;
+        if (male) {
+           name = "Boy" + i ;
+		   age = 20 + Math.floor(Math.random()*10) ;
+		}else{
+		   name = "Girl" + i ;
+		   age = 18 + Math.floor(Math.random()*10) ;
+		}
+
+		//下面是本例关键的语句
+	   student[i] = new Person(name ,age , male);
+    }//End for loop
+
+ 
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>本例用onmouseover事件触发生动画效果</h1>
+  <script type="text/javascript">
+  <!--
+	 //输出自动产生的数据
+  console.log("根据随机产生内存对象数据，结合onmouseover触发事件，利用异步代码逐一产生动画效果（异步代码在运行时，this关键字随代码在运行上下文而发生变化。引入了函数闭包概念和js变量作用域的lexical语法，本例因此难度较大，一般学习者无需掌握）。");
+   var countBoy = 0 ;
+   var countGirl = 0 ;
+   for (var i = stuNum-1; i >= 0 ; i-- ) {
+     if (student[i].male)  {
+         countBoy ++ ;
+     }
+     if (!student[i].male)  {
+      
+	   countGirl ++ ;
+     } 
+	 student[i].addToDom();
+   }
+  console.log('There are ' +countBoy + ' boys!');
+  console.log('There are ' +countGirl + ' girls!');
+  //-->
+  </script>
+ </body>
+</html>

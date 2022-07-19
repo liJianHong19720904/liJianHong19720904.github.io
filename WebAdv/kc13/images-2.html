@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>用DOM技术，用代码动态向Web页插入网络上的图片文件</title>
+ </head>
+ <style type="text/css">
+    div{display:inline-block;}
+	div img{
+	 border:10px solid red ;
+	 cursor:pointer;
+	}
+	div p {
+	 text-align:center;
+	 font-size:2em;
+	 font-weight:bold;
+	 background-color:black;
+	 color:white;
+	 margin:0 ;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	  /***
+	 从网络读入所有10张图片，图片会在先本地缓存，然后读入内存，当用户需要时，可以极大提高访问速度！
+	******/
+	var fbs = [] ;
+	for (var i=0; i < 10 ; i++){
+     var man = document.createElement("img") ;
+	     man.src =  "../images/fbs2019/fbs-" + (i+1) + ".jpg" ;
+		 man.alt = "福布斯2019年第"+ (i+1) + "位！" ;
+         fbs[i] = man ;
+	}
+ //-->
+ </script>
+ <body>
+  <div>
+  <!--
+   本例把静态img元素关闭，因此上面的CSS修饰效果也取消了
+   <img src="../images/fbs2019/fbs-1.jpg">
+   <p>Who is he ?</p>
+   -->
+  </div>
+  <script type="text/javascript">
+	for (var i=0; i<10 ; i++){
+     document.body.appendChild(fbs[i]) ;
+	}
+  </script>
+ </body>
+</html>

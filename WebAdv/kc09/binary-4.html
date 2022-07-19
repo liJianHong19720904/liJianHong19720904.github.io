@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>本例继续使用上例的UI，把输入的十进制数，转换为二进制数输出（算法和代码实现）</title>
+  <style type="text/css">
+	input{
+	 font-size:25px;
+	 display:block;
+	} 
+	input#DToB{
+	 border-radius:15% ;
+	 cursor:pointer;
+		}
+
+  </style>
+  <script type="text/javascript">
+  <!--
+	 function power2(x){
+	  var result=1;
+    	for (var i=1;i<=x ;i+=1 ) {
+          result=result*2;
+	     }
+	   return result;
+	}
+  //-->
+  </script>
+ </head>
+ <body>
+  十进制表示：<input id="num" type="text" value="0">
+  
+  <input id="DToB" type="button" value="十进制转二进制"> 
+  
+  二进制表示：<input id="bin" type="text" value="0">
+  <script type="text/javascript">
+  <!--
+	document.querySelector("input#DToB").onclick = function(){
+	  var num = document.querySelector("input#num").value ;
+	  num = parseInt(num);
+	  document.querySelector("input#num").value = num ;
+	 //十进制转为二进制，用教科书中经典的除2取余算法
+	  var binArray = [] ;
+	  while (num > 0) {
+       binArray[binArray.length] = num % 2 ;
+	   num = Math.floor( num / 2 ) ;
+	  }//end while loop
+	//生成的余数反过来写，则是相应的二进制数，因此我们使用数组的reverse方法，将数组元素倒序排列。现代高级语言的内置对象的方法丰富，可以满足通常的开发，在我们学习期间，自己写算法来实现这些方法则更好。
+    binArray.reverse() ;
+	console.log(binArray) ;
+	  
+	  document.querySelector("input#bin").value = binArray.toString() ;
+	  //数组的toString方法，可把数组的元素用逗号连起来，作为一个字符串返回。
+	};
+  //-->
+  </script>
+ </body>
+</html>

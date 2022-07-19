@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>把函数定义为对象的私有方法，既能按功能组织代码，也避免了多产生一个全局变量</title>
+  <script type="text/javascript">
+  <!--
+	var boy = {};
+	 boy.name = "Tom" ;
+	 boy.age = 25 ; 
+	 boy.male = true ;
+	var girl = {name: "Lizy", male: false , age: 26} ;
+     boy.showInfo = function(){
+	   var s = '' ;
+       if (this.male){
+        s = "I am a man !";
+	   }else{
+	    s = "I am a woman !" ;
+	   }
+	   console.log("My name is " + this.name +".");
+       console.log("I am " + this.age +" years old.");
+       console.log("And " + s);
+	 } ;
+	 //上面和下面代码说明，在JavaScript中，函数本身也像数字这种数据，称为值（value），也是可以复制和传递的。
+    girl.showInfo = boy.showInfo ;
+
+	boy.showInfo();
+	girl.showInfo() ;
+
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>本例要使用Console面板查看结果</h1>
+ </body>
+</html>

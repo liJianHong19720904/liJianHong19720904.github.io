@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>利用函数，把对象变量作为实参传给函数,利用函数的抽象可解决代码重复问题</title>
+  <script type="text/javascript">
+  <!--
+	var boy = {};
+	boy.name = "Tom" ;
+	boy.age = 25 ; 
+	boy.male = true ;
+	var girl = {name: "Lizy", male: false , age: 26} ;
+
+	console.log(showInfo(boy));
+	console.log(showInfo(girl)) ;
+	//这个例子也可较好演示，函数的形参和实参该如何定义和使用
+	function showInfo(person){
+	  var s = "" ;
+	  if (person.male){
+       s = "he is a male !";
+	  }else{
+	   s = "she is a female !" ;
+	  }
+	  return person.name + " is " + person.age + 
+	         " years old, and " + s ;
+     }
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>本例要使用Console面板查看结果</h1>
+ </body>
+</html>

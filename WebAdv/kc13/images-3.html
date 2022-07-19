@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>本例用演示改变img类DOM元素的src属性，实现把图像文件读入Web元素，这是一种比较典型的动态更滑图片文件的方法。 </title>
+ </head>
+ <style type="text/css">
+    div{display:inline-block;}
+	div img{
+	 border:10px solid red ;
+	 cursor:pointer;
+	}
+	div p {
+	 text-align:center;
+	 font-size:2em;
+	 font-weight:bold;
+	 background-color:black;
+	 color:white;
+	 margin:0 ;
+
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	  /***
+	 从网络读入所有10张图片，图片会在先本地缓存，然后读入内存，当用户需要时，可以极大提高访问速度！
+	******/
+	var fbs = [] ;
+	for (var i=0; i < 10 ; i++){
+     var man = document.createElement("img") ;
+	     man.src =  "../images/fbs2019/fbs-" + (i+1) + ".jpg" ;
+		 man.alt = "福布斯2019年第"+ (i+1) + "位！" ;
+         fbs[i] = man ;
+	 //思考： 本例只要改变图像DOM元素的src属性，就可触发页面的DOM元素引入不同图像文件，此时，fbs数组有存在必要吗？这段代码可以看作程序预读Web网络的图像文件吗，这样对用户的UI交互有何益处？
+	}
+ //-->
+ </script>
+ <body>
+  <div>
+  <!--
+   本例又把静态img元素再次开启，增加CSS修饰效果，通过更改Web的图像DOM的src属性实现图像切换！
+   -->
+   <img alt="福布斯2019年前十排行榜">
+   <p>Who is he ?</p>
+
+  </div>
+  <script type="text/javascript">
+	var imgDom = document.querySelector("div img");
+	var i =  0 ;
+	var URL = "../images/fbs2019/fbs-" ;
+	imgDom.src = URL + (i+1) + ".jpg" ;
+    imgDom.onclick = function(){
+     if (i < 9) {
+       i++;
+     }else{
+	  i = 0 ;
+	 }
+	 this.src = URL + (i+1) + ".jpg" ;
+     var pDom = document.querySelector("div p");
+	 pDom.textContent = "FBS2019-第"+(i+1)+"名" ;
+	};
+  </script>
+ </body>
+</html>

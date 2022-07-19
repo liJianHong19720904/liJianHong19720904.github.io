@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Events事件和异步代码。本例随机设定了50张gif图的属性，让每个图像的位置和样子产生变化，并利用异步代码，setTimeout，把小鸟逐一添加到Web页。</title>
+  <style type="text/css">
+	body{
+	 border:2px solid;
+	 font-size:1.5em;
+	 cursor:pointer;
+	 height:800px;
+	 margin:0 ;
+	 }
+	div{
+	  border:2px solid;
+	  margin:2em;
+	  width:80%;
+	  height:80%;
+	  background-color:rgb(200,200,200);
+	 }
+	 p{
+	    border:2px solid;
+		margin:2em;
+	    background-color:rgb(180,180,180);
+	    width:80%;
+	    height:80%;
+		text-align:center;
+	  }
+   img{
+    position:absolute;
+   }
+  </style>
+  <script type="text/javascript">
+  <!--
+   //下面这段代码，让Web页立刻读取网络，并开始默默准备100个动态小鸟的Dom元素，存放在 gifArr 数组中，供让Web页正常建立后使用。
+	var gifURL = "../images/kcBird.gif" ;
+	var gifArr = [] ;
+	for (var i=0; i<100 ; i++ ){
+		let gifDom = new Image();
+        gifDom.src = gifURL ;
+		gifDom.width = 50 + 50*Math.random() ;
+		//gifDom.style.width = 50 + "px" ;
+		gifDom.style.opacity = 0.3 + Math.random()*0.7 ;
+		gifDom.id = "bird-" + i ;
+		gifArr[i] = gifDom ;
+	}
+  //-->
+  </script>
+  <script type="text/javascript">
+  <!--
+	window.onload = function(){
+  
+	var pDom = document.querySelector('p') ;
+	
+     document.body.onmousemove = function(eObj){
+
+	  var x = eObj.clientX ;
+	  var y = eObj.clientY ;
+
+      pDom.textContent = `孙子：clientX : ${x}  ,  clientY:${y} ` ;
+    
+
+	 };//end of body.onmousemove
+
+// 下面这段代码让每个动态gif图逐个出现，这可以用异步代码！注意“for循环”是同步代码，以当前普通计算机处理能力，一段代码在微秒内完成，相对setTimeout和setInterval这种数十毫秒级别的代码，不可同日而语。。
+    i = 0 ;
+	setTimeout(showBird, 100 ) ;
+	function showBird(){
+	  document.body.appendChild(gifArr[i]);
+	  var x =  Math.random()*window.innerWidth  ;
+	  var y =  Math.random()*window.innerHeight ;
+	  gifArr[i].style.left = x + "px" ;
+      gifArr[i].style.top = y + "px" ;
+	  i++ ;
+	  if (i < gifArr.length) {
+	   setTimeout(showBird, 100 ) ;
+	  }
+	}//end of function  showBird() definition
+		 
+	};//end of window.onload
+  //-->
+  </script>
+ </head>
+ <body>
+  爷爷body
+  <div>
+  父亲div
+	<p>儿子p</p> 
+  </div>
+ </body>
+</html>

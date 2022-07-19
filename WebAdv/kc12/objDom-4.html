@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用点击事件（异步代码入门）来逐一展现对象外观！</title>
+  <style type="text/css">
+	div{
+	    width:20%;
+	    height:20%;
+	    margin:1em;
+		padding:0.5em;
+	    border:2px solid ;
+		display:block;
+		position:absolute;
+		top:25%;
+		left:0%;
+		cursor:pointer;
+		background-color:rgba(0,0,0,0.1);
+	  	}
+	div p{ 
+	      text-align:center;
+		  display:inline;
+		  color:white;
+          background-color:black;
+		  }
+  </style>
+  <script type="text/javascript">
+  <!--
+	
+	 //构造函数与其他函数相比，区别为首字母大写。
+    function Person(name, age, male){
+	   this.name = name ;
+	   this.age = age ; 
+	   this.male = male ;
+       this.divDom = null ;
+	   
+	  //每次运行goOut方法，让dom元素对象的x,y在可见屏幕范围内随机设置
+	   this.goOut = function(){
+		 var randX = window.innerWidth * 0.8 * Math.random() ;
+		 var randY = window.innerHeight * 0.8 * Math.random() ;
+		 this.divDom.style.left = randX + 'px' ;
+         this.divDom.style.top = randY + 'px' ;
+         		
+		};
+	   
+	   this.addToDom = function(){
+		  var div = document.createElement('div') ;
+		  var p = document.createElement('p') ;
+		  p.textContent =  this.name +"/"+ this.age ;
+		  div.appendChild(p) ;
+		  var txtColor = this.male ? "blue" : "red" ;
+          div.style.borderColor = txtColor ;
+		  div.style.height = this.age *5 + 'px' ;
+          //设定dom元素的属性model，指向代表本内存对象本身，在本方法addToDom函数第一次运行时，可以用this获取该值。
+		  div.model = this ;
+		  div.onclick = function(){
+		   this.model.goOut() ;
+		  };
+		this.divDom  = div ;
+	    document.body.appendChild(div);
+			   };
+		}//end of function Person
+ 
+ //把自动产生的对象放在数组中，对象的属性（性名和年龄）用简单算法实现了随机变化
+    var student = [] ;
+    const stuNum = 200 ;
+	var name, age , male ;
+	for (var i=0; i< stuNum ; i++ ) {
+		  
+		  male = Math.random() > 0.5 ? true : false ;
+        if (male) {
+           name = "Boy" + i ;
+		   age = 20 + Math.floor(Math.random()*10) ;
+		}else{
+		   name = "Girl" + i ;
+		   age = 18 + Math.floor(Math.random()*10) ;
+		}
+
+		//下面是本例关键的语句
+	   student[i] = new Person(name ,age , male);
+    }//End for loop
+
+ 
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>随机产生内存对象，根据内存对象数据，结合onclick事件异步代码逐一展现对象的外观信息。</h1>
+  <script type="text/javascript">
+  <!--
+	 //输出自动产生的数据
+  console.log("从编号最大的开始创建页面的div元素，200个div元素重叠在一起，这样也让编号最小的放在最上面。");
+   var countBoy = 0 ;
+   var countGirl = 0 ;
+   for (var i = stuNum-1; i >= 0 ; i-- ) {
+     if (student[i].male)  {
+         countBoy ++ ;
+     }
+     if (!student[i].male)  {
+      
+	   countGirl ++ ;
+     } 
+	 student[i].addToDom();
+   }
+  console.log('There are ' +countBoy + ' boys!');
+  console.log('There are ' +countGirl + ' girls!');
+  //-->
+  </script>
+ </body>
+</html>

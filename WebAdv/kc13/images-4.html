@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title> 演示在Web页删除和添加图像DOM节点，这也是典型的动态DOM技术。本例利用视觉错觉让人感觉实现了图像移动，还利用算法实现类似画面循环的效果。</title>
+ </head>
+ <style type="text/css">
+    div{display:inline-block;}
+	div img{
+	 border:10px solid red ;
+	 cursor:pointer;
+	 width:150px ;
+	}
+	
+ </style>
+ <script type="text/javascript">
+ <!--
+	  /***
+	 本例重新使用使用在内存中建立的图像对象————fbs数组，并使用DOM技术删除和添加图像，让几张图像看起来似乎在不断移动！
+	******/
+	var fbs = [] ;
+	for (var i=0; i < 10 ; i++){
+     var man = document.createElement("img") ;
+	     man.src =  "../images/fbs2019/fbs-" + (i+1) + ".jpg" ;
+		 man.alt = "FBS 第"+ (i+1) + "位！" ;
+         man.onclick = function(){
+		  console.log(this.alt);
+		 }
+		 fbs[i] = man ;
+		 
+	}
+ //-->
+ </script>
+ <body>
+  <div id = "fPic">
+  <!--
+   本div元素作为动态载入图像的容器而存在
+   -->
+   
+  </div>
+  <script type="text/javascript">
+	var picDom = document.querySelector("div#fPic");
+	//下面获取用户浏览器窗口宽度，按宽度来临时决定同时显示的照片数量
+	const maxPic = Math.floor(window.innerWidth/(150+20)) ;
+	
+	for (var i= 0; i< maxPic ; i++){
+	   picDom.appendChild(fbs[i]) ;
+  	}
+	 
+	 //异步执行的代码，每次更新maxPic设置的几张图片  
+    var countNum = 1 ;
+	setInterval(function(){
+		    //获取当前页面上的图像元素，删除它们
+			var imgDoms = document.querySelectorAll("div#fPic img");
+						for (var j=0; j< maxPic ; j++){
+             picDom.removeChild(imgDoms[j]) ;
+			}
+
+		   	//让指向div的picDom变量，添加几个图像元素
+			for (var j=0; j < maxPic ; j++){
+		//下面的数组下标表达式: (countNum+j) % 10 是循环算法的核心，10指共10个图片文件或内存dom图像对象，取模运算符 %非常巧妙的形成数字类似必环的周期。
+             picDom.appendChild(fbs[(countNum+j) % 10]) ;
+			}
+			//console.log(countNum);
+            countNum ++ ;
+	},1000) ;
+
+  </script>
+ </body>
+</html>
