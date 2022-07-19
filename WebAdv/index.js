@@ -63,7 +63,19 @@
    ***/
     var outputUI = {
      showTitle:function(){
-       my$("#title").textContent = ajaxObj.content[0];
+        var titleTxt = ajaxObj.content[0];
+       //title信息中，格式为：English（中文），下面用异步代码实现中英文轮播
+       var pos1 =  titleTxt.search('（') ;
+       var pos2 = titleTxt.search('）');
+       var titleEn = titleTxt.substring(0,pos1) ;
+       var titleCn = titleTxt.substring(pos1+1,pos2) ;
+       my$("#title").textContent = titleEn ;
+       my$("#title").onmousemove = function(){
+         this.textContent = titleCn ;
+       };
+       my$("#title").onmouseout = function(){
+        this.textContent = titleEn ;
+      };
      } ,
      showIntroKeyword : function(){
        my$("#introduction").textContent = "";
@@ -81,7 +93,7 @@
        let p1 = document.createElement("p"); 
        let b1 = document.createElement("b");
        let t1 = document.createTextNode(paraTxt);
-       b1.textContent =  "本篇关键字 : ";
+       b1.textContent =  "本课关键字 : ";
        p1.appendChild(t1);
        my$("#keyword").appendChild(b1);
        my$("#keyword").appendChild(p1);

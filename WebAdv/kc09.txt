@@ -1,0 +1,19 @@
+﻿1.title
+  Number and Binary（探索篇：代码中的数字和理解二进制）
+2.introduction
+  在计算机程序中，任何数据本质上都是二进制的，而计算机高级语言把这些数据划为不同类型，并为不同类型规范了操作，才能让计算机内的数据与我们现实信息发生严格的对应，我们前面已经多次使用数字、字符、甚至对象数据，但并不意味这我们已经理解了基本的数字类型的数据，本课程中我们将用JavaScript代码研究数字类型Number，并将通过四个难度逐渐递进的案例完成学习，同时也会训练在代码中使用算法，让程序变得可用。
+
+3.keyword
+  function ，return ，console.log ，!== ， === ，% ，parseInt ，UI（HTML/CSS） ，<input> ，type="text" , type="button" , value  ， aArray = [ ] ， aArray.length 。 
+	
+4.project
+  <a src=binary-1.html>本例通过自定义函数power2(x)，理解计算机内的二进制数字。
+  <a src=binary-2.html>本例探索经典的32位、64位、128位二进制数的十进制范围，学习函数的定义和调用。利用循环，研究JavaScript定义的Infinity这个所谓的最大值。
+  <a src=binary-3.html>本例创建一个UI，设计把用户输入的十进制数，转换为二进制数输出（UI实现）。
+  <a src=binary-4.html>本例继续使用上例的UI，把输入的十进制数，转换为二进制数输出（算法和代码实现）。
+  
+5.reading
+ Inside the computer’s world, there is only data. You can read data, modify data, create new data——but that which isn’t data cannot be mentioned. All this data is stored as long sequences of bits and is thus fundamentally alike.
+
+ Bits are any kind of two-valued things, usually described as zeros and ones. Inside the computer, they take forms such as a high or low electrical charge, a strong or weak signal, or a shiny or dull spot on the surface of a CD. Any piece of discrete information can be reduced to a sequence of zeros and ones and thus represented in bits.
+ For example, we can express the number 13 in bits. It works the same way as a decimal number, but instead of 10 different digits, you have only 2, and the weight of each increases by a factor of 2 from right to left. Here are the bits that make up the number 13,  the binary number 00001101. Its non-zero digits stand for 8, 4, and 1, and add up to 13.

@@ -1,8 +1,8 @@
 ﻿1.title
- Software（软件）
+ Software（准备篇：计算机软件）
 2.introduction
  能理解计算机的软件的大致分类，基本可以分为2类：操作系统 operating system (OS)和应用软件 applications。能对生活中的软件举出一些实例。
- 在Web实践中，学习CSS脚本对颜色值、padding、border、margin的控制。
+ 在Web编程实践中，学习CSS语言，练习对Web页元素的颜色值、padding、border、margin等通用外观特征进行控制。
 
 3.keyword
   Software categories ，operating system (OS)，application (APP) ，framework ， utility  ；color   ， rgb(red,green,blue)  ，text-align , padding , border , margin , line-height , text-indent 。 

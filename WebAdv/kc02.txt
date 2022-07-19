@@ -1,8 +1,8 @@
 ﻿1.title
- Hardware （硬件）
+ A Computer’s Hardware （准备篇：计算机硬件）
 
 2.introduction
- 能理解和表达硬件和软件的概念： A computer’s hardware is a host of electronic circuitry, components, and connections. Software is programs that allow people to use a computer’s hardware.增加使用HTML文档的img元素，了解图像文件的概念，实现对硬件和软件内容的Web页排版。
+ 理论上能理解和表达硬件和软件的概念，能阅读理解英文原文，如： A computer’s hardware is a host of electronic circuitry, components, and connections. Software is programs that allow people to use a computer’s hardware. 在实践中，学习使用HTML语言的一些基本元素，如img元素，了解图像文件的概念，实现对硬件和软件内容Web页，用HTML脚本实现控制排版。
 
 3.keyword
   hardware ，software ，computing system ， img ，image file  。 

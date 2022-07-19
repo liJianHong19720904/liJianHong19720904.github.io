@@ -1,0 +1,21 @@
+﻿1.title
+  Object Construction（探索篇：构建程序的自定义对象）
+2.introduction
+  对象是我们用计算机中的数据模拟现代信息的一种建模方法，在现代高级语言中，面向对象的程序设计已经普及，JavaScript为我们提供了一系列最简洁方法，用来为构建代码构建自己设计的对象。本课我们利用四个案例，演示了从手工创建对象到利用函数自动创建对象的过程，JavaScript函数可以通过设计为构造函数与对象发生重要联系。
+
+3.keyword
+  { } ，对象名 = {对象值};  ，对象名.属性 ， 对象名.方法 ，this  ，function 构造函数(形参列表) ，条件 ? 真执行 : 假执行 ; ， new 构造函数（实参列表）  。 
+	
+4.project
+  <a src=object-1.html>本例演示在JavaScript语言中，创建自定义对象。
+  <a src=object-2.html>利用函数，把对象变量作为实参传给函数，利用函数的抽象可解决代码重复问题，这个例子也可演示：函数的形参和实参该如何定义和使用。
+  <a src=object-3.html>本例把函数定义为对象的私有方法，既能按功能组织代码，也避免了多产生一个全局变量。本例代码还说明：在JavaScript中，函数本身也像数字这种数据，称为值（value），也是可以复制和传递的。
+  <a src=object-4.html>本例利用构造函数创建对象，对象的创建可实现自动化，本例还展示了“问号表达式”，简洁地用一条语句处理if/else逻辑，这也JavaScript的现代高级语言的特色。本例使用函数和循环配合产生产生了较多多对象数据，为方便查看重点信息，代码简化了输出对象信息，并在用代码对数据做了统计，本例也表明当信息量较大时，对于开发者而言用Console.log输出是非常方便的。另外，本例和上面的所有案例都要使用Console面板查看结果。
+  
+5.reading
+Numbers, Booleans, and strings are the atoms that data structures are built from. Many types of information require more than one atom, though. Objects allow us to group values----including other objects---to build more complex structures.
+The programs we have built so far have been limited by the fact that they were operating only on simple data types. This chapter will introduce basic data structures--Data Structures: Objects and Arrays. By the end of it, you’ll know enough to start writing useful programs.
+ Functions are the bread and butter of JavaScript programming. The concept of wrapping a piece of program in a value has many uses. It gives us a way to structure larger programs, to reduce repetition, to associate names with subprograms, and to isolate these subprograms from each other.
+The most obvious application of functions is defining new vocabulary. Creating new words in prose is usually bad style. But in programming, it is indispensable.
+Typical adult English speakers have some 20,000 words in their vocabulary. Few programming languages come with 20,000 commands built in. And the vocabulary that is available tends to be more precisely defined, and thus less flexible, than in human language. Therefore, we usually have to introduce new concepts to avoid repeating ourselves too much.
+

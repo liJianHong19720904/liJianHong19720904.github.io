@@ -1,0 +1,22 @@
+﻿1.title
+   Images and DOM Model （探索篇：Web图像和DOM模型）
+2.introduction
+  图像是Web页面最常见的DOM对象，与文字不同，实际上每个图像数据源于都图像文件。本课我们利用六个逐级提升的案例，分析探索了图像作为DOM对象，是如何静态和动态地在Web页上操作图像对象。本课程前面三个案例比较基础，而后面3个案例利用了异步代码实现动画，也可供有余力学习者作为分析和解决问题编码训练。
+
+3.keyword
+  相对路径："../images/fbs2019/fbs-1.jpg" ，document.createElement("img")  ，图像对象变量.src ， document.body.appendChild ，document.querySelector("div img"); ，document.querySelector("div#fPic"); ，document.querySelectorAll("div#fPic img"); ，window.innerWidth ，父元素.removeChild(子元素) ; ，父元素.appendChild(子元素) ，DOM元素.style.left ，document.getElementById(页面元素的id值) 。 
+	
+4.project
+  <a src=images-1.html>本例演示HTML代码静态插入img元素，并利用网络最简单地实现加载图片。
+  <a src=images-2.html>演示用DOM技术，用代码动态向Web页插入网络上的图片文件。
+  <a src=images-3.html>演示改变img类DOM元素的src属性，实现把图像文件读入Web元素，这是一种比较典型的动态更滑图片文件的方法。
+  <a src=images-4.html>演示在Web页删除和添加图像DOM节点，这也是典型的动态DOM技术。本例利用视觉错觉让人感觉实现了图像移动，还利用算法实现类似画面循环的效果。
+  <a src=images-5.html>对照前面案例的视觉错觉造成的画面移动效果，本例探索图像真实移动的代码。我们可以为Web的DOM元素设定绝对定位，然后通过异步代码控制元素的style属性的坐标变化，实现图像逐渐移动的动画。
+  <a src=images-6.html>在前面案例基础上，将自定义fbs数组元素重构为自定义对象，该对象实现DOM信息、X坐标、DOM的id信息存储，通过这些信息，利用算法完美实现10张循环移动的照片动画。
+5.reading
+Numbers, Booleans, and strings are the atoms that data structures are built from. Many types of information require more than one atom, though. Objects allow us to group values----including other objects---to build more complex structures.
+The programs we have built so far have been limited by the fact that they were operating only on simple data types. This chapter will introduce basic data structures--Data Structures: Objects and Arrays. By the end of it, you’ll know enough to start writing useful programs.
+ Functions are the bread and butter of JavaScript programming. The concept of wrapping a piece of program in a value has many uses. It gives us a way to structure larger programs, to reduce repetition, to associate names with subprograms, and to isolate these subprograms from each other.
+The most obvious application of functions is defining new vocabulary. Creating new words in prose is usually bad style. But in programming, it is indispensable.
+Typical adult English speakers have some 20,000 words in their vocabulary. Few programming languages come with 20,000 commands built in. And the vocabulary that is available tends to be more precisely defined, and thus less flexible, than in human language. Therefore, we usually have to introduce new concepts to avoid repeating ourselves too much.
+

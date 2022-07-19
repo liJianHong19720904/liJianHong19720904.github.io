@@ -1,0 +1,18 @@
+﻿1.title
+  Date Object VS Math Object （探索篇：时间对象和数学对象）
+2.introduction
+  虽然我们在前面案例中已经使用了一些系统常用对象，因此关于对象，应该能略理解概念，在本节课中，我们从对象数据的高度，对二种最常用的对象————数学和时间对象进行分析和编程。数学对象作为唯一特殊的对象，在代码中可直接使用，直接写作Math，而其他对象，如我们本节课写时间对象，则需要用new操作符产生具体的实例。为什么有这种区别？在我们的自然界中，数学是不会变化的客观事物，而其他对象，如时间每时每刻都在变化，因此时间对象必须具体化，每一个具体的时间对象我们称为实例。
+
+3.keyword
+  EcmaScript ，Math.random ，Math.floor  ，setInterval ， HTML/CSS ，UI ，document.querySelectorAll ，dom元素.textContent ，new Date() ，.getFullYear() ， .getMonth() ，.getDate() ，.getHours()，.getMinutes()，.getSeconds()，.getMilliseconds()，，Number(非数字数据) ， new Date(0) 。 
+	
+4.project
+  <a src=oop-1.html> 演示EcmaScript内定义的对象（数学对象），Math对象是EcmaScript语言体系中的唯一对象，直接使用，无需new操作符产生实例 。
+  <a src=oop-2.html>演示EcmaScript内定义的对象（数学对象），再用HTML/CSS设计UI。
+  <a src=oop-3.html>演示EcmaScript内定义的对象（时间对象），Date对象是EcmaScript语言体系中的众多对象的父亲（类），不可以直接使用，需要new操作符来产生实例。
+  <a src=oop-4.html>演示EcmaScript内定义的对象（时间对象），再利用UI生成Web页面的时钟。
+  
+5.reading
+Values.  Imagine a sea of bits—an ocean of them. A typical modern computer has more than 30 billion bits in its volatile data storage (working memory). Nonvolatile storage (the hard disk or equivalent) tends to have yet a few orders of magnitude more. 
+To be able to work with such quantities of bits without getting lost, we must separate them into chunks that represent pieces of information. In a JavaScript environment, those chunks are called values. Though all values are made of bits, they play different roles. Every value has a type that determines its role. Some values are numbers, some values are pieces of text, some values are functions, and so on.
+To create a value, you must merely invoke its name. This is convenient. You don’t have to gather building material for your values or pay for them. You just call for one, and whoosh, you have it. They are not really created from thin air, of course. Every value has to be stored somewhere, and if you want to use a gigantic amount of them at the same time, you might run out of memory.  Fortunately, this is a problem only if you need them all simultaneously. As soon as you no longer use a value, it will dissipate, leaving behind its bits to be recycled as building material for the next generation of values.

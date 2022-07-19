@@ -1,0 +1,18 @@
+﻿1.title
+   JavaScript Output（起步篇：对Web页面和后台的输出）
+2.introduction
+  任何计算机程序都存在信息输入、数据处理、输出三个环节，本课我们介绍JavaScript输出形式，一是基于浏览器的二个API输出方式，而是对后台的输出方式。我们将通过本节课的四个小案例完成学习，同时还可以训练字符串连接和利用循环实现算法的目标。
+
+3.keyword
+  document ，write ，document.write（API），for(……){……} ， console.log（API） ， document.querySelectorAll（API）  ，Web页的元素变量.textContent ，table , tr (table row) , td (table data) 。 
+	
+4.project
+  <a src=output-1.html>本例用document.write （API）实现HTML元素和文字输出。
+  <a src=output-2.html>本例结合抽象的双重循环，用代码动态实现输出字符的生成，再利用document.write实现九九乘法表。
+  <a src=output-3.html>本例要打开浏览器的开发者Console面板，才能查看console.log的输出效果。console.log是JavaScript对后台的标准输出方式。桌面的浏览器一般都有专门的界面实现Console功能，也用作开发者对代码的调试。本例用二重循环控制每行字符串生成,再利用console.log实现九九乘法表。
+  <a src=output-4.html>本例二重循环控制每行字符串生成,再利用document.querySelectorAll这个强大的API，让JavaScript控制表格单元格元素（textContent属性），输出九九乘法表。最后三例的双重循环，需要学习者练习抽象算法。
+  
+5.reading
+ Besides explaining JavaScript, I will introduce the basic principles of programming. Programming, it turns out, is hard. The fundamental rules are simple and clear, but programs built on top of these rules tend to become complex enough to introduce their own rules and complexity. You’re building your own maze, in a way, and you might just get lost in it.
+There will be times when reading this book feels terribly frustrating. If you are new to programming, there will be a lot of new material to digest. Much of this material will then be combined in ways that require you to make additional connections.
+It is up to you to make the necessary effort. When you are struggling to follow the book, do not jump to any conclusions about your own capabilities. You are fine—you just need to keep at it. Take a break, reread some material, and make sure you read and understand the example programs and exercises. Learning is hard work, but everything you learn is yours and will make subsequent learning easier.

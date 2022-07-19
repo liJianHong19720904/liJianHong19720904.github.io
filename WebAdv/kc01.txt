@@ -1,13 +1,13 @@
 ﻿1.title
- Computer Science || Digital technology （计算机科学 或 数字科技）
+ Computer Science || Digital technology （准备篇：计算机科学或数字科技）
 
 2.introduction
 
-在理论上理解Computer Science学习几个相关概念，在实践中学会用最简单的HTML语言，即标题和段落，用Web页实现文字的排版。
+在理论上学习和理解Computer Science的有关概念。同时把学习文本用于实践，学会用Web体系种最基本，也是最简单的HTML语言，实现用Web页的文字的简单排版，体验HTML语言作为一门脚本语言的作用。实践上还要完善二个任务，一是尽快熟悉一套趁手的代码编辑器（我们在前言中推荐了二套）。二是了解几个经典的浏览器的使用和安装（桌面型和移动端）。
 
 3.keyword
  
- Computer ，Computer Science，Digital technology ，html ，tag ，html document。 
+ Computer ，Computer Science，Digital technology ，html ，tag ，html document，Editor，browser。 
 
 4.project
 
