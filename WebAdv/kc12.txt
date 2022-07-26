@@ -13,4 +13,7 @@
   <a src=objDom-4.html>本例在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用点击事件（异步代码入门）来逐一展现对象外观！
   <a src=objDom-5.html>本例利用onmouseover事件触发对象的移动动画，为实现异步代码能获取变量不断变化的数据，我们引入了函数闭包概念和js变量作用域的lexical语法，本例难度较大，仅作学有余力的学习者参考，一般无需掌握。
 5.reading
-Numbers, Booleans, and strings are the atoms that data structures are built from. Many types of information require more than one atom, though. Objects allow us to group values----including other objects---to build more complex structures.
+
+Understanding the DOM is key to being able to manipulate the text or HTML in a web page. Using the DOM, you can create animations, update data without refreshing web pages, move objects around in a browser, and much more! 
+The Document Object Model is the interface for JavaScript to talk to and work with HTML documents inside of browser windows. The DOM can be visualized as an inverted tree, with each part of the HTML document branching off of its containing part.
+A DOM tree is made up of individual components, called nodes. The main node, from which every other node springs, is called the document node. The node under the document node is the root element node. For HTML documents, the root node is HTML. After the root  node, every element, attribute, and piece of content in the document is represented by a node in the tree that comes from another node in the tree.

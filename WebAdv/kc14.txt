@@ -1,22 +1,24 @@
 ﻿1.title
-   Events and Asynchronous Code （探索篇：事件和异步代码）
+   Event Object and Asynchronous Code （探索篇：鼠标事件对象和异步代码）
 2.introduction
-  图像是Web页面最常见的DOM对象，与文字不同，实际上每个图像数据源于都图像文件。本课我们利用六个逐级提升的案例，分析探索了图像作为DOM对象，是如何静态和动态地在Web页上操作图像对象。本课程前面三个案例比较基础，而后面3个案例利用了异步代码实现动画，也可供有余力学习者作为分析和解决问题编码训练。
+  人们利用对象的思维划分计算机中的复杂的信息，本课我们以Web浏览器端鼠标事件为例，为聚焦学习深度，我们不列出所有的事件，仅以三个常用事件为例探索对象事件的一些细节和原理，。从代码运行角度看，所有事件发生都异步的，尽管异步程序是初学者很难真正理解的概念，但JavaScript在很早就让学习者能写出事件驱动的代码，学习到这里，或许你已经开始深刻理解事件和异步代码了。本课程实践部分前面四个案例比较基础，但最后一个案例综合性较强，需要充分掌握前面一些编码的技能，才能分析和解决新问题。
 
 3.keyword
-  相对路径："../images/fbs2019/fbs-1.jpg" ，document.createElement("img")  ，图像对象变量.src ， document.body.appendChild ，document.querySelector("div img"); ，document.querySelector("div#fPic"); ，document.querySelectorAll("div#fPic img"); ，window.innerWidth ，父元素.removeChild(子元素) ; ，父元素.appendChild(子元素) ，DOM元素.style.left ，document.getElementById(页面元素的id值) 。 
+  events ，onclick ，onmouseover ，onmousemove ，onmousedown ，onmouseup，Event Object，clientX ，clientY ，pageX  ，pageY  ，` ${ } ` ，DOM.style.left ，DOM.style.top ，opacity  ，border-radius。 
 	
 4.project
   <a src=events-1.html>Events事件和异步代码第一步，本例用javascript控制DOM事件，利用CSS的class类切换，实现动态鼠标交互效果。本例也可演示Web页中事件的冒泡机制。
   <a src=events-2.html>浏览器支持的鼠标指针API：clientX、clientY 和 pageX、pageY，这二个读取鼠标坐标的API似乎一模一样，但在页面有滚动栏时，坐标数据会有不同。
-  <a src=events-3.html>本例在前面基础上，读取网络一张动态gif图，然后动态生成了50个img图像元素。
-  <a src=events-4.html>本例随机设定了50张gif图的属性，让每个图像的位置和样子产生变化，并利用异步代码，setTimeout，把小鸟逐一添加到Web页。
-  <a src=events-5.html>本例50只小鸟随机分布在屏幕上，增加了一个圆形跟随鼠标。点击鼠标后，小鸟会陆续飞到鼠标点击位置。这个案例需要使用异步代码解决小鸟陆续飞的难题，在算法上的有一定难度，完成本例需要一些编写编码的经验。
+  <a src=events-3.html>本例在之前案例基础上，读取网络一张动态gif图，然后动态生成了50个img图像元素。
+  <a src=events-4.html>本例随机设定了50张gif图的属性，让每个gif图像的位置和样子产生变化，并利用异步代码（这里使用了setTimeout），异步把小鸟动态图逐一添加到Web页，本例还增加了一个圆形跟随鼠标。
+  <a src=events-5.html>本例在前面案例基础上，设计一个比较酷炫的互动，点击鼠标后，小鸟会陆续飞到鼠标点击的位置。这个案例需要使用异步代码解决小鸟“陆续飞”移动的难题，在算法上的有一定难度，完成本例需要一些编写的经验。
  
 5.reading
-Numbers, Booleans, and strings are the atoms that data structures are built from. Many types of information require more than one atom, though. Objects allow us to group values----including other objects---to build more complex structures.
-The programs we have built so far have been limited by the fact that they were operating only on simple data types. This chapter will introduce basic data structures--Data Structures: Objects and Arrays. By the end of it, you’ll know enough to start writing useful programs.
- Functions are the bread and butter of JavaScript programming. The concept of wrapping a piece of program in a value has many uses. It gives us a way to structure larger programs, to reduce repetition, to associate names with subprograms, and to isolate these subprograms from each other.
-The most obvious application of functions is defining new vocabulary. Creating new words in prose is usually bad style. But in programming, it is indispensable.
-Typical adult English speakers have some 20,000 words in their vocabulary. Few programming languages come with 20,000 commands built in. And the vocabulary that is available tends to be more precisely defined, and thus less flexible, than in human language. Therefore, we usually have to introduce new concepts to avoid repeating ourselves too much.
-
+Web pages are much more than just static displays of text and graphics. JavaScript gives web pages interactivity and the ability to perform useful work. An important part of JavaScript’s ability to perform useful functions in the browser is its ability to respond to events.
+Events are the things that happen within the browser (such as a page loading) and things the user does (such as clicking, pressing keys on the keyboard, moving the mouse, and so on). Events happen all the time in the browser.
+The HTML DOM gives JavaScript the ability to identify and respond to events in a web browser. Events can be divided into groups according to what HTML elements or browser objects they apply to. 
+When JavaScript does something in response to these events, it’s called event handling.
+The first system for handling events was introduced along with the first versions of JavaScript. It relies on special event handler attributes, including the onclick event handler. 
+The inline event handler attributes are formed by adding the prefix on to an event. To use them, add the event attribute to an HTML element. When the specified event occurs, the JavaScript within the value of the attribute will be performed.
+Although the previous  methods of event handling are very commonly used and are supported by every browser, a more modern and flexible way to handle eventss (and the recommended way for new browsers) is to use the addEventListener() method.
+The addEventListener method listens for events on any DOM node and triggers actions based on those events. When the function specified as an action for the event runs, it automatically receives a single argument, the Event object. By convention, we name this argument e.

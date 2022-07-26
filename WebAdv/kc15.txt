@@ -1,0 +1,25 @@
+﻿1.title
+  Programming With Characters , Charset  and Script （探索篇：字符、字符编码集和图形字符和编程）
+2.introduction
+  人们还可以利用对象的思维管理设计计算机中多层次的信息，本课我们就以人类最伟大的发明————文字的编码为例,探索计算机数字化字符的一些知识，包括字符编码、可打印字符（Script）和不同文明的文字字符体系举例。本课程实践部分前面四个案例比较基础，但后面三个案例程序复杂性较强，尤其是最后一个案例，不仅用CSS设计了炫酷的UI菜单栏，更综合了事件和函数的知识，也为我们真正理解JavaScript的函数打开了一扇窗。
+
+3.keyword
+  Charset ，Unicode ，Script ，ASCII，Latin ，emoji ，Helvetica ，String ，fromCharCode ，String.fromCharCode(code)  ，fromCodePoint，String.fromCodePoint(code) ， [ [] , [] ]  ，const ，document ，createElement ，appendChild ，document.body.appendChild(Dom)  ，DOM元素.id ，DOM元素.className  ，for (let element of Array ) {...} 。 
+	
+4.project
+  <a src=scripts-1.html>本例作为本课第一例，似乎简单至极，但其表达的内涵和概念是较深刻的，很多人在很多年都没有理解好。当我们用键盘和其他软件输入的字符时，作为中国人使用中文英文切换输入法，可以方便输入中英文字符，而当我们需要输入日文字符，甚至emoji字符呢？理解这个问题既涉及深刻理论知识，也有关实践解决问题能力，是我们认知字符的数字化，编写代码控制字符的关键。
+  <a src=scripts-2.html>本例是初步理解和用程序分析ASCII编码的样版。我们用代码输出最早实现数字化的计算机的字符(ASCII 0-127)。我们使用了了字符串类的API String.fromCharCode 。本例还使用了据说是西方工业文明以来印刷品使用最多的字体外形————“Helvetica”（海维提卡）。
+  <a src=scripts-3.html>本例引用Unicode编码标准体系的极小一小部分数据，在这个收罗古今180个可书写的语言庞大体系中，我们选择四个常见语系的字符编码，用代码统计其编码字符的个数，并在后台输出这些字符，由于数据量太大，本例不实现在Web页输出。
+  <a src=scripts-4.html>本例在前面内存数据整理基础上，使用Web表格这种UI界面，清晰地输出了拉丁语系的编码和字符外形。本例考虑到4个语系字符集数据量太大，字符信息输出的逻辑可能比较复杂，本例仅以拉丁语系字符为例。
+  <a src=scripts-5.html>本例增加使用动态表格（用代码即时生成），列表输出指定字符编码和字符外观，由于是一次性在Web页输出4个语系的字符，考虑到页面效果，本例仅输出每种语系编码前100个字符。
+ <a src=scripts-6.html>本例在前面基础上，增加最近几年流行的emoje图形字符。若之前案例代码质量较好，本次的增加功能的代码改动将显得非常方便，因此本例除体验emoje图形字符外，也强调高质量代码具备良好的功能扩充特性。
+ <a src=scripts-7.html>本例在之前数据处理之外，创建了一个菜单栏的UI界面，仅增加使用几十条CSS语言，这个界面几乎无原代码无关，完全没有增加程序的复杂性，这点很好体现了Web三大语言的分工。最后，通过对JavaScript代码简单修改，实现了，利用鼠标点击事件让用户能互动选择语系，输出选择语系的字符（当然最多输出1000个字符）。
+5.reading
+Strings . The string is the basic data type . Strings are used to represent text. They are written by enclosing their content in quotes. -- `Down on the sea` , --  "Lie on the ocean" ,-- 'Float on the ocean' --. You can use single quotes, double quotes, or backticks to mark strings, as long as the quotes at the start and the end of the string match.
+Almost anything can be put between quotes, and JavaScript will make a string value out of it. But a few characters are more difficult. You can imagine , how putting quotes between quotes ?  Newlines , the characters you get when you press enter . It might be hard.  
+To make it possible to include such characters in a string, the following notation is used: whenever a backslash (\) is found inside quoted text, it indicates that the character after it has a special meaning. This is called escaping the character. A quote that is preceded by a backslash will not end the string but be part of it. When an n character occurs after a backslash, it is interpreted as a newline. Similarly, a t after a backslash means a tab character.
+There are, of course, situations where you want a backslash in a string to be just a backslash, not a special code. If two backslashes follow each other, they will collapse together, and only one will be left in the resulting string value.  This is how the string  “A newline character is written like "\n".” can be expressed:  "A newline character is written like \"\\n\"." 
+Strings, too, have to be modeled as a series of bits to be able to exist inside the computer. The way JavaScript does this is based on the Unicode standard. This standard assigns a number to virtually every character you would ever need, including characters from Greek, Arabic, Japanese, Armenian, and so on. If we have a number for every character, a string can be described by a sequence of numbers. 
+And that’s what JavaScript does. But there’s a complication: JavaScript’s representation uses 16 bits per string element, which can describe up to 2^16 different characters. But Unicode defines more characters than that—about twice as many, at this point. So some characters, such as many emoji, take up two “character positions” in JavaScript strings. 
+
+Unicode standard, the system that assigns a number to each character in written language . Most of these characters are associated with a specific script. The standard contains 140 different scripts—81 are still in use today, and 59 are historic.
