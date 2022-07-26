@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>初步完成简易CET6单词拼写训练程序。本例选择功能更强的键盘事件onkeydown，通过这个API和事件对象，结合代码逻辑，不仅将键盘输入的字母显示出来，也让代码能识别编辑的常用键，比如退格按键操作，实现拼错单词时，用户能使用退格删除的功能。最后，还实现了键盘读取回车查询当前单词的详细功能、按Esc键进入下一个单词练习的功能。</title>
+  <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	}
+	div{
+	   font-size:20px;
+	   }
+	div#en{
+	 width: 90% ;
+	 margin:auto ;
+	 position: relative;
+	 border: thick inset;
+	 height: 80px;
+	 font-size: 20px ;
+	 background: black;
+	}
+
+	div#en>p#input,div#en>p#hint{
+     position: absolute;
+     font-size: 2.5em;
+	 margin:10px;
+	 padding:0;
+	}
+	div#en>p#input{
+	 color:#5f5;
+	 z-index:2;
+     	}
+	div#en>p#hint{
+	 color:#999;
+     z-index:1;
+		}
+    div#ph{
+	 font-size: 2.5em;
+	 margin:auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:auto;
+     text-align:center;
+	 color:#f33;
+	}
+   </style>
+  <script src="cet6.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+	/*
+	实现全局数组dictEn6，其中的数组元素为对象，对象的属性分别为：dictEn6.en（english）, dictEn6.ph（phonetic）, dictEn6.cn(chinese)
+	分别表示单词的英文，音标，释义。
+	*/
+	"use strict" ;
+    var dictEn6= [];
+	for (let  element of CET6 )	{
+		let word = {en: "" , ph: "", cn: ""} ;
+		let pos1 = element.search("/") ;
+		word.en = element.substring(0,pos1) ;
+		element = element.substring( pos1 + 1 ) ;
+		 pos1 = element.search("/") ;
+		word.ph = element.substring(0, pos1) ;
+		word.cn = element.substring( pos1 + 1 ) ;
+		dictEn6.push(word) ;
+	 } //end of for dictEn6 from CET6
+ 
+ window.onload = function(){
+   /**
+   本版程序，演示提示区
+  */
+   var inputDom = document.querySelector("div#en>p#input") ;
+   var hintDom = document.querySelector("div#en>p#hint") ;
+   var phDom = document.querySelector("div#ph") ;
+   var cnDom = document.querySelector("div#cn") ;
+
+   var randNum = Math.floor(dictEn6.length * Math.random()) ;
+   var word = dictEn6[randNum] ;
+       showHint();  
+       //setInterval(showWord , 1000*6 );
+
+ function showHint(){
+	 hintDom.textContent = word.en  ;
+	 //每次异步出现新单词，内存中的单词必须清空。
+	 inputWord = "" ;
+     //下面利用异步代码实现输入区单词，逐个字母打印，而提示区单词全部显示
+      
+
+	var cursorOn = true ;
+	    setInterval(function(){
+		  if (cursorOn)  {
+           inputDom.textContent = inputWord + "_" ;
+		    }else{
+		   inputDom.textContent = inputWord ;
+		    if (inputWord!==word.en)  {
+                phDom.textContent = `` ;
+	            cnDom.textContent = `` ;
+ 		     }
+			}
+		   cursorOn = ! cursorOn ;
+		 } , 300);
+
+ } //end of showHint function
+	 
+	//下面实现本例的键盘事件的读键控制和输出Web页的代码,因此把原来showHint函数中的变量上升，让键盘事件处理函数，能够访问。
+	  var inputWord = '' ;
+	  var eWord = '' ;
+      inputDom.textContent =  "_";
+     //三个变量分别表示：内存中应该输出的单词inputWord ，还未输出的单词eWord ，UI界面输出的单词inputDom.textContent，结合 "_" 字符，模拟光标。
+	 /* 如何让单词出现，按设计需要，将由键盘事件来控制
+      	 if (eWord) {
+			  inputWord += eWord.substring(0,1)  ; 
+		      eWord = eWord.substring(1) ;
+			  inputDom.textContent = inputWord  ;
+		  }
+	*/
+	document.body.onkeydown = function(eObj){
+         console.log(eObj); //我们可以从Console中发现，onkeypress事件获取了键盘的许多信息，我们仅需要eObj.key属性即可获得用户按下的可打印键。
+	  var key = eObj.key ;
+	  if (key==="Enter" && inputWord === word.en){
+         showWord();
+	  }
+	  if (key==="Escape" ){
+         nextWord();
+	  }
+	  if (key==="Backspace") {
+		  inputWord = inputWord.substring(0,inputWord.length-1) ;
+	  }else {
+		 /** else 逻辑是多样的，可以按对键盘的分析，结合自己想法，实现对内存变量inputWord的修改，而inputWord变量，则不断由异步代码传递到Web页的inputDom.textContent实现输出。
+		 //下面这段代码显得功能太简单了
+		if (key !=="Enter" && key !== "Control"){
+         inputWord += key ;
+		  下面自定义processKey函数分析用户输入键，实现单词查询功能*/
+		   processKey(key) ;
+		   
+		}
+		 function processKey(key){
+			const Fkeys = ["Control","Enter","CapsLock","Shift","Alt","Tab","Escape"] ;
+			for (let k of Fkeys ){
+				if (k===key){
+					key = "" ;
+					break ;
+				}
+			}
+		    inputWord += key ;
+		  }//end of processKey function
+	   }; //end of  body.onkeypress function
+	 function showWord(){
+	  phDom.textContent = `【 ${word.ph} 】` ;
+	  cnDom.textContent = word.cn ;
+	}//endof showWord function
+	function nextWord(){
+	   var randNum = Math.floor(dictEn6.length * Math.random()) ;
+       word = dictEn6[randNum] ;
+       showHint();  
+	   phDom.textContent = `` ;
+	   cnDom.textContent = `` ;
+	}//endof nextWord function
+	};//window.onload events 
+ /***本版代码（CET-I）隐含问题
+    1、代码逻辑不算非常清晰，在以后扩容功能时，代码可能阅读效率不高，或许会导致推倒重构。
+	2、目前程序核心缺乏一个数据模型，记录和用户按键，记录程序运行状态，导致程序各模块间关系复杂，也就是软件复杂度偏高。
+	3、技术问题：比如多次按Escape键，会导致setInterval方法在多线程运行，导致光标闪烁厉害，需要增加代码，但我们在前二个问题解决前，增加代码难度较大，因此解决这个技术问题的意义不大。
+	4、前二个问题直接限制了本项目的继续增加或修改功能，目前，在代码的组织结构优化之前，当前的代码规模似乎不好再增加了，否则，更多的代码会造成模块之间有更多互相纠缠关系，让代码陷入无法修改的困境。
+	因此，我们将在下一课引入MVC设计模式，解决上述问题。
+ ***/
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+  迷你CET6单词训练器
+  </h1>
+  <div id="en">
+   <p id="input"> </p>
+   <p id="hint"> </p>
+  </div>
+
+  <div id="ph">
+  </div>
+  
+  <div id="cn">
+  </div>
+  <h2 align = "center">
+  输入单词，按Enter确认本单词，按Esc进入下一个单词。
+  <h2>
+ </body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>本例引入了CET6单词库文本字符串数据，通过字符串，利用String类的API，search和substring对构成单词的文本信息进行分析和处理，形成单词对象数据，最后用document.write实现CET6级近六千单词信息在Web页的暴力输出。</title>
+  <script src="cet6.js">
+  	/*
+	当前文件下的cet6.js 文件源于一个文本文件，现已经预处理为一个数组，变量名CET6，每个数组元素为一个字符串，例如："abandon/ə'bændən/vt.离弃，丢弃；"，我们可以在Console后台，查看和分析这个数组变量，然后再用代码对这些数据进行加工。
+	*/
+  </script>
+  <script type="text/javascript">
+  <!--
+	/***
+	下面程序实现对cet6.js文件中的字符串进行分析和处理，实现一个简易的CET6中英文词典，这个词典以数组对象的数据结构，存放在计算机内存中，为以后程序开发提供高速的访问。
+	实现全局数组dictEn6，其中的数组元素为对象，对象的属性分别为：dictEn6.en（english）,dictEn6.ph（phonetic）,dictEn6.cn(chinese)
+	分别表示单词的英文，音标，释义。
+    */
+	"use strict" ;
+    var dictEn6= [];
+	for (let  element of CET6 )	{
+		let word = {en: "" , ph: "", cn: ""} ;
+		let pos1 = element.search("/") ;
+		// 可以在Console后台探索一下，String类的常用API---search
+		word.en = element.substring(0,pos1) ;
+		// 可以在Console后台探索一下，String类的内常用API---substring
+		element = element.substring( pos1 + 1 ) ;
+		 pos1 = element.search("/") ;
+		word.ph = element.substring(0, pos1) ;
+		word.cn = element.substring( pos1 + 1 ) ;
+
+		dictEn6.push(word) ;
+	 } //end of for dictEn6 from CET6
+  //下面代码直接在Web页输出近6千条单词信息，对有些计算机可能会发生相应慢问题。
+   console.log(`dictEn6单词库共计 ${dictEn6.length} 个单词！`);
+   document.write(`<h1>`) ;
+   document.write(`dictEn6单词库共计 ${dictEn6.length} 个单词！`);
+   document.write(`</h1>`) ;
+
+	 for (let ele of dictEn6) {
+         document.write(`<h2>`) ;
+		 document.write(`${ele.en}  【${ele.ph}】 --${ele.cn} `) ;
+         document.write(`</h2>`) ;
+     }
+  //-->
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

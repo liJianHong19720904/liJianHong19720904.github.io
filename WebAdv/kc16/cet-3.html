@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本例运用CSS语言的定位能力，设计和实现单词的提示界面、个性化光标等。配合相应的代码修改，并嵌套运用异步代码让单词能自动实现逐字母出现。</title>
+  <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	}
+	div{
+	   font-size:20px;
+	   }
+	div#en{
+	 width: 90% ;
+	 margin:auto ;
+	 position: relative;
+	 border: thick inset;
+	 height: 80px;
+	 font-size: 20px ;
+	 background: black;
+	}
+   /*用二个绝对定位的p元素，在同一个容器中排版，设定颜色和叠放次序z-index，创造出底层p元素的提示效果*/
+	div#en>p#input,div#en>p#hint{
+     position: absolute;
+     font-size: 2.5em;
+	 margin:10px;
+	 padding:0;
+	}
+	div#en>p#input{
+	 color:#5f5;
+	 z-index:2;
+     	}
+	div#en>p#hint{
+	 color:#999;
+     z-index:1;
+		}
+    div#ph{
+	 font-size: 2.5em;
+	 margin:auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:auto;
+     text-align:center;
+	 color:#f33;
+	}
+   </style>
+  <script src="cet6.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+	/*
+	实现全局数组dictEn6，其中的数组元素为对象，对象的属性分别为：dictEn6.en（english）, dictEn6.ph（phonetic）, dictEn6.cn(chinese)
+	分别表示单词的英文，音标，释义。
+	*/
+	"use strict" ;
+    var dictEn6= [];
+	for (let  element of CET6 )	{
+		let word = {en: "" , ph: "", cn: ""} ;
+		let pos1 = element.search("/") ;
+		word.en = element.substring(0,pos1) ;
+		element = element.substring( pos1 + 1 ) ;
+		 pos1 = element.search("/") ;
+		word.ph = element.substring(0, pos1) ;
+		word.cn = element.substring( pos1 + 1 ) ;
+		dictEn6.push(word) ;
+	 } //end of for dictEn6 from CET6
+ 
+ window.onload = function(){
+   /**
+   本版程序，演示提示区
+  */
+   var inputDom = document.querySelector("div#en>p#input") ;
+   var hintDom = document.querySelector("div#en>p#hint") ;
+   var phDom = document.querySelector("div#ph") ;
+   var cnDom = document.querySelector("div#cn") ;
+
+       showWord();  
+       setInterval(showWord , 1000*6 );
+
+ function showWord(){
+   var randNum = Math.floor(dictEn6.length * Math.random()) ;
+   var word = dictEn6[randNum] ;
+      //console.log(word);
+     //inputDom.textContent = word.en ;
+	 hintDom.textContent = word.en  ;
+     //下面利用异步代码实现输入区单词，逐个字母打印，而提示区单词全部显示
+      
+	  var inputWord = '' ;
+	  var eWord = word.en ;
+      inputDom.textContent =  "_";
+     //三个变量分别表示：内存中应该输出的单词inputWord ，还未输出的单词eWord ，UI界面输出的单词inputDom.textContent，结合 "_" 字符，模拟光标。
+	    setInterval(function(){
+		  if (eWord) {
+			  inputWord += eWord.substring(0,1)  ; 
+		      eWord = eWord.substring(1) ;
+			  inputDom.textContent = inputWord + "_" ;
+		  }
+ 		} , 300);
+    //本例的难点在于异步代码中，还含有异步代码，异步代码对外层函数的内存变量是能够较好读写的，这是JavaScript中，每个函数每次运行，都具备closure的重要特性，关于函数闭包（closure）的概念，可大量阅读原文。
+	  phDom.textContent = `【 ${word.ph} 】` ;
+	  cnDom.textContent = word.cn ;
+ } //end of showWord
+	  
+ };//window.onload events 
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+  迷你CET6单词播放器
+  </h1>
+  <div id="en">
+   <p id="input"> </p>
+   <p id="hint"> </p>
+  </div>
+
+  <div id="ph">
+  </div>
+  
+  <div id="cn">
+  </div>
+
+ </body>
+</html>

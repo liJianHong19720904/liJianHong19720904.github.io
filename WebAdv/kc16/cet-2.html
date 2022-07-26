@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>利用CSS语言设计Web App的UI，利用异步代码，同时随机选取单词，实现一个自动播放的单词阅读器。</title>
+  <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	}
+	div{
+	   font-size:20px;
+	   }
+	div#en{
+	 width: 90% ;
+	 margin:auto ;
+	 border: thick inset;
+	 height: 80px;
+	 font-size: 20px ;
+	 background: black;
+	}
+	div#en>p#input{
+     font-size: 2.5em;
+	 margin:10px;
+	
+	}
+	div#en>p#input{
+	 color:#5f5;
+     	}
+
+    div#ph{
+	 font-size: 2.5em;
+	 margin:auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:auto;
+     text-align:center;
+	 color:#f33;
+	}
+   </style>
+  <script src="cet6.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+	/*
+	实现全局数组dictEn6，其中的数组元素为对象，对象的属性分别为：dictEn6.en（english）, dictEn6.ph（phonetic）, dictEn6.cn(chinese)
+	分别表示单词的英文，音标，释义。
+	*/
+	"use strict" ;
+    var dictEn6= [];
+	for (let  element of CET6 )	{
+		let word = {en: "" , ph: "", cn: ""} ;
+		let pos1 = element.search("/") ;
+		word.en = element.substring(0,pos1) ;
+		element = element.substring( pos1 + 1 ) ;
+		 pos1 = element.search("/") ;
+		word.ph = element.substring(0, pos1) ;
+		word.cn = element.substring( pos1 + 1 ) ;
+		dictEn6.push(word) ;
+	 } //end of for dictEn6 from CET6
+ //本例开始，开发者要加强对 window.onload 事件的认识，这是理解前端Web应用原理的关键一步。简而言之： 承载本web应用程序的文件，从外界加载到本机肯定需要一定时间，加载完成后，则window.onload事件触发。onload事件触发前，运行任何与Web页面相关的代码都会导致严重错误，因为该Web页面还未在本机内存中建立。
+ window.onload = function(){
+   /**
+    本版程序，将下面的野蛮输出，更改为逐个单词在Web页输出。
+	 for (let ele of dictEn6) {
+         document.write(`<h2>`) ;
+		 document.write(`${ele.en}  【${ele.ph}】 --${ele.cn} `) ;
+         document.write(`</h2>`) ;
+     }
+  */
+   var inputDom = document.querySelector("div#en>p#input") ;
+ 
+   var phDom = document.querySelector("div#ph") ;
+   var cnDom = document.querySelector("div#cn") ;
+
+       showWord();  
+       setInterval(showWord , 3000 );
+
+ function showWord(){
+   var randNum = Math.floor(dictEn6.length * Math.random()) ;
+   var word = dictEn6[randNum] ;
+     console.log(word);
+     inputDom.textContent = word.en ;
+	  phDom.textContent = `【 ${word.ph} 】` ;
+	  cnDom.textContent = word.cn ;
+ } //end of showWord
+	  
+ };//window.onload events 
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+  迷你CET6单词播放器
+  </h1>
+  <div id="en">
+   <p id="input"> </p>
+  </div>
+
+  <div id="ph">
+  </div>
+  
+  <div id="cn">
+  </div>
+
+ </body>
+</html>
