@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本例是初步理解和用程序分析ASCII编码的样版。我们用代码输出最早实现数字化的计算机的字符(ASCII 0-127)。我们使用了了字符串类的API String.fromCharCode 。本例还使用了据说是西方工业文明以来印刷品使用最多的字体外形————“Helvetica”（海维提卡）</title>
+  <style type="text/css">
+	*{font-size:2em; 
+	  color: blue ;
+	  font-family:Helvetica ; }
+	h1{font-size:0.5em ;color:black}
+	b{font-size:0.5em ;color:red }
+  </style>
+ </head>
+ <body>
+  <h1>最早实现数字化的字符(ASCII 0-127)</h1>
+  <script type="text/javascript">
+  <!--
+    var s = "" ;
+    for (var i= 0 ; i < 128 ; i++ ) {
+		var ch = String.fromCharCode(i) ;
+       s += "<b>"+ " #" + i + "</b>" + ch + " ";
+    }
+	document.write(s);
+  //-->
+  </script>
+  <h1>按UTF-8编码，列出英语的字母</h1>
+   <script type="text/javascript">
+  <!--
+    //下面代码也是理解二维数组，这种数据结构好的入口。
+    var EnlishScript = [[65, 91], [97, 123]] ;
+	var s = "" ;
+    for (var i= 0 ;  i < EnlishScript.length ; i++ ) {
+	   var charset =  EnlishScript[i] ;
+	  for(var j= charset[0] ; j < charset[1] ; j++ ) {
+		var ch = String.fromCharCode(j) ;
+            s += "<b>"+ " #" + j + "</b>" + ch + " ";
+     }
+	}
+	document.write(s);
+	 //-->
+	 /**学无止境** 
+	 探索fromCharCode方法的逆向方法，charCodeAt，通过字符查编码，有些字符键盘无法直接输入，例如：
+   apple [ˈæp(ə)l]
+   'æ'.charCodeAt()
+	 **/
+  </script>
+ </body>
+</html>

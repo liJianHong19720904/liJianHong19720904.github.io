@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本例在之前数据基础上，增加使用CSS语言创建一个浮动的UI界面，利用鼠标点击让用户能互动选择语系，每语系最多输出1000个字符。</title>
+  <style type="text/css">
+	body{
+	 margin:90px auto ;
+	 font-size:16px;
+	}
+	table{
+	 margin:auto ;
+	 text-align:center;
+	}
+	table th {
+	 font-size:1.5em;
+	}
+	td {color:red;}
+	td.face{
+	   font-size:4em;
+	   color:blue ;
+	 }
+	table td,table th{
+	 border:1px solid blue ;
+	 padding:5px;
+	}
+	h1{color:red;}
+	h2{color:blue;}
+	/***
+	本例使用CSS浮动排版，增加了用户菜单栏，让用户可以选择语系，把该语系的所有字符输出。
+	***/
+  div#glassPane{
+    position:absolute ;
+	right:30px;
+	top:5px ;
+	width: 80%;
+	height:50px;
+	padding-top:20px;
+	background:rgba(0,0,100,0.5);
+	border:thin solid black ;
+	border-radius: 10px;
+	color:rgb(255,255,255);
+	box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+   }
+   div#glassPane input{
+    font-size:20px;
+	padding:5px;
+	width:15%;
+	color:black;
+	border-style: outset;
+	}
+  div#glassPane input:hover{
+	color:darkred ;
+	cursor:pointer ;
+	}
+  div#glassPane input:active{
+    border-style: inset ;
+	background:gray;
+	color:lightgreen ;
+	}
+
+  </style>
+  <script type="text/javascript">
+  <!--
+  
+	const SCRIPTS = [
+   {
+    name: "Latin",
+    ranges: [[65, 91], [97, 123], [170, 171], [186, 187], [192, 215], [216, 247], [248, 697], [736, 741], [7424, 7462], [7468, 7517], [7522, 7526], [7531, 7544], [7545, 7615], [7680, 7936], [8305, 8306], [8319, 8320], [8336, 8349], [8490, 8492], [8498, 8499], [8526, 8527], [8544, 8585], [11360, 11392], [42786, 42888], [42891, 42927], [42928, 42936], [42999, 43008], [43824, 43867], [43868, 43877], [64256, 64263], [65313, 65339], [65345, 65371]]
+   },
+   {
+    name: "Cyrillic",
+    ranges: [[1024, 1157], [1159, 1328], [7296, 7305], [7467, 7468], [7544, 7545], [11744, 11776], [42560, 42656], [65070, 65072]]
+    },
+   {
+    name: "Thai",
+    ranges: [[3585, 3643], [3648, 3676]]
+   },
+   {
+    name: "Han",
+    ranges: [[11904, 11930], [11931, 12020], [12032, 12246], [12293, 12294], [12295, 12296], [12321, 12330], [12344, 12348], [13312, 19894], [19968, 40939], [63744, 64110], [64112, 64218], [131072, 173783], [173824, 177973], [177984, 178206], [178208, 183970], [183984, 191457], [194560, 195102]]
+   },
+   //emoji从代码获取字符时，需要新的API——fromCodePoint支持获取字符。
+   {
+    name: "Emoji",
+    ranges: [[126976, 127020],[127024,127124],[127136,127222],[127744,128722]]
+   }
+  ];
+  //-->
+  </script>
+ </head>
+ <body>
+  
+  <h1>Unicode编码code--字符face互动演示程序</h1>
+   <div id="glassPane">
+	选择语系:
+	<input type="button" value="拉丁语" id="Latin">
+	<input type="button" value="俄语" id="Cyrillic">
+	<input type="button" value="泰语" id="Thai">
+	<input type="button" value="汉语" id="Han">
+	<input type="button" value="Emoji" id="Emoji">
+   </div>
+<!--
+  以上的HTML代码就是本程序的UI界面内容，由CSS设定了外观。各语系字符信息输出和表格都由JavaScript代码在需要时动态创建或删除。
+-->
+  <script type="text/javascript">
+  <!--
+    var objOfScripts =  [ ];
+     for (var i=0; i < SCRIPTS.length ; i++){
+		var thisScript = SCRIPTS[i] ;
+		var thisRanges = SCRIPTS[i].ranges ; 
+		var objOfScript = {} ;
+		 objOfScript.name = thisScript.name  ;
+		 objOfScript.code = [] ;
+         objOfScript.face = [] ;
+		for (var j= 0; j < thisRanges.length ; j++ ){
+			var begin = thisRanges[j][0] ; //javaScript的二维数组
+			var end = thisRanges[j][1] ;
+			for (var k= begin ; k < end; k++){
+				objOfScript.code.push(k) ;
+				var ch = String.fromCodePoint(k) ;
+				objOfScript.face.push(ch) ; 
+				}//end of k 循环
+		} //end of j 循环
+         objOfScripts[i] =  objOfScript ;
+      } //end of i 循环
+
+   //顺便了解JavaScript作为现代高级语言，其遍历数组的优美语法
+   for (let script of objOfScripts )  {
+	   console.log(script.name + "共计" + script.code.length +" 字符！");
+   }
+
+  	showUnicode("Emoji") ;
+	 //将不同功能代码分隔开当然是好习惯，下面对不同语系，将编码和字符输出的代码封装到函数showUnicode中，函数入口参数为语系名称。
+   function showUnicode(sName){
+  //将不同功能代码分隔开是个好习惯，下面仅围绕不同语系，创建标题和表格表头，为输出编码和字符外形，提前准备简单的Web界面。	
+      var script = null ;
+	  for (let s of objOfScripts )  {
+	   if (sName === s.name) {
+	     script = s ; 
+		 break ;
+	   }else{
+	     script = objOfScripts[objOfScripts.length - 1] ;
+	   }
+	  }
+	 //函数入口参数错误则默认显示emoji字符
+	  var h2Dom = document.createElement('h2');
+	  h2Dom.textContent = script.name + "语系共计" + script.code.length +" 字符，本次列出前面1000个。" 
+    	var tableDom = document.createElement('table');
+	    var trDom =  document.createElement('tr') ;
+       for (let j = 0 ; j < 8 ; j++ ){ //每行用8列表达4个字符和4个编码
+         var thDom = document.createElement('th') ;
+		 if (j%2 ===1){
+             thDom.textContent = 'Face' ;
+         }else{
+		     thDom.textContent = 'Code' ;
+		 }
+        trDom.appendChild(thDom) ;
+       }
+       tableDom.appendChild(trDom) ;
+	   //每次循环，完成一门语系的标题和表格（含表头）元素生成，并用文档的body元素作为父元素，插入这两个动态生成的DOM元素。
+	   document.body.appendChild(h2Dom) ;
+	   document.body.appendChild(tableDom) ;
+
+     const maxChar = 1000 ;
+	 var tableDom =  document.querySelector("table") ;
+	 var total =  script.code.length  > maxChar ? maxChar : script.code.length ;
+	 var rows = Math.ceil( total / 4) ;
+	 var index = 0 ;
+	 for (let i=0; i < rows ; i++ ) {
+      var trDom = document.createElement('tr') ;
+	   for (let j = 0 ; j < 8 ; j++ ){ //每行用8列表达4个字符和4个编码
+         var tdDom = document.createElement('td') ;
+		 if (j%2 ===1){
+             tdDom.className = "face" ;
+             tdDom.textContent = script.face[index];
+			 index++ ; //在多数情况下，index变量的递增放错位置，需要逻辑清晰才可完成本代码。
+	        }else{
+			 tdDom.textContent = script.code[index];
+			 }
+		 trDom.appendChild(tdDom) ;
+       }//end of j columns
+	   tableDom.appendChild(trDom) ;
+     }//end of i rows
+   }//end of function showUnicode
+   function deleteUI(){
+    var h2Dom = document.querySelector("h2") ;
+	var tableDom = document.querySelector("table") ;
+	document.body.removeChild(h2Dom);
+    document.body.removeChild(tableDom);
+   }
+/***
+   下面是HTML的用户UI按钮部分，我们将函数showUnicode传递给按钮onclick事件
+   	<input type="button" value="拉丁语" id="Latin">
+	<input type="button" value="俄语" id="Cyrillic">
+	<input type="button" value="泰语" id="Thai">
+	<input type="button" value="汉语" id="Han">
+	<input type="button" value="Emoji" id="Emoji">
+***/
+   document.querySelector("input#Latin").onclick = function(){
+	   deleteUI();
+	   showUnicode("Latin");
+	   } ;
+   document.querySelector("input#Cyrillic").onclick = function(){
+	   deleteUI();
+	   showUnicode("Cyrillic");
+	   } ;
+   document.querySelector("input#Thai").onclick = function(){
+	   deleteUI();
+	   showUnicode("Thai");
+	   } ;
+   document.querySelector("input#Han").onclick = function(){
+	   deleteUI();
+	   showUnicode("Han");
+	   } ;
+   document.querySelector("input#Emoji").onclick =  function(){
+	   deleteUI();
+	   showUnicode("Emoji");
+	   } ;
+  //-->
+ 
+  </script>
+
+ </body>
+</html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本例在前面内存数据整理基础上，使用Web表格这种UI界面，清晰地输出了拉丁语系的编码和字符外形。由于字符集数据量太大，面对四个语系的字符信息输出的逻辑比较复杂，本例仅以拉丁语系字符为例。</title>
+  <style type="text/css">
+	body{
+	 margin:0px auto ;
+	 font-size:16px;
+	}
+	table{
+	 margin:auto ;
+	 text-align:center;
+	}
+	table th {
+	 font-size:1.5em;
+	}
+	td {
+	   color:red;}
+	td.face{
+	   font-size:4em;
+	   color:blue ;
+	 }
+	table td,table th{
+	 border:1px solid blue ;
+	 padding:5px;
+	}
+	
+  </style>
+  <script type="text/javascript">
+  <!--
+   //下面的数据是各语系的名称和编码范围数据，数据结构采用对象类型，再把对象当作数组元素整合在一起。
+	const SCRIPTS = [
+   {
+    name: "Latin",
+    ranges: [[65, 91], [97, 123], [170, 171], [186, 187], [192, 215], [216, 247], [248, 697], [736, 741], [7424, 7462], [7468, 7517], [7522, 7526], [7531, 7544], [7545, 7615], [7680, 7936], [8305, 8306], [8319, 8320], [8336, 8349], [8490, 8492], [8498, 8499], [8526, 8527], [8544, 8585], [11360, 11392], [42786, 42888], [42891, 42927], [42928, 42936], [42999, 43008], [43824, 43867], [43868, 43877], [64256, 64263], [65313, 65339], [65345, 65371]]
+   },
+   {
+    name: "Cyrillic",
+    ranges: [[1024, 1157], [1159, 1328], [7296, 7305], [7467, 7468], [7544, 7545], [11744, 11776], [42560, 42656], [65070, 65072]]
+    },
+   {
+    name: "Thai",
+    ranges: [[3585, 3643], [3648, 3676]]
+   },
+   {
+    name: "Han",
+    ranges: [[11904, 11930], [11931, 12020], [12032, 12246], [12293, 12294], [12295, 12296], [12321, 12330], [12344, 12348], [13312, 19894], [19968, 40939], [63744, 64110], [64112, 64218], [131072, 173783], [173824, 177973], [177984, 178206], [178208, 183970], [183984, 191457], [194560, 195102]]
+   }
+  ];
+  //-->
+  </script>
+ </head>
+ <body>
+   
+  <h1>Latin语系编码-字符face表</h1>
+  <table>
+  	  <tr>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+		<th>code</th>
+		<th>Face</th>
+	  </tr>
+  </table>
+
+  <script type="text/javascript">
+  <!--
+    var objOfScripts =  [ ];//将四个语系的字符信息对象数据结构，组织在数组中。为配合表格的UI，每个语系的对象，设计数据结构为：名字（name）、编码（code）、字符（face）三个信息。
+     for (var i=0; i < SCRIPTS.length ; i++){
+		var thisScript = SCRIPTS[i] ;
+		var thisRanges = SCRIPTS[i].ranges ; //N个元素的数组，元素为[起始编码,结束编码]
+		var objOfScript = {} ;
+		 objOfScript.name = thisScript.name  ;
+		 objOfScript.code = [] ;
+         objOfScript.face = [] ;
+		for (var j= 0; j < thisRanges.length ; j++ ){
+			var begin = thisRanges[j][0] ; //javaScript的二维数组
+			var end = thisRanges[j][1] ;
+			for (var k= begin ; k < end; k++){
+				objOfScript.code.push(k) ;
+				var ch = String.fromCharCode(k) ;
+				objOfScript.face.push(ch) ; 
+				//若您对数组的push方法不熟，在Console中演练即可。
+			}//end of k 循环
+		} //end of j 循环
+         objOfScripts[i] =  objOfScript ;
+      } //end of i 循环
+
+   //顺便了解JavaScript作为现代高级语言，其遍历数组的优美语法
+   for (let script of objOfScripts )  {
+	   console.log(script.name + "共计" + script.code.length +" 字符！");
+   }
+     
+	 document.querySelector("h1").textContent += ", 共计" + objOfScripts[0].code.length + "字符！" ;
+	var tableDom =  document.querySelector("table") ;
+	var rows = Math.ceil(objOfScripts[0].code.length / 4) ;
+	var index = 0 ;
+	 for (let i=0; i < rows ; i++ ) {
+      var trDom = document.createElement('tr') ;
+	   for (let j = 0 ; j < 8 ; j++ ){ //每行用8列表达4个字符和4个编码
+         var tdDom = document.createElement('td') ;
+		 if (j%2 ===1){
+             tdDom.className = "face" ;
+             tdDom.textContent = objOfScripts[0].face[index];
+			 index++ ; //在多数情况下，index变量的递增放错位置，需要逻辑清晰才可完成本代码。
+	        }else{
+			 tdDom.textContent = objOfScripts[0].code[index];
+			 }
+		 trDom.appendChild(tdDom) ;
+		 
+       }//end of j columns
+	   tableDom.appendChild(trDom) ;
+     }//end of i rows
+			
+  //-->
+  </script>
+
+ </body>
+</html>

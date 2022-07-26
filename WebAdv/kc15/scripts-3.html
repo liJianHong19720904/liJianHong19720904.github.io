@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本例引用Unicode编码标准体系的极小一小部分数据，在这个收罗古今180个可书写的语言庞大体系中，我们选择四个常见语系的字符编码，用代码统计其编码字符的个数，并在后台输出这些字符，由于数据量太大，本例不实现在Web页输出。</title>
+  <style type="text/css">
+	h1，h2{
+	  font-size:2em; 
+	  color: blue ;
+	}
+	h2{
+	   font-family:Helvetica ; 
+	   color:red ;
+	}
+	b {
+	  font-size:1.5em;
+	  color: green ;
+	 }
+
+  </style>
+  <script type="text/javascript">
+  <!--
+   //下面的数据是各语系的名称和编码范围数据，数据结构采用对象类型，再把对象当作数组元素整合在一起。这种用对象构造的数据结构，也称JSON（javaScript Object Notation），几乎为所有现代高级语言采纳。
+   /***
+    对下面SCRIPTS对象的ranges属性表达的编码范围的解读
+   比如：
+   { name: "Coptic", 
+    ranges: [[994, 1008], [11392, 11508] ]
+   }
+The ranges property contains an array of Unicode character ranges, each of which is a two-element array containing a lower bound and an upper bound. Any character codes within these ranges are assigned to the script. The lower bound is inclusive (code 994 is a Coptic character), and the upper bound is non-inclusive (code 1008 isn’t).
+   */
+	const SCRIPTS = [
+   {
+    name: "Latin",
+    ranges: [[65, 91], [97, 123], [170, 171], [186, 187], [192, 215], [216, 247], [248, 697], [736, 741], [7424, 7462], [7468, 7517], [7522, 7526], [7531, 7544], [7545, 7615], [7680, 7936], [8305, 8306], [8319, 8320], [8336, 8349], [8490, 8492], [8498, 8499], [8526, 8527], [8544, 8585], [11360, 11392], [42786, 42888], [42891, 42927], [42928, 42936], [42999, 43008], [43824, 43867], [43868, 43877], [64256, 64263], [65313, 65339], [65345, 65371]]
+   },
+   {
+    name: "Cyrillic",
+    ranges: [[1024, 1157], [1159, 1328], [7296, 7305], [7467, 7468], [7544, 7545], [11744, 11776], [42560, 42656], [65070, 65072]]
+    },
+   {
+    name: "Thai",
+    ranges: [[3585, 3643], [3648, 3676]]
+   },
+   {
+    name: "Han",
+    ranges: [[11904, 11930], [11931, 12020], [12032, 12246], [12293, 12294], [12295, 12296], [12321, 12330], [12344, 12348], [13312, 19894], [19968, 40939], [63744, 64110], [64112, 64218], [131072, 173783], [173824, 177973], [177984, 178206], [178208, 183970], [183984, 191457], [194560, 195102]]
+   }
+  ];
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>拉丁、俄、泰、汉语系在编（Unicode）字符个数统计和举例（在Console后台输出）：</h1>
+  <script type="text/javascript">
+  <!--
+     for (var i=0; i < SCRIPTS.length ; i++){
+		var thisScript = SCRIPTS[i] ;
+		var thisRanges = SCRIPTS[i].ranges ; //二维数组，其中元素为[[起始编码1,结束编码1],......]
+		var string = "" ;
+		for (var j= 0; j < thisRanges.length ; j++ ){
+			var begin = thisRanges[j][0] ;
+			var end = thisRanges[j][1] ;
+			for (var k= begin ; k < end; k++){
+				var ch = String.fromCharCode(k) ;
+				string +=  ch ; 
+				}//end of k 循环
+		} //end of j 循环
+        
+      document.write("<h2>"+ "<b>" + thisScript.name + "</b>"+ "语系有" + "<b>" + string.length + "</b>" +"个字符实现了编码。</h2>");
+	  console.log(string);
+     } //end of i 循环
+
+	
+  //-->
+  </script>
+
+ </body>
+</html>
