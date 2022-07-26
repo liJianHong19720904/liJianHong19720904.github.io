@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本节课的重点是为上一课的“CET6单词”训练程序建立对象模型概念，然后围绕这些概念进行代码重构。在编程实践中，我们使用经典MVC模式，用全局变量Model对象实现对程序运行数据和状态的记录，而把程序对Web页UI的外观操作，统一在全局变量View对象中，最后把协调用的代码和键盘控制统一到Controller函数中。
+  本例不仅实现了代码重构，还轻松地解决了多次按Esc键，模拟光标的闪烁加速的bug，还实现了光标的闪烁速度控制。</title>
+  <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	}
+	div{
+	   font-size:20px;
+	   }
+	div#en{
+	 width: 90% ;
+	 margin:auto ;
+	 position: relative;
+	 border: thick inset;
+	 height: 80px;
+	 font-size: 20px ;
+	 background: black;
+	}
+
+	div#en>p#input,div#en>p#hint{
+     position: absolute;
+     font-size: 2.5em;
+	 margin:10px;
+	 padding:0;
+	}
+	div#en>p#input{
+	 color:#5f5;
+	 z-index:2;
+     	}
+	div#en>p#hint{
+	 color:#999;
+     z-index:1;
+		}
+    div#ph{
+	 font-size: 2.5em;
+	 margin:auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:auto;
+     text-align:center;
+	 color:#f33;
+	}
+   </style>
+  <script src="../kc16/cet6.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+	/*
+	实现全局数组dictEn6，其中的数组元素为对象，对象的属性分别为：dictEn6.en（english）, dictEn6.ph（phonetic）, dictEn6.cn(chinese)
+	分别表示单词的英文，音标，释义。
+	dictEn6数组和CET6数组，信息形式不同，但信息量是一样的，分二个变量存储效率不高，下面代码利用ES6的let和语句块，让dictEn6数组成为临时数组，语句块结束后变量会被清除。这样，单词有效数据仍然存放到CET6中，这样的代码可读性更好。
+	*/
+	"use strict" ;//进入开发者专业的严格模式，编译器将会对存在问题的低质量的代码，提出警告或直接出错。
+  {
+    let dictEn6 = [];
+	for (let  element of CET6 )	{
+		let word = {en: "" , ph: "", cn: ""} ;
+		let pos1 = element.search("/") ;
+		word.en = element.substring(0,pos1) ;
+		element = element.substring( pos1 + 1 ) ;
+		 pos1 = element.search("/") ;
+		word.ph = element.substring(0, pos1) ;
+		word.cn = element.substring( pos1 + 1 ) ;
+		dictEn6.push(word) ;
+	 } //end of for dictEn6 from CET6
+	 CET6 = dictEn6 ;
+  }
+ /**
+   上面的代码更加优化，dictEn6变量会再代码块结束后消失，CET6单词数据则存放在CET6数组中，其中的数组元素为对象，对象的属性分别为：CET6.en（english）, CET6.ph（phonetic）, CET6.cn(chinese)
+ **/
+  //上面的代码可以归纳为后台数据的准备，与 Web页面渲染/软件UI输出无关。
+  //下面代码，我们立刻在内存中，建立MVC模式的Model模型变量，用来记录软件的即时数据和各种状态。
+  var Model = {
+    inputWord : "" , //记录用户实际编辑或输入的单词结果
+	index : 0 , //本APP当前选择的单词在CET6库的下标 
+	word : {} , //记录当前学习的单词对象
+    cursorOn : true , //记录在当前模型运行时刻，光标是否在屏幕上。
+	clock : null , //记录控制当前setInterval异步代码的时钟对象
+	nextWord :	function(){
+	   let randNum = Math.floor(CET6.length * Math.random()) ;
+       this.word = CET6[randNum] ;
+	   View.showHint(); 
+	   Model.inputWord = "" ;
+	   View.phDom.textContent = `【 phonetic 】` ;
+	   View.cnDom.textContent = `词性，中文等` ;
+	},//endof nextWord function
+	dealPressKey : function (key){
+	 const Fkeys = ["Control","Enter","CapsLock","Shift","Alt","Tab","Escape"] ;
+		for (let k of Fkeys ){
+			if (k===key){
+				key = "" ;
+				break ;
+		    	}
+		}
+		Model.inputWord += key ;
+	  }//end of processKey method
+  } ;
+ //下面代码，我们立刻在内存中建立MVC模式的View变量对象，该对象控制和管理程序界面对象，不仅存放记录程序的UI界面对象（DOM元素对象），而且也集中管理对UI的输出。
+  var View = {
+    inputDom : null ,
+    hintDom : null ,
+    phDom : null ,
+    cnDom : null ,
+	getUIDom : function(){
+		//理解this关键字。对象方法中的this，特指对象自己。而对象的方法函数中的代码，则必须以对象为上下文（context）执行。比如: View.getUIDom() , 而不能在其他地方直接运行getUIDom的函数值。
+       this.inputDom = document.querySelector("div#en>p#input") ;
+       this.hintDom = document.querySelector("div#en>p#hint") ;
+       this.phDom = document.querySelector("div#ph") ;
+       this.cnDom = document.querySelector("div#cn") ;
+	},
+	showHint : function(){
+	     this.hintDom.textContent = Model.word.en  ;
+  	 } , //end of showHint
+	showWord : function (){
+	 if( Model.inputWord === Model.word.en ){
+	  this.phDom.textContent = `【 ${Model.word.ph} 】` ;
+	  this.cnDom.textContent = Model.word.cn ;
+	  }else{
+	  this.phDom.textContent = `【 phonetic 】` ;
+	  this.cnDom.textContent = `词性，中文等` ;
+	 }
+	},//endof showWord method
+    showCursor : function(){// showCursor方法实现了对Model内记录的用户输入的单词，inputWord的Dom输出，但并未输出提示单词
+	 if (Model.clock){
+       clearInterval(Model.clock) ;
+	  }
+	 const speed = 10 ; //这里可以调整光标闪烁频率，当前为 1000/speed
+	 Model.clock = setInterval(function(){
+		  if (Model.cursorOn)  {
+           View.inputDom.textContent = Model.inputWord + "_" ;
+		    }else{
+	       View.inputDom.textContent = Model.inputWord ;
+			}
+		   Model.cursorOn = ! Model.cursorOn ;
+		 } , 1000/speed);
+	},//end fo showCursor
+
+   };//end of View
+   /*
+   从分工上看，MVC模式的Controller相当于一个管家，管理程序运行的流程，负责调用Model和View的功能。我们下面把Controller设计成为函数，则是为适应浏览器端运行实际情况，因为我们可以方便地把Controller函数设置成window.onload事件的处理函数，这样，当上面的Model和View对象读入内存后，Controller函数则在Web页全部加载后，开始接管程序。
+   */
+ function Controller(){
+	Model.index = Math.floor(CET6.length * Math.random()) ;
+	Model.word = CET6[Model.index] ;
+
+    View.getUIDom() ;
+    View.showHint() ; 
+	View.showCursor() ;
+ 
+	document.body.onkeydown = function(eObj){
+      var key = eObj.key ;
+	  if (key==="Enter" ){
+         View.showWord();
+	  }
+	  if (key==="Escape" ){
+         Model.nextWord();
+	  }
+	  if (key==="Backspace") {
+		  Model.inputWord = Model.inputWord.substring(0,Model.inputWord.length-1) ;
+	  } else {
+	    Model.dealPressKey(key) ;
+	  }
+	 }; //end of document.body.onkeypress function
+ }//end of function Controller
+
+/***
+ 宏观总结，从var Model = …… 开始，到 定义Controller 函数结束，
+在浏览器处理这些代码时，仅仅只对各全局变量进行赋值，实际上并未执行各全局变量内的代码值（方法，函数等），因此对于Model 、 View 、Controller 内的函数方法中涉及操作Web页的代码，完全不会因Web页未准备好而出错。
+下面我们把Controller 函数赋值给window.onload事件，则是设定系统在Web页加载所有内容到计算机内存后，立刻触发onload事件，调用Controller函数组装运行所有代码，实现本程序。
+
+ 总结上一课“CET6单词训练”项目的开发，我们深刻认知到：一定规模的代码组织在一起，数据和变量不断增加和定义，没有思想指导，程序会越写越复杂，最终代码的作者本人也可能无法理解代码。基于对象思想，用MVC模式重构代码，不断梳理程序开发中原本模糊的概念，随着我们开发的继续，经验积累，问题深入，最终会在实践和理论上形成对开发模式理解。这时，我们也可以从更高层次来理解代码的逻辑，理解内存中数据的传递，这样我们就可以写出复杂性低、可读性和可扩展性高的代码。
+***/
+
+ window.onload = Controller ;
+ 
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+  CET6单词训练器Beta1（MVC重构）
+  </h1>
+  <div id="en">
+   <p id="input"> </p>
+   <p id="hint"> </p>
+  </div>
+
+  <div id="ph">
+  </div>
+  
+  <div id="cn">
+  </div>
+  <h2 align = "center">
+  输入单词，按Enter确认本单词，按Esc进入下一个单词。
+  <h2>
+ </body>
+</html>

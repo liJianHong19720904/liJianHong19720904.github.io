@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本例做了备选单词数据结构的重大改动，为降低开发工作量，我们仅在程序开始时引入一个选择备选单词的算法，用以检测改动代码的运行和相应的键盘响应。本例仅实现了26个单词的查询，在功能上实现了Tab键自动填入提示单词，Shift键查询候选单词，Enter确认单词。</title>
+  <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	}
+	div{
+	   font-size:20px;
+	   }
+	div#en{
+	 width: 90% ;
+	 margin:auto ;
+	 position: relative;
+	 border: thick inset;
+	 height: 80px;
+	 font-size: 20px ;
+	 background: black;
+	}
+
+	div#en>p#input,div#en>p#hint{
+     position: absolute;
+     font-size: 2.5em;
+	 margin:10px;
+	 padding:0;
+	}
+	div#en>p#input{
+	 color:#5f5;
+	 z-index:2;
+     	}
+	div#en>p#hint{
+	 color:#999;
+     z-index:1;
+		}
+    div#ph{
+	 font-size: 2.5em;
+	 margin:auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:auto;
+     text-align:center;
+	 color:#f33;
+	}
+   </style>
+  <script src="../kc16/cet6.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+	/*
+本例实现用户敲击键盘，程序自动挑出一批可能的单词，记录索引后，实现自动提示，用户还可按Shift键，逐一在可能的单词间实现切换。仿造linux的命令行习惯，按Tab键实现对提示单词的确认！
+	*/
+	"use strict" ;
+  {
+    let dictEn6 = [];
+	for (let  element of CET6 )	{
+		let word = {en: "" , ph: "", cn: ""} ;
+		let pos1 = element.search("/") ;
+		word.en = element.substring(0,pos1) ;
+		element = element.substring( pos1 + 1 ) ;
+		 pos1 = element.search("/") ;
+		word.ph = element.substring(0, pos1) ;
+		word.cn = element.substring( pos1 + 1 ) ;
+		dictEn6.push(word) ;
+	 } //end of for dictEn6 from CET6
+	 CET6 = dictEn6 ;
+  }
+ /**
+注意：CET6单词库是以CET6为名字的是全局数组（元素为对象形式）
+在重构的代码结构下，代码逻辑清晰，因此可以大胆思考扩展本程序的功能。
+本例为单词查询单词设计了新模式，程序按用户未完成的输入，预判并输出单词（当然以提示形式），随着用户的逐字母输入，程序可以修正预判（当然也可维持预判），直到用户按回车键，程序结束预判并输出音标和释义等信息。
+ **/
+ //对Model的二个属性，readyIndex和readyWords进行了较大改动
+  var Model = { 
+    inputWord : "" , //记录用户实际编辑或输入的单词结果
+	word : {} , //存放程序预判并提示输出的单词（对象形式）
+    cursorOn : true , //记录在当前模型运行时刻，光标是否在屏幕上。
+	clock : null , //记录控制当前setInterval异步代码的时钟对象
+	readyIndex : 0 ,//存放程序当前正在显示的，预选单词数组readyWords的索引。
+	readyWords : [ ]  , //存放程序可能预判的单词列表信息 。 
+	nextWord :	function(){
+	  if (this.readyIndex < this.readyWords.length - 1){
+         this.readyIndex++ ;
+	  } else{
+	     this.readyIndex = 0 ;
+	  }
+	   this.word = this.readyWords[this.readyIndex] ;
+	   this.inputWord = "" ;
+	   View.showHint(); 
+	   View.phDom.textContent = `【 phonetic 】` ;
+	   View.cnDom.textContent = `词性，中文等` ;
+	},//end of nextWord 用户按Shift键，可切换提示
+	  } ;
+ //下面代码，我们立刻在内存中，建立MVC模式的View程序界面变量对象，用来记录软件的UI各个界面对象（DOM对象）的指针。
+  var View = {
+    inputDom : null ,
+    hintDom : null ,
+    phDom : null ,
+    cnDom : null ,
+	infoDom : null ,
+	getUIDom : function(){
+       this.inputDom = document.querySelector("div#en>p#input") ;
+       this.hintDom = document.querySelector("div#en>p#hint") ;
+       this.phDom = document.querySelector("div#ph") ;
+       this.cnDom = document.querySelector("div#cn") ;
+       this.infoDom = document.querySelector("h2#statusInfo") ;
+	},
+	showHint : function(){
+	     this.hintDom.textContent = Model.word.en  ;
+  	 } , //end of showHint
+	showWord : function (){//showWord实现在音标和中文区域输出，用户输入的英文本身在showCursor中实现输出
+	 //用字符串的trim()方法，实现输入时小小体验的改进
+	 if( Model.inputWord.trim() === Model.word.en ){
+	  this.phDom.textContent = `【 ${Model.word.ph} 】` ;
+	  this.cnDom.textContent = Model.word.cn ;
+	  }else{
+	  this.phDom.textContent = `【 phonetic 】` ;
+	  this.cnDom.textContent = `词性，中文等` ;
+	 }
+	},//endof showWord method
+    showCursor : function(){ // showCursor方法还实现了对Model内记录的用户输入的单词，即inputWord属性在Web页的Dom输出，但并未输出提示单词和音标、释义等
+	 if (Model.clock){
+       clearInterval(Model.clock) ;
+	  }
+	 const speed = 10 ; //这里可以调整光标闪烁频率，当前为 1000/speed
+	 Model.clock = setInterval(function(){
+		  if (Model.cursorOn)  {
+           View.inputDom.textContent = Model.inputWord + "_" ;
+		    }else{
+	       View.inputDom.textContent = Model.inputWord ;
+			}
+		   Model.cursorOn = ! Model.cursorOn ;
+		 } , 1000/speed);
+	},//end fo showCursor
+    showInfo : function(info){
+	  this.infoDom.textContent = info ;
+    },
+   };//end of View
+ function Controller(){
+	 //对CET6单词库中，查找a到z开头的单词首个单词，把这些单词对象作为数据
+    //这段代码运用到字符的编码概念和String类的API，这让循环代码的功能变得非常强大
+	let num = 0 ;
+	for (let word of CET6){
+ 	  let chCode = "a".charCodeAt() + num ;
+	  if (word.en.substring(0,1).toLowerCase() === String.fromCharCode(chCode)) {
+       	  Model.readyWords.push(word) ;
+		  num++ ; 
+      }
+	}//end of CET数组 遍历
+	
+	Model.word = Model.readyWords[Model.readyIndex] ;
+
+    View.getUIDom() ;
+    View.showHint() ; 
+	View.showCursor() ;
+ 
+	document.body.onkeydown = function(eObj){
+	    //改动后代码逻辑更加清晰
+	  //关闭Tab键、F5、ctrl+r 等默认的系统功能
+	  eObj.preventDefault(); 
+      var key = eObj.key ;
+	
+      const Fkeys = ["Backspace","Control","Enter","CapsLock","Shift","Alt","Tab","Escape"] ;//当前代码还不需要这个按键的常量数组
+	 
+	  switch (key) {
+	   case "Enter" :  View.showWord() ; break;
+       case "Escape" : Model.nextWord() ; break;
+	   case "Tab" :    Model.inputWord = Model.word.en ;
+					   break;
+	   case "Backspace" : 
+	                  Model.inputWord = Model.inputWord.substring(0,Model.inputWord.length-1) ;
+	              break;
+	   case "Shift" : Model.nextWord() ;  
+	                  View.showInfo("切换提示单词："+ (Model.readyIndex + 1) + "/" + Model.readyWords.length) ;
+					  break;
+       default :  View.showInfo("正在输入... 按Enter键确认！");  
+	   }//end of switch
+	  //用户输入的是一个字符（key.length === 1），有可能是作为单词字母的输入
+      if (key.length === 1)	{ 
+			Model.inputWord += key ;
+		}
+	
+   }; //end of document.body.onkeydown function
+ }//end of function Controller
+
+
+
+ window.onload = Controller ;
+ 
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+   CET6单词训练器Beta3（实现键盘控制）
+  </h1>
+  <div id="en">
+   <p id="input"> </p>
+   <p id="hint"> </p>
+  </div>
+
+  <div id="ph">
+  </div>
+  
+  <div id="cn">
+  </div>
+  <h2 align = "center" id  = "statusInfo" >
+  按Shift切换单词提示，按Tab填入提示单词，按Enter确认单词
+  <h2>
+ </body>
+</html>

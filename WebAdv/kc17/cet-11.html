@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本例针对CET6单词训练程序的单词候选算法，研究改进算法和在局部改进算法极高地提高软件系统的性能。同时由于算法增加，也涉及局部代码的变量的增加，我们写代码时，就可以很好理解局部变量和全部变量的关系，也很好地理解了局部代码和全局的关系。</title>
+  <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	}
+	div{
+	   font-size:20px;
+	   }
+	div#en{
+	 width: 90% ;
+	 margin:auto ;
+	 position: relative;
+	 border: thick inset;
+	 height: 80px;
+	 font-size: 20px ;
+	 background: black;
+	}
+
+	div#en>p#input,div#en>p#hint{
+     position: absolute;
+     font-size: 2.5em;
+	 margin:10px;
+	 padding:0;
+	}
+	div#en>p#input{
+	 color:#5f5;
+	 z-index:2;
+     	}
+	div#en>p#hint{
+	 color:#999;
+     z-index:1;
+		}
+    div#ph{
+	 font-size: 2.5em;
+	 margin:auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:auto;
+     text-align:center;
+	 color:#f33;
+	}
+   </style>
+  <script src="../kc16/cet6.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+	/*
+	本次代码改进了getReadyWords方法中的算法
+	在改进前，这段代码在作者测试时，每次敲键响应耗时在10 ms至60ms之间，多数情况在40ms以上，在匹配单词少的情况下，耗时却会更多，主要耗时发生在双重for循环中。
+   改进的算法使用了二个单重循环，改进算法的代码对比测试时，每次敲键响应耗时在2 ms至3ms之间，在匹配单词少的情况下，几乎不变，这样我们就把每次敲键的代码的计算能力提高了几十倍。
+	*/
+	"use strict" ;
+  {
+    let dictEn6 = [];
+	for (let  element of CET6 )	{
+		let word = {en: "" , ph: "", cn: ""} ;
+		let pos1 = element.search("/") ;
+		word.en = element.substring(0,pos1) ;
+		element = element.substring( pos1 + 1 ) ;
+		 pos1 = element.search("/") ;
+		word.ph = element.substring(0, pos1) ;
+		word.cn = element.substring( pos1 + 1 ) ;
+		dictEn6.push(word) ;
+	 } //end of for dictEn6 from CET6
+	 CET6 = dictEn6 ;
+  }
+
+
+  var Model = { 
+    inputWord : "" , //记录用户实际编辑或输入的单词结果
+	word : {} , //存放程序预判并提示输出的单词（对象形式）
+    cursorOn : true , //记录在当前模型运行时刻，光标是否在屏幕上。
+	clock : null , //记录控制当前setInterval异步代码的时钟对象
+	readyIndex : 0 ,//存放程序当前正在显示的，预选单词数组readyWords的索引。
+	readyWords : [ ]  , //存放程序帮我们预选的单词对象 。 
+	nextWord :	function(){
+	  if (this.readyIndex < this.readyWords.length - 1){
+         this.readyIndex++ ;
+	  } else{
+	     this.readyIndex = 0 ;
+	  }
+	   this.word = this.readyWords[this.readyIndex] ;
+	   //this.inputWord = "" ;
+	   View.showHint(); 
+	   View.phDom.textContent = `【 phonetic 】` ;
+	   View.cnDom.textContent = `词性，中文等` ;
+	},//end of nextWord 用户按Shift键，可切换提示
+	 //用户每次有效地输入，都要重新计算需要准备的单词
+	 getReadyWords : function(){
+	    let inputWord = this.inputWord.trim().toLowerCase() ;
+		let readyWords = [] ;
+	   	
+	   /*******
+		本段代码在作者测试时，每次敲键响应耗时在10 ms至60ms之间，在匹配单词少的情况下，耗时却会更多，主要耗时发生在双重for循环中。
+	    var time1 = new Date() ;
+		for (let word of CET6){
+			if (word.en === inputWord){
+				readyWords.push(word) ;
+			}
+		}
+       for (let word of CET6){
+          for (let num = 0; num < 26 ; num++ ) {
+		   let chCode = "a".charCodeAt() + num ;
+		   let matchWord = inputWord + String.fromCharCode(chCode) ;
+		   let part = word.en.substring(0,matchWord.length) ;
+		   if (part.toLowerCase() === matchWord.toLowerCase() ) {
+              readyWords.push(word) ;
+		       }
+		   }//end of num 对每个单词作26种尝试，计算是否匹配？意味着每次按键都会触发26*5498（ 十万次的）对比运算，虽然在现代计算机和现代浏览器的加持下，每次敲键导致的这点运算量不大，但这个算法效率还有多大提高空间呢，这个问题将留给算法爱好者探讨？
+         }//end of CET6 
+		 *********/
+		
+		//鉴于二种情况，一是JavaScript内置了按字母顺序比较字母大小，比如： 'bc'>'bb' -->true  'bb'==='bb' -->true。二是我们的CET数据数组已经是严格按这种字母排序的。
+		//因此下面我们设计一个算法，用一次遍历CET数组，就可以找出inputWord匹配在CET6数组的起始位置，把这个下标记录在begin中， 而通过inputWord + "z"的比较，在CET6数组中个找到匹配的结束位置，记录到变量end中。
+		//最后，我们只要把begin和end之间的CET6的单词对象，作为候选单词传给readyWords数组即可 。
+      //下面这段代码在作者测试时，每次敲键响应耗时在0 ms至3ms之间，实际上每次运算都在1ms内，这2、3ms都只是体现编译器对代码动态运行区别。这样，改进算法后我们就把每次敲键的代码的计算能力提高了几十倍。
+
+	  { //---------“计算候选单词”改进算法开始
+	  //该算法虽然比较复杂，但其复杂性与全局完全无关，这里的局部变量全部用let进行声明，包括time1、time2、i、begin、end、word、eword，本算法块代码运行结束后，这些局部变量会自行释放，完全不会影响全局环境。本算法块代码对外的数据交流只有二个工作面，一是读取了CET6、inputWord二个外部变量，二是更改了readyWords这个外部变量。
+	
+      let time1 = new Date() ;
+	  let begin = 0 ,
+		    end = CET6.length ;
+		for (let i=0 ; i < end ; i++){
+			let word = CET6[i] ;
+			let eword = word.en.toLowerCase() ;
+			// begin位置的计算逻辑如下：
+			if (inputWord === eword.substring(0,inputWord.length)
+			    &&	begin ===0 ) {
+			    begin = i ;
+              } else if (inputWord > eword){
+                  begin = i + 1  ;
+			   }
+			if (inputWord === eword){
+               readyWords[0] = word ;
+			 }
+			//end位置的计算逻辑如下：
+            if (eword >= inputWord + "z") {
+				end = i ;
+				//console.log(begin+'--'+end);
+			    break ;
+			 }
+		   }//end for 循环，本算法只要遍历一遍CET6数组即可
+		 
+		 //CET数组索在begin和end之间的单词，提交准备，CET6数组元素排序已经严格按英文（元素.en）的字母排序，否则这个算法运行前，之前还要增加对CET6的英文单词排序。
+         for (let i = begin; i < end ; i++ ) {
+             readyWords.push(CET6[i]) ;
+		   }//end of readyWords 
+        
+		let time2 = new Date() ;
+		console.log("共计推荐 "+readyWords.length+" 个单词！");
+		console.log("计算耗时：" + (time2-time1) +" ms .");
+	 }//------------------“计算候选单词”改进算法结束
+   
+	 this.readyWords = readyWords ;
+	 if (readyWords.length > 0) {
+      this.readyIndex = 0 ;
+	  this.word = this.readyWords[0] ;
+	   View.showHint(); 
+	   View.showInfo("按Shift键，共 "+readyWords.length+" 个单词,推荐您输入！");
+	 }else{
+	   View.showInfo("按退格键，没有匹配到任何单词！");
+       this.readyWords.push({en:inputWord + " <--BackSpace" , ph:"" , cn: ""});
+	 }
+	 View.phDom.textContent = `【 phonetic 】` ;
+     View.cnDom.textContent = `词性，中文等` ;
+	},//end of getReadyWords
+	  } ;
+ 
+  var View = {
+    inputDom : null ,
+    hintDom : null ,
+    phDom : null ,
+    cnDom : null ,
+	infoDom : null ,
+	getUIDom : function(){
+       this.inputDom = document.querySelector("div#en>p#input") ;
+       this.hintDom = document.querySelector("div#en>p#hint") ;
+       this.phDom = document.querySelector("div#ph") ;
+       this.cnDom = document.querySelector("div#cn") ;
+       this.infoDom = document.querySelector("h2#statusInfo") ;
+	},
+	showHint : function(){
+	     this.hintDom.textContent = Model.word.en  ;
+  	 } , //end of showHint
+	showWord : function (){
+	 if( Model.inputWord.trim() === Model.word.en ){
+	  this.phDom.textContent = `【 ${Model.word.ph} 】` ;
+	  this.cnDom.textContent = Model.word.cn ;
+	  }else{
+	  this.phDom.textContent = `【 phonetic 】` ;
+	  this.cnDom.textContent = `词性，中文等` ;
+	 }
+	},//endof showWord method
+    showCursor : function(){ 
+	 if (Model.clock){
+       clearInterval(Model.clock) ;
+	  }
+	 const speed = 10 ; //这里可以调整光标闪烁频率，当前为 1000/speed
+	 Model.clock = setInterval(function(){
+		  if (Model.cursorOn)  {
+           View.inputDom.textContent = Model.inputWord + "_" ;
+		    }else{
+	       View.inputDom.textContent = Model.inputWord ;
+			}
+		   Model.cursorOn = ! Model.cursorOn ;
+		 } , 1000/speed);
+	},//end fo showCursor
+    showInfo : function(info){
+	  this.infoDom.textContent = info ;
+    },
+   };//end of View
+ function Controller(){
+	 //对CET6单词库中，查找a到z开头的单词首个单词，把这些单词对象作为数据
+    
+	let num = 0 ;
+	for (let word of CET6){
+ 	  let chCode = "a".charCodeAt() + num ;
+	  if (word.en.substring(0,1).toLowerCase() === String.fromCharCode(chCode)) {
+       	  Model.readyWords.push(word) ;
+		  num++ ; 
+      }
+	}//end of CET数组遍历
+	
+	Model.word = Model.readyWords[Model.readyIndex] ;
+
+    View.getUIDom() ;
+    View.showHint() ; 
+	View.showCursor() ;
+ 
+	document.body.onkeydown = function(eObj){
+	    //改动后代码逻辑更加清晰
+	  //关闭Tab键、F5、ctrl+r 等默认的系统功能
+	  eObj.preventDefault(); 
+      var key = eObj.key ;
+	
+      const Fkeys = ["Backspace","Control","Enter","CapsLock","Shift","Alt","Tab","Escape"] ;//当前代码还不需要这个按键的常量数组
+	 
+	  switch (key) {
+	   case "Enter" :  View.showWord() ; break;
+       case "Escape" : Model.inputWord = "" ; break;
+	   case "Tab" :    Model.inputWord = Model.word.en ;
+					   break;
+	   case "Backspace" : 
+	                  Model.inputWord = Model.inputWord.substring(0,Model.inputWord.length-1) ;
+					  Model.getReadyWords() ;
+	              break;
+	   case "Shift" : Model.nextWord() ;  
+	                  View.showInfo("切换提示单词："+ (Model.readyIndex + 1) + "/" + Model.readyWords.length) ;
+					  break;
+       default :  View.showInfo("正在输入... 按Enter键确认！");  
+	   }//end of switch
+	  //用户输入的是一个字符（key.length === 1），有可能是作为单词字母的输入
+      if (key.length === 1)	{ 
+			Model.inputWord += key ;
+			Model.getReadyWords() ;
+		}
+	
+   }; //end of document.body.onkeydown function
+ }//end of function Controller
+
+
+
+ window.onload = Controller ;
+ 
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+  CET6单词训练器V1.0（实现单词即时互动）
+  </h1>
+  <div id="en">
+   <p id="input"> </p>
+   <p id="hint"> </p>
+  </div>
+
+  <div id="ph">
+  </div>
+  
+  <div id="cn">
+  </div>
+  <h2 align = "center" id  = "statusInfo" >
+  对输入即时提示，按Shift切换提示，按Tab填入提示，按Enter确认查询。
+  <h2>
+ </body>
+</html>

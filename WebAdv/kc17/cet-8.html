@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>重构后的代码更有利于修改和扩充功能，本例中，我们着重修改与用户按键互动功能。比如: 把Web页底部的文字设计成为与用户的互动信息输出。
+  </title>
+  <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	}
+	div{
+	   font-size:20px;
+	   }
+	div#en{
+	 width: 90% ;
+	 margin:auto ;
+	 position: relative;
+	 border: thick inset;
+	 height: 80px;
+	 font-size: 20px ;
+	 background: black;
+	}
+
+	div#en>p#input,div#en>p#hint{
+     position: absolute;
+     font-size: 2.5em;
+	 margin:10px;
+	 padding:0;
+	}
+	div#en>p#input{
+	 color:#5f5;
+	 z-index:2;
+     	}
+	div#en>p#hint{
+	 color:#999;
+     z-index:1;
+		}
+    div#ph{
+	 font-size: 2.5em;
+	 margin:auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:auto;
+     text-align:center;
+	 color:#f33;
+	}
+   </style>
+  <script src="../kc16/cet6.js">
+  </script>
+  <script type="text/javascript">
+  <!--
+	/*
+  具体实施中，我们在View对象中还增加了表达输出的DOM元素和其showInfo输出方法，在Controller中，在此重构键盘按键分析的代码基础上，我们再对用户按Tab键进行提示，避免了用户按Tab键后，导致键盘输入无效的情况。
+  本例还深入继续一些代码改动，坚持用模型思维的概念，让代码结构和逻辑持续变得清晰起来。
+	*/
+	"use strict" ;
+  {
+    let dictEn6 = [];
+	for (let  element of CET6 )	{
+		let word = {en: "" , ph: "", cn: ""} ;
+		let pos1 = element.search("/") ;
+		word.en = element.substring(0,pos1) ;
+		element = element.substring( pos1 + 1 ) ;
+		 pos1 = element.search("/") ;
+		word.ph = element.substring(0, pos1) ;
+		word.cn = element.substring( pos1 + 1 ) ;
+		dictEn6.push(word) ;
+	 } //end of for dictEn6 from CET6
+	 CET6 = dictEn6 ;
+  }
+ /**
+   本版程序，继续分析Controller函数应该处理的按键，并用户按键，包括错误按Tab键情况，在程序输出时，给出了及时反馈！
+ **/
+
+  var Model = {
+    inputWord : "" , //记录用户实际编辑或输入的单词结果
+	index : 0 , //本APP当前选择的单词在CET6库的下标 
+	word : {} , //记录当前学习的单词对象
+    cursorOn : true , //记录在当前模型运行时刻，光标是否在屏幕上。
+	clock : null , //记录控制当前setInterval异步代码的时钟对象
+	nextWord :	function(){
+	   let randNum = Math.floor(CET6.length * Math.random()) ;
+       this.word = CET6[randNum] ;
+	   View.showHint(); 
+	   Model.inputWord = "" ;
+	   View.phDom.textContent = `【 phonetic 】` ;
+	   View.cnDom.textContent = `词性，中文等` ;
+	},//endof nextWord function
+	  } ;
+ //
+  var View = {
+    inputDom : null ,
+    hintDom : null ,
+    phDom : null ,
+    cnDom : null ,
+	infoDom : null ,
+	getUIDom : function(){
+       this.inputDom = document.querySelector("div#en>p#input") ;
+       this.hintDom = document.querySelector("div#en>p#hint") ;
+       this.phDom = document.querySelector("div#ph") ;
+       this.cnDom = document.querySelector("div#cn") ;
+       this.infoDom = document.querySelector("h2#statusInfo") ;
+	},
+	showHint : function(){
+	     this.hintDom.textContent = Model.word.en  ;
+  	 } , //end of showHint
+	showWord : function (){
+	 //用字符串的trim()方法，用户输入时小小体验的改进（针对单词后的空格）
+	 if( Model.inputWord.trim() === Model.word.en ){
+	  this.phDom.textContent = `【 ${Model.word.ph} 】` ;
+	  this.cnDom.textContent = Model.word.cn ;
+	  }else{
+	  this.phDom.textContent = `【 phonetic 】` ;
+	  this.cnDom.textContent = `词性，中文等` ;
+	 }
+	},//endof showWord method
+    showCursor : function(){ // showCursor方法实现了对Model内记录的用户输入的单词，inputWord的Dom输出，但并未输出提示单词
+	 if (Model.clock){
+       clearInterval(Model.clock) ;
+	  }
+	 const speed = 10 ; //这里可以调整光标闪烁频率，当前为 1000/speed
+	 Model.clock = setInterval(function(){
+		  if (Model.cursorOn)  {
+           View.inputDom.textContent = Model.inputWord + "_" ;
+		    }else{
+	       View.inputDom.textContent = Model.inputWord ;
+			}
+		   Model.cursorOn = ! Model.cursorOn ;
+		 } , 1000/speed);
+	},//end fo showCursor
+    showInfo : function(info){
+	  this.infoDom.textContent = info ;
+    },
+   };//end of View
+ function Controller(){
+	Model.index = Math.floor(CET6.length * Math.random()) ;
+	Model.word = CET6[Model.index] ;
+
+    View.getUIDom() ;
+    View.showHint() ; 
+	View.showCursor() ;
+ 
+	document.body.onkeydown = function(eObj){
+      var key = eObj.key ;
+	  //下面是本版代码的重要重构部分，改动较大，改动后代码逻辑更加清晰
+      const Fkeys = ["Backspace","Control","Enter","CapsLock","Shift","Alt","Tab","Escape"] ;//当前代码还不需要这个按键的常量数组
+	  //模型和UI对用户按键(功能)的响应，都由下面的switch语句统一完成。
+	  switch (key) {
+	   case "Enter" :  View.showWord() ; break;
+       case "Escape" : Model.nextWord() ; break;
+	   case "Tab" : View.showInfo("注意：不能按Tab键，请点击页面返回本程序！") ;  break;
+	   case "Backspace" : 
+	                  Model.inputWord = Model.inputWord.substring(0,Model.inputWord.length-1) ;
+	              break;
+      default :  View.showInfo("正在输入... 按Enter键确认！");  
+	   }//end of switch
+	  //用户输入的是一个字符（key.length === 1），有可能是作为单词字母的输入
+      if (key.length === 1)	{ 
+			Model.inputWord += key ;
+		}
+	
+   }; //end of document.body.onkeydown function
+ }//end of function Controller
+
+
+
+ window.onload = Controller ;
+ 
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+  CET6单词训练器Beta2(实现互动提示)
+  </h1>
+  <div id="en">
+   <p id="input"> </p>
+   <p id="hint"> </p>
+  </div>
+
+  <div id="ph">
+  </div>
+  
+  <div id="cn">
+  </div>
+  <h2 align = "center" id  = "statusInfo" >
+   优化部分代码，Esc下一个，误按Tab键情况提示
+  <h2>
+ </body>
+</html>
