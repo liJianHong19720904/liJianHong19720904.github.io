@@ -1,27 +1,20 @@
 ﻿1.title
-  Developing CET Project For Mobile（开发篇：CET项目第3阶段，触屏事件和移动端UI编程）
+    Improve System Performance With Ajax And Algorithm（开发篇：CET项目第3阶段之系统性能——以网络异步编程和算法改进为例）
 2.introduction
-   内容准备中。。。。
+   尽管计算机性能不断提升，但人们对系统的性能追求还是永无止尽的，而不同质量的代码对系统性能影响，其差别是巨大的。CET项目选择在第三阶段，来探索这个比较抽象的性能问题，当作一次学习高质量代码内功专题。当然也可以解决CET项目初次运行“卡”问题，同时对写出更高性能的代码进行探索。本课对当前CET项目设计了五个逐渐递进案例，前二个案例专注Ajax异步编程，后三个案例专注性能分析和算法改进，案例全部需要Console面板查看输出效果。
 
 3.keyword
- 内容准备中。。。。 
+  "use strict"  ，HTTP requests  ，Ajax ，Asynchronous JavaScript and XML ，XMLHttpRequest ，onreadystatechange  ，open ，send ，readyState ，status ，responseText ，JSON.parse ，console.time ，console.timeEnd ，fromCharCode ，charCodeAt  ， toLowerCase  ， sort。 
 	
 4.project
-  内容准备中。。。。
-  内容准备中。。。。
-  内容准备中。。。。
-  内容准备中。。。。
+    <a src=cet-11.html>本例我们引入当年谷歌改变Web世界面貌的异步网络编程技术，简称Ajax，用JavaScript代码异步读取服务器上的文本文件，而我们有了之前面向对象程序的知识准备，语法上学起来不难，但理解代码异步执行的过程却非常不易。
+  <a src=cet-12.html>本例将异步从网络读取的文本进行代码处理，清除了原文本文件中回车和换行字符，这样JSON.parse才能正确解析字符串数组。本例还解决了上例程序严重出错的问题，由于CET6全局变量是异步代码处理的，Controller中的代码会提前运行，因此其中有关读写CET6的代码必须延迟运行，此处代码的改变才让程序能重新运行。
+  <a src=cet-13.html>分析增加的Ajax访问代码和异步时间差，我们发现，在时间维度上理解代码代码运行是理解异步编程的关键，本例我们从微观时间详细分析程序和数据的变化，为此，本例引入用于后台快捷计算时间差的API，：console.time(t)和console.timeEnd(t)，t为标识时刻的字符串。  本例在Ajax访问的各个阶段、单词数据处理阶段，计算推荐单词阶段，都使用了JavaScript的时间戳，让我们能直观体验到代码的效率。
+  <a src=cet-14.html>每次敲键时，CET项目的程序都会实时计算候选单词，这体现了本项目的核心功能。其代码在Model中getReadyWords方法中，但其候选单词的计算算法并不高效，我们本例改进这个算法，改进后程序的计算效率提高十倍以上。另外，案例让学习者体验在大项目中深入思考局部细节的感觉，初步探索在复杂的代码中写局部代码的技巧。关键在于深入了解局部变量、外部变量和全局变量的关系，从而真正理解大型代码中的变量作用域（scope）这个难点问题。
+  <a src=cet-15.html>为何cet6.txt文件尾部添加的二个单词（cascade和mentor），程序无法实现提示？为解决这个问题，本例使用Array类的sort方法，通过自定义排序函数，完成CET6数组的单词对象按字母的排序（在单词处理代码模块内）。考虑到普通开发者对这种函数式编程完全没有经验，建议初学者可在Console面板中，先用一个简单的数组演练sort方法及传入函数参数。另外，本例也没有再原创一套算法代码实现排序，而是演示JavaScript这类现代编程语言天然拥有的内置API，当然这种开发方式仅适用于已经熟练掌握基本算法的开发者，对于正在学习算法的开发者而言，手写代码实现算法是非常必要的！建议正在学习算法的学生自己实现sort方法。
 
 5.reading
+XMLHttpRequest() is an object (a constructor function) that allows you to send HTTP requests from JavaScript.  The common implementation of this object across browsers gave birth to the so-called Ajax applications, where it's no longer necessary to refresh the whole page every time you need new content. With JavaScript, you can make an HTTP request to the server, get the response, and update only a part of the page. This way you can build much more responsive and desktop-like web pages.
 
-Object-Oriented
-JavaScript is an object-oriented language, which often surprises developers who have previously looked at the language and dismissed it. Anything you look at in a piece of JavaScript code has a good chance of being an object. Only five primitive types are not objects: number, string, boolean, null, and undefined, and the first three have corresponding object representation in the form of primitive wrappers (discussed in the next chapter). Number, string, and boolean primitive values are easily converted to objects either by the programmer or sometimes behind the scenes by the JavaScript interpreter. Functions are objects, too. They can have properties and methods. 
-The simplest thing you do in any language is define a variable. Well, in JavaScript when you define a variable, you’re already dealing with objects. First, the variable  automatically becomes a property of an internal object known as an Activation Object (or a property of the global object if it’s a global variable). Second, this variable is actually also object-like because it has its own properties (called attributes), which determine whether the variable can be changed, deleted, or enumerated in a for-in loop. 
-So what are the objects? Because they do so many things they must be quite special. Actually they are extremely simple. An object is just a collection of named properties, a list of key-value pairs (almost identical to an associative array in other languages). Some of the properties could be functions (function objects), in which case we call them methods. 
-And one last thing to keep in mind is that there are two main types of objects:
- Native -- Described in the ECMAScript standard .
- Host   -- Defined by the host environment (for example, the browser environment) .
- The native objects can further be categorized as built-in (for example, Array, Date) or user-defined ( var o = {}; ) . 
- Host objects are, for example, window and all the DOM objects. If you’re wondering whether you’re using host objects, try running your code in a different, nonbrowser environment. If it works fine, you’re probably using only native objects.
-
+There are two steps to using the XMLHttpRequest .   Send the request: This includes creating an XMLHttpRequest object and attaching an event listener .  Process the response:  Your event listener gets notified that the response has arrived and your code gets busy doing something amazing with the response .
 

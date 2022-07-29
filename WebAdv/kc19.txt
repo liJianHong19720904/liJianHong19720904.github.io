@@ -1,0 +1,29 @@
+﻿1.title
+  A Visual Keyboard for CET Project（开发篇：CET项目第3阶段，写一套自己的虚拟键盘）
+2.introduction
+   内容准备中。。。。
+
+3.keyword
+ 内容准备中。。。。 
+	
+4.project
+  <a src=cet-16.html>内容准备中。。。。
+  <a src=cet-17.html>内容准备中。。。。
+  <a src=cet-18.html>内容准备中。。。。
+  <a src=cet-19.html>内容准备中。。。。
+  
+  
+
+5.reading
+
+Object-Oriented
+JavaScript is an object-oriented language, which often surprises developers who have previously looked at the language and dismissed it. Anything you look at in a piece of JavaScript code has a good chance of being an object. Only five primitive types are not objects: number, string, boolean, null, and undefined, and the first three have corresponding object representation in the form of primitive wrappers (discussed in the next chapter). Number, string, and boolean primitive values are easily converted to objects either by the programmer or sometimes behind the scenes by the JavaScript interpreter. Functions are objects, too. They can have properties and methods. 
+The simplest thing you do in any language is define a variable. Well, in JavaScript when you define a variable, you’re already dealing with objects. First, the variable  automatically becomes a property of an internal object known as an Activation Object (or a property of the global object if it’s a global variable). Second, this variable is actually also object-like because it has its own properties (called attributes), which determine whether the variable can be changed, deleted, or enumerated in a for-in loop. 
+So what are the objects? Because they do so many things they must be quite special. Actually they are extremely simple. An object is just a collection of named properties, a list of key-value pairs (almost identical to an associative array in other languages). Some of the properties could be functions (function objects), in which case we call them methods. 
+And one last thing to keep in mind is that there are two main types of objects:
+ Native -- Described in the ECMAScript standard .
+ Host   -- Defined by the host environment (for example, the browser environment) .
+ The native objects can further be categorized as built-in (for example, Array, Date) or user-defined ( var o = {}; ) . 
+ Host objects are, for example, window and all the DOM objects. If you’re wondering whether you’re using host objects, try running your code in a different, nonbrowser environment. If it works fine, you’re probably using only native objects.
+
+
