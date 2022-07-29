@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>尽管计算机性能不断提升，但人们对系统的性能追求还是永无止尽的，而不同质量的代码对系统性能影响，其差别是巨大的。我们的CET项目选择这个阶段，探索这个比较抽象的性能问题，也算作一次高质量代码内功修炼的专题。
+  为解决CET初次运行“卡”问题，同时探索写出更高性能的代码，本课对当前CET项目设计了四个递进案例，案例全部需要Console面板查看输出。
+  本例我们引入当年谷歌改变Web世界面貌的异步网络编程技术，简称Ajax，用JavaScript代码异步读取服务器上的文本文件，而今天我们之前有了面向对象的知识准备，语法上学起来不难，但需要理解代码异步执行的过程。</title>
+  <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	}
+	div{
+	   font-size:20px;
+	   }
+	div#en{
+	 width: 90% ;
+	 margin:auto ;
+	 position: relative;
+	 border: thick inset;
+	 height: 80px;
+	 font-size: 20px ;
+	 background: black;
+	}
+
+	div#en>p#input,div#en>p#hint{
+     position: absolute;
+     font-size: 2.5em;
+	 margin:10px;
+	 padding:0;
+	}
+	div#en>p#input{
+	 color:#5f5;
+	 z-index:2;
+     	}
+	div#en>p#hint{
+	 color:#999;
+     z-index:1;
+		}
+    div#ph{
+	 font-size: 2.5em;
+	 margin:auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:auto;
+     text-align:center;
+	 color:#f33;
+	}
+   </style>
+  <!--
+   第一次进入本系统的用户，可能程序会在这里卡几秒（甚至更长时间），
+   <script src="../kc16/cet6.js">
+   </script>
+  -->
+   <script type="text/javascript">
+   <!--
+   	"use strict" ;
+    var CET6 = [] ;
+	//开始异步网络访问
+   //XMLHttpRequest() is an object (a constructor function) that allows you to send HTTP requests from JavaScript.
+ { //-------------------Ajax 访问网络获取数据的代码模块，异步运行，异步实现CET6单词数据的创建，且不增加任何全局变量
+	  let xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = myCallback ;
+          xhr.open('GET',"cet6.txt",true);
+          xhr.send('');
+      function myCallback(){
+ // 在XMLHttpRequest实例对象xhr控制下，通过http网络协议，myCallback函数将会被异步执行四次，对应xhr的onreadystatechange的事件发生，xhr的属性readyState也会变化4次
+       console.log("---服务器响应：--- : "+ xhr.readyState);
+       if (xhr.readyState ===0 ){
+           console.log("0.糟糕，无远程响应！");
+           return ;
+       }
+       if (xhr.readyState === 1 ){
+           console.log("1.还行，开始传送远程数据...");
+           return ;
+       } 
+       if (xhr.readyState === 2 ){
+           console.log("2.不错，远程数据传送完成.");
+           return ;
+       } 
+       if (xhr.readyState === 3 ){
+           console.log("3.似乎好了，收发双方报告：通讯完成 .");
+           return ;
+       } 
+       if (xhr.readyState === 4 ){
+           console.log("4.成功了，本次http请求有效，获取成功！");
+           if (xhr.status !== 200){
+               console.log("Sorry，本次http请求的内容，没有获取成功! ");
+               return ;
+           }else{//xhr.status === 200 ，xhr.responseText可用
+             let theText = xhr.responseText ;
+			 console.log("通过HTTP请求，成功获取以下文本数据：");
+             console.log(theText);
+			 CET6 = JSON.parse('[' + theText + ']') ;
+			 //JSON.parse API将字符串转换为代码
+			  {//---把单词字符串数组处理为对象，代码模块开始
+				let dictEn6 = [];
+				for (let  element of CET6 )	{
+					let word = {en: "" , ph: "", cn: ""} ;
+					let pos1 = element.search("/") ;
+					word.en = element.substring(0,pos1) ;
+					element = element.substring( pos1 + 1 ) ;
+					 pos1 = element.search("/") ;
+					word.ph = element.substring(0, pos1) ;
+					word.cn = element.substring( pos1 + 1 ) ;
+					dictEn6.push(word) ;
+				 } //end of for dictEn6 from CET6
+				 CET6 = dictEn6 ;
+                }//---把单词字符串数组处理为对象 代码模块结束
+             } // success of GET file
+            }//readyState === 4
+          }//end of myCallback
+		}//---------Ajax 访问网络获取数据，代码模块结束   
+   //-->
+   </script>
+  <script type="text/javascript">
+  <!--
+	/*
+	学习本例需要对网络底层知识稍有了解，知道http协议的一般原理后，才能更理解代码。为何要用异步编程技术读取网络数据？
+	本程序在远程读取cet.ks文件时，若没有Ajax代码控制，初次打开本程序一定会感觉“卡”为什么？	注意：首先，为何是初次访问本程序才会卡？因为浏览器有强大的缓存能力，第二次访问本程序的cet.ks文件，系统就会访问本地缓存了）。
+	*/
+
+   var Model = { 
+    inputWord : "" , //记录用户实际编辑或输入的单词结果
+	word : {} , //存放程序预判并提示输出的单词（对象形式）
+    cursorOn : true , //记录在当前模型运行时刻，光标是否在屏幕上。
+	clock : null , //记录控制当前setInterval异步代码的时钟对象
+	readyIndex : 0 ,//存放程序当前正在显示的，预选单词数组readyWords的索引。
+	readyWords : [ ]  , //存放程序帮我们预选的单词对象 。 
+	nextWord :	function(){
+	  if (this.readyIndex < this.readyWords.length - 1){
+         this.readyIndex++ ;
+	  } else{
+	     this.readyIndex = 0 ;
+	  }
+	   this.word = this.readyWords[this.readyIndex] ;
+	   //this.inputWord = "" ;
+	   View.showHint(); 
+	   View.phDom.textContent = `【 phonetic 】` ;
+	   View.cnDom.textContent = `词性，中文等` ;
+	},//end of nextWord 用户按Shift键，可切换提示
+	 //用户每次有效地输入，都要重新计算需要准备的单词
+	 getReadyWords : function(){
+	    let inputWord = this.inputWord.trim().toLowerCase() ;
+		let readyWords = [] ;
+	   	
+	    var time1 = new Date() ;
+		for (let word of CET6){
+			if (word.en === inputWord){
+				readyWords.push(word) ;
+			}
+		}
+       for (let word of CET6){
+          for (let num = 0; num < 26 ; num++ ) {
+		   let chCode = "a".charCodeAt() + num ;
+		   let matchWord = inputWord + String.fromCharCode(chCode) ;
+		   let part = word.en.substring(0,matchWord.length) ;
+		   if (part.toLowerCase() === matchWord.toLowerCase() ) {
+              readyWords.push(word) ;
+		       }
+		   }//end of num 对每个单词作26种尝试，计算是否匹配？意味着每次按键都会触发26*5498（ 十万次的）对比运算，虽然在现代计算机和现代浏览器的加持下，每次敲键导致的这点运算量不大，但这个算法效率还有多大提高空间呢，这个问题将留给算法爱好者探讨？
+         }//end of CET6 
+		let time2 = new Date() ;
+		console.log("共计推荐 "+readyWords.length+" 个单词！");
+		console.log("计算耗时：" + (time2-time1) +" ms .");
+	 
+   
+	 this.readyWords = readyWords ;
+	 if (readyWords.length > 0) {
+      this.readyIndex = 0 ;
+	  this.word = this.readyWords[0] ;
+	   View.showHint(); 
+	   View.showInfo("按Shift键，共 "+readyWords.length+" 个单词,推荐您输入！");
+	 }else{
+	   View.showInfo("按退格键，没有匹配到任何单词！");
+       this.readyWords.push({en:inputWord + " <--BackSpace" , ph:"" , cn: ""});
+	 }
+	 View.phDom.textContent = `【 phonetic 】` ;
+     View.cnDom.textContent = `词性，中文等` ;
+	},//end of getReadyWords
+	  } ;
+ 
+  var View = {
+    inputDom : null ,
+    hintDom : null ,
+    phDom : null ,
+    cnDom : null ,
+	infoDom : null ,
+	getUIDom : function(){
+       this.inputDom = document.querySelector("div#en>p#input") ;
+       this.hintDom = document.querySelector("div#en>p#hint") ;
+       this.phDom = document.querySelector("div#ph") ;
+       this.cnDom = document.querySelector("div#cn") ;
+       this.infoDom = document.querySelector("h2#statusInfo") ;
+	},
+	showHint : function(){
+	     this.hintDom.textContent = Model.word.en  ;
+  	 } , //end of showHint
+	showWord : function (){
+	 if( Model.inputWord.trim() === Model.word.en ){
+	  this.phDom.textContent = `【 ${Model.word.ph} 】` ;
+	  this.cnDom.textContent = Model.word.cn ;
+	  }else{
+	  this.phDom.textContent = `【 phonetic 】` ;
+	  this.cnDom.textContent = `词性，中文等` ;
+	 }
+	},//endof showWord method
+    showCursor : function(){ 
+	 if (Model.clock){
+       clearInterval(Model.clock) ;
+	  }
+	 const speed = 10 ; //这里可以调整光标闪烁频率，当前为 1000/speed
+	 Model.clock = setInterval(function(){
+		  if (Model.cursorOn)  {
+           View.inputDom.textContent = Model.inputWord + "_" ;
+		    }else{
+	       View.inputDom.textContent = Model.inputWord ;
+			}
+		   Model.cursorOn = ! Model.cursorOn ;
+		 } , 1000/speed);
+	},//end fo showCursor
+    showInfo : function(info){
+	  this.infoDom.textContent = info ;
+    },
+   };//end of View
+ function Controller(){
+	 //对CET6单词库中，查找a到z开头的单词首个单词，把这些单词对象作为数据
+    
+	let num = 0 ;
+	for (let word of CET6){
+ 	  let chCode = "a".charCodeAt() + num ;
+	  if (word.en.substring(0,1).toLowerCase() === String.fromCharCode(chCode)) {
+       	  Model.readyWords.push(word) ;
+		  num++ ; 
+      }
+	}//end of CET数组遍历
+	
+	Model.word = Model.readyWords[Model.readyIndex] ;
+
+    View.getUIDom() ;
+    View.showHint() ; 
+	View.showCursor() ;
+ 
+	document.body.onkeydown = function(eObj){
+	    //改动后代码逻辑更加清晰
+	  //关闭Tab键、F5、ctrl+r 等默认的系统功能
+	  eObj.preventDefault(); 
+      var key = eObj.key ;
+	
+      const Fkeys = ["Backspace","Control","Enter","CapsLock","Shift","Alt","Tab","Escape"] ;//当前代码还不需要这个按键的常量数组
+	 
+	  switch (key) {
+	   case "Enter" :  View.showWord() ; break;
+       case "Escape" : Model.inputWord = "" ; break;
+	   case "Tab" :    Model.inputWord = Model.word.en ;
+					   break;
+	   case "Backspace" : 
+	                  Model.inputWord = Model.inputWord.substring(0,Model.inputWord.length-1) ;
+					  Model.getReadyWords() ;
+	              break;
+	   case "Shift" : Model.nextWord() ;  
+	                  View.showInfo("切换提示单词："+ (Model.readyIndex + 1) + "/" + Model.readyWords.length) ;
+					  break;
+       default :  View.showInfo("正在输入... 按Enter键确认！");  
+	   }//end of switch
+	  //
+      if (key.length === 1)	{ 
+			Model.inputWord += key ;
+			Model.getReadyWords() ;
+		}
+	
+   }; //end of document.body.onkeydown function
+ }//end of function Controller
+
+
+
+ window.onload = Controller ;
+ 
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+  CET6单词训练器V1.0（引入Ajax，打开Console面板查看）
+  </h1>
+  <div id="en">
+   <p id="input">输入区</p>
+   <p id="hint">输入区提示</p>
+  </div>
+
+  <div id="ph">
+  [ 音标区 ]
+  </div>
+  
+  <div id="cn">
+  词性及中文释义
+  </div>
+  <h2 align = "center" id  = "statusInfo" >
+  对输入即时提示，按Shift切换提示，按Tab填入提示，按Enter确认查询。
+  <h2>
+ </body>
+</html>

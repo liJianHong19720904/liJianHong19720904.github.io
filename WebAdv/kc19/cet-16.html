@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Implementing UI(Keyboard) for Mobile ,第一步，用CSS渲染固定页面，字符变化造成的页面避免抖动或位移，主要按浏览器高度固定软件页面的高度，用overflow属性隐藏可能溢出界面字符。第二步，按浏览器可用宽度，设置块级元素，全部利用好可用宽度，最后按window实际宽度来动态决定基础字体大小，CSS样式内重新设定各子元素使用相对字体em，以动态配合用户屏幕大小。 </title>
+    <style type="text/css">
+   body{ 
+    margin: 0 auto ;
+	border: 2px solid blue ;
+	overflow:hidden ;
+	}
+	div{
+	   font-size:1em;
+	   }
+	div#en{
+	 width: 98% ;
+	 margin:auto ;
+	 position: relative;
+	 border: thick inset;
+	 height: 4em;
+	 background: black;
+	}
+
+	div#en>p#input,div#en>p#hint{
+     position: absolute;
+     font-size: 3em;
+	 margin:-0.2em auto;
+	 padding:0.1em;
+	}
+	div#en>p#input{
+	 color:#5f5;
+	 z-index:2;
+     	}
+	div#en>p#hint{
+	 color:#999;
+     z-index:1;
+		}
+    div#ph{
+	 font-size: 2.5em;
+	 margin:0.2em auto;
+	 text-align:center;
+	 letter-spacing:0.1em;
+	 color:#23f;
+	}
+	div#cn{
+	 font-size: 2em;
+	 margin:0.2em auto;
+     text-align:center;
+	 color:#f33;
+	}
+   /***下面CSS代码生成的UI，引用自前面课程***/
+   div#kb{
+    position:relative ;
+	margin:0 auto ;
+	width: 98%;
+	/*height:100px; 高度是动态的，没法限定*/
+	background:rgba(0,0,100,0.5);
+	border:thin solid black ;
+	border-radius: 5% ;
+	color:rgb(255,255,255);
+	box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+   }
+   div#kb input{
+    font-size:3em;
+	padding:3px 2px;
+	margin:3px;
+	width: 2em ;
+	border-radius: 5px;
+	color:black;
+	border-style: outset;
+	}
+  div#kb input:hover{
+	color:darkred ;
+	cursor:pointer ;
+	}
+  div#kb input:active{
+    border-style: inset ;
+	background:gray;
+	color:lightgreen ;
+	}
+  div#kb input.fKey{
+    width: 4em ;
+	font-size:2em;
+	}
+   </style>
+
+   <script type="text/javascript">
+   <!--
+   	"use strict" ; 
+	var CET6 = [] ; //定义单词数据数组变量
+	 //开始异步网络访问
+     { //-------------------Ajax 访问网络获取获取/处理的代码模块
+	//由于异步运行，异步实现CET6单词数据的创建，模块内部的局部变量使用后，就会被清空，不增加全局变量和内存消耗。
+	  let xhr = new XMLHttpRequest();
+          console.time('time0');
+		  console.time('time1');
+          xhr.onreadystatechange = myCallback ;
+          xhr.open('GET',"../kc18/cet6.txt",true);
+          xhr.send('');
+		  
+      function myCallback(){
+ // 在XMLHttpRequest实例对象xhr控制下，通过http网络协议，myCallback函数将会被异步执行四次，对应xhr的onreadystatechange的事件发生，xhr的属性readyState也会变化4次
+       console.log("---服务器响应：--- : "+ xhr.readyState);
+       if (xhr.readyState ===0 ){
+           console.log("0.糟糕，无远程响应！");
+		   console.timeEnd("time0");
+           return ;
+       }
+       if (xhr.readyState === 1 ){
+           console.log("1.还行，开始传送远程数据...");
+		   console.timeEnd("time1");
+           console.time('time2');
+           return ;
+       } 
+       if (xhr.readyState === 2 ){
+           console.log("2.不错，远程数据传送完成.");
+		   console.timeEnd("time2");
+           console.time('time3');
+          return ;
+       } 
+       if (xhr.readyState === 3 ){
+           console.log("3.似乎好了，收发双方报告：通讯完成 .");
+		   console.timeEnd("time3");
+           console.time('time4');
+           return ;
+       } 
+       if (xhr.readyState === 4 ){
+           console.log("4.成功了，本次http请求有效，获取成功！");
+		   console.timeEnd("time4");
+            if (xhr.status !== 200){
+               console.log("Sorry，本次http请求的内容，没有获取成功! ");
+               return ;
+           }else{
+			console.time('处理单词时间');
+             let theText = xhr.responseText ;
+			 //下面立刻处理异步获得的文本数据
+			 let string = '' ,
+			     i= 0 ,
+			     length = theText.length ;
+    /* 若不把读取的文本去除换行和回车，JSON.parse 将无法正确解析*/
+			 while (i < length){
+				if (theText[i]!=='\n' && theText[i]!=='\r'){
+					string += theText[i] ;
+				}
+				i++ ;
+			 }
+           
+			 let dictEn6 = JSON.parse('[' + string + ']') ;
+			  {//---把单词字符串数组处理为对象 代码模块开始
+				for (let  element of dictEn6)	{
+					let word = {en: "" , ph: "", cn: ""} ;
+					let pos1 = element.search("/") ;
+					word.en = element.substring(0,pos1) ;
+					element = element.substring( pos1 + 1 ) ;
+					 pos1 = element.search("/") ;
+					word.ph = element.substring(0, pos1) ;
+					word.cn = element.substring( pos1 + 1 ) ;
+					CET6.push(word) ;
+			        
+				 } //end of for  dictEn6
+	           }//---把单词字符串数组处理为对象 代码模块结束
+			   { //--为CET6数组按字母排序代码模块开始
+                console.time('单词排序时间');
+			   //利用Array类的API，sort方法，传入自定义的排序函数，完成CET6单词排序，这样cet6.txt 尾部中新增的二个单词也有效了。
+                    CET6 = CET6.sort(function(a,b){
+					       let en1 = a.en.toLowerCase() ;
+						   let en2 = b.en.toLowerCase() ;
+					     return  en1 < en2 ? -1 : 1 } ) ;
+			   console.timeEnd('单词排序时间');
+			   }//--为CET6数组按字母排序代码模块结束
+             } // success of GET file
+            }//readyState === 4
+          console.timeEnd('处理单词时间');
+		  return ; //前面代码未加return，可能不严谨 
+		 }//end of myCallback	  
+	  }//---------Ajax 访问网络获取/处理数据的代码模块 结束 
+   //-->
+   </script>
+  <script type="text/javascript">
+  <!--
+	/*
+
+	*/
+  var Model = { 
+    inputWord : "" , //记录用户实际编辑或输入的单词结果
+	word : {} , //存放程序预判并提示输出的单词（对象形式）
+    cursorOn : true , //记录在当前模型运行时刻，光标是否在屏幕上。
+	clock : null , //记录控制当前setInterval异步代码的时钟对象
+	readyIndex : 0 ,//存放程序当前正在显示的，预选单词数组readyWords的索引。
+	readyWords : [ ]  , //存放程序帮我们预选的单词对象 。 
+	nextWord :	function(){
+	  if (this.readyIndex < this.readyWords.length - 1){
+         this.readyIndex++ ;
+	  } else{
+	     this.readyIndex = 0 ;
+	  }
+	   this.word = this.readyWords[this.readyIndex] ;
+	   //this.inputWord = "" ;
+	   View.showHint(); 
+	   View.phDom.textContent = `【 phonetic 】` ;
+	   View.cnDom.textContent = `词性，中文等` ;
+	},//end of nextWord 用户按Shift键，可切换提示
+	initCET: function (){
+	 //对CET6单词库中，查找a到z开头的单词首个单词，把这些单词对象作为Model.readyWords备选单词的数据
+	console.time("初始化时间");
+ 	let num = 0 ;
+	for (let word of CET6){
+ 	  let chCode = "a".charCodeAt() + num ;
+	  if (word.en.substring(0,1).toLowerCase() === String.fromCharCode(chCode)) {
+       	  Model.readyWords.push(word) ;
+		  num++ ; 
+      }
+	}//end of CET数组遍历
+	
+	Model.word = Model.readyWords[0] ;
+    View.getUIDom() ;
+    View.showHint() ; 
+	View.showCursor() ;
+	console.timeEnd("初始化时间");
+   } ,
+ //用户每次有效地输入，都要重新计算需要准备的单词
+	 getReadyWords : function(){
+	    let inputWord = this.inputWord.trim().toLowerCase() ;
+		let readyWords = [] ;
+  { //---------“计算候选单词”改进算法开始
+	 
+	  console.time("计算耗时") ;
+	  let begin = 0 ,
+		  end = CET6.length ;
+		for (let i=0 ; i < end ; i++){
+			let word = CET6[i] ;
+			let eword = word.en.toLowerCase() ;
+			// begin位置的计算逻辑如下：
+			if (inputWord === eword.substring(0,inputWord.length)
+			    &&	begin ===0 ) {
+			    begin = i ;
+              } else if (inputWord > eword){
+                  begin = i + 1  ;
+			   }
+			if (inputWord === eword){
+               readyWords[0] = word ;
+			 }
+			//end位置的计算逻辑如下：
+            if (eword >= inputWord + "z") {
+				end = i ;
+				//console.log(begin+'--'+end);
+			    break ;
+			 }
+		   }//end for 循环，本算法只要遍历一遍CET6数组即可
+         for (let i = begin; i < end ; i++ ) {
+             readyWords.push(CET6[i]) ;
+		   }//end of readyWords 
+    	
+		console.log("共计推荐 "+readyWords.length+" 个单词！");
+		console.timeEnd("计算耗时") ;
+	}//------------------“计算候选单词”改进算法结束
+
+	 this.readyWords = readyWords ;
+	 if (readyWords.length > 0) {
+      this.readyIndex = 0 ;
+	  this.word = this.readyWords[0] ;
+	   View.showHint(); 
+	   View.showInfo("按Shift键，共 "+readyWords.length+" 个单词,推荐您输入！");
+	 }else{
+	   View.showInfo("按退格键，没有匹配到任何单词！");
+       this.readyWords.push({en:inputWord + " <--" , ph:"" , cn: ""});
+	 }
+	 View.phDom.textContent = `【 phonetic 】` ;
+     View.cnDom.textContent = `词性，中文等` ;
+	},//end of getReadyWords
+	  } ;
+ 
+  var View = {
+    inputDom : null ,
+    hintDom : null ,
+    phDom : null ,
+    cnDom : null ,
+	infoDom : null ,
+	getUIDom : function(){
+       this.inputDom = document.querySelector("div#en>p#input") ;
+       this.hintDom = document.querySelector("div#en>p#hint") ;
+       this.phDom = document.querySelector("div#ph") ;
+       this.cnDom = document.querySelector("div#cn") ;
+       this.infoDom = document.querySelector("h2#statusInfo") ;
+	},
+	showHint : function(){
+	     this.hintDom.textContent = Model.word.en  ;
+  	 } , //end of showHint
+	showWord : function (){
+	 if( Model.inputWord.trim() === Model.word.en ){
+	  this.phDom.textContent = `【 ${Model.word.ph} 】` ;
+	  this.cnDom.textContent = Model.word.cn ;
+	  }else{
+	  this.phDom.textContent = `【 phonetic 】` ;
+	  this.cnDom.textContent = `词性，中文等` ;
+	 }
+	},//endof showWord method
+    showCursor : function(){ 
+	 if (Model.clock){
+       clearInterval(Model.clock) ;
+	  }
+	 const speed = 10 ; //这里可以调整光标闪烁频率，当前为 1000/speed
+	 Model.clock = setInterval(function(){
+		  if (Model.cursorOn)  {
+           View.inputDom.textContent = Model.inputWord + "_" ;
+		    }else{
+	       View.inputDom.textContent = Model.inputWord ;
+			}
+		   Model.cursorOn = ! Model.cursorOn ;
+		 } , 1000/speed);
+	},//end fo showCursor
+    showInfo : function(info){
+	  this.infoDom.textContent = info ;
+    },
+   };//end of View
+ function Controller(){
+	 var fontBaseSize = Math.floor(window.innerWidth / 40) ;
+	  document.body.style.fontSize = fontBaseSize + 'px' ;
+	  document.body.style.height = ( window.innerHeight - 10 ) + 'px' ;
+ 
+   setTimeout(function(){
+	   if (CET6.length > 0) {
+         Model.initCET() ;
+	   }else{ //CET6单词数据没有准备好，或许碰到极端慢的情况，系统出刷设计再延时2秒！
+	     setTimeout(Model.initCET,2000);
+	   }
+     },2000) ;
+   
+
+
+	document.body.onkeydown = function(eObj){
+	    //改动后代码逻辑更加清晰
+
+	  //关闭Tab键、F5、ctrl+r 等默认的系统功能
+	  eObj.preventDefault(); 
+      var key = eObj.key ;
+	
+      const Fkeys = ["Backspace","Control","Enter","CapsLock","Shift","Alt","Tab","Escape"] ;//当前代码还不需要这个按键的常量数组
+	 
+	  switch (key) {
+	   case "Enter" :  View.showWord() ; break;
+       case "Escape" : Model.inputWord = "" ; break;
+	   case "Tab" :    Model.inputWord = Model.word.en ;
+					   break;
+	   case "Backspace" : 
+	                  Model.inputWord = Model.inputWord.substring(0,Model.inputWord.length-1) ;
+					  Model.getReadyWords() ;
+	              break;
+	   case "Shift" : Model.nextWord() ;  
+	                  View.showInfo("切换提示单词："+ (Model.readyIndex + 1) + "/" + Model.readyWords.length) ;
+					  break;
+       default :  View.showInfo("正在输入... 按Enter键确认！");  
+	   }//end of switch
+	  //
+      if (key.length === 1)	{ 
+			Model.inputWord += key ;
+			Model.getReadyWords() ;
+		}
+	
+   }; //end of document.body.onkeydown function
+ }//end of function Controller
+
+
+
+ window.onload = Controller ;
+ 
+//-->
+  </script>
+ </head>
+ <body>
+  <h1 align = "center">
+  CET6单词训练器V1.3（定制UI,设置全屏）
+  </h1>
+  <div id="en">
+   <p id="input">单词输入区</p>
+   <p id="hint">单词输入区提示</p>
+  </div>
+
+  <div id="ph">
+  [ 音标区 ] 
+  </div>
+  
+  <div id="cn">
+  词性及中文释义 
+  </div>
+  <h2 align = "center" id  = "statusInfo" >
+  对输入即时提示，按Shift切换提示，按Tab填入提示，按Enter确认查询。
+  <h2>
+ </body>
+</html>
