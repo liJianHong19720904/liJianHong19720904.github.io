@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Implementing UI(Keyboard) for Mobile ,第四步，将创建虚拟键盘和调整页面和字体打包到 initVkeys 函数中，并设定 initVkeys函数为View的方法，在Controller中安排调用View.initVkeys() . 修改View.getUIDom方法，获取字母键的Dom。为动态出现字母按键做好准备。 </title>
+  <title> 第四步，实现虚拟键盘字母按键的动态消失和出现，让移动端用户点击字母更加方便。调整了代码结构，将创建虚拟键盘和调整页面代码模块一起打包到 View.initVkeys 函数中，在Controller中安排调用View.initVkeys() 。 最后在Model.getReadyWords方法中，增加了虚拟键盘字母按键的动态消失/出现的代码模块。</title>
   <style type="text/css">
    body{ 
     margin: 0 auto ;
@@ -18,13 +18,13 @@
 	 margin:auto ;
 	 position: relative;
 	 border: thick inset;
-	 height: 4em;
+	 height: 5em;
 	 background: black;
 	}
 
 	div#en>p#input,div#en>p#hint{
      position: absolute;
-     font-size: 3em;
+     font-size: 4em;
 	 margin:-0.2em auto;
 	 padding:0.1em;
 	}
@@ -330,9 +330,10 @@
 	 if (Model.clock){
        clearInterval(Model.clock) ;
 	  }
-	 const speed = 10 ; //这里可以调整光标闪烁频率，当前为 1000/speed
+	 const speed = 3 ; //这里可以调整光标闪烁频率，当前为 1000/speed
+	 // 本例降低了光标闪速，解决用户觉得刺眼的问题。但此时又会造成用户键盘响应变慢，为了让键盘响应及时，在键盘事件处理中，修改的代码直接使用View.inputDom.textContent = Model.inputWord ;，虽然解决了问题，整个代码组织显得缺乏文档说明，下一步需要在绘流程图，理清各种程序、次序和逻辑。
 	 Model.clock = setInterval(function(){
-		  if (Model.cursorOn)  {
+		  if (Model.cursorOn )  {
            View.inputDom.textContent = Model.inputWord + "_" ;
 		    }else{
 	       View.inputDom.textContent = Model.inputWord ;
@@ -401,6 +402,7 @@
 			Model.inputWord += this.value ;
 			Model.getReadyWords() ;
 		}
+		View.inputDom.textContent = Model.inputWord ;
 	  };//end of onclick events 
 	 }//end of 设定所有虚拟按键的click事件处理程序
 	} //添加虚拟键盘的功能键和字母键 结束
@@ -446,7 +448,7 @@
 			Model.inputWord += key ;
 			Model.getReadyWords() ;
 		}
-	
+		View.inputDom.textContent = Model.inputWord ;
    }; //end of document.body.onkeydown function
  }//end of function Controller
 
@@ -459,7 +461,7 @@
  </head>
  <body>
   <h1 align = "center">
-  CET6单词训练器V1.3
+  CET6单词训练器V1.4
   </h1>
   <div id="en">
    <p id="input">单词输入区</p>

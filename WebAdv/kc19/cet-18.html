@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Implementing UI(Keyboard) for Mobile ,第三步，以实体键盘控制代码为参考，为模拟键盘按键设定同样的控制代码。了解模拟按钮的click事件也是异步代码，事件处理函数的执行上下文是Dom对象自己，事件处理函数内的this也就指向Dom对象变量本身，这点对于编写事件处理函数非常方便。（实现虚拟键盘功能） </title>
+  <title> 第三步，以实体键盘控制代码为参考，为虚拟键盘按键响应设定同样的控制代码，初步实现虚拟键盘对CET的控制功能。 </title>
   <style type="text/css">
    body{ 
     margin: 0 auto ;
@@ -179,7 +179,7 @@
   <script type="text/javascript">
   <!--
 	/*
-
+了解模拟按钮的click事件也是异步代码，事件处理函数的执行上下文是Dom对象自己，事件处理函数内的this也就指向Dom对象变量本身，这点对于编写事件处理函数非常方便。
 	*/
   var Model = { 
     inputWord : "" , //记录用户实际编辑或输入的单词结果

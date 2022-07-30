@@ -3,8 +3,11 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Implementing UI(Keyboard) for Mobile ,第一步，用CSS渲染固定页面，字符变化造成的页面避免抖动或位移，主要按浏览器高度固定软件页面的高度，用overflow属性隐藏可能溢出界面字符。第二步，按浏览器可用宽度，设置块级元素，全部利用好可用宽度，最后按window实际宽度来动态决定基础字体大小，CSS样式内重新设定各子元素使用相对字体em，以动态配合用户屏幕大小。 </title>
+  <title>第1步，让本程序能动态适应不同屏幕，并实现全屏显示。考虑到移动端屏幕的多样化形态，本例先通过评估前面的CSS代码，通过动态获取用户屏幕窗口尺寸，实现了程序页面的全屏显示，最后实现动态设置各级字体的大小，让不同屏幕都能有清晰较大的字体效果。 </title>
     <style type="text/css">
+		/*
+通过程序各级字体的大小。我们设计让CSS渲染的字体和页面尽量固定页面，字符变化造成的页面避免抖动或位移，主要按浏览器高度固定软件页面的高度，用overflow属性隐藏可能溢出界面字符。第二步，按浏览器可用宽度，设置块级元素，全部利用好可用宽度，最后按window实际宽度来动态决定基础字体大小，CSS样式内重新设定各子元素使用相对字体em，以动态配合用户屏幕大小
+	*/
    body{ 
     margin: 0 auto ;
 	border: 2px solid blue ;
@@ -179,9 +182,7 @@
    </script>
   <script type="text/javascript">
   <!--
-	/*
 
-	*/
   var Model = { 
     inputWord : "" , //记录用户实际编辑或输入的单词结果
 	word : {} , //存放程序预判并提示输出的单词（对象形式）
