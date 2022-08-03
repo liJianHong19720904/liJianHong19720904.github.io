@@ -1,16 +1,18 @@
 ﻿1.title
-  Number and Binary（探索篇：代码中的数字和理解二进制）
+  Learn Number and Binary With function（探索篇：用代码和函数来探索数字和二进制）
 2.introduction
-  在计算机程序中，任何数据本质上都是二进制的，而计算机高级语言把这些数据划为不同类型，并为不同类型规范了操作，才能让计算机内的数据与我们现实信息发生严格的对应，我们前面已经多次使用数字、字符、甚至对象数据，但并不意味这我们已经理解了基本的数字类型的数据，本课程中我们将用JavaScript代码研究数字类型Number，并将通过四个难度逐渐递进的案例完成学习，同时也会训练在代码中使用算法，让程序变得可用。
+  在计算机程序中，任何数据的本质上都是二进制，而计算机高级语言可以这些数据按不同类型管理，并为不同类型规范操作，这才让计算机内的数据与我们现实信息对应起来。
+  因此数字是本质，才有了我们后来所谓的数字化，在之前课程中，虽然我们已经多次使用数字类型，但并不意味这我们已经理解这种最基本的数据类型--数字类型，本课程通过JavaScript函数的练习，我们通过代码探索数字类型——Number，同时通过十进制和二进制转换的案例做算法和逻辑的演练。
+  本课仍然通过四个难度逐渐递进的案例完成学习，前二个案例通过浏览器后台输出，探索二进制表达范围，同时也会训练在代码中定义和使用函数。后二个案例则使用HTML/CSS创建一个简单UI，包括输入输出二个文本框和一个按钮。再用JavaScript的写出事件处理函数，把程序代码与UI联系起来，让整个程序可以互动使用。
 
 3.keyword
-  function ，return ，console.log ，!== ， === ，% ，parseInt ，UI（HTML/CSS） ，<input> ，type="text" , type="button" , value  ， aArray = [ ] ， aArray.length 。 
+  function ，return ，console.log ，!== ， === ，% ，parseInt ，UI（HTML/CSS） ，<input> ，type="text"  ，type="button"  ， value ，onclick ， aArray = [ ] ， aArray.length 。 
 	
 4.project
   <a src=binary-1.html>本例通过自定义函数power2(x)，理解计算机内的二进制数字。
   <a src=binary-2.html>本例探索经典的32位、64位、128位二进制数的十进制范围，学习函数的定义和调用。利用循环，研究JavaScript定义的Infinity这个所谓的最大值。
-  <a src=binary-3.html>本例创建一个UI，设计把用户输入的十进制数，转换为二进制数输出（UI实现）。
-  <a src=binary-4.html>本例继续使用上例的UI，把输入的十进制数，转换为二进制数输出（算法和代码实现）。
+  <a src=binary-3.html>本例用HTML/CSS创建一个简单UI，包括：1、用户输入十进制数的文本框；2、点击按钮；3、二进制数的文本输出框。 本例专注于实现UI控件，UI的功能代码则由下一例完成。
+  <a src=binary-4.html>本例继续上例的UI，用代码把用户输入的十进制数，转换为二进制数，通过JavaScript对Web页面的API输出，本例难度体现在十进制到二进制转换算法的实现。熟悉JavaScript的事件处理函数的语法也是本课另一个重点。
   
 5.reading
  Inside the computer’s world, there is only data. You can read data, modify data, create new data——but that which isn’t data cannot be mentioned. All this data is stored as long sequences of bits and is thus fundamentally alike.

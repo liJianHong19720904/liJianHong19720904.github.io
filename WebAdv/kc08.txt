@@ -1,10 +1,12 @@
 ﻿1.title
-   JavaScript Input（起步篇：通过Web页为程序输入信息）
+   Input Approaches For JavaScript program（起步篇：通过Web页为 JavaScript程序输入信息）
 2.introduction
-  任何计算机程序都存在信息输入、数据处理、输出三个环节，本课我们介绍JavaScript基于Web页的输入信息的方法，这属于浏览器环境的JavaScript的标准输入输出。比如：prompt和利用Dom对象的常用API和属性。事件中，我们将通过本节课的四个难度逐渐递进的案例完成学习，同时还可训练在代码中使用算法，让程序显得更有智能和判断力。
+  任何计算机程序都包含信息输入、数据处理、输出结果三个环节，输出在上一课，处理则在每一课，本课则了解独特的通过Web页让操作者输入信息的方法。这种基于浏览器环境，由JavaScript标准控制的输入，很便利也是是其他语言环境完全不可能具备的功能，或许让其他领域的开发者可以感受到Web开发的便利。
+  当然，本课涉及的英语词汇和对浏览器环境的理解似乎较多，需要花费时间学习，特别再初级开发者的学习初期，Dom对象的常用API和属性这种英文全拼形式需要适应。
+  我们将通过本节课的四个难度逐渐递进的案例完成学习，Web Front有关知识的增加比较重要，但更重要的是代码能力的提升。具体而言，则是在案例中为让程序更有智能和判断力，而书写的一些逻辑和算法表达。
 
 3.keyword
-  Math ，floor ，random ，prompt（API），parseInt ， document.querySelector（API） ， document.querySelectorAll（API）  ，Web页的元素变量.onclick ，Web页的元素变量.textContent , function （匿名） , function （有名） 。 
+  Math ，floor ，random ，prompt（API），parseInt ， document.querySelector（API） ， document.querySelectorAll（API）  ，Web页的元素变量.onclick ，Web页的元素变量.textContent , function 定义  , 有名function , 匿名function 。 
 	
 4.project
   <a src=guessNum-1.html>本例使用Math对象有一些常用方法，用于解决常见数学问题。

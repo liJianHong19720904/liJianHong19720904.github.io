@@ -1,8 +1,10 @@
 ﻿1.title
- A Computer’s Hardware （准备篇：计算机硬件）
+ Learn Computer’s System With HTML images（准备篇：理解计算机系统，实践HTML插图标记）
 
 2.introduction
- 理论上能理解和表达硬件和软件的概念，能阅读理解英文原文，如： A computer’s hardware is a host of electronic circuitry, components, and connections. Software is programs that allow people to use a computer’s hardware. 在实践中，学习使用HTML语言的一些基本元素，如img元素，了解图像文件的概念，实现对硬件和软件内容Web页，用HTML脚本实现控制排版。
+ 计算机和计算机科技都是舶来品，能阅读理解一些英文原文可以开阔视野，开发者在此基础上，能用自己的语言体系表达对硬件和软件的概念，表达对计算机体系的理解。
+  在实践中，本课学习使用HTML语言的元素概念和标记的属性概念，以img元素为例，重点了解图像文件的概念，img标记的src等属性概念，从而做到举一反三，对大多数HTML标记和属性能有共性的认知。
+  在代码编写上，用img标记和属性实现对有关计算机硬件和软件内容Web页内容展现和简单控制排版。
 
 3.keyword
   hardware ，software ，computing system ， img ，image file  。 

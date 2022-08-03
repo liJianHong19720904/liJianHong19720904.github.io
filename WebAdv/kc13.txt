@@ -1,15 +1,17 @@
 ﻿1.title
-   Images and DOM Model Manipulating （探索篇：Web图像和控制DOM模型）
+   Images and DOM Model Manipulating （探索篇：Web图像和代码对DOM模型的控制）
 2.introduction
-  图像插入Web页面内，成为了最常见的DOM对象，与文字不同的是每个图像数据不再Web页内，而是源于外部图像文件，有时在网络上加载图像成为加载Web页的大部分流量。本课编码实践中，我们使用10个性价比较好的图像jpg文件），利用六个逐级提升要求的案例，探索了图像这种DOM对象，实现图像静态和动态地加载。本课程前面三个案例比较基础，而后面3个案例利用了异步代码实现动画，供较强的学习者作为分析和解决问题的训练案例。
+  图像是Web中最重要的元素之一，当图像文件插入Web页面后，该图形也就成为了最常见的DOM对象。本课我们专题研究Web图像对象和有关代码，以及利用web的DOM模型实现对Web页上的图像进行控制。
+  首先理解与文字不同，每个图像元素的数据不包含在Web页内，而是源于外部图像文件。从网页性能上看，有时加载图像耗费了加载整个Web页的大部分流量，因此有必要用代码提前将需要图像文件读入，在用户需要时再渲染到web页上。
+  本课编码实践中，我们使用了10个压缩比较高的jpg图像文件，利用六个逐级提升要求的案例，探索了图像、DOM对象，图像静态和动态地加载，控制和实现不同效果的动画。本课程前面三个案例比较基础，是学习Web前端控制图像的重要手段。后面三个案例由于利用了异步代码实现动画，对于初学Web前端的学习者，显得难度较大，因此不要求掌握，可以在学习后面课程有了积累后，“故地重游”返回此处。重新来写这些案例。
 
 3.keyword
   相对路径 ， "../路径名/文件名"  ， 图像DOM对象.src ， document.body.appendChild ，document.querySelector("div img"); ，document.querySelector("div#fPic"); ，document.querySelectorAll("div#fPic img"); ，window.innerWidth ，父元素.removeChild(子元素) ; ，父元素.appendChild(子元素) ，DOM元素.style.left ，document.getElementById(DOM的id值) 。 
 	
 4.project
-  <a src=images-1.html>本例演示HTML代码静态插入img元素，并利用网络最简单地实现加载图片。
-  <a src=images-2.html>演示用DOM技术，用代码动态向Web页插入网络上的图片文件。
-  <a src=images-3.html>演示改变img类DOM元素的src属性，实现把图像文件读入Web元素，这是一种比较典型的动态更滑图片文件的方法。
+  <a src=images-1.html>本例演示HTML和CSS代码静态插入img元素，并利用网络实现实现加载图片，本例代码简单实用，展示了CSS控制图片渲染的经典方法。
+  <a src=images-2.html>演示用DOM技术，用JavaScript代码动态向Web页插入网络引入的图片文件。
+  <a src=images-3.html>演示通过用JavaScript代码改变DOM元素的src属性，实现图像文件动态读入Web元素。这是一种比较典型的动态改变Web页上图片文件的方法。
   <a src=images-4.html>演示在Web页删除和添加图像DOM节点，这也是典型的动态DOM技术。本例利用视觉错觉让人感觉实现了图像移动，还利用算法实现类似画面循环的效果。
   <a src=images-5.html>对照前面案例的视觉错觉造成的画面移动效果，本例探索图像真实移动的代码。我们可以为Web的DOM元素设定绝对定位，然后通过异步代码控制元素的style属性的坐标变化，实现图像逐渐移动的动画。
   <a src=images-6.html>在前面案例基础上，将自定义fbs数组元素重构为自定义对象，该对象实现DOM信息、X坐标、DOM的id信息存储，通过这些信息，利用算法完美实现10张循环移动的照片动画。

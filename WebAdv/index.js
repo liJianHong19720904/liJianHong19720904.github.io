@@ -77,27 +77,31 @@
         this.textContent = titleEn ;
       };
      } ,
-     showIntroKeyword : function(){
+     showIntroduction : function(){
        my$("#introduction").textContent = "";
-       var paraTxt = ajaxObj.content[1];
-       let p = document.createElement("p"); 
-       let b = document.createElement("b");
-       let t = document.createTextNode(paraTxt);
+       var parasTxt = ajaxObj.content[1].split('\n');
+       let b = document.createElement("b"); 
        b.textContent =  "内容简介 : ";
        my$("#introduction").appendChild(b);
-       p.appendChild(t);
-       my$("#introduction").appendChild(p);
-
-       my$("#keyword").textContent = "";
-       var paraTxt = ajaxObj.content[2];
-       let p1 = document.createElement("p"); 
-       let b1 = document.createElement("b");
-       let t1 = document.createTextNode(paraTxt);
-       b1.textContent =  "本课关键字 : ";
-       p1.appendChild(t1);
-       my$("#keyword").appendChild(b1);
-       my$("#keyword").appendChild(p1);
+      
+      for (let pTxt of parasTxt){
+        let p = document.createElement("p"); 
+        let t = document.createTextNode(pTxt);
+        p.appendChild(t);
+        my$("#introduction").appendChild(p);
+       }
      } ,
+     showKeyword : function(){
+      my$("#keyword").textContent = "";
+      var paraTxt = ajaxObj.content[2];
+      let p = document.createElement("p"); 
+      let b = document.createElement("b");
+      let t = document.createTextNode(paraTxt);
+      b.textContent =  "本课关键字 : ";
+      p.appendChild(t);
+      my$("#keyword").appendChild(b);
+      my$("#keyword").appendChild(p);
+     },
      showProject:function(){
        my$("#project").textContent = "";
        var paras1 = ajaxObj.content[3].split("\n");
@@ -206,11 +210,11 @@
      showAll: function(){
                var that = this ;
                setTimeout(that.showTitle,300) ;
-               setTimeout(that.showIntroKeyword,300*2) ;
-               setTimeout(that.showProject,300*3) ;
-               setTimeout(that.showReading,300*4) ;
- 
-              
+               setTimeout(that.showIntroduction,300*2) ;
+               setTimeout(that.showKeyword,300*3) ;
+               setTimeout(that.showProject,300*4) ;
+               setTimeout(that.showReading,300*5) ;
+               
              }
     };//end of UI
  

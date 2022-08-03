@@ -1,5 +1,5 @@
 ﻿1.title
- Types of hardware device （准备篇：计算机硬件类型）
+Learn Types of hardware device With HTML/CSS（准备篇：学习计算机硬件部件， 实践HTML/CSS语言的结合）
 2.introduction
  能理解表达计算机的硬件大致分类，可以分为4类：处理器（传统的分类中，再分为运算器和控制器）、存储器、输入设备、输出设备。能对生活中的硬件举出一些实例。
  在Web编程实践中，能用HTML的有序列表标记，对分类标题进行自动递增控制。同时引入CSS样式的基本概念，初步能用CSS语言控制HTML元素的样式。

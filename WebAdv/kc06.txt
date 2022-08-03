@@ -1,13 +1,15 @@
 ﻿1.title
-   JavaScript OverView（起步篇：快速上手现代编程语言JavaSript）
+   JavaScript OverView（起步篇：现代编程语言JavaSript快速上手）
 2.introduction
-  有了对CS（computer science）和浏览器环境的系统化的理解，加上能用HTML和CSS语言编写脚本基础上，我们就可以快速实现手写JavaScript代码，甚至用代码表达和设计想法了。当然有高级语言（C语言）代码基础的朋友，更可以省略多数JavaScript语法的学习准备。C语言是现代高级程序语言的起源，也是多数大学必修的基础，JavaScript语言上手完全可以从我们熟悉的C语言起步，通过本节课我们用四个小案例，可以实现进入实际Web编程的小目标。
+  在准备好了以下三项基本技能之后：1、对CS（computer science）一些概念和浏览器环境深刻理解；2、对代码编辑器系统性掌握；3、能用简单的HTML和CSS语言编写一般的Web页面，理解Web元素的内容和渲染基本原理。本节课我们通过四个小案例，实现进入Web编程的小目标。
+  本此课的目标是让开发者快速了解现代编程语言JavaScript的运行环境和通用语法，在真正进入开发情景后，语法是否能记住已经完全不重要了，只要写上几遍语句，怎么写语法就会成为肌肉记忆。就像学习外语那样，只要在外语使用的环境说上几遍外语后，当能交流后我们就不会再纠结语法了，写代码也是如此，进入开发的情景后，让你的代码能运行起来语法自然就掌握了。因此最重要的是，进入开发环境，让你敲打的代码运行起来。
+  C语言是现代高级程序语言的起源，也是大学必修计算机课程的基础，JavaScript语言上手完全可以从我们熟悉的C语言起步，因此对于多数大学生而言，重复学习JavaScript语法完全没有必要。本课程让我们开始理解Web前端环境，从模仿开始写出代码，修改代码，乃至用代码表达想法和逻辑。
 
 3.keyword
   JavaScript ，C Language family ，variable ，function ， alert（API） ， setTimeout（API）  ，if/else ， = ， > ，< ，+ ， 一对" 或 一对' ，while(){...} ， var 变量名 = {...} 。 
 	
 4.project
-  <a src=bigBang.html>本例用英语词汇学习的方式，尝试对JavaScript的API的第一次接触。
+  <a src=bigBang.html>本例用英语词汇学习的方式，尝试JavaScript的异步代码设置语句setTimeout（API）的第一次接触，以后随着代码能力加强，我们会深入异步代码的探索。
   <a src=var-if-else.html>本例使用变量和if/else逻辑语句的练习，尝试对JavaScript快速入门。
   <a src=instruction-order-1.html>本例探索JavaScript代码和HTML脚本的执行次序，同时可以让我们理解Web代码的运行次序，我们可试试把script元素放到其他几个位置执行。
   <a src=instruction-order-2.html>本例继续探索JS代码和HTML脚本的次序，在HTML页面的标题h1元素诞生之前，运行三段代码,同时为学有余力的学习者引入循环和对象变量的概念。

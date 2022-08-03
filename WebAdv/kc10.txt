@@ -1,16 +1,19 @@
 ﻿1.title
   Date Object VS Math Object （探索篇：时间对象和数学对象）
 2.introduction
-  虽然我们在前面案例中已经使用了一些系统常用对象，因此关于对象，应该能略理解概念，在本节课中，我们从对象数据的高度，对二种最常用的对象————数学和时间对象进行分析和编程。数学对象作为唯一特殊的对象，在代码中可直接使用，直接写作Math，而其他对象，如我们本节课写时间对象，则需要用new操作符产生具体的实例。为什么有这种区别？在我们的自然界中，数学是不会变化的客观事物，而其他对象，如时间每时每刻都在变化，因此时间对象必须具体化，每一个具体的时间对象我们称为实例。
+  我们在前面案例中，为了写出能操作Web页面，我们已经未加解释就使用了一些Web浏览器对象概念，比如document和window（包括点语法及其属性），这两个单词在我们Web前端代码中经常出现，分别代表Web页文件和浏览器窗口，是我们用代码可控制的Web浏览器和Web文档的对象的名字。
+  而关于对象这个概念，本课开始我们需要更加抽象地和系统理解，如同我们对世界的理解那样形成“世界观”，对计算机内的信息理解则形成“对象观”。Web前端世界是整个计算机系统的信息世界的一个部分，我们编写的数据和系统能提供的数据都会以对象的形式呈现出来，这样更符合人类对世界的认知。
+  本课中，我们重点理解JavaScript语言体系中二种最基本的对象，———数学和时间对象，通过分析这二种对象的名字、内部属性、常用方法，了解语言系统给我们提供的一些基于对象的便利功能，最后利用数学和时间对象写代码编程，实现4个案例。
+  JavaScript的国际标准EcmaScript中，设计了许多种对象类，写代码需要时我们可以临时去详细了解。在此，我们谈一个重要特征：数学对象作为唯一特殊情况，其在代码中直接写作 Math，而其他对象，如本课同时介绍的时间对象，则需要用new操作符来产生具体的实例。这点很多开发者不理解，在此解释如下：在我们的自然界中，数学表达的是客观规律或事物，而其他对象，如时间对象Date，其每时每刻都在变化，信息都不一样，因此笼统的说时间对象是一个抽象的类，具体使用时，则必须具体落实，语法：new Date()，对具备实际信息的对象称为实例。
 
 3.keyword
   EcmaScript ，Math.random ，Math.floor  ，setInterval ， HTML/CSS ，UI ，document.querySelectorAll ，dom元素.textContent ，new Date() ，.getFullYear() ， .getMonth() ，.getDate() ，.getHours()，.getMinutes()，.getSeconds()，.getMilliseconds()，，Number(非数字数据) ， new Date(0) 。 
 	
 4.project
-  <a src=oop-1.html> 演示EcmaScript内定义的对象（数学对象），Math对象是EcmaScript语言体系中的唯一对象，直接使用，无需new操作符产生实例 。
-  <a src=oop-2.html>演示EcmaScript内定义的对象（数学对象），再用HTML/CSS设计UI。
-  <a src=oop-3.html>演示EcmaScript内定义的对象（时间对象），Date对象是EcmaScript语言体系中的众多对象的父亲（类），不可以直接使用，需要new操作符来产生实例。
-  <a src=oop-4.html>演示EcmaScript内定义的对象（时间对象），再利用UI生成Web页面的时钟。
+  <a src=oop-1.html> 演示随机生成彩票号码，本例要使用Console面板查看结果。EcmaScript内定义的对象（数学对象），Math对象是EcmaScript语言体系中的唯一对象，直接使用，无需new操作符产生实例 。
+  <a src=oop-2.html>演示随机生成彩票中奖号码，本例用HTML/CSS设计了UI，并利用异步代码实现号码自动变化。
+  <a src=oop-3.html>演示EcmaScript内定义的对象（时间对象），生成输出几个重要时间对象实例，同时编写代码计算分析EcmaScript定义的时间，理解在计算机内部时间对象本质上是一个数字，本例要使用Console面板查看结果。
+  <a src=oop-4.html>演示利用EcmaScript内定义的对象（时间对象）的方法，结合前面案例生成UI，实现一个按当前时间变化Web页面。
   
 5.reading
 Values.  Imagine a sea of bits—an ocean of them. A typical modern computer has more than 30 billion bits in its volatile data storage (working memory). Nonvolatile storage (the hard disk or equivalent) tends to have yet a few orders of magnitude more. 

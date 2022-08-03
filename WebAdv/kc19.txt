@@ -1,15 +1,15 @@
 ﻿1.title
   A Visual Keyboard for CET Project（开发篇：CET项目第3阶段，为移动端写一个虚拟键盘程序）
 2.introduction
-   前面完成CET项目核心功能已经完备，差不多已经可以进入试用阶段了，但我们目前程序只能用在配备键盘的计算机系统（PC端）中，不可用于移动端等没有实体键盘的计算机系统。为适应人们使用移动端没有实体键盘的现状，本课我们综合Web前端实现浏览器端UI界面的能力，为我们的CET项目再增加一个虚拟键盘键盘，实现实体键盘操作的同步。本课我们再用四个案例，逐步深入和求精，尽量写出能满足多数不同尺寸屏幕的虚拟键盘程序。
+   通过前面课程，CET项目核心功能基本完备，尽管目前的界面还比较粗陋，但可以在功能看基本能够使用了。但问题是，当前程序只能用在配备键盘的计算机系统（PC端）中，不可用于移动端（没有实体键盘）计算机系统。人们已经习惯使用移动端的虚拟体键盘，本课我们正好综合浏览器的几个简单API和后续想法，为这个CET项目增加一个虚拟键盘键盘，在操作上，实现实体键盘操作和虚拟键盘同步。本课把开发过程分成四个案例，也算是对问题的逐步分析、深入和求精，找到解决方案后，有时候仅简单的几条代码，就能实现我们对软件的独特的需求和想法。
 3.keyword
- overflow: hidden ， window.innerWidth ， window.innerHeight ， document.body.style.fontSize ， document.body.style.height ， document.createElement ， kbDom.appendChild ，keyDom.onclick = function(){ } ， key.style.display = 'none' ，
+ overflow: hidden ， window.innerWidth ， window.innerHeight ， document.body.style.fontSize ， document.body.style.height ， document.createElement ， kbDom.appendChild ，keyDom.onclick = function(){ } ， key.style.display = 'none' 。
 	
 4.project
-  <a src=cet-16.html>本例让CET程序能动态适应不同屏幕，并实现全屏显示。考虑到移动端屏幕的多样化形态，本例先通过评估前面的CSS代码，通过动态获取用户屏幕窗口尺寸，实现了程序页面的全屏显示，最后实现动态设置各级字体的大小，让不同屏幕都能有较大清晰的字体效果。
-  <a src=cet-17.html>运用CSS设计按钮外观、利用JavaScript动态生成DOM元素，初步实现字母按钮和功能按钮，完成虚拟键盘的UI外观。
-  <a src=cet-18.html>第三步，以实体键盘控制代码为参考，为虚拟键盘按键响应设定同样的控制代码，初步实现虚拟键盘对CET的控制功能。
-  <a src=cet-19.html>第四步，实现虚拟键盘字母按键的动态消失和出现，让移动端用户点击字母更加方便。调整了代码结构，将创建虚拟键盘和调整页面代码模块一起打包到 View.initVkeys 函数中，在Controller中安排调用View.initVkeys() 。 最后在Model.getReadyWords方法中，增加了虚拟键盘字母按键的动态消失/出现的代码模块。本例还降低了光标闪速，解决用户觉得光标刺眼问题。但又会造成用户键盘响应变慢，为了让键盘响应及时，在键盘事件处理中，我们暂时修改代码，直接使用View.inputDom.textContent = Model.inputWord ;，虽然解决了问题，整个代码组织至此显得缺乏文档说明，下一步需要在绘流程图，理清各种程序、次序和逻辑，不过这个工作基本属于软件工程的范畴，不在本站讨论。至此，本项目全部完成，希望各位开发者能不断追求代码能力的进步，真正体验手写代码项目的乐趣。
+  <a src=cet-16.html>本例让CET程序能动态适应不同屏幕，并实现全屏显示。考虑到移动端屏幕的多样化形态，本例先通过评估前面的CSS代码，通过动态获取用户屏幕窗口尺寸，实现了程序页面的全屏显示，最后实现动态设置各级字体的大小，让不同屏幕都能有较大清晰的字体效果，各类不同尺寸屏幕设定合适的字体大小。
+  <a src=cet-17.html>运用CSS设计按钮外观、利用JavaScript动态生成DOM元素，初步实现字母按钮和功能按钮，完成虚拟键盘的UI外观。通过代码生成能够适应各类不同尺寸屏幕的虚拟键盘程序的界面。
+  <a src=cet-18.html>第三步，以实体键盘控制代码为参考，为虚拟键盘按键响应设定同样的控制代码，初步实现虚拟键盘对程序内部Model控制功能，让虚拟键盘这些按钮与实体键盘在CET中具有同样功能。
+  <a src=cet-19.html>第四步，实现虚拟键盘字母按键的动态消失和出现，让移动端用户点击字母更加方便。调整了代码结构，将创建虚拟键盘和调整页面代码模块一起打包到 View.initVkeys 函数中，在Controller中安排调用View.initVkeys() 。 最后在Model.getReadyWords方法中，增加了虚拟键盘字母按键的动态消失/出现的代码模块。本例还降低了光标闪速，解决用户觉得光标刺眼问题。但又会造成用户键盘响应变慢，为了让键盘响应及时，在键盘事件处理中，我们暂时修改代码，直接使用View.inputDom.textContent = Model.inputWord ;，虽然解决了问题，整个代码组织至此显得缺乏文档说明，下一步需要在绘流程图，理清各种程序、次序和逻辑，不过这个工作基本属于软件工程的范畴，不在本站讨论。至此，本项目作为“大学英语等级考试单词训练器”的原型就算完成，使用后会发现，后续还有许多值得改进的地方。祝各位开发者能在追求代码能力的提高过程中，真正体验手写代码项目的乐趣。
    
 
 5.reading

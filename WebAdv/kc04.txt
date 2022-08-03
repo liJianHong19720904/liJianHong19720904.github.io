@@ -1,7 +1,7 @@
 ﻿1.title
- Software（准备篇：计算机软件）
+ Learn Software Architecture with CSS Box Model（准备篇：学习计算机软件体系，实践CSS盒装模型）
 2.introduction
- 能理解计算机的软件的大致分类，基本可以分为2类：操作系统 operating system (OS)和应用软件 applications。能对生活中的软件举出一些实例。
+ 能理解计算机的软件的大致分类，基本可以分为2类：操作系统 operating system (OS)和应用软件 applications。能对学习生活中的各类软件阐述分析，并能对常用操作系统平台和应用加以区分，并能实现一些基本操作。
  在Web编程实践中，学习CSS语言，练习对Web页元素的颜色值、padding、border、margin等通用外观特征进行控制。
 
 3.keyword

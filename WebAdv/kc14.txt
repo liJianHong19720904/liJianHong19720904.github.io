@@ -1,17 +1,21 @@
 ﻿1.title
-   Event Object and Asynchronous Code （探索篇：鼠标事件对象和异步代码）
+    Event  ,Mouse Event and Asynchronous Code （探索篇：事件、鼠标事件和异步代码）
 2.introduction
-  人们利用对象的思维划分计算机中的复杂的信息，本课我们以Web浏览器端鼠标事件为例，为聚焦学习深度，我们不列出所有的事件，仅以三个常用事件为例探索对象事件的一些细节和原理，。从代码运行角度看，所有事件发生都异步的，尽管异步程序是初学者很难真正理解的概念，但JavaScript在很早就让学习者能写出事件驱动的代码，学习到这里，或许你已经开始深刻理解事件和异步代码了。本课程实践部分前面四个案例比较基础，但最后一个案例综合性较强，需要充分掌握前面一些编码的技能，才能分析和解决新问题。
+  人们可以和Web页面发生互动，这也是Web相对传统媒体最大优势，在传统软件开发中，人与计算机软件的互动代码是难以实现的，因为人的速度与计算机的速度差别在几个数量级以上。而Web和JavaScript使用了一种称为事件和事件处理函数的机制，创新的解决了了Web互动程序的设计问题。
+  本课本课我们以Web浏览器本身读入网页和鼠标事件为例，了解事件和异步程序的概念，为聚焦学习深度，我们无须列出所有的事件，仅以三个常用事件为例，深入探索事件原理，对象事件的一些细节。
+  由于计算机执行代码的速度极快，从代码运行角度看，一般所有代码（非事件处理函数）都是同步执行的，前面的代码没有执行完成，后面的代码就不能执行，对我们人类而言，若感知到这种情况，就会感觉计算机“死机”或“卡住”了。
+  而Web页面上所有事件中的代码都是都异步运行的，异步程序是初学者很难真正理解的概念，但JavaScript在很早就让学习者能写出事件驱动的代码，正如前面课程我们给按钮onclick事件写代码，或许到这里我们已经可以开始深刻理解事件和异步代码了。
+  本课程实践部分共5个案例，前四个案例引入了事件有关知识，内容较多，需要学习者一一测试和梳理概念。在最后一个案例为了效果，而增加了生成动画的代码和方法，这个案例的代码不仅需要学习者理解异步代码，还需要学习者练习抽象分析问题和解决问题的能力。有兴趣学习的学习者可以通过反复调试代码，构建抽象分析能力和用代码解决问题的能力。
 
 3.keyword
-  events ，onclick ，onmouseover ，onmousemove ，onmousedown ，onmouseup，Event Object，clientX ，clientY ，pageX  ，pageY  ，` ${ } ` ，DOM.style.left ，DOM.style.top ，opacity  ，border-radius。 
+  events ，window.onload ，onclick ，onmouseover ，onmousemove ，onmousedown ，onmouseup，Event Object，clientX ，clientY ，pageX  ，pageY  ，` ${ } ` ，DOM.style.left ，DOM.style.top ，opacity  ，border-radius。 
 	
 4.project
-  <a src=events-1.html>Events事件和异步代码第一步，本例用javascript控制DOM事件，利用CSS的class类切换，实现动态鼠标交互效果。本例也可演示Web页中事件的冒泡机制。
-  <a src=events-2.html>浏览器支持的鼠标指针API：clientX、clientY 和 pageX、pageY，这二个读取鼠标坐标的API似乎一模一样，但在页面有滚动栏时，坐标数据会有不同。
-  <a src=events-3.html>本例在之前案例基础上，读取网络一张动态gif图，然后动态生成了50个img图像元素。
-  <a src=events-4.html>本例随机设定了50张gif图的属性，让每个gif图像的位置和样子产生变化，并利用异步代码（这里使用了setTimeout），异步把小鸟动态图逐一添加到Web页，本例还增加了一个圆形跟随鼠标。
-  <a src=events-5.html>本例在前面案例基础上，设计一个比较酷炫的互动，点击鼠标后，小鸟会陆续飞到鼠标点击的位置。这个案例需要使用异步代码解决小鸟“陆续飞”移动的难题，在算法上的有一定难度，完成本例需要一些编写的经验。
+  <a src=events-1.html>本例需要启用开发者的Console面板，通过window.onload事件，了解“Web页文件加载浏览器完成”事件，可以上课时在代码中加入时间对象，测量本机加载本文件的时间。window.onload 也代表Web页中所有元素在浏览器中创建完成这件事件的发生，这是一个重要的事件。所有的DOM操作操作代码都基于这件事件发生之后，因此把DOM操作代码放在window.onload事件处理函数之中，是一种经典Web页异步代码模式。 本例用javascript控制DOM事件，利用CSS的class类切换，实现动态鼠标交互效果。最后，本例还演示了Web页中事件的冒泡机制，一个鼠标事件触发多个元素叠在一起的元素。
+  <a src=events-2.html>演示浏览器支持的鼠标指针API：clientX、clientY 。本例开始，代码使用了多重事件处理函数嵌套的编码模式，这种俄罗斯套娃的模式可能会造成初学者理解困扰，在此做个比较，以我们对宇宙的理解模型，发生以下事件：先有大爆炸生成宇宙，再有银河系生成，然后是太阳系生成，…… ，这些事件都是后者嵌套在前者内部的。
+  <a src=events-3.html>本例结合前面课程动态图片案例，读取网络上一张动态gif图，然后利用JavaScript程序，在页面上动态生成了50个img图像元素。为深刻理解window.onload事件，这段代码的位置需要在课堂演示，放在window.onload函数外面，body元素产生之前的位置，通过试错来理解事件发生的时间次序。
+  <a src=events-4.html>本例综合了异步代码，结合CSS对绝对定位对象位置的控制，随机设定了50张gif图的属性，让每个gif图像的位置和样子产生变化，并利用异步代码（这里使用了setTimeout），异步把小鸟动态图逐一添加到Web页，本例还增加了一个圆形跟随鼠标。
+  <a src=events-5.html>本例在前面案例基础上，设计一个比较酷炫的互动，点击鼠标后，小鸟会陆续飞到鼠标点击的位置。这个案例需要使用异步代码解决小鸟“陆续飞”移动的难题，在算法上的有一些难度，整个核心代码不足百行，但运用了一些技巧，完成本例需要一些编写的经验。
  
 5.reading
 Web pages are much more than just static displays of text and graphics. JavaScript gives web pages interactivity and the ability to perform useful work. An important part of JavaScript’s ability to perform useful functions in the browser is its ability to respond to events.

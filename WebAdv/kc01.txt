@@ -1,9 +1,11 @@
 ﻿1.title
- Computer Science || Digital technology （准备篇：计算机科学或数字科技）
+ Learn Computer Science With HTML tags（准备篇：了解计算机科学，实践HTML标记）
 
 2.introduction
 
-在理论上学习和理解Computer Science的有关概念。同时把学习文本用于实践，学会用Web体系种最基本，也是最简单的HTML语言，实现用Web页的文字的简单排版，体验HTML语言作为一门脚本语言的作用。实践上还要完善二个任务，一是尽快熟悉一套趁手的代码编辑器（我们在前言中推荐了二套）。二是了解几个经典的浏览器的使用和安装（桌面型和移动端）。
+进阶的编程者除了要熟悉计算机语言外，更要在理论上再次深刻理解Computer Science的一些概念，理解计算机内部软硬件的原理，从而理解在庞大的计算机软硬件支持下的我们写的程序的作用。
+本课我们对计算机科学的文本做一些回顾，同时把学习文本用于Web代码实践。首先学会用Web体系中最基本也是最简单的HTML语言，实现用Web页的文字的简单排版，体验HTML语言作为一门脚本语言的作用。
+在实践能力上还要熟悉Web Front的开发环境，这个环境包括三方面：一是尽快一套趁手的代码编辑器（我们在前言中推荐了二套）。二是能熟练二个以上经典的浏览器的使用和安装（Window桌面端的Chrome、Edge、FireFox），用于软件调试开发。三是在移动端安装一套经典的浏览器（建议Chrome、FireFox、Safari等），用于浏览本课程代码案例，有条件的也可浏览自己的写的代码案例。
 
 3.keyword
  
@@ -13,9 +15,9 @@
 
   <a src=first.html>提供一个只有基本的HTML框架标记的Web页，可以用于创建Web页的最初样版文件，请注意标记之间的嵌套。
  
- <a src=second.html>在上面案例基础上，增加了二段文字，用来阐述Computer Science和Digital technology，在操作中，请尝试用记事本排版，用浏览器打开查看。
+ <a src=second.html>在上面案例基础上，增加了二段文字，用来阐述Computer Science和Digital technology，在操作中，可尝试用记事本、代码编辑器分别排版，用不同的浏览器打开查看。
    
-   <a src=third.html> 在上面文字和Web页基础上，增加2个HTML标记，p和h1，分别用于段落和标题。
+ <a src=third.html> 在上面文字和Web页基础上，增加2个HTML标记，p和h1，分别用于段落和标题。
 
 5.reading
 

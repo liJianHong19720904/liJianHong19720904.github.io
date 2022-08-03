@@ -1,7 +1,9 @@
 ﻿1.title
-  Object to DOM（探索篇：内存对象和Web页的文档对象模型）
+  From Object to DOM（探索篇：内存对象和Web页文档对象模型）
 2.introduction
-  对象是我们用计算机中的数据模拟现代信息的一种建模方法，在现代高级语言中，面向对象的程序设计已经普及，JavaScript为我们提供了一系列最简洁方法，用来为构建代码构建自己设计的对象。本课我们利用四个案例，演示了从手工创建对象到利用函数自动创建对象的过程，JavaScript函数可以通过设计为构造函数与对象发生重要联系。
+  对象这种数据结构可以把许多简单数据组合起来，形成人们更易理解和管理的信息集合。前面我们尝试了JavaScript建立对象的几种方法，但用这些方法建立的对象在哪里，这些对象与Web页面有关系吗？本课开始前，需要讨论这个问题。
+  代码创建的对象，不管是系统内置对象，还是自定义对象，如同其他的数字数据一样，都存在于计算机内存中，因此对象都是内存对象，可以为代码提供高速的访问，在开发者的Console命令行中，可以用Console.log输出查看这些对象信息。
+  Web页提供了基于DOM技术的丰富的UI生成能力，本课我们思考如何把这类内存对象，用Web元素的形式表现在Web页面上，形成一种更加内涵丰富的输出形式。本课实践中，我们利用五个案例，同时演示了创建内存对象和Web页的DOM对象，再通过设计一个逻辑，把内存对象和Web页的DOM对象关联起来。最后，在Web页面上把DOM对象渲染出来，似乎我们就实现了把抽象的内存对象输出在Web页面了，这是实践应用软件建模的初步思想。
 
 3.keyword
   width:20%; ，height:20%; ， display:inline-block; ， background-color:rgba(0,0,0,0.1); ， document.createElement('div')  ，document.createElement('p')  ，父元素.appendChild(子元素) ，div.style.borderColor ，div.style.height  ，内存对象.divDom.style.left  ，内存对象.divDom.style.display 。 
