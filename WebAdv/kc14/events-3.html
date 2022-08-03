@@ -52,13 +52,8 @@
 	  var x = eObj.clientX ;
 	  var y = eObj.clientY ;
 
-      pDom.textContent = `孙子：clientX : ${x}  ,  clientY:${y} ` ;
-     //下面再动态创建一个p元素，嵌在页面静态的p元素中
-	  var pgX = eObj.pageX ;
-	  var pgY = eObj.pageY ;
-	  var aAnotherP = document.createElement("p");
-	      aAnotherP.textContent =  `重孙子： pageX : ${pgX}  ,  pageY:${pgY} `;
-	  pDom.appendChild(aAnotherP);
+      pDom.textContent = `儿子：clientX : ${x}  ,  clientY:${y} ` ;
+     
 	 };//end of body.onmousemove
 
 // 下面这段代码必须放在window.onload中，否则body元素未建立，而导致程序错误，这段代码把内存中的50个动态图片添加到Web页后面，在已经把外部图像文件读入内存的基础上，在页面上创建50个图像元素的速度是非常之快的。

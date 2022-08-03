@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Events事件和异步代码。本例随机设定了50张gif图的属性，让每个图像的位置和样子产生变化，并利用异步代码，setTimeout，把小鸟逐一添加到Web页。</title>
+  <title>Events事件和异步代码。本例随机设定了50张gif图的属性，让每个图像的位置和样子产生变化，并利用异步代码，setTimeout，把小鸟逐一添加到Web页。本例还利用onmousemove事件，和鼠标光标，结合DOM元素的绝对定位，实现了用一个圆（模拟太阳）跟随鼠标。</title>
   <style type="text/css">
 	body{
 	 border:2px solid;
@@ -29,6 +29,15 @@
 	  }
    img{
     position:absolute;
+   }
+  div#home{
+    position:absolute;
+	width:100px;
+	height:100px;
+	background-color:rgba(250,150,0);
+	opacity: 0.2 ;
+	border-width:0px;
+	border-radius:50%;
    }
   </style>
   <script type="text/javascript">
@@ -60,7 +69,8 @@
 
       pDom.textContent = `孙子：clientX : ${x}  ,  clientY:${y} ` ;
     
-
+     document.getElementById("home").style.left = x - 100 + "px" ;
+     document.getElementById("home").style.top = y - 100 + "px" ;
 	 };//end of body.onmousemove
 
 // 下面这段代码让每个动态gif图逐个出现，这可以用异步代码！注意“for循环”是同步代码，以当前普通计算机处理能力，一段代码在微秒内完成，相对setTimeout和setInterval这种数十毫秒级别的代码，不可同日而语。。
@@ -87,6 +97,8 @@
   <div>
   父亲div
 	<p>儿子p</p> 
+  </div>
+  <div id="home">
   </div>
  </body>
 </html>

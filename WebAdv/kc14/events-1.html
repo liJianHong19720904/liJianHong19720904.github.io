@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Events事件和异步代码第一步，本例用javascript控制DOM事件，利用CSS的class类切换，实现动态鼠标交互效果。本例也可演示Web页中事件的冒泡机制。</title>
+  <title>学习Events事件和异步代码第1步，本例用javascript控制DOM事件，利用CSS的class类切换，实现动态鼠标交互效果。本例也可演示Web页中事件的冒泡机制。</title>
   <style type="text/css">
 	body{
 	 border:2px solid;
@@ -29,7 +29,10 @@
   </style>
   <script type="text/javascript">
   <!--
+    var timer1 = new Date() ;
 	window.onload = function(){
+	var timer2 = new Date() ;
+	  console.log("页面创建时间："+ (timer2 - timer1) +" ms 。");
      //三个叠加对象的onclick事件
 	 var para = document.querySelector("p");
 	  para.onclick = function(){
