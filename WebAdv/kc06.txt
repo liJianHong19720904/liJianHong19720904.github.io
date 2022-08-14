@@ -1,5 +1,5 @@
 ﻿1.title
-   JavaScript OverView（起步篇：现代编程语言JavaSript快速上手）
+  JS —— A Modern Programming Language （起步篇：现代编程语言——JavaSript快速上手）
 2.introduction
   在准备好了以下三项基本技能之后：1、对CS（computer science）一些概念和浏览器环境深刻理解；2、对代码编辑器系统性掌握；3、能用简单的HTML和CSS语言编写一般的Web页面，理解Web元素的内容和渲染基本原理。本节课我们通过四个小案例，实现进入Web编程的小目标。
   本此课的目标是让开发者快速了解现代编程语言JavaScript的运行环境和通用语法，在真正进入开发情景后，语法是否能记住已经完全不重要了，只要写上几遍语句，怎么写语法就会成为肌肉记忆。就像学习外语那样，只要在外语使用的环境说上几遍外语后，当能交流后我们就不会再纠结语法了，写代码也是如此，进入开发的情景后，让你的代码能运行起来语法自然就掌握了。因此最重要的是，进入开发环境，让你敲打的代码运行起来。
@@ -15,6 +15,19 @@
   <a src=instruction-order-2.html>本例继续探索JS代码和HTML脚本的次序，在HTML页面的标题h1元素诞生之前，运行三段代码,同时为学有余力的学习者引入循环和对象变量的概念。
   
 5.reading
-Most programming is done with programming languages. A programming language is an artificially constructed language used to instruct computers. It is interesting that the most effective way we’ve found to communicate with a computer borrows so heavily from the way we communicate with each other. Like human languages, computer languages allow words and phrases to be combined in new ways, making it possible to express ever new concepts.
-At one point language-based interfaces, such as the BASIC and DOS prompts of the 1980s and 1990s, were the main method of interacting with computers. They have largely been replaced with visual interfaces, which are easier to learn but offer less freedom. Computer languages are still there, if you know where to look. One such language, JavaScript, is built into every modern web browser and is thus available on almost every device.
-JavaScript is the language of the Web. It started as a way to manipulate a few selected types of elements in a web page (such as images and form fields), but it has grown tremendously. In addition to client-side browser scripting, these days you can use JavaScript to program for an increasing variety of platforms. You can write server-side code (using .NET or Node.js), desktop applications (that work on all operating systems)  and application extensions (e.g., for Firefox or Photoshop), mobile applications, and command-line scripts.
+
+Understanding the Browser Environment
+Web browsers are complicated pieces of software. When they work well, they operate seamlessly and integrate all their functions into a smooth and seemingly simple web browsing experience.  To  be able to make better use of browsers, it’s important to know the many different parts of the web browser and how these parts interact with each other. 
+The user interface . The part of the web browser that you interact with when you type in a URL, click the home button, create or use a bookmark, or change your browser settings is called the user interface .
+Loader . The loader is the part of a web browser that communicates with web servers and downloads web pages, scripts, CSS, graphics, and all the other components of a web page. Most  often, loading is the part of displaying a web page that creates the longest wait time for the user.  The HTML page is the first part of a web page that must be downloaded, as it contains links and embedded scripts and styles that need to be processed in order to display the page. Once the HTML document is downloaded, browsers will open several connections to the server in order to download the other parts of the web page as quickly as possible. Generally, the parts of a web page that are linked from an HTML document (also known as the resources) are loaded in the order in which they appear in the HTML document .
+The load order of resources is critical to the efficiency and speed at which the page can be displayed to the user. In order for a web page to be displayed correctly, the CSS styles that apply to that page need to be loaded and parsed. Because of this, CSS should always be loaded in the head element at the top of the web page.
+JavaScript sometimes affects the display of a web page as well, but more often, it affects only the functionality. When a script will affect the display of a web page, it should be loaded in the head of the document (after the CSS). Scripts that aren’t critical to how the web page appears should be linked from the very end of the body element (right before the </body>), so as to not create a blocking scenario in which the browser waits for scripts to load before displaying anything to the user.
+HTML parsing
+After a web page is downloaded, the HTML parsing component of the browser goes to work parsing the HTML to create a model (called the Document Object Model or DOM) of the web page. The DOM, which is covered in detail in previous lessons, is like a map of your web page. JavaScript programmers use this map to manipulate and access all the different parts of a web page. Upon completion of the HTML parsing, the browser begins downloading the other components of the web page.
+CSS parsing
+Once the CSS for a web page is completely downloaded, the web browser will parse the styles and figure out which ones apply to the HTML document. CSS parsing is a complex process involving multiple passes over a document in order to apply each style correctly and to take into account how the styles impact each other.
+JavaScript parsing
+The next step in displaying a web page is the JavaScript parsing. The JavaScript parser compiles and runs every script in your web page in the order in which it appears in the document. If your JavaScript code adds or removes elements, text, or styles within the HTML DOM, the browser will update the HTML and CSS renderings accordingly.
+Layout and rendering
+Finally, once all the web page’s resources have been loaded and parsed, the browser determines how to display the page and then displays it. Unless you’ve specified that a script included earlier in the document should wait until the end to be executed, the layout and rendering of your scripts will occur in the order they’re included in the document.
+

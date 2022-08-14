@@ -15,7 +15,23 @@
   <a src=binary-4.html>本例继续上例的UI，用代码把用户输入的十进制数，转换为二进制数，通过JavaScript对Web页面的API输出，本例难度体现在十进制到二进制转换算法的实现。熟悉JavaScript的事件处理函数的语法也是本课另一个重点。
   
 5.reading
+
  Inside the computer’s world, there is only data. You can read data, modify data, create new data——but that which isn’t data cannot be mentioned. All this data is stored as long sequences of bits and is thus fundamentally alike.
 
  Bits are any kind of two-valued things, usually described as zeros and ones. Inside the computer, they take forms such as a high or low electrical charge, a strong or weak signal, or a shiny or dull spot on the surface of a CD. Any piece of discrete information can be reduced to a sequence of zeros and ones and thus represented in bits.
  For example, we can express the number 13 in bits. It works the same way as a decimal number, but instead of 10 different digits, you have only 2, and the weight of each increases by a factor of 2 from right to left. Here are the bits that make up the number 13,  the binary number 00001101. Its non-zero digits stand for 8, 4, and 1, and add up to 13.
+
+Most programming is done with programming languages. A programming language is an artificially constructed language used to instruct computers. It is interesting that the most effective way we’ve found to communicate with a computer borrows so heavily from the way we communicate with each other. Like human languages, computer languages allow words and phrases to be combined in new ways, making it possible to express ever new concepts.
+At one point language-based interfaces, such as the BASIC and DOS prompts of the 1980s and 1990s, were the main method of interacting with computers. They have largely been replaced with visual interfaces, which are easier to learn but offer less freedom. Computer languages are still there, if you know where to look. One such language, JavaScript, is built into every modern web browser and is thus available on almost every device.  JavaScript was standardized in 1996 by the European Computer Manufacturers Association (ECMA), which is why you sometimes hear it called ECMAScript.
+JavaScript is the language of the Web. It started as a way to manipulate a few selected types of elements in a web page (such as images and form fields), but it has grown tremendously. In addition to client-side browser scripting, these days you can use JavaScript to program for an increasing variety of platforms. You can write server-side code (using .NET or Node.js), desktop applications (that work on all operating systems)  and application extensions (e.g., for Firefox or Photoshop), mobile applications, and command-line scripts.
+
+ Besides explaining JavaScript, I will introduce the basic principles of programming. Programming, it turns out, is hard. The fundamental rules are simple and clear, but programs built on top of these rules tend to become complex enough to introduce their own rules and complexity. You’re building your own maze, in a way, and you might just get lost in it.
+There will be times when reading this book feels terribly frustrating. If you are new to programming, there will be a lot of new material to digest. Much of this material will then be combined in ways that require you to make additional connections.
+It is up to you to make the necessary effort. When you are struggling to follow the book, do not jump to any conclusions about your own capabilities. You are fine—you just need to keep at it. Take a break, reread some material, and make sure you read and understand the example programs and exercises. Learning is hard work, but everything you learn is yours and will make subsequent learning easier.
+
+ A program is many things. It is a piece of text typed by a programmer, it is the directing force that makes the computer do what it does, it is data in the computer’s memory, yet it controls the actions performed on this same memory. Analogies that try to compare programs to objects we are familiar with tend to fall short. A superficially fitting one is that of a machine—lots of  separate parts tend to be involved, and to make the whole thing tick, we have to consider the ways in which these parts interconnect and contribute to the operation of the whole.
+A computer is a physical machine that acts as a host for these immaterial machines. Computers themselves can do only stupidly straightforward things. The reason they are so useful is that they do these things at an incredibly high speed. A program can ingeniously combine an enormous number of these simple actions to do very complicated things.
+A program is a building of thought. It is costless to build, it is weightless, and it grows easily under our typing hands.
+
+
+

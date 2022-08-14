@@ -1,10 +1,10 @@
 1.title
-"Learn Programming In Web Front"（前言：深入编程的理论和实践——以Web前端为例）
+"Preface -- Learn Programming In Web Front"（前言：程序设计进阶学习——以Web前端为例）
 
 2.introduction
-欢迎来到"Learn Programming In Web Front"课程首页！不懂英文的朋友把鼠标移动到最上面标题，会有中文反馈。本课程我们以Web前端的环境的编程学习为背景，实践和理论结合，探索对计算机、Web、软件等体系的理解，实现深入编程的实践和理论，最终达到写出高质量代码的目标。
-本站涉及的内容更适合有过高级程序语言（尤其是C家族）学习经历的朋友，而对于基本语法都还不熟悉的编程初学者，建议配合学习更为基于的高级语言知识。
-本站的20课涉及的内容，每一课内容都探讨一个话题，基本自成体系。每一课的几个代码实践案例则是学习重点，案例采用一种问题导向，逐步提升，逐级跨越的方式，学习者可按自己的代码功力选择级别和难度。不同学习者通过写这种由浅入深的代码案例，就会较容易找到实践编程中自己个性的问题，克服挫折，乃至激发自己创作代码的兴趣，找到自己的乐趣。
+欢迎来到"Learn Programming In Web Front"课程首页！把鼠标移动到最上面英文标题，会有中文互动反馈。本课程我们以Web和前端的编程学习开发为背景，通过实践和理论结合，尝试用代码来探索计算机、网络、软件、Web的工作原理和概念，实现真正掌握编程的实践方法和理解理论，达到能写出更高质量代码（没做最高）的目标。
+修习本站的内容一般需要有高级程序语言（比如C语言）学习经历。对于高级语言基本语法都还不熟悉的编程初学者，学习本站之前，建议还是预先入门一门简单的高级语言，编一些小案例打好语法的基础。
+本站的20课涉及的内容，每一课内容都探讨一个话题，基本自成体系。每一课的几个代码实践案例是学习重点，案例采用一种问题导向，逐步提升，逐级跨越的方式，学习者可按自己的代码功力选择级别和难度。不同学习者通过写这种由浅入深的代码案例，就会较容易找到实践编程中自己个性的问题，克服挫折，乃至激发自己创作代码的兴趣，找到自己的乐趣。
 每课还在最后的阅读区展示一些不错的英文文本，源于各种经典阐述，反复阅读可以提升英文能力，同时理解也可以提高认知，顺便修炼我们编写代码的内功。多阅读经典能让开发者站在更高的视角，训练思维，提高分析问题和解决问题的能力。
 
 3.keyword
@@ -17,12 +17,10 @@ Computer 、Computer Science 、Code、Programming、Script、Language 、Web �
   <a src=cet6.txt>本例实践案例提供一个文本文件（300KB），内含大学英语等级考试单词6千个，既可用于练习代码编辑，也是后续课程外部数据来源。
 5.reading
 When action grows unprofitable （实践）, gather information（理论）; when information grows unprofitable, sleep （耐心）. —— Ursula K. Le Guin, The Left Hand of Darkness
-现在您看到的只是本站的介绍（第0课），本站计划设计19节教学课，我们可以在页面顶部导航选择学习的篇章。每个学习篇的界面从上至下分五个部分：1：标题、2：内容简介、3、关键字、4、实践案例、5、理论阅读。这种形式与学术论文形式类似，目标明确，层次清晰，可有效提高人们的学习效率。
-标题和简介是对每个篇章的总结和概括性文字、关键字则列出本篇代码需要理解和掌握的英文关键字。实践案例和理论阅读互为编写代码的外功和内功，先动手实践，再总结领会理论，是人们高效率学习技能性知识的规律。
-理论的基础来源于实践编码，本课每节课的每个实践案例涉及对计算机和程序多方面的理解，应由授课教师讲解10至20分钟，把握代码和编程的思路。学生的练习和代码实现的时间则非常不同，不做明确规定，学生应根据自身情况来灵活安排掌握，比如基础较好的同学可能十分钟写的代码，普通同学可能需要几个二十分种才能完成。本站的19个教学课程承前启后，学习者的理解和实际编程能力都需要逐步搭建，一般建议学习者达成前面的学习目标后，才去学习后面的教学内容。
-数十年的程序设计教学经验告诉我们，编程学习者（国内外）都普遍提出：“Don't tell me , Show me! ” 的指导要求。理论和书本系统性指导对于任何学习（包括编程）都很重要，但编程学习者却更强调尽快亲手实践写出代码，进而用代码表达有具体内容和实际意义的案例，然后辅之以理论总结和回顾。本课程的实践案例采用的学习模式是经典的“提出问题，分析问题，解决问题”的计算思维模式。每课都设计了逐级递进的案例，由于这些案例发展需要，一般后面的案例都综合了计算机软件类专业的多门课程的核心能力，当然，这并不意味着理解和写出这些案例就必须有这些专业课程的学习经历，实际上，人们的许多能力无需阅读理论，都可以在实践中启蒙。
-对于课堂教学而言，教师融合自己教学内容和理念，配合本站的实践案例。我们强调让学生动手先模仿和改进代码，再上升到自己编写案例代码的路径。注意：不可在学习早期就养成复制粘贴代码的习惯，学生亲手敲出的代码并运行代码之后，只能算初步读懂了代码，距离写出真正写出代码还有很长一段距离。这段距离可能是一个学期的练习案例的时间，还可能是能力上的差距，比如独立且手写完成一个纯代码项目的原型。
-本站有意优化了移动端的文字阅读效果，方便人们在电子屏幕上阅读，课堂上可以让学生打开手机或平板，阅读和朗读文字经典，体验愉快地读书和编程。
+This beginner's course is written for complete beginners to the world of website code, who don't know what to learn first , and just need a single poiont that will lead them in the right direction with confidence. This series of lessons will guide you through all the basics of web development , so you can get up to speed relatively quickly, learning just enough to not feel lost and overwhelmed, and get comfortable with the area in general. We try to give you important background information of how the web works , we are actually interested in telling you how the bricks are made , and we're not just want you to start building the house .
+This course is also for front-end web developers. That means we teach you how the front, or client side of the web works, not the processing, or back side. We teach you how to create webpages with languages like HTML, CSS, and JavaScript (which we'll code mainly). You'll be free to explore on your own and experiment with the front-end code that make the web work.In short, you'll be confident and comfortable with the usage and coding of web technologies like HTML, CSS, and JavaScript. This course is not for back-end web developers, who are responsible for hosting web servers  .  Also, this course specifically won't go in much details of other interesting and efficient web technologies like SVGs, or Canvas APIs. You can learn them easily after accomplishing this course with some good materials. 
 <img src=everywhere.jpg> Computers have become the most empowering tool we’ve ever created. They’re tools of communication, they’re tools of creativity, and they can be shaped by their user.”       --Bill Gates (b. 1955), American co-founder of Microsoft
 <img src=bill.jpg>Born in 1955, American entrepreneur . Bill Gates started programming in his early teens. In 1975, he set up the technology company Microsoft (the name combines “microcomputer” with “software”) with his friend Paul Allen. Microsoft have become famous for their Windows operating systems, programs like Word, Excel, and  Outlook, and the Xbox gaming console, among many other things.
+
+
 

@@ -1,8 +1,9 @@
 ﻿1.title
-Learn Types of hardware device With HTML/CSS（准备篇：学习计算机硬件部件， 实践HTML/CSS语言的结合）
+Learn Types of hardware device With HTML/CSS（准备篇：计算机硬件组成， 实践HTML/CSS语言的结合）
 2.introduction
  能理解表达计算机的硬件大致分类，可以分为4类：处理器（传统的分类中，再分为运算器和控制器）、存储器、输入设备、输出设备。能对生活中的硬件举出一些实例。
  在Web编程实践中，能用HTML的有序列表标记，对分类标题进行自动递增控制。同时引入CSS样式的基本概念，初步能用CSS语言控制HTML元素的样式。
+ 从Web文档的元素容器的角度，初步理解Web页的最基本的文档结构（Basic Document Structure）。
 
 3.keyword
   categories ，Hardware devices ，processing devices ，peripherals ， ol(order list)，li(list) ，style , font size , font weight , color , display , block 。 
@@ -13,9 +14,16 @@ Learn Types of hardware device With HTML/CSS（准备篇：学习计算机硬件
   <a src=hardwareType-3.html>本例引入ol和li二个父子关系的标记，用于让HTML语言自动生成有数字递增的列表。
   <a src=hardwareType-4.html>本例引入CSS语言，初步使用CSS语言控制文字字体的大小、胖瘦、颜色，还探讨了图像的display模式，本例更改的block模式。
 5.reading
-Hardware devices are grouped into several categories. They can either be integral to the computer (such as a motherboard) or attached to it via cables, Wi-Fi, or Bluetooth. Hardware devices that aren’t an integral part of the main computer unit, such as keyboards, mice, screens, printers, and scanners are called peripherals.
-Mobile phones and tablets usually have integrated hardware devices and don’t need peripherals. Here are some common hardware devices.
+Hardware devices are grouped into several categories. They can either be integral to the computer (such as a motherboard) or attached to it via cables, Wi-Fi, or Bluetooth. Hardware devices that aren’t an integral part of the main computer unit, such as keyboards, mice, screens, printers, and scanners are called peripherals. Mobile phones and tablets usually have integrated hardware devices and don’t need peripherals. Here are some common hardware devices.
   <img src=chip.jpg>Processing devices .		These devices take data and instructions to produce new variations of data. Computers may also have specialized  processing devices that deal with graphics or audio and video signals.
   <img src=input.jpg >  Input devices .	These devices are used to input data or instructions. Some input devices, such as scanners and cameras, allow the input of digitized information that can be stored or processed.
   <img src=output.jpg> Output devices .	These devices take data from the computer and present it to the user. Newer output devices include virtual reality (VR) goggles that immerse users in a 3D world.
   <img src=storage.jpg> Storage devices.  These devices enable computers to save data when they are not powered on. Apart from hard drives and random access memory (RAM), storage devices also include USB pen drives and memory cards.
+   <img src=docStructure.jpg> The figure shows the recommended minimal skeleton of an HTML document. I say “ recommended ” because the only element that is required in HTML is the title. But I feel it is better, particularly for beginners, to explicitly organize documents into metadata (head) and content (body) areas.
+   <img src=docStructure.jpg> 1.	I don’t want to confuse things, but the first line in the example isn’t an element at all. It is a document type declaration (also called DOCTYPE declaration) that lets modern browsers know which HTML specification to use to interpret the document. This DOCTYPE identifies the document as written in HTML5.
+    <img src=docStructure.jpg> 2.	The entire document is contained within an html element. The html element is called the root element because it contains all the elements in the document, and it may not be contained within any other element. 
+     <img src=docStructure.jpg>3.	Within the html element, the document is divided into a head and a body. The head element contains elements that pertain to the document that are not rendered as part of the content, such as its title, style sheets, scripts, and metadata.
+      <img src=docStructure.jpg> 4.	meta elements provide document metadata, information about the document. In this case, it specifies the character encoding (a standardized collection of letters, numbers, and symbols) used in the document as Unicode version UTF-8 ( see “Introducing Unicode” in lesson 15). I don’t want to go into too much detail on this right now, but know that there are many good reasons for specifying the charset in every document, so I have included it as part of the minimal document markup. Other types of metadata provided by the meta element are the author, keywords, publishing status, and a description that can be used by  search engines.
+
+      <img src=docStructure.jpg> 5.	Also in the head is the mandatory title element. According to the HTML specification, every document must contain a descriptive title. 
+      <img src=docStructure.jpg> 6.	Finally, the body element contains everything that we want to show up in the browser window. 
