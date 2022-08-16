@@ -201,22 +201,33 @@
 	   View.cnDom.textContent = `词性，中文等` ;
 	},//end of nextWord 用户按Shift键，可切换提示
 	initCET: function (){
-	 //对CET6单词库中，查找a到z开头的单词首个单词，把这些单词对象作为Model.readyWords备选单词的数据
-	console.time("初始化时间");
- 	let num = 0 ;
-	for (let word of CET6){
- 	  let chCode = "a".charCodeAt() + num ;
-	  if (word.en.substring(0,1).toLowerCase() === String.fromCharCode(chCode)) {
+     if (CET6.length > 5000){
+	   //对CET6单词库中，查找a到z开头的单词首个单词，把这些单词对象作为Model.readyWords备选单词的数据
+	  console.time("初始化时间");
+ 	  let num = 0 ;
+	  for (let word of CET6){
+ 	   let chCode = "a".charCodeAt() + num ;
+	   if (word.en.substring(0,1).toLowerCase() === String.fromCharCode(chCode)) {
        	  Model.readyWords.push(word) ;
 		  num++ ; 
-      }
-	}//end of CET数组遍历
-	
-	Model.word = Model.readyWords[0] ;
-    View.getUIDom() ;
-    View.showHint() ; 
-	View.showCursor() ;
-	console.timeEnd("初始化时间");
+       }
+  	}//end of CET数组遍历
+	 
+	 Model.word = Model.readyWords[0] ;
+    
+     View.showHint() ; 
+	 View.showCursor() ;
+	 console.timeEnd("初始化时间");
+	 View.showInfo("当前完成读入CET单词数："+CET6.length + " 个！") ;
+    }else{
+	  let randI = Math.random()*10 ;
+	  if (randI > 5){
+	   View.showInfo("请等待，正在努力读取远方的CET单词库！") ;
+	  }else{
+	   View.showInfo("当前完成读入CET单词数："+CET6.length + " 个！") ;
+	  }
+      setTimeout(Model.initCET,2000);
+	}
    } ,
  //用户每次有效地输入，都要重新计算需要准备的单词
 	 getReadyWords : function(){
@@ -342,7 +353,8 @@
 		 } , 1000/speed);
 	},//end fo showCursor
     showInfo : function(info){
-	  this.infoDom.textContent = info ;
+		console.log(View.infoDom);
+		View.infoDom.textContent = info ;
     },
 	initVkeys :function(){
 	  	 //动态适应当前window，为Web页准备虚拟键盘
@@ -412,15 +424,9 @@
  function Controller(){
 
    View.initVkeys() ;
-
-   setTimeout(function(){
-	   if (CET6.length > 0) {
-         Model.initCET() ;
-	   }else{ //CET6单词数据没有准备好，或许碰到极端慢的情况，系统出刷设计再延时2秒！
-	     setTimeout(Model.initCET,2000);
-	   }
-     },2000) ;
-   
+   View.getUIDom();
+   Model.initCET() ;
+  
 
 	document.body.onkeydown = function(eObj){
 	    //改动后代码逻辑更加清晰
