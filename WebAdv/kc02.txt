@@ -10,10 +10,10 @@
   hardware ，software ，computing system ， img ，image file  。 
 
 4.project
-  <a src=pad.jpg>本例提供一个jpg图像文件，文件名：pad.jpg 。即可浏览器打开，也可下载到本地，用于HTML文件图文排版。
-  <a src=hardSoft.html>本例使用上面的图像文件，演示了使用img标记，实现把图像嵌入Web页。
-  <a src=hardware.jpg>本例提供一个jpg图像文件，文件名：hardware.jpg 。可浏览器打开，也可下载到本地，用于下面的HTML文件图文排版。
-  <a src=hardware.html>本例使用上面的图像文件，可演示img标记的其他属性（本例为align）使用，实现把图像嵌入Web页的调整。
+  <a src=pad.jpg  title=理解jpg格式的图像文件>本例提供一个jpg图像文件，文件名：pad.jpg 。可浏览器打开，也可下载到本地，用于HTML文件图文排版。
+  <a src=hardSoft.html title=img元素标记和理解图像文件插入HTML页面>本例使用上面的图像文件，演示了使用img标记，实现把图像嵌入Web页。
+  <a src=hardware.jpg title=理解jpg格式的图像文件>本例提供一个jpg图像文件，文件名：hardware.jpg 。可浏览器打开，也可下载到本地，用于下面的HTML文件图文排版。
+  <a src=hardware.html title=img元素的属性设置>本例使用上面的图像文件，可演示img标记的其他属性（本例为align）使用，实现把图像嵌入Web页的调整。
 5.reading
 <img src=pad.jpg>When talking about computers, people often refer to hardware,particularly in terms of upgrading or replacing it. Hardware combines with software to form a usable computing system.
   The physical parts of a computer are called hardware. These include things we can see, such as the monitor and computer case, as well as things we can’t see, such as the motherboard and microprocessor inside the computer case.

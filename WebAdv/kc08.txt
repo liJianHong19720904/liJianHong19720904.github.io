@@ -9,10 +9,10 @@
   Math ，floor ，random ，prompt（API），parseInt ， document.querySelector（API） ， document.querySelectorAll（API）  ，Web页的元素变量.onclick ，Web页的元素变量.textContent , function 定义  , 有名function , 匿名function 。 
 	
 4.project
-  <a src=guessNum-1.html>本例使用Math对象有一些常用方法，用于解决常见数学问题。
-  <a src=guessNum-2.html>本例结合While循环，实现猜数游戏，猜中成功率的算法是难点。
-  <a src=guessNum-3.html>本例使用Web页的DOM元素实现UI界面，本例大量使用了匿名函数，并把匿名函数赋值给按钮元素的onclick属性，初步完成有界面的猜数游戏。由于本程序没有合理算法，显得程序智力很差，这个算法难点将由下面案例解决。
-  <a src=guessNum-4.html>本例使用了二分法算法，能应对用户输入的各种情况，完善猜数游戏，程序在最后还定义了一个函数（名称：yourAreCheating），对用户是否作弊进行判断。
+  <a src=guessNum-1.html  title=猜数游戏>本例使用Math对象有一些常用方法，用于解决常见数学问题。
+  <a src=guessNum-2.html  title=实现循环猜数游戏>本例结合While循环，实现猜数游戏，猜中成功率的算法是难点。
+  <a src=guessNum-3.html  title=有Web的界面（UI）猜数游戏>本例使用Web页的DOM元素实现UI界面，本例大量使用了匿名函数，并把匿名函数赋值给按钮元素的onclick属性，初步完成有界面的猜数游戏。由于本程序没有合理算法，显得程序智力很差，这个算法难点将由下面案例解决。
+  <a src=guessNum-4.html  title=增加了算法的猜数游戏>本例使用了二分法算法，能应对用户输入的各种情况，完善猜数游戏，程序在最后还定义了一个函数（名称：yourAreCheating），对用户是否作弊进行判断。
   
 5.reading
  Accessing DOM Nodes . The document object in the DOM identifies the page itself, and more often than not will serve as the starting point for our DOM crawling. The document object comes with a number of standard properties and methods for accessing collections of elements. 

@@ -9,10 +9,10 @@
   JavaScript ，C Language family ，variable ，function ， alert（API） ， setTimeout（API）  ，if/else ， = ， > ，< ，+ ， 一对" 或 一对' ，while(){...} ， var 变量名 = {...} 。 
 	
 4.project
-  <a src=bigBang.html>本例用英语词汇学习的方式，尝试JavaScript的异步代码设置语句setTimeout（API）的第一次接触，以后随着代码能力加强，我们会深入异步代码的探索。
-  <a src=var-if-else.html>本例使用变量和if/else逻辑语句的练习，尝试对JavaScript快速入门。
-  <a src=instruction-order-1.html>本例探索JavaScript代码和HTML脚本的执行次序，同时可以让我们理解Web代码的运行次序，我们可试试把script元素放到其他几个位置执行。
-  <a src=instruction-order-2.html>本例继续探索JS代码和HTML脚本的次序，在HTML页面的标题h1元素诞生之前，运行三段代码,同时为学有余力的学习者引入循环和对象变量的概念。
+  <a src=bigBang.html  title=三秒后弹出BigBang>本例用英语词汇学习的方式，尝试JavaScript的异步代码设置语句setTimeout（API）的第一次接触，以后随着代码能力加强，我们会深入异步代码的探索。
+  <a src=var-if-else.html title=用变量和逻辑语句入门>本例使用变量和if/else逻辑语句的练习，尝试对JavaScript快速入门。
+  <a src=instruction-order-1.html title=探索代码的书写的先后次序>本例探索JavaScript代码和HTML脚本的执行次序，同时可以让我们理解Web代码的运行次序，我们可试试把script元素放到其他几个位置执行。
+  <a src=instruction-order-2.html title=初探代码的循环结构和对象的数据类型>本例继续探索JS代码和HTML脚本的次序，在HTML页面的标题h1元素诞生之前，运行三段代码,同时为学有余力的学习者引入循环和对象变量的概念。
   
 5.reading
 

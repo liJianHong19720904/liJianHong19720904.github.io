@@ -113,7 +113,8 @@
 	  } 
 	article#introduction  b, article#project  b{
 		color:rgb(200,0,0) ;
-		text-shadow: rgb(0,0,0) 1px 0.5px ;
+		text-shadow: rgb(255,255,0) 1px 0.5px ;
+		padding-top:1em;
    	   }
 	article#keyword  b,article#reading  b{
 		color:rgb(250,50,0) ;

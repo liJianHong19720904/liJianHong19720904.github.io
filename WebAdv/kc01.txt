@@ -13,11 +13,11 @@
 
 4.project
 
-  <a src=first.html>提供一个只有基本的HTML框架标记的Web页，可以用于创建Web页的最初样版文件，请注意标记之间的嵌套。
+  <a src=first.html  title=HTML文件标记的基础结构>提供一个只有基本的HTML框架标记的Web页，可以用于创建Web页的最初样版文件，请注意标记之间的嵌套。
  
- <a src=second.html>在上面案例基础上，增加了二段文字，用来阐述Computer Science和Digital technology，在操作中，可尝试用记事本、代码编辑器分别排版，用不同的浏览器打开查看。
+ <a src=second.html  title=理解title和body元素>在上面案例基础上，增加了二段文字，用来阐述Computer Science和Digital technology，在操作中，可尝试用记事本、代码编辑器分别排版，用不同的浏览器打开查看。
    
- <a src=third.html> 在上面文字和Web页基础上，增加2个HTML标记，p和h1，分别用于段落和标题。
+ <a src=third.html  title=理解标题和段落元素> 在上面文字和Web页基础上，增加2个HTML标记，p和h1，分别用于段落和标题。
 
 5.reading
 

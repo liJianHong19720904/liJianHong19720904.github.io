@@ -9,10 +9,10 @@
   function ，return ，console.log ，!== ， === ，% ，parseInt ，UI（HTML/CSS） ，<input> ，type="text"  ，type="button"  ， value ，onclick ， aArray = [ ] ， aArray.length 。 
 	
 4.project
-  <a src=binary-1.html>本例通过自定义函数power2(x)，理解计算机内的二进制数字。
-  <a src=binary-2.html>本例探索经典的32位、64位、128位二进制数的十进制范围，学习函数的定义和调用。利用循环，研究JavaScript定义的Infinity这个所谓的最大值。
-  <a src=binary-3.html>本例用HTML/CSS创建一个简单UI，包括：1、用户输入十进制数的文本框；2、点击按钮；3、二进制数的文本输出框。 本例专注于实现UI控件，UI的功能代码则由下一例完成。
-  <a src=binary-4.html>本例继续上例的UI，用代码把用户输入的十进制数，转换为二进制数，通过JavaScript对Web页面的API输出，本例难度体现在十进制到二进制转换算法的实现。熟悉JavaScript的事件处理函数的语法也是本课另一个重点。
+  <a src=binary-1.html  title=自定义函数探索二的N次幂计算>本例通过自定义函数power2(x)，理解计算机内的二进制数字。
+  <a src=binary-2.html  title=探索js语言的Infinity保留字，测试浏览器>本例探索经典的32位、64位、128位二进制数的十进制范围，学习函数的定义和调用。利用循环，研究JavaScript定义的Infinity这个所谓的最大值。
+  <a src=binary-3.html  title=用CSS语言制作一个UI>本例用HTML/CSS创建一个简单UI，包括：1、用户输入十进制数的文本框；2、点击按钮；3、二进制数的文本输出框。 本例专注于实现UI控件，UI的功能代码则由下一例完成。
+  <a src=binary-4.html  title=实现一个有UI的十进制转换程序>本例继续上例的UI，用代码把用户输入的十进制数，转换为二进制数，通过JavaScript对Web页面的API输出，本例难度体现在十进制到二进制转换算法的实现。熟悉JavaScript的事件处理函数的语法也是本课另一个重点。
   
 5.reading
 

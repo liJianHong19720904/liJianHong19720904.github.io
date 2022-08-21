@@ -2,16 +2,16 @@
    Output Approaches For JavaScript program （起步篇：JavaScript代码对Web页面和开发者后台的输出）
 2.introduction
   任何计算机程序都包含信息输入、数据处理、输出结果三个环节。本课我们介绍JavaScript代码的二种输出形式：一是利用浏览器的文档输出API（document.write和DOM控制），实现对Web浏览器页面的输出； 二是代码直接对后台以命令行（console.log）的方式输出。
-  本节课我们将通过四个小案例完成学习，为夯实编码技能，同时在案例中还填加了字符串连接和循环实现算法的目标。
+  本节课我们将通过四个小案例完成学习，为夯实编码技能，同时在案例中还应用了字符串连接和循环实现算法。
 
 3.keyword
   document ，write ，document.write（API），for(……){……} ， console.log（API） ， document.querySelectorAll（API）  ，Web页的元素变量.textContent ，table , tr (table row) , td (table data) 。 
 	
 4.project
-  <a src=output-1.html>本例用document.write （API）实现HTML元素和文字输出。
-  <a src=output-2.html>本例结合抽象的双重循环，用代码动态实现输出字符的生成，再利用document.write实现九九乘法表。
-  <a src=output-3.html>本例要打开浏览器的开发者Console面板，才能查看console.log的输出效果。console.log是JavaScript对后台的标准输出方式。桌面的浏览器一般都有专门的界面实现Console功能，也用作开发者对代码的调试。本例用二重循环控制每行字符串生成,再利用console.log实现九九乘法表。
-  <a src=output-4.html>本例二重循环控制每行字符串生成,再利用document.querySelectorAll这个强大的API，把每个表格单元格选中，再使用JavaScript代码改变表格单元格（textContent属性），实现输出九九乘法表。另外最后三例都要用到双重循环，需要学习者练习抽象算法。
+  <a src=output-1.html  title=js代码实现Web页输出之API-1>本例用document.write （API）实现HTML元素和文字输出。
+  <a src=output-2.html  title=在上例基础上训练代码的循环算法能力>本例结合抽象的双重循环，用代码动态实现输出字符的生成，再利用document.write实现九九乘法表。
+  <a src=output-3.html  title=js代码实现Web页输出之API-2>本例要打开浏览器的开发者Console面板，才能查看console.log的输出效果。console.log是JavaScript对后台的标准输出方式。桌面的浏览器一般都有专门的界面实现Console功能，也用作开发者对代码的调试。本例用二重循环控制每行字符串生成,再利用console.log实现九九乘法表。
+  <a src=output-4.html  title=js代码实现Web页输出之API-3>本例二重循环控制每行字符串生成,再利用document.querySelectorAll这个强大的API，把每个表格单元格选中，再使用JavaScript代码改变表格单元格（textContent属性），实现输出九九乘法表。另外最后三例都要用到双重循环，需要学习者练习抽象算法。
   
 5.reading
 

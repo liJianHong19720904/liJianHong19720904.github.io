@@ -1,5 +1,5 @@
 ﻿1.title
- Learn About Programming with HTML/CSS Inheritance （准备篇：编程概述，实践HTML/CSS继承设置）
+ Learn About Programming with HTML/CSS Inheritance （准备篇：编程概述，实践HTML/CSS继承机制）
 2.introduction
  理解编程是深刻地使用计算机，具有重大意义。简单地利用计算机可以使用现成的软件，而对于个性化或一些开放性计算机应用的问题，则需要我们理解需求，编制程序，学习编程的本质上就是分析问题和用高效率的计算机解决问题。当代廉价的现代计算机，配合其强大计算能力，再结合人类的抽象思维能力，可为每一个人提供了数字化发展机会和带来巨大的潜力。
  本课的Web代码实践中，在html部分增加了meta语句，实现了对移动端浏览器的viewport概念全屏设置（请在实践案例1，2中，对比手机浏览器端渲染的巨大区别）。在CSS中，增加了对body字体大小属性继承的探索，新增了CSS类的语法设计，同时对上一课的Web元素的重要概念盒装模型（padding、border、margin使用）综合使用温故知新。
@@ -8,12 +8,12 @@
   Programming ，complex，instruction ，framework ， abstract thinking  ，<meta name="viewport"> ，content="width=device-width , initial-scale=1"  ，p.odd ，p.even ，   body{font-size:25px;}  ，p{ font-size:1.5em; } ，margin:0;   ， padding:10px 20px 。 
 	
 4.project
-  <a src=program-0.html>本例提供介绍编程意义的文本，用于简单标记和CSS类的学习实践。
-  <a src=program-1.html>本例在上例基础上删除<meta name="viewport">设置，仅用于移动手机端浏览器的实践，本例在PC端效果与上例完全一致。
+  <a src=program-0.html  title=在CSS样式表建立类的概念>本例提供介绍编程意义的文本，用于简单标记和CSS类的学习实践。
+  <a src=program-1.html title=请在移动端浏览器查看本例，与上例对比>本例在上例基础上删除<meta name="viewport">设置，仅用于移动手机端浏览器的实践，本例在PC端效果与上例完全一致。
  
-  <a src=program-2.html>本例继续演示子元素p对body父元素的属性继承和变异。
-  <a src=program-3.html>本例继续演示子元素h1对body父元素的属性继承和变异。
-  <a src=program-4.html>本例演示Web页的元素的BoxModel各属性的使用，让页面更加完美。
+  <a src=program-2.html title=子元素p对body父元素的字体大小属性的继承>本例继续演示子元素p对body父元素的属性继承和变异。
+  <a src=program-3.html title=子元素对父元素的继承>本例继续演示子元素h1对body父元素的属性继承和变异。
+  <a src=program-4.html title=探索盒装模型概念（消除margin和增加padding）>本例演示Web页的元素的BoxModel各属性的使用，让页面更加完美。
   
 5.reading
  Programming .   Computers are about as common as screwdrivers today, but they are quite a bit more complex, and making them do what you want them to do isn’t always easy.

@@ -124,13 +124,26 @@
            let p = document.createElement("p");
            var no;
                no = i+1 ;
-               b.textContent =  "案例实践:"+Model.lessonId +"."+ no ;
-           my$("#project").appendChild(b);
- 
+              
+           
            let bt = document.createElement("input");
            bt.type = "button" ; 
-           bt.id = paras[i].substring(7,paras[i].search('>')) ;
            bt.value = "运行本例" ;
+           let aProperty = paras[i].substring(7,paras[i].search('>')) ;
+           let titlePos =  aProperty.search("title=") ;
+            if(titlePos!==-1){
+               bt.id = aProperty.substring(0,titlePos);
+               bt.title = aProperty.substring(titlePos+6);
+                }else{
+               bt.id = aProperty ;
+               }
+           if(!bt.title){
+             bt.title = "本例尚未命名" ;
+
+           }
+           b.textContent =  "案例实践:"+Model.lessonId +"."+ no + " 《 " + bt.title +" 》";
+           my$("#project").appendChild(b);
+            
            bt.onclick = function(){
             var url ;
              if(this.id.substring(0,4)==='http'){
@@ -138,6 +151,7 @@
              }else{
                url = Model.getUrlPath() + (this.id)  ;
              }
+            
              window.open(url);
            };
            paras[i] = paras[i].substring(paras[i].search('>')+1) ;
