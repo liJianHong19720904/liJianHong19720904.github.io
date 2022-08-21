@@ -2,17 +2,27 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>本例继续使用上例的UI，把输入的十进制数，转换为二进制数输出（算法和代码实现）</title>
   <style type="text/css">
+    body{font-size:25px;}
 	input{
-	 font-size:25px;
+	 font-size:1.5em;
 	 display:block;
 	} 
+	
 	input#DToB{
-	 border-radius:15% ;
+	 border-radius:5% ;
+	 border:outset solid ;
+	 border-width: 10px ;
 	 cursor:pointer;
 		}
-
+	input#num{
+	 width:6em;
+	}
+    input#bin{
+	 width:20em;
+	}
   </style>
   <script type="text/javascript">
   <!--
@@ -34,8 +44,10 @@
   二进制表示：<input id="bin" type="text" value="0">
   <script type="text/javascript">
   <!--
-	document.querySelector("input#DToB").onclick = function(){
-	  var num = document.querySelector("input#num").value ;
+	document.querySelector("input#DToB").onclick = doIt ;
+	
+	function doIt(){
+	 var num = document.querySelector("input#num").value ;
 	  num = parseInt(num);
 	  document.querySelector("input#num").value = num ;
 	 //十进制转为二进制，用教科书中经典的除2取余算法
@@ -48,9 +60,9 @@
     binArray.reverse() ;
 	console.log(binArray) ;
 	  
-	  document.querySelector("input#bin").value = binArray.toString() ;
+	document.querySelector("input#bin").value = binArray.toString() ;
 	  //数组的toString方法，可把数组的元素用逗号连起来，作为一个字符串返回。
-	};
+	} //End of Function doIt 
   //-->
   </script>
  </body>
