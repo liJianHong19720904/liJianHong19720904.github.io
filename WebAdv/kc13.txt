@@ -9,12 +9,12 @@
   相对路径 ， "../路径名/文件名"  ， 图像DOM对象.src ， document.body.appendChild ，document.querySelector("div img"); ，document.querySelector("div#fPic"); ，document.querySelectorAll("div#fPic img"); ，window.innerWidth ，父元素.removeChild(子元素) ; ，父元素.appendChild(子元素) ，DOM元素.style.left ，document.getElementById(DOM的id值) 。 
 	
 4.project
-  <a src=images-1.html>本例演示HTML和CSS代码静态插入img元素，并利用网络实现实现加载图片，本例代码简单实用，展示了CSS控制图片渲染的经典方法。
-  <a src=images-2.html>演示用DOM技术，用JavaScript代码动态向Web页插入网络引入的图片文件。
-  <a src=images-3.html>演示通过用JavaScript代码改变DOM元素的src属性，实现图像文件动态读入Web元素。这是一种比较典型的动态改变Web页上图片文件的方法。
-  <a src=images-4.html>演示在Web页删除和添加图像DOM节点，这也是典型的动态DOM技术。本例利用视觉错觉让人感觉实现了图像移动，还利用算法实现类似画面循环的效果。
-  <a src=images-5.html>对照前面案例的视觉错觉造成的画面移动效果，本例探索图像真实移动的代码。我们可以为Web的DOM元素设定绝对定位，然后通过异步代码控制元素的style属性的坐标变化，实现图像逐渐移动的动画。
-  <a src=images-6.html>在前面案例基础上，将自定义fbs数组元素重构为自定义对象，该对象实现DOM信息、X坐标、DOM的id信息存储，通过这些信息，利用算法完美实现10张循环移动的照片动画。
+  <a src=images-1.html title=Web页的静态插入图片>本例演示HTML和CSS代码静态插入img元素，并利用网络实现实现加载图片，本例代码简单实用，展示了CSS控制图片渲染的经典方法。
+  <a src=images-2.html title=Web页的动态插入图片>演示用DOM技术，用JavaScript代码动态向Web页插入网络引入的图片文件。
+  <a src=images-3.html title=Web页的动态修改图片来源>演示通过用JavaScript代码改变DOM元素的src属性，实现图像文件动态读入Web元素。这是一种比较典型的动态改变Web页上图片文件的方法。
+  <a src=images-4.html title=Web页的动态增加和删除图片元素>演示在Web页删除和添加图像DOM节点，这也是典型的动态DOM技术。本例利用视觉错觉让人感觉实现了图像移动，还利用算法实现类似画面循环的效果。
+  <a src=images-5.html title=Web页中DOM元素的运动>对照前面案例的视觉错觉造成的画面移动效果，本例探索图像真实移动的代码。我们可以为Web的DOM元素设定绝对定位，然后通过异步代码控制元素的style属性的坐标变化，实现图像逐渐移动的动画。
+  <a src=images-6.html title=一个完美的循环图片动画展>在前面案例基础上，将自定义fbs数组元素重构为自定义对象，该对象实现DOM信息、X坐标、DOM的id信息存储，通过这些信息，利用算法完美实现10张循环移动的照片动画。
 5.reading
 
 getElementById --- By far the most widely used method for selecting elements, getElementById is essential to modern web development. With this handy little tool, you can find and work with any element simply by referencing a unique id attribute. No matter what else happens in the HTML document, getElementById will always be there for you and will reliably select the exact element that you want.

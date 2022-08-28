@@ -10,10 +10,10 @@
   EcmaScript ，Math.random ，Math.floor  ，setInterval ， HTML/CSS ，UI ，document.querySelectorAll ，dom元素.textContent ，new Date() ，.getFullYear() ， .getMonth() ，.getDate() ，.getHours()，.getMinutes()，.getSeconds()，.getMilliseconds()，，Number(非数字数据) ， new Date(0) 。 
 	
 4.project
-  <a src=oop-1.html> 演示随机生成彩票号码，本例要使用Console面板查看结果。EcmaScript内定义的对象（数学对象），Math对象是EcmaScript语言体系中的唯一对象，直接使用，无需new操作符产生实例 。
-  <a src=oop-2.html>演示随机生成彩票中奖号码，本例用HTML/CSS设计了UI，并利用异步代码实现号码自动变化。
-  <a src=oop-3.html>演示EcmaScript内定义的对象（时间对象），生成输出几个重要时间对象实例，同时编写代码计算分析EcmaScript定义的时间，理解在计算机内部时间对象本质上是一个数字，本例要使用Console面板查看结果。
-  <a src=oop-4.html>演示利用EcmaScript内定义的对象（时间对象）的方法，结合前面案例生成UI，实现一个按当前时间变化Web页面。
+  <a src=oop-1.html  title=随机生成彩票号码> 演示随机生成彩票号码，本例要使用Console面板查看结果。EcmaScript内定义的对象（数学对象），Math对象是EcmaScript语言体系中的唯一对象，直接使用，无需new操作符产生实例 。
+  <a src=oop-2.html  title=抽奖Web页程序>演示随机生成彩票中奖号码，本例用HTML/CSS设计了UI，并利用异步代码实现号码自动变化。
+  <a src=oop-3.html  title=对计算机内时间数据的探索>演示EcmaScript内定义的对象（时间对象），生成输出几个重要时间对象实例，同时编写代码计算分析EcmaScript定义的时间，理解在计算机内部时间对象本质上是一个数字，本例要使用Console面板查看结果。
+  <a src=oop-4.html  title=利用时间对象和API显示当前时间>演示利用EcmaScript内定义的对象（时间对象）的方法，结合前面案例生成UI，实现一个按当前时间变化Web页面。
   
 5.reading
 Values.  Imagine a sea of bits—an ocean of them. A typical modern computer has more than 30 billion bits in its volatile data storage (working memory). Nonvolatile storage (the hard disk or equivalent) tends to have yet a few orders of magnitude more. 

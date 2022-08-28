@@ -11,11 +11,11 @@
   events ，window.onload ，onclick ，onmouseover ，onmousemove ，onmousedown ，onmouseup，Event Object，clientX ，clientY ，pageX  ，pageY  ，` ${ } ` ，DOM.style.left ，DOM.style.top ，opacity  ，border-radius。 
 	
 4.project
-  <a src=events-1.html>本例需要启用开发者的Console面板，通过window.onload事件，了解“Web页文件加载浏览器完成”事件，可以上课时在代码中加入时间对象，测量本机加载本文件的时间。window.onload 也代表Web页中所有元素在浏览器中创建完成这件事件的发生，这是一个重要的事件。所有的DOM操作操作代码都基于这件事件发生之后，因此把DOM操作代码放在window.onload事件处理函数之中，是一种经典Web页异步代码模式。 本例用javascript控制DOM事件，利用CSS的class类切换，实现动态鼠标交互效果。最后，本例还演示了Web页中事件的冒泡机制，一个鼠标事件触发多个元素叠在一起的元素。
-  <a src=events-2.html>演示浏览器支持的鼠标指针API：clientX、clientY 。本例开始，代码使用了多重事件处理函数嵌套的编码模式，这种俄罗斯套娃的模式可能会造成初学者理解困扰，在此做个比较，以我们对宇宙的理解模型，发生以下事件：先有大爆炸生成宇宙，再有银河系生成，然后是太阳系生成，…… ，这些事件都是后者嵌套在前者内部的。
-  <a src=events-3.html>本例结合前面课程动态图片案例，读取网络上一张动态gif图，然后利用JavaScript程序，在页面上动态生成了50个img图像元素。为深刻理解window.onload事件，这段代码的位置需要在课堂演示，放在window.onload函数外面，body元素产生之前的位置，通过试错来理解事件发生的时间次序。
-  <a src=events-4.html>本例综合了异步代码，结合CSS对绝对定位对象位置的控制，随机设定了50张gif图的属性，让每个gif图像的位置和样子产生变化，并利用异步代码（这里使用了setTimeout），异步把小鸟动态图逐一添加到Web页，本例还增加了一个圆形跟随鼠标。
-  <a src=events-5.html>本例在前面案例基础上，设计一个比较酷炫的互动，点击鼠标后，小鸟会陆续飞到鼠标点击的位置。这个案例需要使用异步代码解决小鸟“陆续飞”移动的难题，在算法上的有一些难度，整个核心代码不足百行，但运用了一些技巧，完成本例需要一些编写的经验。
+  <a src=events-1.html title=Web页读入浏览器的事件>本例需要启用开发者的Console面板，通过window.onload事件，了解“Web页文件加载浏览器完成”事件，可以上课时在代码中加入时间对象，测量本机加载本文件的时间。window.onload 也代表Web页中所有元素在浏览器中创建完成这件事件的发生，这是一个重要的事件。所有的DOM操作操作代码都基于这件事件发生之后，因此把DOM操作代码放在window.onload事件处理函数之中，是一种经典Web页异步代码模式。 本例用javascript控制DOM事件，利用CSS的class类切换，实现动态鼠标交互效果。最后，本例还演示了Web页中事件的冒泡机制，一个鼠标事件触发多个元素叠在一起的元素。
+  <a src=events-2.html title=Web页的鼠标事件及事件的嵌套>演示浏览器支持的鼠标指针API：clientX、clientY 。本例开始，代码使用了多重事件处理函数嵌套的编码模式，这种俄罗斯套娃的模式可能会造成初学者理解困扰，在此做个比较，以我们对宇宙的理解模型，发生以下事件：先有大爆炸生成宇宙，再有银河系生成，然后是太阳系生成，…… ，这些事件都是后者嵌套在前者内部的。
+  <a src=events-3.html  title=读取gif动画和动态创建Web页元素>本例结合前面课程动态图片案例，读取网络上一张动态gif图，然后利用JavaScript程序，在页面上动态生成了50个img图像元素。为深刻理解window.onload事件，这段代码的位置需要在课堂演示，放在window.onload函数外面，body元素产生之前的位置，通过试错来理解事件发生的时间次序。
+  <a src=events-4.html title=动画、定位、鼠标跟随的初步研究>本例综合了异步代码，结合CSS对绝对定位对象位置的控制，随机设定了50张gif图的属性，让每个gif图像的位置和样子产生变化，并利用异步代码（这里使用了setTimeout），异步把小鸟动态图逐一添加到Web页，本例还增加了一个圆形跟随鼠标。
+  <a src=events-5.html title=有鼠标跟随的“百鸟归巢”程序>本例在前面案例基础上，设计一个比较酷炫的互动，点击鼠标后，小鸟会陆续飞到鼠标点击的位置。这个案例需要使用异步代码解决小鸟“陆续飞”移动的难题，在算法上的有一些难度，整个核心代码不足百行，但运用了一些技巧，完成本例需要一些编写的经验。
  
 5.reading
 Web pages are much more than just static displays of text and graphics. JavaScript gives web pages interactivity and the ability to perform useful work. An important part of JavaScript’s ability to perform useful functions in the browser is its ability to respond to events.

@@ -9,11 +9,11 @@
   width:20%; ，height:20%; ， display:inline-block; ， background-color:rgba(0,0,0,0.1); ， document.createElement('div')  ，document.createElement('p')  ，父元素.appendChild(子元素) ，div.style.borderColor ，div.style.height  ，内存对象.divDom.style.left  ，内存对象.divDom.style.display 。 
 	
 4.project
-  <a src=objDom-1.html>本例演示用JavaScript语言在Web页，用代码动态（在程序运行的时刻，on the fly）向Web页添加元素对象。
-  <a src=objDom-2.html>本例稍微把Dom操作的代码片段移动位置，就实现在Web页生成100个矩形，且不会有报错信息，需要从Web页内存模型建立的角度理解和分析这种现象。
-  <a src=objDom-3.html>本例在构造函数创建对象模型基础上，利用Web的DOM技术展现内存信息的可视化外观！
-  <a src=objDom-4.html>本例在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用点击事件（异步代码入门）来逐一展现对象外观！
-  <a src=objDom-5.html>本例利用onmouseover事件触发对象的移动动画，为实现异步代码能获取变量不断变化的数据，我们引入了函数闭包概念和js变量作用域的lexical语法，本例难度较大，仅作学有余力的学习者参考，一般无需掌握。
+  <a src=objDom-1.html  title=向Web页动态添加元素(代码无法运行)>本例演示用JavaScript语言在Web页，用代码动态（在程序运行的时刻，on the fly）向Web页添加元素对象。
+  <a src=objDom-2.html title=向Web页动态添加元素(代码可以运行)>本例稍微把Dom操作的代码片段移动位置，就实现在Web页生成100个矩形，且不会有报错信息，需要从Web页内存模型建立的角度理解和分析这种现象。
+  <a src=objDom-3.html title=用Web的DOM技术创建可视化信息>本例在构造函数创建对象模型基础上，利用Web的DOM技术展现内存信息的可视化外观！
+  <a src=objDom-4.html title=引入点击事件>本例在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用点击事件（异步代码入门）来逐一展现对象外观！
+  <a src=objDom-5.html title=异步事件和DOM元素的动画>本例利用onmouseover事件触发对象的移动动画，为实现异步代码能获取变量不断变化的数据，我们引入了函数闭包概念和js变量作用域的lexical语法，本例难度较大，仅作学有余力的学习者参考，一般无需掌握。
 5.reading
 
 Understanding the DOM is key to being able to manipulate the text or HTML in a web page. Using the DOM, you can create animations, update data without refreshing web pages, move objects around in a browser, and much more! 
