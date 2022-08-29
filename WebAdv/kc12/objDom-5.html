@@ -2,7 +2,8 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用onmouseover（异步代码）来逐一展现对象的动画！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用onmouseover（事件）来逐一触发DOM元素的异步代码执行的动画！</title>
   <style type="text/css">
 	div{
 	    width:20%;
@@ -12,15 +13,27 @@
 	    border:2px solid ;
 		display:block;
 		position:absolute;
-		top:25%;
+		top:10%;
 		left:0%;
 		cursor:pointer;
 		background-color:rgba(0,0,0,0.5);
 	  	}
-	div p{ 
+   div.male{
+	    border-radius:10% ;
+		border-color:blue ;
+	}
+	div.female{
+	    border-radius:50% ;
+		border-color:red  ;
+	}
+    div p{
+	      position:relative;
+	      left:30%;top:30%;
 	      text-align:center;
-		  display:inline;
 		  color:white;
+		  opacity:1;
+		  width:50%;
+		  background-color:black;
 		  }
   </style>
   <script type="text/javascript">
@@ -33,25 +46,32 @@
 	   this.male = male ;
        this.divDom = null ;
 	   this.x = 0 ;
+	   this.y = 0 ;
 	   //只有第一次运行函数Person时，this关键字才指向Person的实例，也就是内存对象自己，异步执行函数goOut代码时，只有把this保存到另一个变量that中，利用JavaScript函数的lexical语法作用域特性，让异步代码能访问that。此处若用this，则再执行异步代码时，this会指向window，导致this.goOut代码和this.divDom为空。
 	   var that = this ;
 	   this.goOut = function(){
-		 that.x += 5 ;
-		 that.divDom.style.left = that.x + 'px' ;
-         if (that.x > window.innerWidth * 0.6) {
-			 that.divDom.style.display = "none" ;
-		 }
-		 setTimeout(that.goOut,30);
-		};
+		 if (that.male){
+		  that.x += 5 ;
+		  that.divDom.style.left = that.x + 'px' ;
+          if (that.x > window.innerWidth * 0.6) {
+			  that.divDom.style.display = "none" ;
+		  }
+		 }else{//that.male === false
+		  that.y += 3 ;
+		  that.divDom.style.top = window.innerHeight*0.1 + that.y + 'px' ;//注意：在CSS样式设置中，每个div默认top坐标高度为10%。
+          if (that.y > window.innerHeight * 0.8) {
+			  that.divDom.style.display = "none" ;
+		   }
+		  }
+		 setTimeout(that.goOut,30);//that指向的内存对象的goOut方法将永远不停地执行下去，如何让已经消失的DOM对象避免执行that.goOut？ 提示：增加条件 if that.divDom.style.display ！== "none" 。
+		};//End of this.goOut
 	   
 	   this.addToDom = function(){
 		  var div = document.createElement('div') ;
 		  var p = document.createElement('p') ;
 		  p.textContent =  this.name +"/"+ this.age ;
 		  div.appendChild(p) ;
-		  var txtColor = this.male ? "blue" : "red" ;
-          div.style.borderColor = txtColor ;
-		  div.style.height = this.age *5 + 'px' ;
+		  this.male ? div.className = "male"  : div.className = "female" ;
           //设定dom元素的属性model，指向代表本内存对象本身，在本方法addToDom函数第一次运行时，可以用this获取该值。
 		  div.model = this ;
 		  div.onmouseover = function(){

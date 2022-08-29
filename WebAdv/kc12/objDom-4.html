@@ -2,6 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用点击事件（异步代码入门）来逐一展现对象外观！</title>
   <style type="text/css">
 	div{
@@ -12,16 +13,27 @@
 	    border:2px solid ;
 		display:block;
 		position:absolute;
-		top:25%;
+		top:10%;
 		left:0%;
 		cursor:pointer;
 		background-color:rgba(0,0,0,0.1);
 	  	}
-	div p{ 
+	div.male{
+	    border-radius:10% ;
+		border-color:blue ;
+	}
+	div.female{
+	    border-radius:50% ;
+		border-color:red  ;
+	}
+    div p{
+	      position:relative;
+	      left:30%;top:30%;
 	      text-align:center;
-		  display:inline;
 		  color:white;
-          background-color:black;
+		  opacity:1;
+		  width:50%;
+		  background-color:black;
 		  }
   </style>
   <script type="text/javascript">
@@ -38,8 +50,8 @@
 	   this.goOut = function(){
 		 var randX = window.innerWidth * 0.8 * Math.random() ;
 		 var randY = window.innerHeight * 0.8 * Math.random() ;
-		 this.divDom.style.left = randX + 'px' ;
-         this.divDom.style.top = randY + 'px' ;
+		 this.divDom.style.left = randX   + 'px';
+         this.divDom.style.top = randY  + 'px' ;
          		
 		};
 	   
@@ -48,9 +60,7 @@
 		  var p = document.createElement('p') ;
 		  p.textContent =  this.name +"/"+ this.age ;
 		  div.appendChild(p) ;
-		  var txtColor = this.male ? "blue" : "red" ;
-          div.style.borderColor = txtColor ;
-		  div.style.height = this.age *5 + 'px' ;
+		  this.male ? div.className = "male"  : div.className = "female" ;
           //设定dom元素的属性model，指向代表本内存对象本身，在本方法addToDom函数第一次运行时，可以用this获取该值。
 		  div.model = this ;
 		  div.onclick = function(){
@@ -85,7 +95,7 @@
   </script>
  </head>
  <body>
-  <h1>随机产生内存对象，根据内存对象数据，结合onclick事件异步代码逐一展现对象的外观信息。</h1>
+  <h1>随机产生内存对象，根据内存对象数据，生成对象的外观信息。利用onclick事件逐一移动DOM元素。</h1>
   <script type="text/javascript">
   <!--
 	 //输出自动产生的数据
@@ -102,8 +112,8 @@
      } 
 	 student[i].addToDom();
    }
-  console.log('There are ' +countBoy + ' boys!');
-  console.log('There are ' +countGirl + ' girls!');
+  console.log('There are ' + countBoy + ' boys!');
+  console.log('There are ' + countGirl + ' girls!');
   //-->
   </script>
  </body>
