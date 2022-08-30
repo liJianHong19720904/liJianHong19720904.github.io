@@ -6,13 +6,13 @@ Learn Types of hardware device With HTML/CSS（准备篇：计算机硬件组成
  从Web文档的元素容器的角度，初步理解Web页的最基本的文档结构（Basic Document Structure）。
 
 3.keyword
-  categories ，Hardware devices ，processing devices ，peripherals ， ol(order list)，li(list) ，style , font size , font weight , color , display , block 。 
+  categories ，Hardware devices ，processing devices ，peripherals ， ol(order list)，li(list) ，style  ， font size  ，font weight  ，color  ， display ， block  ，inline 。 
 
 4.project
   <a src=hardwareType-1.html  title=Web页面的默认图文排版模式>本例初步提供硬件分类的部分文字和图片，用于前面HTML标记的操作的复习，本例主要理解p和h元素天生的块级特性，img元素天生的行内特性。
   <a src=hardwareType-2.html  title=Web页面的默认图文排版素材>本例提供了所有的硬件分类图片和文字。从语义上理解，img元素一般是嵌入在p元素之内。
   <a src=hardwareType-3.html  title=HTML元素间的嵌套，以列表元素为例>本例引入ol和li二个父子关系的标记，用于让HTML语言自动生成有数字递增的列表。
-  <a src=hardwareType-4.html title=初次使用CSS语言>本例引入CSS语言，初步使用CSS语言控制文字字体的大小、胖瘦、颜色，还探讨了图像的display模式，本例更改的block模式。
+  <a src=hardwareType-4.html title=初次使用CSS语言>本例引入CSS语言，初步使用CSS语言控制文字字体的大小、胖瘦、颜色，还探讨了图像的display模式，默认为inline模式，本例更改为block模式，这是理解Web页中元素排版特性的重要特征。
 5.reading
 Hardware devices are grouped into several categories. They can either be integral to the computer (such as a motherboard) or attached to it via cables, Wi-Fi, or Bluetooth. Hardware devices that aren’t an integral part of the main computer unit, such as keyboards, mice, screens, printers, and scanners are called peripherals. Mobile phones and tablets usually have integrated hardware devices and don’t need peripherals. Here are some common hardware devices.
   <img src=chip.jpg>Processing devices .		These devices take data and instructions to produce new variations of data. Computers may also have specialized  processing devices that deal with graphics or audio and video signals.
