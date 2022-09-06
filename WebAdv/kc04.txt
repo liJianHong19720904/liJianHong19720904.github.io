@@ -1,5 +1,5 @@
 ﻿1.title
- Learn Software Architecture with CSS Box Model（准备篇：学习计算机软件体系，实践CSS盒装模型）
+ Learn Software Architecture with CSS Box Model（准备篇：学习计算机软件体系，实践CSS盒状模型）
 2.introduction
  能理解计算机的软件的大致分类，基本可以分为2类：操作系统 operating system (OS)和应用软件 applications。能对学习生活中的各类软件阐述分析，并能对常用操作系统平台和应用加以区分，并能实现一些基本操作。
  在Web编程实践中，学习CSS语言，练习对Web页元素的颜色值、padding、border、margin等通用外观特征进行控制。
@@ -12,7 +12,7 @@
   <a src=software-2.html  title=增加CSS样式>本例演示在Web页的元素的背景和前景，设置颜色值，使用rgb(red,green,blue)表达颜色。
   <a src=software-3.html  title=为块级元素增加边框外观>本例演示Web页的元素的border属性的使用。
   <a src=software-4.html  title=为块级元素增加padding外观>本例演示Web页的元素的padding属性的使用。
-  <a src=software-5.html title=建立盒装模型概念，探索块级元素CSS属性>本例演示Web页的元素的margin属性使用，实践技巧：body元素的margin属性设为0，可以把页面设为全屏设定。
+  <a src=software-5.html title=建立盒状模型概念，探索块级元素CSS属性>本例演示Web页的元素的margin属性使用，实践技巧：body元素的margin属性设为0，可以把页面设为全屏设定。
 5.reading
 An operating system (OS) is a piece of software that manages a computer’s hardware and software resources, and makes it easier for us to use them. There are many types of OS, and they can be used for different purposes.There are many operating systems available. Microsoft Windows and Linux are the most commonly used ones. Apple machines use a specific operating system, called macOS.
 

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>作业查询 CS2020</title>
+  <!--
+   本文件读取同文件夹下的students.txt，按该txt文件的数据生成一张表格，罗列学生信息和项目URL地址，以快速定位查看学生作业
+  -->
+  <style type="text/css">
+	body{font-size:2em;}
+	input{
+	 font-size:1em;
+	 text-align:center;
+	}
+	input#xh{
+	 width:6em;
+	 color:blue;
+	}
+
+    h1,h2{
+	 color:rgb(150,150,250);
+     font-size:1.2em;
+	 text-shadow:3px 3px black ;
+	}
+	h2{
+	 font-size:0.8em;
+	 text-align:center;
+	}
+
+	table{width:90%;
+	font-size:0.8em;
+	border:2px solid blue;
+	text-align:center;
+    margin:auto;}
+	table td{
+	border:1px solid gray;
+	padding: 2px 10px ;
+	}
+	table td.chosen{
+	border:2px solid red;
+	background-color:rgb(230,230,255);
+	font-size:1.2em;
+	font-weight: bold ;
+	}
+    table td a{
+	background-color:navy;
+	color:white;
+	font-size:0.5em;
+	padding: 2px ;
+	}
+  </style>
+ 
+  <script type="text/javascript">
+  <!--
+ var ajaxObj = {
+    content: [] ,
+	xhrReq : function(url){
+		this.content = [] ;
+     	var theText = "" ;
+    	var xhr = new XMLHttpRequest();
+	     xhr.onreadystatechange = myCallback ;
+	     xhr.open('GET',url,true);
+	     xhr.send('');
+    function myCallback(){
+// myCallback函数将执行四次，因此本语句会被执行4次,对应xhr 的onreadystatechange的事件发生，xhr的属性readyState也会变化4次
+      if (xhr.readyState ===0 ){
+		  console.log("Ajax is uninitialized.");
+		  return ;
+	  }
+	  if (xhr.readyState === 1 ){
+		  console.log("Ajax beign Loading...");
+		  return ;
+	  } 
+	  if (xhr.readyState === 2 ){
+		  console.log("Ajax has Loaded .");
+		  return ;
+	  } 
+	  if (xhr.readyState === 3 ){
+		  console.log("Ajax can be interactive .");
+		  return ;
+	  } 
+	  if (xhr.readyState === 4 ){
+		  console.log("Ajax is complete .");
+		  if (xhr.status !== 200){
+			  console.log("Get text file from Server failed ! ");
+			  return ;
+		  }else{
+		       theText = xhr.responseText ;
+			   let arr = theText.split("\n");
+			   if (arr[arr.length -1]==="") {
+				   arr.pop();
+			   }
+			  //console.log(arr);// vsCode 会为每个元素文本最后带来\r符
+			   for(var i=0;i<arr.length;i++){
+                arr[i] = arr[i].trim();  
+			   }
+			   ajaxObj.content = arr;//全局变量ajaxObj
+			} // success of GET TXT
+	       }//readyState === 4
+		 }//end of myCallback	     
+	}//end of xhrReq methoed
+   };//end of ajaxObj definition
+
+ ajaxObj.xhrReq("students.txt") ;
+  //-->
+  </script>
+   <script type="text/javascript">
+   <!--
+      var students = [] ;
+	  window.onload = function(){
+       
+	    setTimeout(showStudents,1500) ;
+
+        function showStudents(){
+		    if (ajaxObj.content.length > 0){
+              students = ajaxObj.content ;
+			  console.log(students.length + " items loaded!" );
+			  showTable();
+			  }
+			else{
+			  console.log("没能成功获取数据，请刷新页面！");
+			  document.querySelector("h1").textContent = "网速慢，获取数据失败，请刷新页面！" ;
+			   }
+		  }
+
+      function showTable(){//本函数由function showStudents()使用
+	   var tableDom = document.querySelector("table") ;
+	   for (let i=0; i< students.length ; i++){
+		   let aStudent = students[i].split(" ") ;
+           aStudent[aStudent.length] = '0' ;//发言数据默认为0,若写为数值型，则会导致aStudent[j].substring(0,4)严重错误
+		    let trDom = document.createElement("tr");
+		   for (let j=0; j< aStudent.length; j++) {
+			   let tdDom = document.createElement("td");
+			      if (aStudent[j].substring(0,4) == 'http') {
+                      let aDom =  document.createElement("a");
+					  aDom.href = aStudent[j] ;
+                      aDom.text = aStudent[j] ;
+                      aDom.target = '_BLANK' ;
+                      tdDom.appendChild(aDom);
+			       }else{
+			          tdDom.textContent = aStudent[j] ;
+				   }
+                 trDom.appendChild(tdDom);
+		   }
+         tableDom.appendChild(trDom);
+	   }
+	  }//End of showTable
+   
+    //UI控件交互程序
+    var searchDom = document.querySelector("input#search") ;
+	   searchDom.onclick = function(){
+	    var xh =  document.querySelector("input#xh").value.trim();
+		console.log(xh) ;
+		var  tdDoms =document.querySelectorAll("table tr td")
+		 for(let i = 0 ; i < tdDoms.length ; i++){
+		   tdDoms[i].className = "" ;
+		   document.querySelector("h1").textContent = "未查到该学号" ;//该语句和下面的对比学号的逻辑互动形成对用户查学号的反馈
+		   if (tdDoms[i].textContent ===xh){
+             tdDoms[i].className = "chosen" ;
+			 document.querySelector("h1").textContent = "在下表第" + (i/4+1) + " 行 ";
+			 break;
+		   }
+		 }
+	   } ;//onclick searchDom
+	  
+	
+ 	 };//end of window's onload
+   //-->
+   </script>
+ </head>
+ <body>
+   <h1> Homeworks by JXSTNU CS2020 </h1>
+   学号 <input type="text" id = "xh" value="2020" />  &LessLess;--输入学号
+   <input type="button" id = "search" value="定位该学号" />
+
+   
+   <table>
+    <tr>
+   	 <th>学号</th>
+	 <th>姓名</th>
+	 <th>项目</th>
+     <th>发言</th>
+	</tr>
+   </table>
+    <h2>CopyRight Belongs to Mr. Li Jian Hong </h2>
+ </body>
+</html>
