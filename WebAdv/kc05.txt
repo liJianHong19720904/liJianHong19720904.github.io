@@ -2,10 +2,11 @@
  Learn About Programming with HTML/CSS Inheritance （准备篇：编程概述，实践HTML/CSS继承机制）
 2.introduction
  编程也是一种理解和深入使用计算机的方法，深刻理解这点后，对学习本课程有意义。比如，我们可以简单地利用计算机现成的软件，完成一些模式化的任务，而对于个性化或一些开放性问题，则很可能不是综合使用软件能解决的 ，或许需要我们分析和理解需求，搭建程序运行环境，编写代码。当我们编程脱离了初学状态，到了一定阶段，本质上就是分析问题和试图用计算机用高效率解决问题。而现代计算机的高性价比，配合互联网强大通信能力，结合人类的抽象思维能力，这就每一个开发者提供了数字化发展机会，也为社会信息化变革带来了巨大的潜力。
- 本课的Web代码实践中，在html部分增加了meta语句，实现了对移动端浏览器的viewport概念全屏设置（请在实践案例1，2中，对比手机浏览器端渲染的巨大区别）。在CSS中，增加了对body字体大小属性继承的探索，新增了CSS类的语法设计，同时对上一课的Web元素的重要概念盒装模型（padding、border、margin使用）综合使用温故知新。
+ 本课的Web代码实践中，在html部分增加了meta语句，实现了对移动端浏览器的viewport概念全屏设置（请在实践案例1，2中，对比手机浏览器端渲染的巨大区别）。在CSS中，增加了对body字体大小属性继承的探索，新增了CSS类的语法设计，同时对上一课的Web元素的重要概念盒装模型（padding、border、margin使用）综合使用温故知新。最后用CSS结合ul和ol元素二种特色列表，设计了二种比较典型的“导肮”栏界面。
 
 3.keyword
-  Programming ，complex，instruction ，framework ， abstract thinking  ，<meta name="viewport"> ，content="width=device-width , initial-scale=1"  ，p.odd ，p.even ，   body{font-size:25px;}  ，p{ font-size:1.5em; } ，margin:0;   ， padding:10px 20px 。 
+  Programming ，complex，instruction ，framework ， abstract thinking  ，<meta name="viewport"> ，content="width=device-width , initial-scale=1"  ，tag.class ，   body{font-size:25px;}  ，p{ font-size:1.5em; } ，margin:0;  ， padding:10px 20px  ， cursor:pointer position:absolute ， left，top ，right ，bottom ;
+	 。 
 	
 4.project
   <a src=program-0.html  title=在CSS样式表建立类的概念>本例提供介绍编程意义的文本，用于简单标记和CSS类的学习实践。
@@ -14,6 +15,7 @@
   <a src=program-2.html title=子元素p对body父元素的字体大小属性的继承>本例继续演示子元素p对body父元素的属性继承和变异。
   <a src=program-3.html title=子元素对父元素的继承>本例继续演示子元素h1对body父元素的属性继承和变异。
   <a src=program-4.html title=探索盒装模型概念（消除margin和增加padding）>本例演示Web页的元素的BoxModel各属性的使用，让页面更加完美。
+  <a src=program-5.html title=CSS实现的二种经典导航界面> 探索盒装模型概念（“二种经典导航界面”——综合设计盒状模型（以li元素为例）和CSS的元素定位排版。
   
 5.reading
  Programming .   Computers are about as common as screwdrivers today, but they are quite a bit more complex, and making them do what you want them to do isn’t always easy.

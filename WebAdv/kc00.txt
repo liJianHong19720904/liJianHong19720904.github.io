@@ -1,5 +1,5 @@
 1.title
-"Preface -- Learn Programming In Web Front"（前言：程序设计进阶学习——以Web前端为例）
+"Preface -- Learn Programming In Web Front"（前言：计算机科学导论之程序设计进阶——以Web前端为例）
 
 2.introduction
 欢迎来到"Learn Programming In Web Front"课程首页！把鼠标移动到最上面英文标题，会有中文互动反馈。本课程我们以Web和前端的编程学习开发为背景，通过实践和理论结合，尝试用代码来探索计算机、网络、软件、Web的概念和道理，掌握编程的实践方法和理解理论，从而达到能写出更高质量代码（没做最高）的目标。
