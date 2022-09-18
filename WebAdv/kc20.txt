@@ -1,0 +1,24 @@
+﻿1.title
+  Media Control Porject by "Pride and prejudice"（总结篇：以《傲慢与偏见》的媒体控制项目为例）
+2.introduction
+   这个总结篇综合前面课程，通过更精炼的6个案例实现了一个图文、音频丰富的项目。新增了音频和图像的异步事件控制，借助远程低速网络，探索媒体控制编程，过获取媒体的属性了解媒体的信息，通过设置媒体属性和调用方法实现媒体控制等。
+   同时与前面完整的字符控制项目，增加Web多媒体控制的探索，总结这二个项目，大学生身份的开发者必将可以写出“更加功能强大，效果更丰富”的英语学习项目。
+3.keyword
+ new Audio() ， new Image() ， .src  ，addEventListener  ，currentTime ，duration  ，loadedmetadata  ，canplaythrough 。
+	
+4.project
+  <a src=media-1.html title=演示video/audio播放的事件的UI>本例演示video/audio播放的事件的UI。
+  <a src=media-2.html title=探索媒体控制编程的第一步>本例具体演示Audio类对象的属性和方法包括：src属性 、duration属性、paused属性、currentTime属性、以及play和pause方法。
+  <a src=media-3.html title=播放的信息逐条显示>借助远程低速网络，来演示video/audio播放的事件编程， 本例在页面的Stage区域，实现了video/audio的播放的信息逐条显示。
+  <a src=media-4.html title=音频的进度控制和音量调整>借助远程低速网络，来演示video/audio播放的事件编程， 本例也借助上例实现的在Stage区域信息反馈，实现对音视频事件异步信息的及时互动。功能上具体增加实现音频的进度控制和音量调整功能。
+  <a src=media-5.html title=不同音频的切换>本例本例增加实现不同音频的切换功能，通过监听音频对象下载时发生的loadedmetadata、canplaythrough异步事件，我们再编写这二个事件的互动响应程序，让我们的页面有更丰富的信息反馈。。 
+  <a src=media-6.html title=增加舞台图片背景功能>本例增加舞台图片背景功能，实现傲慢与偏见朗读音频的切换，同时页面也有相应背景切换。
+5.reading
+
+And one last thing to keep in mind is that there are two main types of objects:
+ Native -- Described in the ECMAScript standard .
+ Host   -- Defined by the host environment (for example, the browser environment) .
+ The native objects can further be categorized as built-in (for example, Array, Date) or user-defined ( var o = {}; ) . 
+ Host objects are, for example, window and all the DOM objects. If you’re wondering whether you’re using host objects, try running your code in a different, nonbrowser environment. If it works fine, you’re probably using only native objects.
+
+

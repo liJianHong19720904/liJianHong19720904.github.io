@@ -236,7 +236,7 @@
 
 
    var Model = {
-      maxId : 19 ,
+      maxId : 20 ,
       lessonId : 0 ,
       getTextFile : function(){
         if (this.lessonId < 10){
