@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>借助远程低速网络，来演示video/audio播放的事件编程， 本例在页面的Stage区域，实现了video/audio的播放的信息逐条显示</title>
+   <style type="text/css">
+    body{
+	    margin: 0;
+	    font-size:20px;}
+   	div#stage{
+	 border:3px solid;
+	 height:300px ;
+	}
+	div#stage p{
+	 text-indent: 1em ;
+	 color:blue;
+	}
+	div#control span,div#control input{
+	 display:inline-block ;
+	 border:1px solid navy;
+	 border-radius:10%;
+	 background-color:rgb(100,200,255);
+	 padding:5px 10px;
+	 margin:0.1em 0.2em ;
+	 cursor:pointer;
+	}
+	div#control span:hover{
+	 background-color:rgb(100,100,255);
+	 color:white;
+	}
+	div#control span:active{
+	 background-color:rgb(100,250,255);
+	 color:white;
+	}
+	div#control input{
+	 color: white;
+	 background-color:black;
+	 width:3em;
+	 font-size:1em;
+	 text-align:center;
+	}
+   </style>
+   <script type="text/javascript">
+    <!--
+    "use strict";
+	 var mediaObj = {id : 1 ,
+		          audio: new Audio() ,
+				  path: "https://lijianhong19720904.github.io//images/mp3/pride and prejudice " ,
+				  getAudioById : function(id){
+                    	 var pathId ;
+						 if (this.id < 10){
+						  pathId = '0' + this.id ;
+					    } else{
+						  pathId = this.id ;
+					     }
+				    this.audio.src = this.path +  pathId + ".mp3" ;
+				  }				 
+				 } ; //End of  mediaObj definition
+	mediaObj.getAudioById();
+
+	window.addEventListener("load",init,false);
+	
+	function init(){
+      mediaObj.UI = {
+	         Play : document.querySelector("div span#play") ,
+	         Pause : document.querySelector("div span#pause") ,
+	         Percent : document.querySelector("div input#percent"),
+			 Stage: document.querySelector("div#stage"),
+			 addInfoToStage: function(info){
+			 //在页面的Stage区域，实现了文本信息逐条显示
+				 const infoNum = 5 ;
+				 var stageDom = document.querySelectorAll("p") ;
+				 if (stageDom.length === infoNum){
+                   this.Stage.removeChild(stageDom[0]) ;
+				 }
+				  var pDom = document.createElement("p") ;
+				      pDom.textContent = info ;
+				  this.Stage.appendChild(pDom) ;
+				 }//end of addInfoToStage
+      };//End of mediaObj.UI
+	 mediaObj.UI.Play.onclick = function(){
+	      mediaObj.audio.play() ;
+		  var s = "当前播放时刻：" + mediaObj.audio.currentTime + " 秒。" ;
+          mediaObj.UI.addInfoToStage(s) ;
+	 }; 
+	 mediaObj.UI.Pause.onclick = function(){
+	      mediaObj.audio.pause() ;
+		  var s = "暂停在："+ mediaObj.audio.currentTime + " 秒。" + "总长度：" + mediaObj.audio.duration  + " 秒。" ;
+          mediaObj.UI.addInfoToStage(s) ;
+	 }; 
+	}//init 函数定义结束 
+  //-->
+  </script>
+ </head>
+ <body>
+  <h2>【play】和【pause】可用，页面有信息反馈的互动</h2>
+  <div id="stage">
+	
+  </div>
+  <div id="control">
+  进度：<input id="percent" type="text" value="0">%
+	 <span id="play">Play</span> 
+	 <span id="pause">Pause</span>
+     <span id="prev">Prev</span>
+	 <span id="next">Next</span>
+	 <span id="addVol">+Vol+</span>
+	 <span id="subVol">-Vol-</span>
+  </div>
+ </body>
+</html>

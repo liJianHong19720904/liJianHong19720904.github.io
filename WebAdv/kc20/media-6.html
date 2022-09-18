@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+  为上例增加“剧照”配图，借助远程低速网络和预读14张jpeg图片（本文件images文件夹下，1.jpg--14.jpg ），保障了用户及时反馈的图像体验，显示了良好设计的代码的强大适应能力 。
+  </title>
+   <style type="text/css">
+    body{
+	    margin: 0;
+	    font-size:20px;}
+	body h2{font-size:1.1em;}
+   	div#stage{
+	 position: relative;
+	 border:3px solid;
+	 height:300px ;
+	}
+	/**为新的图片元素设计外观，注意其父元素div#stage的 relative设置！若无父元素的这条设置，img子元素的相对坐标会参考浏览器，而非父元素，由于我们之后的代码要根据图片文件的大小，调整图片位置，其参考坐标为父元素 **/
+	div#stage img{
+	 display: block;
+	 position: absolute;
+	 right: 0;
+	 top: 0;
+	 opacity: 0.2;
+	}
+	div#stage p{
+	 text-indent: 1em ;
+	 color:blue;
+	}
+	div#control span,div#control input{
+	 display:inline-block ;
+	 border:1px solid navy;
+	 border-radius:10%;
+	 background-color:rgb(100,200,255);
+	 padding:5px 10px;
+	 margin:0.1em 0.2em ;
+	 cursor:pointer;
+	}
+	div#control span:hover{
+	 background-color:rgb(100,100,255);
+	 color:white;
+	}
+	div#control span:active{
+	 background-color:rgb(100,250,255);
+	 color:white;
+	}
+	div#control input{
+	 color: white;
+	 background-color:black;
+	 width:3em;
+	 font-size:1em;
+	 text-align:center;
+	}
+   </style>
+   <script type="text/javascript">
+    <!--
+    "use strict";
+	 var mediaObj = {id : 1 ,
+		          audio: new Audio() ,
+				  path: "https://lijianhong19720904.github.io//images/mp3/pride and prejudice " ,
+				  clipNum: 36 , //上面URL共有36章《傲慢与偏见》朗读音频
+				  getAudioById : function(id){
+                    	 var pathId ;
+						 if (this.id < 10){
+						  pathId = '0' + this.id ;
+					    } else{
+						  pathId = this.id ;
+					     }
+				    this.audio.src = this.path +  pathId + ".mp3" ;
+				  }	,
+				  /********本例新增代码***********/
+				  background : [] ,
+				  getBackground : function(){
+				     var path = "images/" ;
+					 const num = 14 ;
+					 for (var i=1; i<=num ; i++){
+						 this.background[i-1] = new Image() ;
+						 this.background[i-1].src = path + i +".jpg" ;
+						 }
+				  } 
+				  
+				 } ; //End of  mediaObj definition
+	mediaObj.getAudioById();
+    mediaObj.getBackground();
+
+	window.addEventListener("load",init,false);
+	
+	function init(){
+      mediaObj.UI = {
+	         Play : document.querySelector("div span#play") ,
+	         Pause : document.querySelector("div span#pause") ,
+	         Percent : document.querySelector("div input#percent"),
+			 Prev  : document.querySelector("div span#prev") ,
+             Next  : document.querySelector("div span#next") ,
+			 AddVol : document.querySelector("div span#addVol")  ,
+             SubVol : document.querySelector("div span#subVol")  ,
+			 Stage: document.querySelector("div#stage"),
+			 addInfoToStage: function(info){
+			 //在页面的Stage区域，实现了文本信息逐条显示
+				 const infoNum = 5 ;
+				 var stageDom = document.querySelectorAll("p") ;
+				 if (stageDom.length === infoNum){
+                   this.Stage.removeChild(stageDom[0]) ;
+				 }
+				  var pDom = document.createElement("p") ;
+				      pDom.textContent = info ;
+				  this.Stage.appendChild(pDom) ;
+				 }//end of addInfoToStage
+      };//End of mediaObj.UI
+	   /****
+       新增代码，当获取图片对象的尺寸，则说明该图已经加载成功
+	   **/
+	  for (let i=0; i< mediaObj.background.length ; i++ ) {
+		     let img = mediaObj.background[i] ;
+          if (img.width > 0 && img.height > 0)     {
+			  var s = "第"+ (i+1) + "张背景图加载完成。" ;
+			   console.log(s) ;//这类信息较多，无须反馈给用户，因此反馈给开发者后台即可
+          }
+	   }//后台输出所有图片是否加载完成
+	   mediaObj.UI.showBackground = function(){
+	    var randInt = Math.floor(mediaObj.background.length * Math.random()) ;
+		var imgDom = mediaObj.background[randInt] ;
+		    imgDom.height = 300 ;
+		//通过lef坐标设置，把图片设置在舞台中央
+	    var windowWidth = window.innerWidth ;
+		var left = (windowWidth - imgDom.width)/2 ;
+		    imgDom.style.left = left + "px" ;
+
+		 var parent = document.querySelector("div#stage") ;
+		    parent.removeChild(document.querySelector("div#stage img"));
+		    parent.appendChild(imgDom) ;
+	   };
+
+	mediaObj.UI.Play.addEventListener("click",function(){
+	      mediaObj.audio.play() ;
+		  var s = "当前播放时刻：" + mediaObj.audio.currentTime + " 秒。" ;
+		  mediaObj.UI.addInfoToStage(s) ;
+	   },false);
+
+	mediaObj.UI.Pause.addEventListener("click",function(){
+	      mediaObj.audio.pause() ;
+		  var s = "暂停在："+ mediaObj.audio.currentTime + " 秒。" + "总长度：" + mediaObj.audio.duration  + " 秒。" ;
+          mediaObj.UI.addInfoToStage(s) ;
+	  },false);
+
+    mediaObj.UI.Percent.addEventListener("click",function(){
+	   mediaObj.audio.pause();
+	   var s = "请填入进度百分比，"+ Math.floor(mediaObj.audio.currentTime) + " / " + Math.floor(mediaObj.audio.duration) + " 。"
+	   mediaObj.UI.addInfoToStage(s) ;
+	  },false);
+
+    mediaObj.UI.Percent.addEventListener("blur",function(){
+	  var playTime = parseInt(mediaObj.UI.Percent.value) / 100 * mediaObj.audio.duration  ;
+	  if (!playTime ){
+         playTime = 0 ;
+	  }
+      mediaObj.audio.currentTime = playTime ;
+	  mediaObj.audio.play();
+	  var s = "现在从"+ Math.floor(mediaObj.audio.currentTime) + " / " + Math.floor(mediaObj.audio.duration) + "开始播放 。"
+	  mediaObj.UI.addInfoToStage(s) ;
+	  },false);
+
+     
+      mediaObj.UI.SubVol.addEventListener("click",function(){
+		  var s = "音量调整为：" ;
+		  if (mediaObj.audio.volume > 0){
+			  mediaObj.audio.volume -= 0.1 ;
+		  }
+		   s += parseInt(mediaObj.audio.volume * 100) + "%" ;
+		   mediaObj.UI.addInfoToStage(s) ;
+		  },false);
+
+      mediaObj.UI.AddVol.addEventListener("click",function(){
+		  var s = "音量调整为：" ;
+		  if (mediaObj.audio.volume < 1){
+			  mediaObj.audio.volume += 0.1 ;
+		  }
+		   s += parseInt(mediaObj.audio.volume * 100) + "%" ;
+		   mediaObj.UI.addInfoToStage(s) ;
+		  },false);
+
+    
+     mediaObj.UI.Prev.addEventListener("click",function(){
+	  if (mediaObj.id===1){
+		  mediaObj.id =  mediaObj.clipNum ;
+	  }else{
+	     mediaObj.id -- ;
+	  }
+	  mediaObj.getAudioById();
+      var s =  "立刻加载音频文件： " + "Chapter " + mediaObj.id  ;
+	  mediaObj.UI.addInfoToStage(s)  ;
+	  //下面新增随机变背景图方法的调用
+	  mediaObj.UI.showBackground() ;
+	 },false);//end of mediaObjPrev.click
+
+     mediaObj.UI.Next.addEventListener("click",function(){
+	   if (mediaObj.id === mediaObj.clipNum ){
+		  mediaObj.id = 1 
+	    }else{
+	      mediaObj.id ++ ;
+	   }
+      mediaObj.getAudioById();
+	  var s =   "立刻加载音频文件： " + "Chapter " + mediaObj.id  ;
+	  mediaObj.UI.addInfoToStage(s) ;
+	  //下面新增随机变背景图方法的调用
+	  mediaObj.UI.showBackground() ;
+	 },false);//end of mediaObjNext.click
+   
+   
+
+    mediaObj.audio.addEventListener("loadedmetadata",function(){
+	   var s = "成功载入音频文件的元数据...";
+       mediaObj.UI.addInfoToStage(s) ;
+	       s = "本音频文件共: " + Math.floor(mediaObj.audio.duration) + "秒 。";
+       mediaObj.UI.addInfoToStage(s) ;
+      },false);
+   
+
+
+      mediaObj.audio.addEventListener("canplaythrough",function(){
+        var s = "canplaythrough事件触发，本音频文件可以正常播放了！";
+       mediaObj.UI.addInfoToStage(s) ;
+	     },false);
+
+
+	}//init 函数定义结束 
+  //-->
+  </script>
+ </head>
+ <body>
+  <h2>本例增加舞台图片背景功能，实现傲慢与偏见朗读音频的切换，同时页面也有相应背景切换</h2>
+  <div id="stage">
+	<img src="images/1.jpg">
+  </div>
+  <div id="control">
+  进度：<input id="percent" type="text" value="0">%
+	 <span id="play">Play</span> 
+	 <span id="pause">Pause</span>
+     <span id="prev">Prev</span>
+	 <span id="next">Next</span>
+	 <span id="addVol">+Vol+</span>
+	 <span id="subVol">-Vol-</span>
+  </div>
+ </body>
+</html>

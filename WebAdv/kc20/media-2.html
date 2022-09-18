@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>借助远程低速网络，探索媒体控制编程的第一步，学会建立媒体的内存对象，通过获取媒体的属性了解媒体的信息，通过设置媒体属性和调用方法实现媒体控制等。本例具体演示Audio类对象的属性和方法包括：src属性 、duration属性、paused属性、currentTime属性、以及play和pause方法</title>
+
+   <style type="text/css">
+    body{
+	    margin: 0;
+	    font-size:20px;}
+   	div#stage{
+	 border:3px solid;
+	 height:300px ;
+	}
+	div#control span,div#control input{
+	 display:inline-block ;
+	 border:1px solid navy;
+	 border-radius:10%;
+	 background-color:rgb(100,200,255);
+	 padding:5px 10px;
+	 margin:0.1em 0.2em ;
+	 cursor:pointer;
+	}
+	div#control span:hover{
+	 background-color:rgb(100,100,255);
+	 color:white;
+	}
+	div#control span:active{
+	 background-color:rgb(100,250,255);
+	 color:white;
+	}
+	div#control input{
+	 color: white;
+	 background-color:black;
+	 width:3em;
+	 font-size:1em;
+	 text-align:center;
+	}
+   </style>
+   <script type="text/javascript">
+    <!--
+    "use strict";
+	 var mediaObj = {id : 1 ,
+		          audio: new Audio() ,
+				  path: "https://lijianhong19720904.github.io//images/mp3/pride and prejudice " ,
+				  getAudioById : function(id){
+                    	 var pathId ;
+						 if (this.id < 10){
+						  pathId = '0' + this.id ;
+					    } else{
+						  pathId = this.id ;
+					     }
+				    this.audio.src = this.path +  pathId + ".mp3" ;
+				  }				 
+				 } ; //End of  mediaObj definition
+	mediaObj.getAudioById();
+
+	window.addEventListener("load",init,false);
+	//页面的onload 事件新比较专业法，可为对象增加事件多个监听处理函数，对普通开发（监听事件不多）而言，与之前window.onload = function(){...} 表达含义完全一致。
+	
+	function init(){
+	   console.log("如果媒体文件加载完成，则下面的对象属性可以正常列出：");
+       console.log("duration属性:" + parseInt(mediaObj.audio.duration) +" 秒 .");
+	   console.log("paused属性: " + mediaObj.audio.paused );
+       console.log("currentTime属性: " + mediaObj.audio.currentTime );
+	   /*
+       教学中，可以在浏览器后台，练习媒体的属性和方法，
+	   比如：mediaObj.audio.play()
+	   */
+      mediaObj.UI = {
+	         Play : document.querySelector("div span#play") ,
+	         Pause : document.querySelector("div span#pause") ,
+	         Percent : document.querySelector("div input#percent"),
+			 Stage: document.querySelector("div#stage")
+      };
+	 mediaObj.UI.Play.onclick = function(){
+	      mediaObj.audio.play() ;
+		  var s = "当前播放时刻：" + mediaObj.audio.currentTime ;
+          mediaObj.UI.Stage.textContent = s + " 秒。" ;
+	 }; 
+	 mediaObj.UI.Pause.onclick = function(){
+	      mediaObj.audio.pause() ;
+		  var s = "媒体文件长度：" + mediaObj.audio.duration ;
+          mediaObj.UI.Stage.textContent =  s + " 秒。"  ;
+	 }; 
+	}//init 函数定义结束 
+  //-->
+  </script>
+ </head>
+ <body>
+  <h2>本例仅【play】播放和【pause】暂停可用</h2>
+  <div id="stage">
+	
+  </div>
+  <div id="control">
+  进度：<input id="percent" type="text" value="0">%
+	 <span id="play">Play</span> 
+	 <span id="pause">Pause</span>
+     <span id="prev">Prev</span>
+	 <span id="next">Next</span>
+	 <span id="addVol">+Vol+</span>
+	 <span id="subVol">-Vol-</span>
+  </div>
+ </body>
+</html>

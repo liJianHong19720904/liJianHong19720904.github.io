@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>演示video/audio播放的事件的UI</title>
+   <style type="text/css">
+    body{
+	    margin: 0;
+	    font-size:20px;}
+   	div#stage{
+	 border:3px solid;
+	 height:300px ;
+	}
+	div#control span,div#control input{
+	 display:inline-block ;
+	 border:1px solid navy;
+	 border-radius:10%;
+	 background-color:rgb(100,200,255);
+	 padding:5px 10px;
+	 margin:0.1em 0.2em ;
+	 cursor:pointer;
+	}
+	div#control span:hover{
+	 background-color:rgb(100,100,255);
+	 color:white;
+	}
+	div#control span:active{
+	 background-color:rgb(100,250,255);
+	 color:white;
+	}
+	div#control input{
+	 color: white;
+	 background-color:black;
+	 width:3em;
+	 font-size:1em;
+	 text-align:center;
+	}
+   </style>
+
+ </head>
+ <body>
+  <h2>演示video/audio播放的事件的UI</h2>
+  <div id="stage">
+	
+  </div>
+  <div id="control">
+  进度：<input id="percent" type="text" value="0">%
+	 <span id="play">Play</span> 
+	 <span id="pause">Pause</span>
+     <span id="prev">Prev</span>
+	 <span id="next">Next</span>
+	 <span id="addVol">+Vol+</span>
+	 <span id="subVol">-Vol-</span>
+  </div>
+ </body>
+</html>

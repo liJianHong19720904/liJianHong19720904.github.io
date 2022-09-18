@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+  借助远程低速网络，来演示video/audio播放的事件编程， 本例本例增加实现不同音频的切换功能，通过监听音频对象下载时发生的loadedmetadata、canplaythrough异步事件，我们再编写这二个事件的互动响应程序，让我们的页面有更丰富的信息反馈。
+  </title>
+   <style type="text/css">
+    body{
+	    margin: 0;
+	    font-size:20px;}
+	body h2{font-size:1.1em;}
+   	div#stage{
+	 border:3px solid;
+	 height:300px ;
+	}
+	div#stage p{
+	 text-indent: 1em ;
+	 color:blue;
+	}
+	div#control span,div#control input{
+	 display:inline-block ;
+	 border:1px solid navy;
+	 border-radius:10%;
+	 background-color:rgb(100,200,255);
+	 padding:5px 10px;
+	 margin:0.1em 0.2em ;
+	 cursor:pointer;
+	}
+	div#control span:hover{
+	 background-color:rgb(100,100,255);
+	 color:white;
+	}
+	div#control span:active{
+	 background-color:rgb(100,250,255);
+	 color:white;
+	}
+	div#control input{
+	 color: white;
+	 background-color:black;
+	 width:3em;
+	 font-size:1em;
+	 text-align:center;
+	}
+   </style>
+   <script type="text/javascript">
+    <!--
+    "use strict";
+	 var mediaObj = {id : 1 ,
+		          audio: new Audio() ,
+				  path: "https://lijianhong19720904.github.io//images/mp3/pride and prejudice " ,
+				  clipNum: 36 , //上面URL共有36章《傲慢与偏见》朗读音频
+				  getAudioById : function(id){
+                    	 var pathId ;
+						 if (this.id < 10){
+						  pathId = '0' + this.id ;
+					    } else{
+						  pathId = this.id ;
+					     }
+				    this.audio.src = this.path +  pathId + ".mp3" ;
+				  }				 
+				 } ; //End of  mediaObj definition
+	mediaObj.getAudioById();
+
+	window.addEventListener("load",init,false);
+	
+	function init(){
+      mediaObj.UI = {
+	         Play : document.querySelector("div span#play") ,
+	         Pause : document.querySelector("div span#pause") ,
+	         Percent : document.querySelector("div input#percent"),
+			 Prev  : document.querySelector("div span#prev") ,
+             Next  : document.querySelector("div span#next") ,
+			 AddVol : document.querySelector("div span#addVol")  ,
+             SubVol : document.querySelector("div span#subVol")  ,
+			 Stage: document.querySelector("div#stage"),
+			 addInfoToStage: function(info){
+			 //在页面的Stage区域，实现了文本信息逐条显示
+				 const infoNum = 5 ;
+				 var stageDom = document.querySelectorAll("p") ;
+				 if (stageDom.length === infoNum){
+                   this.Stage.removeChild(stageDom[0]) ;
+				 }
+				  var pDom = document.createElement("p") ;
+				      pDom.textContent = info ;
+				  this.Stage.appendChild(pDom) ;
+				 }//end of addInfoToStage
+      };//End of mediaObj.UI
+	   /****
+        本案例开始，统一使用浏览器标准的addEventListener方法，实现对DOM对象的异步事件的监听，同时也可实现对媒体异步事件的监听
+	   **/
+	mediaObj.UI.Play.addEventListener("click",function(){
+	      mediaObj.audio.play() ;
+		  var s = "当前播放时刻：" + mediaObj.audio.currentTime + " 秒。" ;
+          mediaObj.UI.addInfoToStage(s) ;
+	   },false);
+
+	mediaObj.UI.Pause.addEventListener("click",function(){
+	      mediaObj.audio.pause() ;
+		  var s = "暂停在："+ mediaObj.audio.currentTime + " 秒。" + "总长度：" + mediaObj.audio.duration  + " 秒。" ;
+          mediaObj.UI.addInfoToStage(s) ;
+	  },false);
+
+    mediaObj.UI.Percent.addEventListener("click",function(){
+	   mediaObj.audio.pause();
+	   var s = "请填入进度百分比，"+ Math.floor(mediaObj.audio.currentTime) + " / " + Math.floor(mediaObj.audio.duration) + " 。"
+	   mediaObj.UI.addInfoToStage(s) ;
+	  },false);
+
+    mediaObj.UI.Percent.addEventListener("blur",function(){
+	  var playTime = parseInt(mediaObj.UI.Percent.value) / 100 * mediaObj.audio.duration  ;
+	  if (!playTime ){
+         playTime = 0 ;
+	  }
+      mediaObj.audio.currentTime = playTime ;
+	  mediaObj.audio.play();
+	  var s = "现在从"+ Math.floor(mediaObj.audio.currentTime) + " / " + Math.floor(mediaObj.audio.duration) + "开始播放 。"
+	  mediaObj.UI.addInfoToStage(s) ;
+	  },false);
+
+      //注：audio对象的音量属性为volume，取值范围为 0-1的数字，这些数字对应音量大小
+      mediaObj.UI.SubVol.addEventListener("click",function(){
+		  var s = "音量调整为：" ;
+		  if (mediaObj.audio.volume > 0){
+			  mediaObj.audio.volume -= 0.1 ;
+		  }
+		   s += parseInt(mediaObj.audio.volume * 100) + "%" ;
+		   mediaObj.UI.addInfoToStage(s) ;
+		  },false);
+
+      mediaObj.UI.AddVol.addEventListener("click",function(){
+		  var s = "音量调整为：" ;
+		  if (mediaObj.audio.volume < 1){
+			  mediaObj.audio.volume += 0.1 ;
+		  }
+		   s += parseInt(mediaObj.audio.volume * 100) + "%" ;
+		   mediaObj.UI.addInfoToStage(s) ;
+		  },false);
+
+    /********本例新增代码***********/
+     mediaObj.UI.Prev.addEventListener("click",function(){
+	  if (mediaObj.id===1){
+		  mediaObj.id =  mediaObj.clipNum ;
+	  }else{
+	     mediaObj.id -- ;
+	  }
+	  mediaObj.getAudioById();
+      var s =  "立刻加载音频文件： " + "Chapter " + mediaObj.id  ;
+	  mediaObj.UI.addInfoToStage(s)  ;
+	 },false);//end of mediaObjPrev.click
+
+     mediaObj.UI.Next.addEventListener("click",function(){
+	   if (mediaObj.id === mediaObj.clipNum ){
+		  mediaObj.id = 1 
+	    }else{
+	      mediaObj.id ++ ;
+	   }
+      mediaObj.getAudioById();
+	  var s =   "立刻加载音频文件： " + "Chapter " + mediaObj.id  ;
+	  mediaObj.UI.addInfoToStage(s) ;
+	 },false);//end of mediaObjNext.click
+   
+   //成功载入音频文件的元数据，触发了 loadedmetadata 事件 , 这个异步事件的发生，表示读取媒体文件元数据成功，则我们的代码就可以访问音频对象的一些基本信息数据，比如currentTime和duration。
+    mediaObj.audio.addEventListener("loadedmetadata",function(){
+	   var s = "成功载入音频文件的元数据...";
+       mediaObj.UI.addInfoToStage(s) ;
+	       s = "本音频文件共: " + Math.floor(mediaObj.audio.duration) + "秒 。";
+       mediaObj.UI.addInfoToStage(s) ;
+      },false);
+   //按当前网络环境和音频文件下载情况，canplaythrough事件发生表示，播放不会发生卡顿，由于此时音频并未下载完成，这个时刻，若我们向后调整播放进度，还是可能会造成媒体播放的卡顿。 我们可以调整进度，会发现随着音频的下载完成，canplaythrough事件会被再次触发，触发的时间当然是不定的，这也是异步事件的特征。
+
+      mediaObj.audio.addEventListener("canplaythrough",function(){
+        var s = "canplaythrough事件触发，本音频文件可以正常播放了！";
+       mediaObj.UI.addInfoToStage(s) ;
+	     },false);
+   //最后，我们发现，增加音频文件的二个事件（loadedmetadata和canplaythrough）监听程序后，我们的页面每次重新打开，舞台都会对默认读入的第一个音频的情况进行反馈，请回看第63行代码，说明对媒体对象的src属性的改变会立刻触发媒体文件开始下载，然后根据实际环境，loadedmetadata和canplaythrough事件会先后触发。理解Web媒体的加载原理和相应事件的先后次序，可以让我们的代码实现用户效果丰富的互动，避免让用户用户傻傻的等待媒体文件的下载，避免用户耐心耗尽，立刻关闭我们的精心打造的页面程序。
+	}//init 函数定义结束 
+  //-->
+  </script>
+ </head>
+ <body>
+  <h2>本例增加【Prev】和【Next】按钮功能，实现傲慢与偏见朗读音频的切换，同时页面也有更丰富的信息反馈的互动</h2>
+  <div id="stage">
+	
+  </div>
+  <div id="control">
+  进度：<input id="percent" type="text" value="0">%
+	 <span id="play">Play</span> 
+	 <span id="pause">Pause</span>
+     <span id="prev">Prev</span>
+	 <span id="next">Next</span>
+	 <span id="addVol">+Vol+</span>
+	 <span id="subVol">-Vol-</span>
+  </div>
+ </body>
+</html>
