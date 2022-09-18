@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-  为上例增加“剧照”配图，借助远程低速网络和预读14张jpeg图片（本文件images文件夹下，1.jpg--14.jpg ），保障了用户及时反馈的图像体验，显示了设计良好的代码的强大适应能力 。
+  本例主要改进：1，将媒体播放的进度UI设置动态的响应，让程序自动更新进度值，采用每2秒更新一次的互动方式，这样用户能掌握当前音频播放的进度情况。2，设置背景图对舞台的的全覆盖。
+  本套音频钟，第35章文件相对较大，共计15分钟，为测试代码的对慢速网络的适应情况，我们可以在编写代码时，有意切换到第35课加以利用。点击二次prev键即可切换到该音频。
   </title>
    <style type="text/css">
     body{
@@ -14,19 +15,20 @@
    	div#stage{
 	 position: relative;
 	 border:3px solid;
-	 height:300px ;
+	 height:320px ;
 	}
-	/**为新的图片元素设计外观，注意其父元素div#stage的 relative设置！若无父元素的这条设置，img子元素的相对坐标会参考浏览器，而非父元素，由于我们之后的代码要根据图片文件的大小，调整图片位置，其参考坐标为父元素 **/
+	/**为图片元素设计新的外观,在js程序中，代码将让图片拉伸，实现stage的全部完整覆盖，但也可能造成背景图比例的变形，而从背景效果看，一般会更好 **/
 	div#stage img{
 	 display: block;
 	 position: absolute;
-	 right: 0;
+	 left: 0;
 	 top: 0;
-	 opacity: 0.2;
+	 opacity: 0.15;
 	}
 	div#stage p{
 	 text-indent: 1em ;
 	 color:blue;
+	 margin:0.5em ;
 	}
 	div#control span,div#control input{
 	 display:inline-block ;
@@ -37,6 +39,11 @@
 	 margin:0.1em 0.2em ;
 	 cursor:pointer;
 	}
+   /**下面为进度设置新的颜色体系**/
+   div#control input{
+   background-color:black;
+   color:white;
+   }
 	div#control span:hover{
 	 background-color:rgb(100,100,255);
 	 color:white;
@@ -67,9 +74,18 @@
 					    } else{
 						  pathId = this.id ;
 					     }
+					/*
+					新增代码，对于慢网速，可避免在播放时切换音频的报错
+					*/
+					if (this.audio.currentTime > 0){
+                      this.audio.pause();
+					}
 				    this.audio.src = this.path +  pathId + ".mp3" ;
 				  }	,
-				  /********本例新增代码***********/
+				 /*****
+					新增clock属性，对于每2秒更新的进度，在用户输入进度时，必须关闭时钟，免得用户输入时被当前进度值覆盖
+				 ****/
+                  clock : null ,
 				  background : [] ,
 				  getBackground : function(){
 				     var path = "images/" ;
@@ -98,7 +114,7 @@
 			 Stage: document.querySelector("div#stage"),
 			 addInfoToStage: function(info){
 			 //在页面的Stage区域，实现了文本信息逐条显示
-				 const infoNum = 5 ;
+				 const infoNum = 6 ;
 				 var stageDom = document.querySelectorAll("p") ;
 				 if (stageDom.length === infoNum){
                    this.Stage.removeChild(stageDom[0]) ;
@@ -124,8 +140,8 @@
 		    imgDom.height = 300 ;
 		//通过lef坐标设置，把图片设置在舞台中央
 	    var windowWidth = window.innerWidth ;
-		var left = (windowWidth - imgDom.width)/2 ;
-		    imgDom.style.left = left + "px" ;
+		    imgDom.width = windowWidth ;
+		    
 
 		 var parent = document.querySelector("div#stage") ;
 		    parent.removeChild(document.querySelector("div#stage img"));
@@ -136,6 +152,18 @@
 	      mediaObj.audio.play() ;
 		  var s = "当前播放时刻：" + mediaObj.audio.currentTime + " 秒。" ;
 		  mediaObj.UI.addInfoToStage(s) ;
+        /****下面是复制过来的动态改变播放进度值的代码****/
+		 clearInterval(mediaObj.clock);
+		 mediaObj.clock = setInterval(function(){
+			if (mediaObj.audio.duration > 0){
+			  var ppAudio = mediaObj.audio ;
+			  var pDom = mediaObj.UI.Percent ;
+			  
+			  var percent = Math.floor( ppAudio.currentTime / ppAudio.duration * 100 );
+				pDom.value = percent ;
+		  }
+	     },2000);
+      /****上面是复制过来的动态改变播放进度值的代码****/
 	   },false);
 
 	mediaObj.UI.Pause.addEventListener("click",function(){
@@ -145,7 +173,10 @@
 	  },false);
 
     mediaObj.UI.Percent.addEventListener("click",function(){
-	   mediaObj.audio.pause();
+	  /**新增代码，关闭2s更新一次的时钟**/
+	   window.clearInterval(mediaObj.clock);
+
+       mediaObj.audio.pause();
 	   var s = "请填入进度百分比，"+ Math.floor(mediaObj.audio.currentTime) + " / " + Math.floor(mediaObj.audio.duration) + " 。"
 	   mediaObj.UI.addInfoToStage(s) ;
 	  },false);
@@ -159,6 +190,18 @@
 	  mediaObj.audio.play();
 	  var s = "现在从"+ Math.floor(mediaObj.audio.currentTime) + " / " + Math.floor(mediaObj.audio.duration) + "开始播放 。"
 	  mediaObj.UI.addInfoToStage(s) ;
+     /****下面是复制过来的动态改变播放进度值的代码****/
+	     clearInterval(mediaObj.clock);
+		 mediaObj.clock = setInterval(function(){
+			if (mediaObj.audio.duration > 0){
+			  var ppAudio = mediaObj.audio ;
+			  var pDom = mediaObj.UI.Percent ;
+			  
+			  var percent = Math.floor( ppAudio.currentTime / ppAudio.duration * 100 );
+				pDom.value = percent ;
+		  }
+	     },2000);
+    /****上面是复制过来的动态改变播放进度值的代码****/
 	  },false);
 
      
@@ -188,8 +231,9 @@
 	     mediaObj.id -- ;
 	  }
 	  mediaObj.getAudioById();
-      var s =  "立刻加载音频文件： " + "Chapter " + mediaObj.id  ;
+      var s =  "开始加载音频文件： " + "Chapter " + mediaObj.id  ;
 	  mediaObj.UI.addInfoToStage(s)  ;
+	  mediaObj.UI.addInfoToStage("若是第一次，请耐心等待……");
 	  //下面新增随机变背景图方法的调用
 	  mediaObj.UI.showBackground() ;
 	 },false);//end of mediaObjPrev.click
@@ -201,8 +245,9 @@
 	      mediaObj.id ++ ;
 	   }
       mediaObj.getAudioById();
-	  var s =   "立刻加载音频文件： " + "Chapter " + mediaObj.id  ;
+	  var s =   "开始加载音频文件： " + "Chapter " + mediaObj.id  ;
 	  mediaObj.UI.addInfoToStage(s) ;
+      mediaObj.UI.addInfoToStage("若是第一次，请耐心等待……");
 	  //下面新增随机变背景图方法的调用
 	  mediaObj.UI.showBackground() ;
 	 },false);//end of mediaObjNext.click
@@ -216,20 +261,29 @@
        mediaObj.UI.addInfoToStage(s) ;
       },false);
    
-
-
       mediaObj.audio.addEventListener("canplaythrough",function(){
-        var s = "canplaythrough事件触发，本音频文件可以正常播放了！";
+        var s = "Ok，音频文件可以正常播放了！";
        mediaObj.UI.addInfoToStage(s) ;
 	     },false);
 
+      /**本例新增代码，用于2s更新一次播放音频的进度值**/
+	  /*下面时钟代码，需要复制到全部播放音频的事件代码中，这种简单地重复的粘贴代码，是初步调试之用，我们将在未来进行组织代码优化时处理*/
+	 mediaObj.clock = setInterval(function(){
+		if (mediaObj.audio.duration > 0){
+          var ppAudio = mediaObj.audio ;
+          var pDom = mediaObj.UI.Percent ;
+		  
+		  var percent = Math.floor( ppAudio.currentTime / ppAudio.duration * 100 );
+		    pDom.value = percent ;
+		}
+	  },2000);
 
 	}//init 函数定义结束 
   //-->
   </script>
  </head>
  <body>
-  <h2>本例增加舞台图片背景功能，实现傲慢与偏见朗读音频的切换，同时页面也有相应背景切换</h2>
+  <h2>本例增加进度值自动显示功能，同时信息反馈和页面背景也更适应移动端。</h2>
   <div id="stage">
 	<img src="images/1.jpg">
   </div>
