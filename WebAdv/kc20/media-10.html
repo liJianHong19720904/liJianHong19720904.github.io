@@ -17,7 +17,7 @@
 	 position: relative;
 	 border:3px solid;
 	 height:320px ;
-	 /*新增溢出隐藏，让图片形成的胶卷内仅在舞台内显示*/
+	 background-color: rgb(38, 10, 2);
 	 overflow: hidden;
 	}
 	 
@@ -30,7 +30,7 @@
 	}
 	div#stage p{
 	 text-indent: 1em ;
-	 color:blue;
+	 color:rgb(239, 239, 246);
 	 margin:0.5em ;
 	}
 	div#control span,div#control input{
@@ -67,11 +67,7 @@
     <!--
     "use strict";
 	 var mediaObj = { 
-      //本版改进，专注在图像显示和背景移动动画上
-	 //1 、后台读入14张剧照图放在本对象的background数组中
-	 //2 、prev 、next点击和Percent控件为blur时，mediaObj.canPlay设为false
-	 //3 、在 clock时钟程序中，不断查询mediaObj.canPlay是否为true，为false，则反复给出等待的提示, 为true则为模型的currentTime和duration设定整数值，同时为进度UI更新当前进度值。这个代码重新写在对象的新方法clockCode 中，顺便把上例重复代码的问题解决。
-		          currentTime : 0 ,
+ 		          currentTime : 0 ,
 				  duration : 0 ,
 				  canPlay : false  ,
 		          id : 1 ,
