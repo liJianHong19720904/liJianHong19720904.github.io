@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-  本例目标：  在极慢的网速环境，程序也能有及时准确的信息反馈
-  通过反复使用上例，我们可以发现上例还隐藏着二个值得改进的地方。1、当用户第一次切换到某个音频时，当网络慢则等待时间有时较长，此时舞台并没有给出及时反馈，若程序能不断给出反馈，此时用户才会有耐心等待切换音频。2、当我们在手机上使用上例时，反复点击暂停和播放时，程序反馈的音频时间数据小数位数太多，有时会溢出舞台区域，造成下面的按钮被遮住无效，因此这个时间数据应该使用整数。
-  为改进上述问题，在本例我们规划，基于原mediaObj对象，为音频播放设计一个模型，在模型中记录当前播放音频的 currentTime、duration属性，同时将这二个值转为整数，这样就可以用代码解决第2个问题。
-  模型还需要标记当前音频是否可以正常播放， 我们可以在音频触发canplaythrough时候，让模型的canPlay属性为true，而当切换音频或改变音频进度时，我们在让模型的canPlay属性设为false。同时还可以利用进度的时钟代码，当canPlay属性为false时，不断给出各种提示信息，让用户知道自己正处于等待音频数据载入的状态。
+  本例目标：  重新设计程序舞台（stage）区域的“傲慢与偏见”的配套剧照图的显示方式，并规划重构图像文件的读取方式，并用代码自动排列图像。
+  1、删除body处插入的效果不好的静态插图，改用读入内存后，用代码来动态显示。
+  2、规划的思路：把这14张剧照图用代码拼成组成一个长长的“胶卷”，根据当前音频是否可正常播放条件（mediaObj.canPlay），若可放(true)则缓慢且地播放这些张图片的移动动画，否则静止背景画面。
+  3、本例完成把图像读入。并实现整齐排列的代码，再用异步动画方式实现背景图移动。
   </title>
    <style type="text/css">
     body{
@@ -18,6 +18,8 @@
 	 position: relative;
 	 border:3px solid;
 	 height:320px ;
+	 /*新增溢出隐藏，让图片形成的胶卷内仅在舞台内显示*/
+	 overflow: hidden;
 	}
 	 
 	div#stage img{
@@ -65,9 +67,9 @@
    <script type="text/javascript">
     <!--
     "use strict";
-	 var mediaObj = { //下面新增音频对象的三个属性，及时记录音频状态，用于代码的对当前形势的判断（比如是否卡在canPlay为false的情形）
-	 // 需要在后面的事件监听代码中，利用这三个属性
-	 //1 、canplaythrough事件发生，mediaObj.canPlay设为true
+	 var mediaObj = { 
+      //本版改进，专注在图像显示和背景移动动画上
+	 //1 、后台读入14张剧照图放在本对象的background数组中
 	 //2 、prev 、next点击和Percent控件为blur时，mediaObj.canPlay设为false
 	 //3 、在 clock时钟程序中，不断查询mediaObj.canPlay是否为true，为false，则反复给出等待的提示, 为true则为模型的currentTime和duration设定整数值，同时为进度UI更新当前进度值。这个代码重新写在对象的新方法clockCode 中，顺便把上例重复代码的问题解决。
 		          currentTime : 0 ,
@@ -92,9 +94,6 @@
 					}
 				    this.audio.src = this.path +  pathId + ".mp3" ;
 				  }	,
-				 /*****
-					新增clock属性，对于每2秒更新的进度，在用户输入进度时，必须关闭时钟，免得用户输入时被当前进度值覆盖
-				 ****/
                   clock : null ,
 				  clockCode : function(){
 					           if (mediaObj.canPlay){
@@ -103,9 +102,10 @@
 								var percent = Math.floor( mediaObj.currentTime / mediaObj.duration * 100 );
                                 mediaObj.UI.Percent.value = percent ;
 					           } else{
-			        var waitInfos = [ 'Please wait...' , ' 网速真慢吧？' , '您还能耐心等等吗？', '音频存在境外，路途太远！' ,'音频原声朗读原著的。','每次音频切换，都可能要这样等等','难得收集到这36个音频','原著的文本您有吗？'];
-                      var s = waitInfos[Math.floor(waitInfos.length *Math.random())] ;
-					  mediaObj.UI.addInfoToStage(s) ;
+                                mediaObj.audio.pause();//本条语句为本版新加，可补救极低网速时，用户采用极端方式修改播放进度造成的系统性问题，具体问题有兴趣的同学可以去自行测试
+			                    var waitInfos = [ 'Please wait...' , ' 网速真慢吧？' , '您还能耐心等等吗？', '音频存在境外，路途太远！' ,'音频原声朗读原著的。','每次音频切换，都可能要这样等等','难得收集到这36个音频','原著的文本您有吗？'];
+                                var s = waitInfos[Math.floor(waitInfos.length *Math.random())] ;
+					            mediaObj.UI.addInfoToStage(s) ;
 							   }
 					       } ,
 				  background : [] ,
@@ -119,15 +119,14 @@
 				  } 
 				  
 				 } ; //End of  mediaObj definition
-
+	
 
 	window.addEventListener("load",init,false);
 	
 	function init(){
-	 //下面二条语句从上面移动到此处，解决了代码的一个逻辑bug：当用户已经下载第一个音频mp3缓存时，音频的loadMetaData 和 canplaythrough事件会早于init函数执行，导致在程序第一次运行时mediaObj的canPlay为默认的false，我们的代码则会以音频不能播放为逻辑运行。可以对比前例，我们发现首次运行，前例在首次运行时，也一楼了对第一个音频的可用信息反馈。
-	  mediaObj.getAudioById();
+       
+      mediaObj.getAudioById();
       mediaObj.getBackground();
-
       mediaObj.UI = {
 	         Play : document.querySelector("div span#play") ,
 	         Pause : document.querySelector("div span#pause") ,
@@ -149,30 +148,54 @@
 				  this.Stage.appendChild(pDom) ;
 				 }//end of addInfoToStage
       };//End of mediaObj.UI
-	   /****
-       新增代码，当获取图片对象的尺寸，则说明该图已经加载成功
-	   **/
-	  for (let i=0; i< mediaObj.background.length ; i++ ) {
+	
+      
+	   //mediaObj.background数组中，已经存有有背景图片对象
+	   //我们已经在div#stage中删除原程序的静态img元素，下面代码将动态把mediaObj.background中的所有图片排成一行，利用CSS的定位能力，div#stage作为父元素设为relative，图片作为子元素设为absolute
+	   //继续扩容mediaObj.UI，为自动排成胶卷方法命名：setBackground
+	   mediaObj.UI.setBackground = function(){
+		let parent = document.querySelector("div#stage") ; 
+		let xPos = 0 ;
+		for (let i=0; i< mediaObj.background.length ; i++ ) {
 		     let img = mediaObj.background[i] ;
-          if (img.width > 0 && img.height > 0)     {
-			  var s = "第"+ (i+1) + "张背景图加载完成。" ;
-			   console.log(s) ;//这类信息较多，无须反馈给用户，因此反馈给开发者后台即可
-          }
-	   }//后台输出所有图片是否加载完成
-	   mediaObj.UI.showBackground = function(){
-	    var randInt = Math.floor(mediaObj.background.length * Math.random()) ;
-		var imgDom = mediaObj.background[randInt] ;
-		    imgDom.height = 320 ;
-		//通过lef坐标设置，把图片设置在舞台中央
-	    var windowWidth = window.innerWidth ;
-		    imgDom.width = windowWidth ;
-		    
+			 
+         if (img.width > 0 && img.height > 0) {
+			let ratio = img.width / img.height ;
+			img.height = 320 ;
+			img.width = 320 * ratio ;
+			img.style.left = xPos + 'px' ;
+			xPos += img.width ;
+		    parent.appendChild(img);	
+	      };
+	    }//End for loop
+	  }//End of UI.setBackground
+	 //隔1秒，启动图片自动排成胶卷方法。为何不立刻运行该方法？由于代码运行相对图片文件下载而言太快，这会导致初次运行该程序无法看到图片，运行完成本方法后，图片文件还未从网上下载成功。
+	 setTimeout(mediaObj.UI.setBackground , 1000) ;
 
-		 var parent = document.querySelector("div#stage") ;
-		    parent.removeChild(document.querySelector("div#stage img"));
-		    parent.appendChild(imgDom) ;
-	   };
+	  mediaObj.UI.moveBackground = function(){
+		let parent = mediaObj.UI.Stage ; 
+		let imgs = parent.querySelectorAll('img') ;
+		let widthImgs = 0 ;
+		for(let i=0 ;i<imgs.length;i++){
+			widthImgs += imgs[i].width ;
+		}
+		//当前图像向左移完全移出舞台，即left小于-imgs[i].widt的h位置，则可以把该图像移动到胶卷最右侧，右侧left位置为widthImgs - imgs[i].width ，教学中要用简单图示表达这个算法。
+		for (let i=0; i< imgs.length ; i++ ) {
+			let xPos = parseInt(imgs[i].style.left) ;
+			if(xPos >= - imgs[i].width){
+			 imgs[i].style.left = (xPos - 1) + 'px' ;
+			}else{
+			 imgs[i].style.left = widthImgs - imgs[i].width + 'px' ;
+			}
+		 }//End for loop    
+		//console.log(widthImgs)  ; 用后台输出证明imgs[i].width表述正确，widthImgs计算正确。
+	  } ;//End of UI.moveBackground
+	 setInterval(mediaObj.UI.moveBackground , 30);
+		
 
+
+       //下面代码都是对UI控件的行为设计
+	 
 	mediaObj.UI.Play.addEventListener("click",function(){
 	      mediaObj.audio.play() ;
 		  var s = "当前播放时刻：" + mediaObj.currentTime + " 秒。" ;
@@ -244,8 +267,7 @@
       var s =  "开始加载音频文件： " + "Chapter " + mediaObj.id  ;
 	  mediaObj.UI.addInfoToStage(s)  ;
 	  mediaObj.UI.addInfoToStage("若是第一次，请耐心等待……");
-	  //下面新增随机变背景图方法的调用
-	  mediaObj.UI.showBackground() ;
+	
 	  mediaObj.canPlay = false ;
 
     /****下面是复制过来的动态改变播放进度值的代码****/
@@ -265,8 +287,8 @@
 	  var s =   "开始加载音频文件： " + "Chapter " + mediaObj.id  ;
 	  mediaObj.UI.addInfoToStage(s) ;
       mediaObj.UI.addInfoToStage("若是第一次，请耐心等待……");
-	  //下面新增随机变背景图方法的调用
-	  mediaObj.UI.showBackground() ;
+
+	  
 	  mediaObj.canPlay = false ;
 	  /****下面是复制过来的动态改变播放进度值的代码****/
 	     clearInterval(mediaObj.clock);
@@ -274,7 +296,7 @@
      /****上面是复制过来的动态改变播放进度值的代码****/
 	 },false);//end of mediaObjNext.click
    
-   
+   //下面二个事件处理函数，利用了HTML5标准的Web音频、视频最重要的二个API事件，即loadedmetadata 和canplaythrough ，有兴趣发掘更多细节则请参考HTML5音视频编程的技术文档。
     mediaObj.audio.addEventListener("loadedmetadata",function(){
 	   var s = "成功载入音频文件的元数据...";
        mediaObj.UI.addInfoToStage(s) ;
@@ -290,16 +312,16 @@
 
       /**本例新增代码，用于2s更新一次播放音频的进度值**/
 	  /*下面时钟代码*/
-	 mediaObj.clock = setInterval(mediaObj.clockCode , 2000);
+      mediaObj.clock = setInterval(mediaObj.clockCode , 2000);
 
 	}//init 函数定义结束 
   //-->
   </script>
  </head>
  <body>
-  <h2>在极慢的网速环境，程序也能有及时准确的信息反馈</h2>
+  <h2>让剧照组成“胶卷”，以动画形式在舞台背景循环</h2>
   <div id="stage">
-	<img src="images/1.jpg">
+	<!--删除静态图片元素-->
   </div>
   <div id="control">
   进度：<input id="percent" type="text" value="0">%
