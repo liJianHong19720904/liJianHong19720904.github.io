@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-  为上例增加“剧照”配图，借助远程低速网络和预读14张jpeg图片（本文件images文件夹下，1.jpg--14.jpg ），保障了用户及时反馈的图像体验，显示了设计良好的代码的强大适应能力 。
-  </title>
+ 本例增加舞台图片背景功能，实现傲慢与偏见朗读音频的切换，同时页面也有相应背景切换。
+ 具体阐述：
+1、  为上例增加“剧照”配图，代码预读14张jpeg图片（本文件images文件夹下，1.jpg--14.jpg ），扩容了mediaObj对象和mediaObj.UI的属性和方法，从本例开始我们的程序分5个阶段，为用户增加背景于音频配合的图像体验，体验良好的代码设计的强大的扩展能力 。
+2、  本例的Web图像将以image对象数组形式，存储在mediaObj.background 属性中 。
+  本例还将为mediaObj对象新增二个方法： mediaObj.getBackground 和 mediaObj.UI.showBackground。
+    </title>
    <style type="text/css">
     body{
 	    margin: 0;
@@ -122,7 +126,7 @@
 	    var randInt = Math.floor(mediaObj.background.length * Math.random()) ;
 		var imgDom = mediaObj.background[randInt] ;
 		    imgDom.height = 300 ;
-		//通过lef坐标设置，把图片设置在舞台中央
+		//通过left坐标设置，把图片设置在舞台中央，请结合css样式代码的的 div#stage img 设置
 	    var windowWidth = window.innerWidth ;
 		var left = (windowWidth - imgDom.width)/2 ;
 		    imgDom.style.left = left + "px" ;

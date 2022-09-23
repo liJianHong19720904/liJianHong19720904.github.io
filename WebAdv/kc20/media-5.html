@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-  借助远程低速网络，来演示video/audio播放的事件编程， 本例本例增加实现不同音频的切换功能，通过监听音频对象下载时发生的loadedmetadata、canplaythrough异步事件，我们再编写这二个事件的互动响应程序，让我们的页面有更丰富的信息反馈。
+   本例增加实现不同音频的切换功能，让用户可选择36个音频进行播放，而为了适应慢速的Web服务，我们利用HTML5标准的音视频下载时发生的loadedmetadata、canplaythrough异步事件的监听，实现我们的代码对这二个事件的互动响应，让我们的页面有更丰富的信息反馈，避免了用户在使用本程序可能发生失去耐心而关闭的本程序问题。
   </title>
    <style type="text/css">
     body{
@@ -87,9 +87,7 @@
 				  this.Stage.appendChild(pDom) ;
 				 }//end of addInfoToStage
       };//End of mediaObj.UI
-	   /****
-        本案例开始，统一使用浏览器标准的addEventListener方法，实现对DOM对象的异步事件的监听，同时也可实现对媒体异步事件的监听
-	   **/
+
 	mediaObj.UI.Play.addEventListener("click",function(){
 	      mediaObj.audio.play() ;
 		  var s = "当前播放时刻：" + mediaObj.audio.currentTime + " 秒。" ;
@@ -174,7 +172,8 @@
         var s = "canplaythrough事件触发，本音频文件可以正常播放了！";
        mediaObj.UI.addInfoToStage(s) ;
 	     },false);
-   //最后，我们发现，增加音频文件的二个事件（loadedmetadata和canplaythrough）监听程序后，我们的页面每次重新打开，舞台都会对默认读入的第一个音频的情况进行反馈，请回看第63行代码，说明对媒体对象的src属性的改变会立刻触发媒体文件开始下载，然后根据实际环境，loadedmetadata和canplaythrough事件会先后触发。理解Web媒体的加载原理和相应事件的先后次序，可以让我们的代码实现用户效果丰富的互动，避免让用户用户傻傻的等待媒体文件的下载，避免用户耐心耗尽，立刻关闭我们的精心打造的页面程序。
+   //最后，我们发现，增加音频文件的二个事件（loadedmetadata和canplaythrough）监听程序后，我们的页面每次重新打开，舞台都会对默认读入的第一个音频的情况进行反馈，请回看第61行代码，说明对媒体对象的src属性的改变会立刻触发媒体文件开始下载，然后根据实际环境，loadedmetadata和canplaythrough事件会先后触发。开发者要理解Web媒体的加载原理和相应事件的先后次序，可以让我们的代码实现用户效果丰富的互动，避免让用户无聊地的等待媒体文件的下载。
+   //Web应用程序必须适应低速环境，我们精心设计了内容，我们的代码要能及时反馈信息，否则，页面“卡住”让用户心里没底，等待几秒耐心就会耗尽而关闭程序，项目其他方面再好，发生这样的情况也就算失败了。因此再本程序设计中，若发现音频不可播放时，我们的mediaObj.UI.addInfoToStage方法会及时输出信息。
 	}//init 函数定义结束 
   //-->
   </script>

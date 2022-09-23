@@ -3,7 +3,9 @@
  <head>
   <meta charset="UTF-8">
   <title>
-  借助远程低速网络，来演示video/audio播放的事件编程， 本例也借助上例实现的在Stage区域信息反馈，实现对音视频事件异步信息的及时互动。功能上具体增加实现音频的进度控制和音量调整功能。
+  上例实现了通用的addInfoToStage信息反馈方法，本例把这个方法使用在其他几个UI控件的事件处理函数内，这样，所有的UI控件都能及时为用户输出信息，让用户能实时了解当前音频的下载和播放情况。
+  本例对所有的用于控制音频的UI控件，全部使用了更为标准的addEventListener方法（API），用于向UI元素绑定事件监听代码，从语法上这个代码以函数的形式管理，以参数形式传给向addEventListener方法。这种形式是标准的异步代码的书写语法模式。
+  从功能上看，本例具体增加实现音频的进度控制和音量调整功能。
   </title>
    <style type="text/css">
     body{
@@ -89,7 +91,7 @@
 	   **/
 	mediaObj.UI.Play.addEventListener("click",function(){
 	      mediaObj.audio.play() ;
-		  var s = "当前播放时刻：" + mediaObj.audio.currentTime + " 秒。" ;
+		  var s = "从时刻：" + mediaObj.audio.currentTime + " 秒，开始播放。" ;
           mediaObj.UI.addInfoToStage(s) ;
 	   },false);
 
@@ -101,7 +103,7 @@
 
     mediaObj.UI.Percent.addEventListener("click",function(){
 	   mediaObj.audio.pause();
-	   var s = "请填入进度百分比，"+ Math.floor(mediaObj.audio.currentTime) + " / " + Math.floor(mediaObj.audio.duration) + " 。"
+	   var s = "请填入进度百分比。"+ Math.floor(mediaObj.audio.currentTime) + " / " + Math.floor(mediaObj.audio.duration) + " 。"
 	   mediaObj.UI.addInfoToStage(s) ;
 	  },false);
 

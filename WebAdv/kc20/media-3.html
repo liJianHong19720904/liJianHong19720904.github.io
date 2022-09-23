@@ -2,7 +2,10 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>借助远程低速网络，来演示video/audio播放的事件编程， 本例在页面的Stage区域，实现了video/audio的播放的信息逐条显示</title>
+  <title> 为媒体状体信息与用户操作互动，本例在页面的Stage区域，实现了audio的播放的信息逐条显示。
+	从代码组织来看，具体在mediaObj.UI中设计了addInfoToStage方法，用动态DOM技术实现段落信息的增加和删除，同时在CSS中对输出文字信息的外观进行设计。
+	
+</title>
    <style type="text/css">
     body{
 	    margin: 0;
@@ -80,12 +83,12 @@
       };//End of mediaObj.UI
 	 mediaObj.UI.Play.onclick = function(){
 	      mediaObj.audio.play() ;
-		  var s = "当前播放时刻：" + mediaObj.audio.currentTime + " 秒。" ;
+		  var s = "Chapter " + mediaObj. id + " 在" + mediaObj.audio.currentTime + " 秒，开始播放！" ;
           mediaObj.UI.addInfoToStage(s) ;
 	 }; 
 	 mediaObj.UI.Pause.onclick = function(){
 	      mediaObj.audio.pause() ;
-		  var s = "暂停在："+ mediaObj.audio.currentTime + " 秒。" + "总长度：" + mediaObj.audio.duration  + " 秒。" ;
+		  var s = "暂停在："+ mediaObj.audio.currentTime + " 秒。" + "Chapter " + mediaObj. id +" 总长度：" + mediaObj.audio.duration  + " 秒。" ;
           mediaObj.UI.addInfoToStage(s) ;
 	 }; 
 	}//init 函数定义结束 
@@ -93,7 +96,7 @@
   </script>
  </head>
  <body>
-  <h2>【play】和【pause】可用，页面有信息反馈的互动</h2>
+  <h2>【play】和【pause】可用，且在页面有信息反馈的互动</h2>
   <div id="stage">
 	
   </div>

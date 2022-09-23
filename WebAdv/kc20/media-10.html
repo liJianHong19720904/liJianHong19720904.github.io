@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-  本例目标：以动画背景形式，与当前音频互动，有动画则说明音频可用正常播放，背景画面静止，则说明音频还未准备好播放。
-  1、在mediaObj.UI中，设计一个clock，用于记录背景画面的动画。
-  2、在mediaObj的clockCode中，按canPlay记录的状态逻辑，用setInterval播放动画，或clearInterval停止动画。
+  本例目标：上一例中，背景动画一直运动，除了装饰外没有其他作用，本例中，我们设计当前音频的可播放情况，与背景动画发生关联。设计为：当有背景动画时，表明音频可用正常播放，当背景画面静止时，则说明音频还未准备好，此时文字信息的不断反馈和“卡”住的背景动画，可以形象地说明情况。
+  具体实现：
+  1、在mediaObj.UI中，设计一个clock，用于记录背景动画代码运行的时钟，我们也可以利用该时钟停止时钟，实现动画暂停。
+  2、在mediaObj的clockCode中，我们增加canPlay设定的状态逻辑，在2S一次的时钟运行代码中，增加一个每秒30次的时钟，利用setInterval实现流畅动画，也是在这个2S一次的时钟代码中，用clearInterval停止动画。
+  3、改变了舞台背景色，让背景动画的颜色显得更加古色古香。
   </title>
    <style type="text/css">
     body{
@@ -134,6 +136,7 @@
        
       mediaObj.getAudioById();
       mediaObj.getBackground();
+	  
       mediaObj.UI = {
 	         Play : document.querySelector("div span#play") ,
 	         Pause : document.querySelector("div span#pause") ,
@@ -176,6 +179,8 @@
 	  }//End of UI.setBackground
 
 	 setTimeout(mediaObj.UI.setBackground , 1000) ;
+	 //即时推迟1秒，也很可能发生14个图片未读入mediaObj.background的情况，这样会导致setBackground方法运行后，整个背景图仅有几张图片，有时甚至一张图片都没有。这种情况下用户刷新页面或下次再次打开本程序，14图像则因已经提前进入浏览器缓存，而全部出现，因此上述问题用户体验不会太差。
+	  
       //背景胶卷向左移动1个像素方法，moveBackground
 	  mediaObj.UI.moveBackground = function(){
 		let parent = mediaObj.UI.Stage ; 
@@ -203,7 +208,7 @@
 	 
 	mediaObj.UI.Play.addEventListener("click",function(){
 	      mediaObj.audio.play() ;
-		  var s = "当前播放时刻：" + mediaObj.currentTime + " 秒。" ;
+		  var s =  "Chapter " + mediaObj. id + " 在" + mediaObj.currentTime + " 秒，开始播放！"  ;
 		  mediaObj.UI.addInfoToStage(s) ;
         /****下面是复制过来的动态改变播放进度值的代码****/
 		 clearInterval(mediaObj.clock);
@@ -213,7 +218,7 @@
 
 	mediaObj.UI.Pause.addEventListener("click",function(){
 	      mediaObj.audio.pause() ;
-		  var s = "暂停在："+ mediaObj.currentTime + " 秒。" + "总长度：" + mediaObj.duration  + " 秒。" ;
+		  var s =  "暂停在："+ mediaObj.currentTime + " 秒。" + "Chapter " + mediaObj. id +" 总长度：" + mediaObj.duration  + " 秒。" ;
           mediaObj.UI.addInfoToStage(s) ;
 	  },false);
 

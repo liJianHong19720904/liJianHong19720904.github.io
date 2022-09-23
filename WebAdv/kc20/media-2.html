@@ -2,7 +2,19 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>借助远程低速网络，探索媒体控制编程的第一步，学会建立媒体的内存对象，通过获取媒体的属性了解媒体的信息，通过设置媒体属性和调用方法实现媒体控制等。本例具体演示Audio类对象的属性和方法包括：src属性 、duration属性、paused属性、currentTime属性、以及play和pause方法</title>
+  <title>
+	 音频媒体控制程序入门和代码组织第一步
+	audio音频对象的知识：
+	1.用new Audio()建立的音频内存对象；
+	2.了解audio对象，通过对象的属性了解音频的信息，比如：duration属性、paused属性、currentTime属性。
+	3.通过设置媒体属性和调用方法实现媒体控制，比如：currentTime属性、	src属性 .
+	4.控制audio对象播放的基本方法，比如：play和pause方法 。
+	 
+	实践代码有效组织，即利用面向对象思想的建立模型的基本结构：
+	 1.自定义一个全局对象mediaObj，用来组织音频内存对象的相关属性和控制方法
+	 2.在mediaObj对象中，自定义UI对象，用来控制管理Web页上代表UI的元素：一个舞台和几个按钮。
+	 3.为自定义的UI按钮编写事件处理函数，用来实现UI按钮对当前播放音频的控制。
+ </title>
 
    <style type="text/css">
     body{
@@ -40,6 +52,7 @@
    <script type="text/javascript">
     <!--
     "use strict";
+	//为媒体控制的编程，创建一个全局对象mediaObj
 	 var mediaObj = {id : 1 ,
 		          audio: new Audio() ,
 				  path: "https://lijianhong19720904.github.io/images/mp3/pride and prejudice " ,
@@ -56,7 +69,9 @@
 	mediaObj.getAudioById();
 
 	window.addEventListener("load",init,false);
-	//页面的onload 事件新比较专业法，可为对象增加事件多个监听处理函数，对普通开发（监听事件不多）而言，与之前window.onload = function(){...} 表达含义完全一致。
+	//浏览器触发的Web页文件读入内存事件，是Web前端应用程序最基本的事件，几乎所有代码和Web页内容的互动都基于本事件完成。对于web建立的虚拟世界而言，这相当于“宇宙大爆炸”事件，这个事件完成意味着浏览器在内存中按Web页的带设计，实现了内部内部世界和Web页外部。addEventListener替代window.onload的的新比较专业写法，前者可为对象增加事件多个监听处理函数，对普通开发（onload只监听一个事件）而言，与之前window.onload = function(){...} 对象属性设置的写法，作用完全一致。
+	//init函数是我们设计代码组织的另一个成熟实践，即用一个函数，init（代表对整体代码运行的初始化），把Web页内容建立之后，针对Web页内容有关对象的所有的事件处理函数，码组织在这个函数中，比如实现对mediaObj.UI内的所有对象于Web页的关联，还有，实现Web页各个UI对象的事件处理函数初始化。
+
 	
 	function init(){
 	   console.log("如果媒体文件加载完成，则下面的对象属性可以正常列出：");
@@ -75,12 +90,12 @@
       };
 	 mediaObj.UI.Play.onclick = function(){
 	      mediaObj.audio.play() ;
-		  var s = "当前播放时刻：" + mediaObj.audio.currentTime ;
+		  var s = "开始播放于第：" + mediaObj.audio.currentTime ;
           mediaObj.UI.Stage.textContent = s + " 秒。" ;
 	 }; 
 	 mediaObj.UI.Pause.onclick = function(){
 	      mediaObj.audio.pause() ;
-		  var s = "媒体文件长度：" + mediaObj.audio.duration ;
+		  var s = "本媒体文件长度：" + mediaObj.audio.duration ;
           mediaObj.UI.Stage.textContent =  s + " 秒。"  ;
 	 }; 
 	}//init 函数定义结束 

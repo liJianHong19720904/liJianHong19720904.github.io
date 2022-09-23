@@ -2,7 +2,9 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>演示video/audio播放的事件的UI</title>
+  <title>本例使用CSS和HTML，为未来的项目设计了一套简单的UI，
+	同时演示了用HTML元素来实现视频video和音频audio的播放，
+    而这种静态元素播放媒体的演示，在慢速网络环境（gitHub）中，体验是非常不好的，用代码来解决这个问题，也是编写本项目的目标之一。</title>
    <style type="text/css">
     body{
 	    margin: 0;
@@ -35,13 +37,20 @@
 	 font-size:1em;
 	 text-align:center;
 	}
+	video{
+      height:300px;
+
+	}
    </style>
 
  </head>
  <body>
   <h2>演示video/audio播放的事件的UI</h2>
   <div id="stage">
-	
+	<!--使用HTML提供的元素，是播放音频/视频最简单的方式-->
+	<audio src="https://lijianhong19720904.github.io/images/mp3/pride and prejudice 01.mp3" preload="auto" controls>
+	</audio>
+	<video src="https://lijianhong19720904.github.io/images/pinBall.mp4" preload="auto" controls></video>
   </div>
   <div id="control">
   进度：<input id="percent" type="text" value="0">%

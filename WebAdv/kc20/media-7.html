@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-  本例主要改进：1，将媒体播放的进度UI设置动态的响应，让程序自动更新进度值，采用每2秒更新一次的互动方式，这样用户能掌握当前音频播放的进度情况。2，设置背景图对舞台的的全覆盖。
-  本套音频钟，第35章文件相对较大，共计15分钟，为测试代码的对慢速网络的适应情况，我们可以在编写代码时，有意切换到第35课加以利用。点击二次prev键即可切换到该音频。
+  本案例解决音频播放时，表示进度数字可以以动画形式呈现，这样用户能清楚掌握当前音频播放的进度情况。
+  主要改进2点：
+  1，将媒体播放的进度值数字，可以由程序自动更新，我们将采用每2秒执行一段代码，更新一次的进度值的方式。代码mediaObj对象模型内，增加 clock 属性计代码块反复运行的时钟变量，这样我们也可利用 clock 取消代码的反复运行。
+  2，另外，改善背景效果设置，让背景图对舞台的的全覆盖。
+  注意：本套1-36个音频中，第35章文件相对较大，共计15分钟，为测试代码的对慢速网络的适应情况，我们可以在编写代码时，有意切换到第35课加以利用。具体操作时，点击二次prev键即可切换到该音频。
   </title>
    <style type="text/css">
     body{
@@ -75,7 +78,7 @@
 						  pathId = this.id ;
 					     }
 					/*
-					新增代码，对于慢网速，可避免在播放时切换音频的报错
+					下面是本例新增代码，对于慢网速，可避免在播放时切换音频的报错。
 					*/
 					if (this.audio.currentTime > 0){
                       this.audio.pause();
@@ -113,7 +116,7 @@
              SubVol : document.querySelector("div span#subVol")  ,
 			 Stage: document.querySelector("div#stage"),
 			 addInfoToStage: function(info){
-			 //在页面的Stage区域，实现了文本信息逐条显示
+			
 				 const infoNum = 6 ;
 				 var stageDom = document.querySelectorAll("p") ;
 				 if (stageDom.length === infoNum){
@@ -137,10 +140,9 @@
 	   mediaObj.UI.showBackground = function(){
 	    var randInt = Math.floor(mediaObj.background.length * Math.random()) ;
 		var imgDom = mediaObj.background[randInt] ;
-		    imgDom.height = 300 ;
-		//通过lef坐标设置，把图片设置在舞台中央
-	    var windowWidth = window.innerWidth ;
-		    imgDom.width = windowWidth ;
+		    imgDom.height = 300 ;//这是舞台在CSS定义的高度
+		//把浏览器窗口宽度设置为图像对象的宽度，实现图像在宽度方面全面覆盖舞台
+	        imgDom.width = window.innerWidth ;
 		    
 
 		 var parent = document.querySelector("div#stage") ;
