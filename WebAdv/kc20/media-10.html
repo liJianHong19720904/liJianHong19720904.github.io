@@ -179,12 +179,16 @@
 	  }//End of UI.setBackground
 
 	 setTimeout(mediaObj.UI.setBackground , 1000) ;
-	 //即时推迟1秒，也很可能发生14个图片未读入mediaObj.background的情况，这样会导致setBackground方法运行后，整个背景图仅有几张图片，有时甚至一张图片都没有。这种情况下用户刷新页面或下次再次打开本程序，14图像则因已经提前进入浏览器缓存，而全部出现，因此上述问题用户体验不会太差。
+	 //即时推迟1秒，也很可能发生14个图片未读入mediaObj.background的情况，这样会导致setBackground方法运行后，整个背景图仅有几张图片，有时甚至一张图片都没有。这种情况下用户刷新页面或下次再次打开本程序，14图像则会由于上次的访问，有充足实践提前进入浏览器缓存，在动画中全部出现，因此上述问题用户体验不会太差。
 	  
       //背景胶卷向左移动1个像素方法，moveBackground
 	  mediaObj.UI.moveBackground = function(){
 		let parent = mediaObj.UI.Stage ; 
 		let imgs = parent.querySelectorAll('img') ;
+		    if(imgs.length < 10){ 
+			//增加这个判读和代码块，是预防在setBackground运行之时，图片都未成功下载的问题，这会导致“胶卷” mediaObj.background内图片太少的问题，有时甚至连1张都没有。
+				mediaObj.UI.setBackground();
+			}
 		let widthImgs = 0 ;
 		for(let i=0 ;i<imgs.length;i++){
 			widthImgs += imgs[i].width ;
