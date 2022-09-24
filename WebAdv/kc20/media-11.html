@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-  问题分析：上一例中，有时初次打开本程序时，存放在慢速网上背景图像文件可能获取不全，导致背景动画比较尴尬，本例用异步代码解决图像文件下载较慢问题。2次以上打开上例与初次打开本例效果完全一致，所以在我们和调试代码时，本例的改进效果可能难以察觉改变。而第一次打开本例的用户，会有较好地画面体验，不会出现背景画空白的现象。
-  本例目标：利用另外19张傲慢与偏见剧照来演示初次运行本例的流畅背景画面效果。 
+  需求分析：对于之前的案例，对于首次打开程序的用户，很可能会看不到背景动画，而刷新页面这个问题就解决了，我们知道，原因在于网上图片下载速度远远慢于代码在浏览器前端执行的速度。为了研究解决这个问题，本例我们使用一组新的图片，通过异步代码，掌控反馈19张图片读入的过程，这样在慢速网上，会给用户带来更好的互动性体验。
+  
   具体实现：
-  1、在mediaObj.UI中，设计一个clock，用于记录背景动画代码运行的时钟，我们也可以利用该时钟停止时钟，实现动画暂停。
-  2、在mediaObj的clockCode中，我们增加canPlay设定的状态逻辑，在2S一次的时钟运行代码中，增加一个每秒30次的时钟，利用setInterval实现流畅动画，也是在这个2S一次的时钟代码中，用clearInterval停止动画。
-  3、改变了舞台背景色，让背景动画的颜色显得更加古色古香。
+  1、重构mediaObj的background 属性，把其改造为一个对象。
+  2、为background 对象设计新的属性，包括：网络图片的路径、数量、时钟、图片的页面DOM对象 。
+  3、为background 对象重构原有方法，包括：getBackground为背景读取图片、setBackground排列背景、moveBackground移动背景。
+  4、控制音频的UI界面微调，属于简单的CSS修改。
+  还有很多编程细节详见下面JavaScript代码，本例除了体验效果的改进外，本例更为重要的意义：可以用来综合训练我们组织重构代码的能力、理解对象和对象方法的执行环境、以及深度实践代码的Singleton设计模式。
   </title>
    <style type="text/css">
     body{
@@ -40,31 +42,32 @@
 	 display:inline-block ;
 	 border:1px solid navy;
 	 border-radius:10%;
-	 background-color:rgb(100,200,255);
-	 padding:5px 10px;
+	 background-color:rgb(20,10,0);
+	 color:white ;
+	 text-shadow: 0.1em ;
+	 font-size：1.2em ;
+	 padding:10px 15px;
 	 margin:0.1em 0.2em ;
 	 cursor:pointer;
 	}
     
    div#control input{
-   background-color:black;
-   color:white;
-   }
+    font-size :1.3em ;
+	padding:5px 10px;
+	width : 3em;
+    background-color:black;
+    color:white;
+	text-align: center;
+    }
 	div#control span:hover{
-	 background-color:rgb(100,100,255);
+	 background-color:rgb(90,20,0);
 	 color:white;
 	}
 	div#control span:active{
-	 background-color:rgb(100,250,255);
+	 background-color:rgb(80,160,160);
 	 color:white;
 	}
-	div#control input{
-	 color: white;
-	 background-color:black;
-	 width:3em;
-	 font-size:1em;
-	 text-align:center;
-	}
+
    </style>
    <script type="text/javascript">
     <!--
@@ -84,12 +87,9 @@
 					    } else{
 						  pathId = this.id ;
 					     }
-					/*
-					新增代码，对于慢网速，可避免在播放时切换音频的报错
-					*/
 					if (this.audio.currentTime > 0){
                       this.audio.pause();
-					}
+					 }
 				    this.audio.src = this.path +  pathId + ".mp3" ;
 				  }	,
                   clock : null ,
@@ -106,41 +106,43 @@
                                 }else{
                                     mediaObj.background.clock = setInterval(mediaObj.background.moveBackground , 50);
                                 }
-					           } else{
+					           } else{ // mediaObj.canPlay 为 false
                                 mediaObj.audio.pause();
-			                    var waitInfos = [ '正在下载《傲慢与偏见》音频' , ' 网速真慢吧？' , '您还能耐心等等吗？', '音频存在境外gitHub，路途太远吗？' ,'原著的音频是英文原声朗读的。','每次音频切换，都可能要这样等','我可是难得收集到这36个音频的？','原著的文本，本首页有，您需要吗？'];
+			                    var waitInfos = [ '本站共有36章《傲慢与偏见》原著音频。' , ' 网速真慢吧？' , '您还能耐心等等吗？', '音频存在境外gitHub，路途太远。' ,'音频是英文原声朗读。','每次音频切换，都可能要这样等','我可是难得收集到这36个音频的？','原著的文本，本首页有，您需要吗？','对于首次打开本程序朋友，由于音频没有缓存，所以请多等等。'];
                                 
                                 var s = waitInfos[Math.floor(waitInfos.length *Math.random())] ;
-					            mediaObj.UI.addInfoToStage(s) ;
+					            mediaObj.UI.addInfoToStage('Chapter ' + mediaObj.id +' . ' + s) ;
                                 //停止本例的背景动画代码放置在此处
                                 clearInterval(mediaObj.background.clock)  ;
                                 mediaObj.background.clock = null ;
 							   }
 					     } ,
-						 //本例开始，把background设计为一个单独对象，让背景图像读取、排列设置和动画的代码组织在一起，显得更为清晰
+				 //本例开始，把background设计为一个单独对象，让背景图像读取、排列设置和动画的代码组织在一起，显得更为清晰
 				  background : {
-					           num : 19 , //本例需从网络读取的图片数量
-							   path: "https://lijianhong19720904.github.io/WebAdv/images/pAndP/" ,//本例读取的图片的URL
+					           num : 19 , //本例选择新图片组，定义从网络读取的图片数量
+							   path: "https://lijianhong19720904.github.io/WebAdv/images/pAndP/" ,//本例读取的图片的URL，文件名从1.jpg到19.jpg
 							   imgDoms : [] ,
 							   onLoadNum : 0 , 
-							   getImgTime : [] ,
+							   getImgTime : [] , //这个属性，以数组形式记录19个图片读取成功的时间，未来可以用来分析图片在网络读取状况。
 							   getBackground : function(){
 				            	 for (var i=1; i<= this.num ; i++){
 						         this.imgDoms[i-1] = new Image() ;
 						         this.imgDoms[i-1].src = this.path + i +".jpg" ;
+								 //下面尝试用较新的ECMA6标准的箭头函数语法，来定义回调函数传给图片的load事件
 								 this.imgDoms[i-1].addEventListener('load',()=> {
 									mediaObj.background.onLoadNum ++ ;
 									mediaObj.background.getImgTime.push(new Date());
-									mediaObj.UI.addInfoToStage("成功读取" + mediaObj.background.getImgTime.length + "张剧照！");
+									mediaObj.UI.addInfoToStage("成功读取" + mediaObj.background.onLoadNum + "张剧照！");
 								  },false)
 						         }
-				               },
+				                },
 							   clock : null , //原在UI对象内的clock，迁移至background对象内
 							   setBackground : function(){
-							    if(mediaObj.background.onLoadNum < mediaObj.background.num) {
+							    if(this.onLoadNum < this.num / 3 ) { //读取了三分之一图片数即可，全部读取对于第一次本程序的运行，等待的时间可能过久，即使有反馈，用户或许也难以等待19张全部读取成功。
                                     mediaObj.UI.addInfoToStage("正在读取电影剧照...") ;
+									//2秒后再次设置调用本方法，若19张图片没有读取成功，则本方法会一直用2秒的频率执行
 									setTimeout(mediaObj.background.setBackground,2000) ;
-							    	}else{
+							    	}else{ //读取陈工，并以现在读取的图片为准，设置排列为“胶卷形式”
                                       
 		                        let parent = document.querySelector("div#stage") ; 
 		                        let xPos = 0 ;
@@ -207,7 +209,7 @@
       mediaObj.background.setBackground();
 	  
       
-    /*** 我们将通过新的background子对象组织 setBackground 和 moveBackground 代码块
+    /*** 我们通过新的background子对象组织 setBackground 和 moveBackground 代码块
 	   mediaObj.UI.setBackground = function(){
 		let parent = document.querySelector("div#stage") ; 
 		let xPos = 0 ;
@@ -274,7 +276,7 @@
 	  },false);
 
     mediaObj.UI.Percent.addEventListener("click",function(){
-	  /**新增代码，关闭2s更新一次的时钟**/
+	  
 	   window.clearInterval(mediaObj.clock);
 
        mediaObj.audio.pause();
@@ -380,12 +382,12 @@
   </script>
  </head>
  <body>
-  <h2>完结设计：当前音频可播放，则有动画，否则静止。</h2>
+  <h2>完美设计：动画背景的图片文件读入状态有较好反馈。</h2>
   <div id="stage">
-	<!--删除静态图片元素-->
+	
   </div>
   <div id="control">
-  进度：<input id="percent" type="text" value="0">%
+  播放进度：<input id="percent" type="text" value="0">% 
 	 <span id="play">Play</span> 
 	 <span id="pause">Pause</span>
      <span id="prev">Prev</span>
