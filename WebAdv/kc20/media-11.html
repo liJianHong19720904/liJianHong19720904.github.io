@@ -31,7 +31,7 @@
 	 position: absolute;
 	 left: 0;
 	 top: 0;
-	 opacity: 0.15;
+	 opacity: 0.2;
 	}
 	div#stage p{
 	 text-indent: 1em ;
@@ -142,7 +142,7 @@
                                     mediaObj.UI.addInfoToStage("正在读取电影剧照...") ;
 									//2秒后再次设置调用本方法，若19张图片没有读取成功，则本方法会一直用2秒的频率执行
 									setTimeout(mediaObj.background.setBackground,2000) ;
-							    	}else{ //读取陈工，并以现在读取的图片为准，设置排列为“胶卷形式”
+							    	}else{ //异步读取成功，并以现在读取的图片为准，设置排列为“胶卷形式”
                                       
 		                        let parent = document.querySelector("div#stage") ; 
 		                        let xPos = 0 ;

@@ -6,7 +6,7 @@
   <title>
  本例增加舞台图片背景功能，实现傲慢与偏见朗读音频的切换，同时页面也有相应背景切换。
  具体阐述：
-1、  为上例增加“剧照”配图，代码预读14张jpeg图片（本文件images文件夹下，1.jpg--14.jpg ），扩容了mediaObj对象和mediaObj.UI的属性和方法，从本例开始我们的程序分5个阶段，为用户增加背景于音频配合的图像体验，体验良好的代码设计的强大的扩展能力 。
+1、  为上例增加“剧照”配图，代码预读6张jpeg图片（本文件images文件夹下，1.jpg--6.jpg ），扩容了mediaObj对象和mediaObj.UI的属性和方法，从本例开始我们的程序分5个阶段，为用户增加背景于音频配合的图像体验，体验良好的代码设计的强大的扩展能力 。
 2、  本例的Web图像将以image对象数组形式，存储在mediaObj.background 属性中 。
   本例还将为mediaObj对象新增二个方法： mediaObj.getBackground 和 mediaObj.UI.showBackground。
     </title>
@@ -77,7 +77,7 @@
 				  background : [] ,
 				  getBackground : function(){
 				     var path = "images/" ;
-					 const num = 14 ;
+					 const num = 6 ;
 					 for (var i=1; i<=num ; i++){
 						 this.background[i-1] = new Image() ;
 						 this.background[i-1].src = path + i +".jpg" ;
