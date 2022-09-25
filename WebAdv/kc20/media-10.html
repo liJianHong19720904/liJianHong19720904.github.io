@@ -120,7 +120,7 @@
 				  background : [] ,
 				  getBackground : function(){
 				     var path = "images/" ;
-					 const num = 6 ; //本项目文件下images文件夹下14文件
+					 const num = 6 ; //本项目文件下images文件夹下文件
 					 for (var i=1; i<=num ; i++){
 						 this.background[i-1] = new Image() ;
 						 this.background[i-1].src = path + i +".jpg" ;
@@ -185,7 +185,7 @@
 	  mediaObj.UI.moveBackground = function(){
 		let parent = mediaObj.UI.Stage ; 
 		let imgs = parent.querySelectorAll('img') ;
-		    if(imgs.length < 10){ 
+		    if(imgs.length < 3){ 
 			//增加这个判读和代码块，是预防在setBackground运行之时，图片都未成功下载的问题，这会导致“胶卷” mediaObj.background内图片太少的问题，有时甚至连1张都没有。
 				mediaObj.UI.setBackground();
 			}

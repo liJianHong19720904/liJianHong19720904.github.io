@@ -227,7 +227,7 @@
                   setBackground : () => {
                        let background = mediaObj.background ;
                        let UI = mediaObj.UI ;
-						if(background.onLoadNum < background.num / 3 ) { //读取了三分之一图片数即可，全部读取对于第一次本程序的运行，等待的时间可能过久，即使有反馈，用户或许也难以等待19张全部读取成功。
+						if(background.onLoadNum < background.num / 5 ) { //读取了三分之一图片数即可，全部读取对于第一次本程序的运行，等待的时间可能过久，即使有反馈，用户或许也难以等待19张全部读取成功。
                             UI.addInfoToStage("正在读取电影剧照...") ;
 							//2秒后再次设置调用本方法，若19张图片没有读取成功，则本方法会一直用2秒的频率执行
 							setTimeout(background.setBackground,2000) ;
