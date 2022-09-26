@@ -1,0 +1,13 @@
+1.title
+ Core Concepts of CSS（CSS语言的几个核心概念）
+2.introduction
+理解CSS语言的选择器，学会三种选择器（tag选择器、类选择器、id选择器）的书写，了解CSS选择器作用的优先级。初步理解CSS语言中，父子元素对那些CSS属性的可以实现继承（比如font-size），简单探索CSS语言使用相对尺寸单位，如em，对文字大小造成的层叠性。了解Web字体家族和安全字体的概念，理解为何不可使用font-family属性随意设置自己需要的字体。
+3.keyword
+.className， #IdName ， font-size ， color ，font-family ，background-color ，width ，text-align ，border ，background 。
+4.project
+内有四个HTML文件，全部引用了《长歌行（汉乐府）》的内容，001演示了三种常用选择器的书写、002探索了对父辈属性的继承、003探索了CSS选择器的优先级、004探索了父子关系的css属性，使用em作为单位的层叠性。
+chapter 5
+A type selector is sometimes referred to as a tag name selector or element selector because it selects an HTML tag/element in your document. The class selector starts with a dot (.) character. It will select everything in the document with that class applied to it. An ID selector begins with a # rather than a dot character, but is used in the same way as a class selector. However, an ID can be used only once per page, and elements can only have a single id value applied to them. It can select an element that has the id set on it, and you can precede the ID with a type selector to only target the element if both the element and ID match. 
+We'll start you on your journey towards mastering text styling with CSS. Here we'll go through all the basic fundamentals of text/font styling in detail, including setting font weight, family and style, font shorthand, text alignment and other effects, and line and letter spacing.
+The CSS properties used to style text generally fall into two categories.  1) Font styles: Properties that affect a text's font, e.g., which font gets applied, its size, and whether it's bold, italic, etc.  2) Text layout styles: Properties that affect the spacing and other layout features of the text, allowing manipulation of, for example, the space between lines and letters, and how the text is aligned within the content box.
+Web safe fonts . Speaking of font availability, there are only a certain number of fonts that are generally available across all systems and can therefore be used without much worry. These are the so-called web safe fonts. Font stacks . Since we can't guarantee the availability of the fonts you want to use on your webpages (even a web font could fail for some reason), you can supply a font stack so that the browser has multiple fonts it can choose from. This involves a font-family value consisting of multiple font names separated by commas, e.g.,  p { font-family: "Trebuchet MS", Verdana, sans-serif; }

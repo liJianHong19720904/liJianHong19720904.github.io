@@ -1,0 +1,18 @@
+1.title
+Anchor tag and CSS Basic （超级链接和开始用CSS语言控制Web元素外观）
+2.introduction
+理解URL，学会HTML的a标记的书写，简单使用CSS语言控制Web网页的元素（本课增加了表格元素为例）的外观。
+3.keyword
+URL /URI ， a (anchor) ， href (hyperlink resource file) ， target ，table ，th (table head) ，tr(table row) ，td(table data) ，style  ，CSS syntax 。
+4.project
+内有三个HTML文件，演示了a标记用法，为了控制a元素的外观，使用了二种方法：一是嵌入使用其他HTML元素（非标准，不建议），二是使用CSS语言（标准，建议）。
+内有四个HTML文件，演示了table标记及其子标记的用法。为了控制Web页表格的外观，使用了一些最常见的CSS语言进行外观控制，通过这几个案例总结出CSS语言声明语句通用语法，如 { 和  } 以及 ：等关键符号的使用，在最后一个HTML文件引入了CSS的类的写法。
+内有三个HTML文件，综合演示了a标记和table结合的案例，其中最后一个文件，引入了a标签的CSS伪类语法，用CSS语言简便地控制a元素的动态外观。
+chapter 5
+What is a hyperlink?   Hyperlinks are one of the most exciting innovations the Web has to offer. They've been a feature of the Web since the beginning, and are what makes the Web a web. Hyperlinks allow us to link documents to other documents or resources, link to specific parts of documents, or make apps available at a web address. Almost any web content can be converted to a link so that when clicked or otherwise activated the web browser goes to another web address (URL). 
+Note: A URL can point to HTML files, text files, images, text documents, video and audio files, or anything else that lives on the Web. If the web browser doesn't know how to display or handle the file, it will ask you if you want to open the file (in which case the duty of opening or handling the file is passed to a suitable native app on the device) or download the file (in which case you can try to deal with it later on). 
+A table is a structured set of data made up of rows and columns (tabular data). A table allows you to quickly and easily look up values that indicate some kind of connection between different types of data, for example a person and their age, or a day of the week, or the timetable for a local swimming pool.It is therefore no wonder that the creators of HTML provided a means by which to structure and present tabular data on the web.
+Cascading Stylesheets — or CSS — is the first technology you should start learning after HTML. While HTML is used to define the structure and semantics of your content, CSS is used to style it and lay it out. For example, you can use CSS to alter the font, color, size, and spacing of your content, split it into multiple columns, or add animations and other decorative features.
+Once you understand the fundamentals of HTML, we recommend that you learn further HTML and CSS at the same time, moving back and forth between the two topics. This is because HTML is far more interesting and much more fun to learn when you apply CSS, and you can't learn CSS without knowing HTML.
+在著名的gitHub上，任何人（前提是有可用的email地址）都可以申请一个账号，当你创建的代码仓库的库名是“用户名+github.io”时，你就可以获得一个具有域名的WebSite，域名为 “ https://用户名+github.io ”。 一个最简单的做法：在你这个仓库中创建一个index.html的文件，这个index.html文件将成为上面域名的首页，代码仓库中的其他文件也都可以通过http协议向互联网提供Web服务。
+在你的代码仓库中创建多个HTML文件，实现自己的首页index.html对其他文件的超级链接，再实现对他人首页的链接。
