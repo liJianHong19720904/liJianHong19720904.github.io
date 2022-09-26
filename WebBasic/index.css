@@ -1,0 +1,149 @@
+	/*** Web font 为本页增加2种英文字体，每种字体再提供2类字体文件地下载 ***/
+	/*
+@font-face {
+    font-family: 'cicle';
+    src: url('images/cicle-webfont.woff') format('woff'),
+         url('images/cicle-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+*/
+
+
+/***为所有元素设定border-box的属性，让各盒装模型元素统一宽和高的计算方法，并清除所有盒装模型元素的默认margin 值。**/
+    *{
+	margin:0 ;
+	box-sizing:border-box;
+ /*	基础font-size 属性的大小在页面打开时，由用户端的window.innerWidth属性决定*/
+		}
+
+	html{
+	
+		}
+    header{
+    font-family: 'Helvetica' , '黑体';
+	 color:white;
+     text-align:center;
+	 height:150px;
+	 background-color:rgb(200,240,200);
+	 
+	}
+
+	header>h1{
+	 margin:0 auto;
+	 color:rgb(200,0,0) ;
+	 padding-top:20px;
+	 font-size:1.5em;
+	 text-shadow:rgb(150,150,100) 2px 2px ;
+	 cursor: pointer;
+	}
+
+	header nav{
+	padding-top:0.5em;
+	margin:0 auto;
+	font-size: 1.5em;
+	color:black;
+	}
+    header nav input{
+	 font-size: 0.8em;
+	 border:3px outset   ;
+	 background-color:rgb(0,50,0);
+	 padding: 5px 10px ;
+	 color:rgb(255,255,255) ;
+	 cursor: pointer;
+	 }
+     header nav input:hover{
+	  background-color:rgb(0,200,100);
+	 }
+	 header nav input:active{
+	   border:3px  inset ;
+	   background-color:rgb(0,0,100);
+	   color:rgb(255,255,255) ;
+	 }
+     header input#lessonId{
+	   text-align:center;
+	   font-size: 1.2em;
+	   width:3em;
+	   color:rgb(255,255,255);
+	   text-shadow:2px 2px rgb(0,50,250);
+	 }
+
+
+  @media screen and (min-width:800px){
+   html{
+   background-color:rgb(200,230,200);
+   }
+   body{width:800px;
+   margin:0 auto ;}
+   }/*end of media screen @ min-width:700px */
+
+ 
+	article{
+	 border:1px solid rgb(50,150,50);
+	 padding:5px 10px;
+	 text-align:justify;
+	 line-height:1.5;
+	 font-size:1.2em;
+     font-family: 'Helvetica','仿宋';
+	}
+    article#introduction, article#project{
+     color:rgb(0,0,50) ;
+	 background-color:rgb(200,220,200);
+
+    }
+  	article#keyword{
+	  background-color:rgb(20,50,0);
+	  color:rgb(250,250,250) ;
+	  	   	}
+    article#keyword{
+		font-size: 1.3em;
+			}
+
+    article p{
+     text-indent: 2em;
+	  }
+	 /*b用于实现本节关键字输出*/
+  	article  b{
+	  font-family: '黑体';
+	  font-weight: bolder ;
+	  margin-right:1em;
+	  display: block ;
+	  } 
+	article#introduction  b, article#project  b{
+		color:rgb(200,0,0) ;
+		text-shadow: rgb(255,255,0) 1px 0.5px ;
+		padding-top:1em;
+   	   }
+	article#keyword  b,article#reading  b{
+		color:rgb(250,50,0) ;
+		text-shadow: rgb(255,255,255) 1px 0.5px ;
+					}				
+
+	article input {
+	 color:rgb(120,0,0);
+     font-size:0.9em;
+	 letter-spacing: 2px;
+	 padding:3px 5px ;
+	 margin-right:1em;
+	 cursor:pointer;
+	 border:outset;
+     background-color:rgb(200,200,200);
+	}
+	article input:hover {
+	 background-color:rgb(222,222,222);
+	 color:rgb(0,150,0) ;
+	 text-shadow: rgb(255,255,255) 2px 2px ;
+	 }
+	article input:active{
+        border:inset;
+       }
+	footer{
+	background-color:rgb(0,50,0);
+	color:white;
+	font-size:1.2em;
+	text-align:center;
+	height:50px;
+	padding-top:15px;
+	}
+	
+
