@@ -1,0 +1,25 @@
+﻿1.title
+HTML tags And  Document Structure （HTML语言的简单标记 和 HTML文件基本结构）
+2.introduction
+能理解由HTML标记创建的HTML元素，学会书写HTML语言中的常用标记，了解标记的英文全写。
+初步理解构成HTML文档的元素的基本结构，理解HTML元素之间的嵌套，以及嵌套产生的元素间的父子关系，能大致解释HTML5标准的Web页文件的结构。
+3.keyword
+html ，element ，tag ，head ，title ，body ，p(paragraph) ，br(break) ，font ，bgcolor(background color)，text ，hr ，ol(order list) ，ul(unorder list)  ，li (list)  。 
+4.project
+本案例提供了一个压缩包，该文件包中有4个HTML文件，演示了基本的HTML标记的作用，注意标记之间的嵌套。
+本案例提供了一个压缩包，包含3个HTML文件，演示了有层次的列表标签和一个hr标签的使用示范。
+本案例提供了一个压缩包，包含2个HTML文件和2个图像文件，演示了在Web页中嵌入外部图像文件，或设置外部图像文件作为Web页的背景，要特别注意表达外部图像文件和当前HTML文件的路径关系。
+本案例提供了一个压缩包，包含3个HTML文件，其中009、010演示了用HTML的字符实体在Web页输出特殊字符;而011则演示了用ANSI字符集存盘的HTML文件，在浏览器中Web页无法表达中文的乱码情况。
+chapter 5
+What Browsers Ignore . The following information in the source document will be ignored when it is viewed in a browser: 1. Multiple-character (white) spaces . When a browser encounters more than one consecutive blank character space, it displays a single space. 2. Line breaks (carriage returns). Browsers convert carriage returns to white spaces, so following the earlier “ignore multiple white spaces” rule, line breaks have no effect on formatting the page. 3. Tabs.  Tabs are also converted to character spaces, so guess what? They’re useless for indenting text on the web page (although they may make your code more readable). 4. Unrecognized markup. Browsers are instructed to ignore any tag they don’t understand or that was specified incorrectly. Depending on the element and the browser, this can have varied results. The browser may display nothing at all, or it may display the contents of the tag as though it were normal text. 5. Text in comments .  Browsers do not display text between the special <!-- and --> .
+The main parts of HTML element : 1）The opening tag: This consists of the name of the element (in this case, p), wrapped in opening and closing angle brackets. This states where the element begins or starts to take effect — in this case where the paragraph begins. 2）The closing tag: This is the same as the opening tag, except that it includes a forward slash before the element name. This states where the element ends — in this case where the paragraph ends. Failing to add a closing tag is one of the standard beginner errors and can lead to strange results. 3）The content: This is the content of the element, which in this case, is just text. 4）The element: The opening tag, the closing tag, and the content together comprise the element. 
+HTML element解析图的URL地址：https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics#anatomy_of_an_html_element
+HTML (Hypertext Markup Language) is the code that is used to structure a web page and its content. For example, content could be structured within a set of paragraphs, a list of bulleted points, or using images and data tables.
+HTML is a markup language that defines the structure of your content. HTML consists of a series of elements, which you use to enclose, or wrap, different parts of the content to make it appear a certain way, or act a certain way. The enclosing tags can make a word or image hyperlink to somewhere else, can italicize words, can make the font bigger or smaller, and so on.
+Document Structure
+1.I don’t want to confuse things, but the first line in the example isn’t an element at all. It is a document type declaration (also called DOCTYPE declaration) that lets modern browsers know which HTML specification to use to interpret the document. This DOCTYPE identifies the document as written in HTML5.
+2.The entire document is contained within an html element. The html element is called the root element because it contains all the elements in the document, and it may not be contained within any other element.
+3.Within the html element, the document is divided into a head and a body. The head element contains elements that pertain to the document that are not rendered as part of the content, such as its title, style sheets, scripts, and metadata.
+4.meta elements provide document metadata, information about the document. In this case, it specifies the character encoding (a standardized collection of letters, numbers, and symbols) used in the document as Unicode version UTF-8 (see the sidebar “Introducing Unicode”). I don’t want to go into too much detail on this right now, but know that there are many good reasons for specifying the charset in every document, so I have included it as part of the minimal document markup. Other types of metadata provided by the meta element are the author, keywords, publishing status, and a description that can be used by search engines.
+5.Also in the head is the mandatory title element. According to the HTML specification, every document must contain a descriptive title.
+6.Finally, the body element contains everything that we want to show up in the browser window.
