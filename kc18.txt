@@ -1,0 +1,13 @@
+1.title
+算法和代码的综合案例
+2.introduction
+本节以练习代码的字符串算法为核心，综合JavaScript的其他语言特性，包括常量变量、函数、对象、DOM、事件处理函数等概念，逐步实现一个“学习唐诗三百首”项目的分析处理程序。
+3.keyword
+script ，ts300 ，Console面板 ，length  ，substring ，search ，Array，undefined ，split ，shift ，pop ，createElement ，appendChild  。
+4.project
+内有5个HTML文件和1个js文件，仍以“唐诗三百首”的文本为内容，分5个阶段，也即这5个HTML文件和1个js文件，逐步提升代码的难度和演示js的一些技巧。为了引导学习者开启对算法和逻辑的认知，本节在处理字符串算法中仅使用String类的最常用的二个方法函数：search和substring，主要是利用循环和逻辑运算的技巧，实现了在唐诗三百首项目中，不断增长的字符串文本分析的需求。文件tsJsTeaching-1.html主要为了演示Console面板和字符串、数组的基本操作。文件tsJsTeaching-2.html主要为了演示函数定义和字符串算法。文件tsJsTeaching-3.html主要为了演示字符串的split方法和自定义的mySplit函数，基于函数运行结果，利用DOM的createElement生成唐诗的每一行诗文，当然在这一文件中也用CSS对程序外观的简便设置。tsJsTeaching-4.html文件中的代码做了一个巨大的提升，利用对象类型再次整理了唐诗三百首的数据，并对数据做了更深入的分析（详见源码）。到了文件tsJsTeaching-5.html，我们在站在代码组织的高度，把前面所有分析唐诗信息的代码从当前文件中剥离出来，单独做成了ts300plus.js文件，而tsJsTeaching-5.html仅仅用于显示页面和控制用户的交互，这种模块化的思想，是真正开始编写大规模代码项目的开始。
+chapter 5
+In programming culture, we have a thing called object-oriented programming, a set of techniques that use objects (and related concepts) as the central principle of program organization. Though no one really agrees on its precise definition, object-oriented programming has shaped the design of many programming languages, including JavaScript.
+The core idea in object-oriented programming is to divide programs into smaller pieces and make each piece responsible for managing its own state.
+This way, some knowledge about the way a piece of the program works can be kept local to that piece. Someone working on the rest of the program does not have to remember or even be aware of that knowledge. Whenever these local details change, only the code directly around it needs to be updated.
+唐诗三百首的进一步开发，建议引用这个地址的js文件：https://lijianhong19720904.github.io/lessons/kc18/ts300plus.js  

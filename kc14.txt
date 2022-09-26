@@ -1,0 +1,10 @@
+1.title
+用程序操控DOM元素对象的基本技巧
+2.introduction
+在理解Web页上的元素对象和DOM模型基础上，学习使用程序操控DOM元素对象的基本技巧。包括：引入异步程序，实现Web动画，利用循环的程序的技巧，动态生成比较复杂的Web页。在案例实现和逐步求精过程，开始锻炼学习者的程序思维、分析解决问题的能力。
+3.keyword
+document ，querySelectorAll  ，array ，length ，Math.floor，Math.random() ，setInterval ，clearInterval ，onmouseover ，onmouseout ，onclick ，textContent ， document.createTextNode ，document.createElement ，元素节点.appendChild 。
+4.project
+内有6个HTML文件，探索了用JavaScript程序操控Web页上元素对象的基本技巧。通过011案例学习者可以尝试开始理解异步程序、事件触发程序的异同；012-014三个案例引入了在Web页DOM模型数中，动态增加元素的方法； 015-016利用循环程序，动态在Web页面上生成复杂的互动表格，综合演示了DOM技术和Web元素对象的事件处理程序。理解这些案例需要对web浏览器端程序的编写具备初步基础，因此本案例组对于初学程序设计者肯定有一定难度，若学习者感觉过于抽象，则需要继续演绎前面的案例，积累一些编程经验后再回到本节课程。
+chapter 5
+Up until now, you’ve been writing code that typically executes from top to bottom—sure, your code might be a little more complex than that, and make use of a few functions, objects and methods, but at some point the code just runs its course. Now, we’re awfully sorry to break this to you this late in the book, but that’s not how you typically write JavaScript code. Rather, most JavaScript is written to react to events. What kind of events? Well, how about a user clicking on your page, data arriving from the network, timers expiring in the browser, changes happening in the DOM and that’s just a few examples. In fact, all kinds of events are happening all the time, behind the scenes, in your browser. In this chapter we’re going rethink our approach to JavaScript coding, and learn how and why we should write code that reacts to events.
