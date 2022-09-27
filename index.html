@@ -14,7 +14,7 @@
    	div#stage{
 	 position: relative;
 	 border:3px solid;
-	 height:50% ;
+	 height:360px;
 	 background-color: rgb(38, 10, 2);
 	 overflow: hidden;
 	}
@@ -73,7 +73,7 @@
 		          audio: new Audio() ,
 				  path: "https://lijianhong19720904.github.io/images/mp3/pride and prejudice " ,
 				  clipNum: 61 , //上面URL共有61章《傲慢与偏见》朗读音频
-                  waitInfos : [ '本站共有36章《傲慢与偏见》原著音频。' , ' 网速真慢吧？' , '您还能耐心等等吗？', '音频存在境外gitHub，路途太远。' ,'音频是英文原声朗读。','每次音频切换，都可能要这样等','我可是难得收集到这36个音频的？','原著的文本，本首页有，您需要吗？','对于首次打开本程序朋友，由于音频没有缓存，所以请多等等。','Everything that happens to a child of god is Fathter filtered , and he intends to use it for good , even when others mean it for bad .'],
+                  waitInfos : [ '本站共有《傲慢与偏见》原著全部61章音频。' , ' 网速真慢吧？' , '您还能耐心等等吗？', '音频存在境外gitHub，路途太远。' ,'音频是英文原声朗读。','每次音频切换，都可能要这样等','我可是难得收集到这61个音频的？','原著的文本，本首页有，您需要吗？','对于首次打开本程序朋友，由于音频没有缓存，所以请多等等。','Everything that happens to a child of god is Fathter filtered , and he intends to use it for good , even when others mean it for bad .'],
                   
                  getAudioById : () => {
                      let id = mediaObj.id ;
@@ -159,8 +159,8 @@
 		                      for (let i=0; i< imgDoms.length ; i++ ) {
 		                        let img = imgDoms[i] ;
 								let ratio = img.width / img.height ;
-			                         img.height = 320 ;
-			                         img.width = 320 * ratio ;
+			                         img.height = 360 ; //配合CSS样式对stage舞台的高度
+			                         img.width = 360 * ratio ;
 			                         img.style.left = xPos + 'px' ;
 			                         xPos += img.width ;
 		                             parent.appendChild(img);	
@@ -191,8 +191,8 @@
 	window.addEventListener("load",init,false);
 	
 	function init(){
-       
-		mediaObj.UI = {
+
+   		mediaObj.UI = {
 	         Play : document.querySelector("div span#play") ,
 	         Pause : document.querySelector("div span#pause") ,
 	         Percent : document.querySelector("div input#percent"),
@@ -214,7 +214,7 @@
 				 }//end of addInfoToStage
       };//End of mediaObj.UI
 
-
+      
       mediaObj.getAudioById();
 	  mediaObj.background.getBackground();
       mediaObj.background.setBackground();
