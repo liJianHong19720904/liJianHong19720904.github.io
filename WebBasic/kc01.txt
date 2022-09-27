@@ -1,0 +1,23 @@
+1.title
+Tools For Learning Web Programming  （搭建的 “Web编程基础” 学习实践环境）
+
+2.introduction
+理解计算机、操作系统、浏览器、代码编辑器的关系和层次，能阐述本地HTML文件是如何运行的。能在计算机（Windows平台）上使用和安装代码编辑器、浏览器。
+能使用代码编辑器手写几个本地HTML文件，体验HTML标记的基本编写方法，能用浏览器打开的本地HTML文件，运行HTML文件。
+
+3.keyword
+computer ，OS ，Unix ，windows/Linux/MacOS/Android ，browser ，Firefox / Chrome /Opera /Safari /Internet Explorer /Microsoft Edge ，text Editor ，text file ， code Editor ，HTML document 。
+
+4.project
+本例是“唐诗300首”文本文件压缩包，该文本文件中有三百余首唐诗，可以用于实践中快速建立Web页的内容。建议先用Windows系统平台自带的记事本，创建和修改HTML文件。记事本是最一种最简洁的文本编辑软件，在学习Web程序最初的那几个案例，建议使用记事本来编辑和保存HTML文件，理解HTML文件本质上都可以看作在文本文件，理解文本文件和HTML文件的后缀名的区别，注意：由于第一条HTML代码“<!doctype html>”较难，如果忽略这条，但有些浏览器对这样的HTMLL文件，会拒绝执行。
+本案例提供Window平台的代码编辑器——EditPlus4的安装包。由于记事本没有基本代码提示和颜色显示能力，为了提高代码读写效率，我们可以用更强大的EditPlus来代替它，EditPlus是韩国开发的一款window平台的极为小巧（安装文件2MB），但又功能强大文本编辑器，专用于各类程序的代码编辑。对Web编程比较友好，可以直接利用浏览器实现页面浏览。
+本案例提供Window平台另一套代码编辑器——NotePad++的安装包。NotePad++是一款开源的代码编写器，非常轻量（安装文件4MB），在Web程序编写中，提供了较好的代码自动完成功能。
+本案例演示把一个文本文件存储为HTML文件编辑的过程 ， 学会用代码编辑器和使用浏览器打开HTML文件。具体操作可以分下面几个步骤，如: 1)创建一个古诗内容的文本文件，编码方式为：UTF-8 ;  2) 代码编辑器修改文本，将文件另存为HTML格式文件 ;  3) 尝试分别使用浏览器和编辑器打开本地HTML文件 ; 4) 浏览器打开HTML文件，若Web页出现乱码，为在文字中增加元语句： <meta charset="UTF-8">  ； 5)为每条诗文增加标题标签，初步体验HTML标记的作用。
+5.reading
+学写程序的实践非常重要，不管初学者亦或有经验的开发者，第一步要做的是建立符合自己需要的代码实践环境，而随着计算机软硬件的发展和互联网分享的软件，建立一套这样的环境，也变得越来越方便。Web编程环境包括硬件和软件，从硬件角度看，对计算机硬件性能几乎没有要求，但非常需要一个较大的键盘和屏幕；从软件角度看，我们也可在任何操作系统上实现这个环境，但由于Windows的普遍，学习成本低，代码编辑器丰富，因此本课程在写代码实践时要求使用初学者使用Windows平台和简单的代码编辑器，而浏览器则建议使用Firefox 或 Chrome ，这类浏览器性能优越，也有着非常好的调试程序的功能。
+各种工具软件选择太多，初学者可能会被“功能强大”误导，许多代码编辑器的开发环境虽然强大却过于复杂，初学者不仅难以理解也无法真正掌握，若强行学习，则会也把需要层层建构能力体系，变成了“死记硬背”的一系列过程。比如，在早期实践时就使用专业代码编辑器“Visual Studio Code”，vsCode貌似功能强大，实则操作繁琐，面向生产环境而非学习环境，造成初学者的学习处于低效率状态。因此，在Web编程初期建立学习实践环境时，不要追求高性能计算机，而要考量一个合适的屏幕和舒适的键盘，特别是代码编辑器件应该选择运行快捷、操作简便的小型软件。
+The Hard Way . I stand by my method of teaching HTML the old-fashioned way—by hand. There’s no better way to truly understand how markup works than typing it out, one tag at a time, and then opening your page in a browser. It doesn’t take long to develop a feel for marking up documents properly. Although you may choose to use a visual or drag-and-drop web authoring tool down the line, understanding HTML will make using your tools easier and more efficient. In addition, you will be glad that you can look at a source file and understand what you’re seeing. It is also crucial for troubleshooting broken pages or fine-tuning the default formatting that web tools produce. And for what it’s worth, professional web developers tend to markup content manually for better control over the code and the ability to make deliberate decisions about what elements to use.
+When it comes to tools for building a website, there's a lot to pick from. If you're just starting, you might be confused by the array of code editors out there. A computer. Maybe that sounds obvious to some people, but some of you are reading this article on your phone or a library computer. For serious web development, it's better to invest in a desktop or laptop computer running Windows, macOS or Linux.
+A text editor, to write code in. This could be a text editor (e.g. Visual Studio Code, Notepad++, Sublime Text, Atom, GNU Emacs, or VIM), or a hybrid editor (e.g. Dreamweaver or WebStorm). Office document editors are not suitable for this use, as they rely on hidden elements that interfere with the rendering engines used by web browsers.
+Web browsers, to test code in. Currently, the most-used browsers are Firefox, Chrome, Opera, Safari, Internet Explorer and Microsoft Edge. You should also test how your site performs on mobile devices and on any old browsers your target audience may still be using (such as IE 8–10). Lynx, a text-based terminal web browser, is great for seeing how your site is experienced by visually-impaired users.
+Before starting this lesson, you don't need any previous HTML knowledge, but you should have at least basic familiarity with using computers and using the web passively (i.e., just looking at it and consuming content). You should have a basic work environment set up (as detailed in Installing basic software), and understand how to create and manage files (as detailed in Dealing with files).
