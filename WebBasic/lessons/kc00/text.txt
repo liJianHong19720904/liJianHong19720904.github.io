@@ -1,8 +1,0 @@
-<html>
-<head>
-<title>welcome</title>
-</head>
-<body>
- <h1 style="font-size:100px">Hello world!</h1>
-</body>
-</html>
