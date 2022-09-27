@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    读好书和写代码或许是你人生的乐事————李键宏
+  </title>
+   <style type="text/css">
+    body{
+	    margin: 0;
+	    font-size:20px;}
+	
+   	div#stage{
+	 position: relative;
+	 border:3px solid;
+	 height:50% ;
+	 background-color: rgb(38, 10, 2);
+	 overflow: hidden;
+	}
+	 
+	div#stage img{
+	 display: block;
+	 position: absolute;
+	 left: 0;
+	 top: 0;
+	 opacity: 0.2;
+	}
+	div#stage p{
+	 text-indent: 1em ;
+	 color:rgb(239, 239, 246);
+	 margin:0.5em ;
+	}
+	div#control span,div#control input,h2{
+	 display:inline-block ;
+	 border:1px solid navy;
+	 border-radius:10%;
+	 background-color:rgb(20,10,0);
+	 color:white ;
+	 text-shadow: 0.1em ;
+	 font-size：1.2em ;
+	 padding:10px 15px;
+	 margin:0.1em 0.2em ;
+	 cursor:pointer;
+	}
+    
+   div#control input{
+    font-size :1.3em ;
+	padding:5px 10px;
+	width : 3em;
+    background-color:black;
+    color:white;
+	text-align: center;
+    }
+	div#control span:hover{
+	 background-color:rgb(90,20,0);
+	 color:white;
+	}
+	div#control span:active{
+	 background-color:rgb(80,160,160);
+	 color:white;
+	}
+
+   </style>
+   <script type="text/javascript">
+    <!--
+    "use strict";
+	 var mediaObj = { 
+ 		          currentTime : 0 ,
+				  duration : 0 ,
+				  canPlay : false  ,
+		          id : 1 ,
+		          audio: new Audio() ,
+				  path: "mp3/pride and prejudice " ,
+				  clipNum: 61 , //上面URL共有61章《傲慢与偏见》朗读音频
+                  waitInfos : [ '本站共有36章《傲慢与偏见》原著音频。' , ' 网速真慢吧？' , '您还能耐心等等吗？', '音频存在境外gitHub，路途太远。' ,'音频是英文原声朗读。','每次音频切换，都可能要这样等','我可是难得收集到这36个音频的？','原著的文本，本首页有，您需要吗？','对于首次打开本程序朋友，由于音频没有缓存，所以请多等等。','Everything that happens to a child of god is Fathter filtered , and he intends to use it for good , even when others mean it for bad .'],
+                  
+                 getAudioById : () => {
+                     let id = mediaObj.id ;
+                     let audio = mediaObj.audio ;
+                     let path = mediaObj.path ;
+                     let pathId = '' ;
+                     
+                     console.log('"this" is ' + this) ;
+
+                     if (id < 10){
+						  pathId = '0' + id ;
+					    } else{
+						  pathId = id ;
+					     }
+                     if (audio.currentTime > 0){
+                        audio.pause();
+					  }
+				      audio.src = path +  pathId + ".mp3" ;
+                   }, //End of  getAudioById
+                  clock : null ,
+        
+              clockCode : () => {
+                        let audio = mediaObj.audio ;
+                        let background = mediaObj.background ;
+                        let waitInfos = mediaObj.waitInfos ;
+                        let UI = mediaObj.UI ;
+					    if (mediaObj.canPlay){
+                            mediaObj.currentTime = parseInt(audio.currentTime) ;
+							mediaObj.duration = parseInt(audio.duration) ;
+							let percent = Math.floor( mediaObj.currentTime / mediaObj.duration * 100 );
+                            UI.Percent.value = percent ;
+
+                            if(background.clock){
+                                  //说明动画已经调用，不可再用setInterval启动另外一个异步代码
+                             }else{
+
+                                    background.clock = setInterval(background.moveBackground , 50);
+                                }
+					           } else{ // mediaObj.canPlay 为 false
+                                audio.pause();
+			                                               
+                                let s = waitInfos[Math.floor(waitInfos.length *Math.random())] ;
+					            UI.addInfoToStage('Chapter ' + mediaObj.id +' . ' + s) ;
+                                //停止本例的背景动画代码放置在此处
+                                clearInterval(background.clock)  ;
+                                background.clock = null ;
+							   }
+					     } , //End of clockCode
+				  background : {
+					           num : 19 , //本例选择新图片组，定义从网络读取的图片数量
+							   path: "https://lijianhong19720904.github.io/WebAdv/images/pAndP/" ,//本例读取的图片的URL，文件名从1.jpg到19.jpg
+							   imgDoms : [] ,
+							   onLoadNum : 0 , 
+							   getImgTime : [] , //这个属性，以数组形式记录19个图片读取成功的时间，未来可以用来分析图片在网络读取状况。
+  
+                               getBackground : () => {
+                                let audio = mediaObj.audio ;
+                                let background = mediaObj.background ;
+                                let UI = mediaObj.UI ;
+				            	 for (let i=1; i<= background.num ; i++){
+                                    background.imgDoms[i-1] = new Image() ;
+                                    background.imgDoms[i-1].src = background.path + i +".jpg" ;
+									background.imgDoms[i-1].addEventListener('load',()=> {
+									 background.onLoadNum ++ ;
+									 background.getImgTime.push(new Date());
+									 UI.addInfoToStage("成功读取" + background.onLoadNum + "张剧照！");
+								  },false)
+						         }
+				                }, //End of getBackground
+							   clock : null , //控制背景动画的clock
+  
+                  setBackground : () => {
+                       let background = mediaObj.background ;
+                       let UI = mediaObj.UI ;
+						if(background.onLoadNum < background.num / 5 ) { //读取了三分之一图片数即可，全部读取对于第一次本程序的运行，等待的时间可能过久，即使有反馈，用户或许也难以等待19张全部读取成功。
+                            UI.addInfoToStage("正在读取电影剧照...") ;
+							//2秒后再次设置调用本方法，若19张图片没有读取成功，则本方法会一直用2秒的频率执行
+							setTimeout(background.setBackground,2000) ;
+						}else{ //异步读取成功，并以现在读取的图片为准，设置排列为“胶卷形式”
+                             let parent = UI.Stage ; 
+		                     let xPos = 0 ;
+							 let imgDoms = background.imgDoms ;
+		                      for (let i=0; i< imgDoms.length ; i++ ) {
+		                        let img = imgDoms[i] ;
+								let ratio = img.width / img.height ;
+			                         img.height = 320 ;
+			                         img.width = 320 * ratio ;
+			                         img.style.left = xPos + 'px' ;
+			                         xPos += img.width ;
+		                             parent.appendChild(img);	
+								 }           
+	                           };//end of  else this.onLoadNum < this.num
+	                         },//End of setBackground 
+ 
+                  moveBackground : () => {
+		                   let parent = mediaObj.UI.Stage ; 
+		                   let imgs = mediaObj.background.imgDoms ;
+                 // 上面改动说明：以前使用 querySelectorAll('img') 方式，临时从页面获取图像DOM节点的方式，显然在高频执行动画代码中，效率偏低。直接从内存中（mediaObj.background.imgDoms）获取对象的reference引用，代码速度会高很多;
+		                       let widthImgs = 0 ;
+		                       for(let i=0 ;i<imgs.length;i++){
+			                    widthImgs += imgs[i].width ;
+		                         }
+		                       for (let i=0; i< imgs.length ; i++ ) {
+			                    let xPos = parseInt(imgs[i].style.left) ;
+			                    if(xPos >= - imgs[i].width){
+			                      imgs[i].style.left = (xPos - 1) + 'px' ;
+			                     }else{
+			                       imgs[i].style.left = widthImgs - imgs[i].width + 'px' ;
+			                     }
+		                       }//End for loop    
+	                  } , //End of moveBackground
+		           } //End of background Object
+			 } ; //End of  mediaObj definition
+
+	window.addEventListener("load",init,false);
+	
+	function init(){
+       
+		mediaObj.UI = {
+	         Play : document.querySelector("div span#play") ,
+	         Pause : document.querySelector("div span#pause") ,
+	         Percent : document.querySelector("div input#percent"),
+			 Prev  : document.querySelector("div span#prev") ,
+             Next  : document.querySelector("div span#next") ,
+			 AddVol : document.querySelector("div span#addVol")  ,
+             SubVol : document.querySelector("div span#subVol")  ,
+			 Stage: document.querySelector("div#stage"),
+			 addInfoToStage: function(info){
+			 //在页面的Stage区域，实现了文本信息逐条显示
+				 const infoNum = 6 ;
+				 var stageDom = document.querySelectorAll("p") ;
+				 if (stageDom.length === infoNum){
+					mediaObj.UI.Stage.removeChild(stageDom[0]) ;
+				 }
+				  var pDom = document.createElement("p") ;
+				      pDom.textContent = info ;
+					  mediaObj.UI.Stage.appendChild(pDom) ;
+				 }//end of addInfoToStage
+      };//End of mediaObj.UI
+
+
+      mediaObj.getAudioById();
+	  mediaObj.background.getBackground();
+      mediaObj.background.setBackground();
+	  
+   
+       //下面代码都是对UI控件的行为设计
+	 
+	mediaObj.UI.Play.addEventListener("click",function(){
+	      mediaObj.audio.play() ;
+		  var s =  "Chapter " + mediaObj. id + " 在" + mediaObj.currentTime + " 秒，开始播放！"  ;
+		  mediaObj.UI.addInfoToStage(s) ;
+        /****下面是复制过来的动态改变播放进度值的代码****/
+		 clearInterval(mediaObj.clock);
+		 mediaObj.clock = setInterval(mediaObj.clockCode,2000);
+      /****上面是复制过来的动态改变播放进度值的代码****/
+	   },false);
+
+	mediaObj.UI.Pause.addEventListener("click",function(){
+	      mediaObj.audio.pause() ;
+		  var s =  "暂停在："+ mediaObj.currentTime + " 秒。" + "Chapter " + mediaObj. id +" 总长度：" + mediaObj.duration  + " 秒。" ;
+          mediaObj.UI.addInfoToStage(s) ;
+	  },false);
+
+    mediaObj.UI.Percent.addEventListener("click",function(){
+	  
+	   window.clearInterval(mediaObj.clock);
+
+       mediaObj.audio.pause();
+	   var s = "请谨慎填入进度值。" + "当前进度：" + Math.floor(mediaObj.currentTime/mediaObj.duration*100) + "% 。" ;
+	   mediaObj.UI.addInfoToStage(s) ;
+	  },false);
+
+    mediaObj.UI.Percent.addEventListener("blur",function(){
+	  var playTime = parseInt(mediaObj.UI.Percent.value) / 100 * mediaObj.audio.duration  ;
+	  if (!playTime ){
+         playTime = 0 ;
+	  }
+      mediaObj.audio.currentTime = playTime ;
+	  mediaObj.audio.play();
+	  var s = "即将跳转到"+ Math.floor(mediaObj.audio.currentTime) + " 秒！" ;
+	  mediaObj.UI.addInfoToStage(s) ;
+     /****下面是复制过来的动态改变播放进度值的代码****/
+	     clearInterval(mediaObj.clock);
+		 mediaObj.clock = setInterval(mediaObj.clockCode , 2000);
+    /****上面是复制过来的动态改变播放进度值的代码****/
+	 mediaObj.canPlay = false ;
+	  },false);
+
+     
+      mediaObj.UI.SubVol.addEventListener("click",function(){
+		  var s = "音量调整为：" ;
+		  if (mediaObj.audio.volume > 0){
+			  mediaObj.audio.volume -= 0.1 ;
+		  }
+		   s += parseInt(mediaObj.audio.volume * 100) + "%" ;
+		   mediaObj.UI.addInfoToStage(s) ;
+		  },false);
+
+      mediaObj.UI.AddVol.addEventListener("click",function(){
+		  var s = "音量调整为：" ;
+		  if (mediaObj.audio.volume < 1){
+			  mediaObj.audio.volume += 0.1 ;
+		  }
+		   s += parseInt(mediaObj.audio.volume * 100) + "%" ;
+		   mediaObj.UI.addInfoToStage(s) ;
+		  },false);
+
+    
+     mediaObj.UI.Prev.addEventListener("click",function(){
+	  if (mediaObj.id===1){
+		  mediaObj.id =  mediaObj.clipNum ;
+	  }else{
+	     mediaObj.id -- ;
+	  }
+	  mediaObj.getAudioById();
+      var s =  "开始加载音频文件： " + "Chapter " + mediaObj.id  ;
+	  mediaObj.UI.addInfoToStage(s)  ;
+	  mediaObj.UI.addInfoToStage("若是第一次，请耐心等待……");
+
+	  mediaObj.canPlay = false ;
+
+    /****下面是复制过来的动态改变播放进度值的代码****/
+	     clearInterval(mediaObj.clock);
+		 mediaObj.clock = setInterval(mediaObj.clockCode , 2000);
+    /****上面是复制过来的动态改变播放进度值的代码****/
+
+	 },false);//end of mediaObjPrev.click
+
+     mediaObj.UI.Next.addEventListener("click",function(){
+	   if (mediaObj.id === mediaObj.clipNum ){
+		  mediaObj.id = 1 
+	    }else{
+	      mediaObj.id ++ ;
+	   }
+      mediaObj.getAudioById();
+	  var s =   "开始加载音频文件： " + "Chapter " + mediaObj.id  ;
+	  mediaObj.UI.addInfoToStage(s) ;
+      mediaObj.UI.addInfoToStage("若是第一次，请耐心等待……");
+
+      
+	  mediaObj.canPlay = false ;
+	  /****下面是复制过来的动态改变播放进度值的代码****/
+	     clearInterval(mediaObj.clock);
+		 mediaObj.clock = setInterval(mediaObj.clockCode , 2000);
+     /****上面是复制过来的动态改变播放进度值的代码****/
+	 },false);//end of mediaObjNext.click
+   
+   //下面二个事件处理函数，利用了HTML5标准的Web音频、视频最重要的二个API事件，即loadedmetadata 和canplaythrough ，有兴趣发掘更多细节则请参考HTML5音视频编程的技术文档。
+    mediaObj.audio.addEventListener("loadedmetadata",function(){
+	   var s = "成功载入音频文件的元数据...";
+       mediaObj.UI.addInfoToStage(s) ;
+	       s = "本音频文件共: " + Math.floor(mediaObj.audio.duration) + "秒 。";
+       mediaObj.UI.addInfoToStage(s) ;
+      },false);
+   
+      mediaObj.audio.addEventListener("canplaythrough",function(){
+        var s = "Ok，音频文件可以正常播放了！";
+       mediaObj.UI.addInfoToStage(s) ;
+	   mediaObj.canPlay = true ;
+	     },false);
+
+      /**本例新增代码，用于2s更新一次播放音频的进度值**/
+	  /*下面时钟代码*/
+      mediaObj.clock = setInterval(mediaObj.clockCode , 2000);
+
+	}//init 函数定义结束 
+  //-->
+  </script>
+ </head>
+ <body>
+  <h2>读好书和写代码或许可以成为你人生的二大乐事——李键宏</h2>
+  <div id="stage">
+	
+  </div>
+  <div id="control">
+  播放进度：<input id="percent" type="text" value="0">% 
+	 <span id="play">Play</span> 
+	 <span id="pause">Pause</span>
+     <span id="prev">Prev</span>
+	 <span id="next">Next</span>
+	 <span id="addVol">+Vol+</span>
+	 <span id="subVol">-Vol-</span>
+  </div>
+ </body>
+</html>
