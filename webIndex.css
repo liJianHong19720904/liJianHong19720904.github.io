@@ -148,4 +148,47 @@
 	padding-top:15px;
 	}
 	
-
+	 /*** div#showCode 区域由用户点击“查看源码”后，JS程序自动创建***/
+	 div#showCode{
+       position : absolute ;
+	   top : 1% ;
+	   left : 0.5% ;
+	  padding  : 5%;
+	  width : 98% ;
+	   font-size: 1.1em ;
+	  background-color : rgb(0,30,10) ;
+	  color  : rgb(0,150,208) ;
+	 }
+     div#showCode input{
+	  position : absolute ;
+	  font-size  : 1.2em ;
+	  width : 5em ;
+	  border:outset solid  ;
+	  cursor: pointer;
+	 }
+	 div#showCode input#closeUp{
+		right : 0 ;
+		top : 0 ;
+	}
+	div#showCode input#closeDn{
+		right : 0 ;
+		bottom: 0 ;
+	}
+	div#showCode div.codeWord{
+      display: inline-block;
+	  margin-left:0.3em;
+	  font-family:  Consolas, Verdana, sans-serif, 楷体;
+	}
+	div#showCode span{
+	 margin-left:0.2em;
+		
+	  }
+	div#showCode div.keyWord{
+		color:rgb(200,200,0);
+	  }
+	div#showCode div.comment{
+		color:rgb(20,180,0);
+	  }
+	div#showCode div.operator{
+		color:rgb(180,20,0);
+	  }
