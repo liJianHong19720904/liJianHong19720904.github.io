@@ -134,7 +134,7 @@ var ajaxObj = {
            b.textContent =  "案例实践:"+Model.lessonId +"."+ no + " 《 " + bt.title +" 》";
            my$("#project").appendChild(b);
             
-           bt.onclick = function(){
+           bt.onclick = function(eObj){
             var url ;
              if(this.id.substring(0,4)==='http'){
                url = this.id ;
@@ -142,25 +142,35 @@ var ajaxObj = {
                url = Model.getUrlPath() + (this.id)  ;
              }
             
-             window.open(url);
+             //window.open(url);
+              popWindow(eObj);//立刻弹出浮动窗口，为显示案例做准备
+              var popWindowDom = document.querySelector('div#popWindow');
+                  popWindowDom.style.backgroundColor = 'rgb(200,200,200)' ;
+              var iframeDom = document.createElement('iframe');
+              iframeDom.style.width = '100%' ;
+              iframeDom.style.height = window.innerHeight * 0.8 + 'px' ;
+              iframeDom.src = url ;
+              
+              popWindowDom.appendChild(iframeDom);
            };
+
            //增加“显示源码”按钮
            let bt1 = document.createElement("input");
            bt1.type = "button" ; 
            bt1.value = "显示源码" ;
            bt1.url = bt.id ;
            bt1.onclick = function(eObj){
-             popWindow();//立刻弹出浮动窗口，为代码显示做准备
+             popWindow(eObj);//立刻弹出浮动窗口，为代码显示做准备
              var url = this.url ;
              var typeOfFile = (url.substring(url.length - 8)).trim();
              if(typeOfFile.length > 4){
               typeOfFile = typeOfFile.substring(typeOfFile.length-4)
              }
              //alert(typeOfFile) ;
-             //outputUI.showCode(s)方法将对传入的s进行分析，按源代码格式实现对页面的输出
+             //outputUI.popWindow(s)方法将对传入的s进行分析，按源代码格式实现对页面的输出
              if (url.substring(0,4)==='http' || typeOfFile !== 'html'){
-              outputUI.showCode("本例不是编程案例，没有源码!") ;
-              document.querySelector('div#showCode').style.top = eObj.pageY + 'px' ;
+              outputUI.popWindow("本例不是编程案例，没有源码!") ;
+              document.querySelector('div#popWindow').style.top = eObj.pageY + 'px' ;
              }
              if( typeOfFile === 'html' ||  typeOfFile === '.css'  ||  typeOfFile.substring(1) === '.js'){
               //"Get Code ..."
@@ -170,43 +180,15 @@ var ajaxObj = {
               setTimeout(()=>{
                 if(ajaxObj.content){
                   //alert(ajaxObj.content);
-                  outputUI.showCode(ajaxObj.content) ;
+                  outputUI.popWindow(ajaxObj.content) ;
                 }else{
                   setTimeout(()=>{
-                     outputUI.showCode(ajaxObj.content) ;
+                     outputUI.popWindow(ajaxObj.content) ;
                     } ,500) ;
                 }
               },500);
              };
-           
-               function popWindow(){
-                         //创建前，检测是否有div#showCode 未关闭
-                         if(document.querySelector('div#showCode')){
-                          document.body.removeChild(document.querySelector("div#showCode"));
-                        }
-            
-                         //create  div#showCode 和 二个 input 
-                         var absDiv = document.createElement('div') ;
-                             absDiv.id = "showCode" ; 
-                             absDiv.style.top = eObj.pageY + 'px' ; //eObj外层作用域的onclick函数传来的事件对象
-                         var closeUp = document.createElement('input') ;
-                         var closeDn = document.createElement('input') ;
-                         closeUp.id = 'closeUp' ;
-                         closeDn.id = 'closeDn' ;
-                         closeDn.value = closeUp.value = "关闭源码" ;
-                         closeDn.type = closeUp.type = "button" ;
-                         closeDn.onclick = closeUp.onclick = function(){
-                           document.body.removeChild(document.querySelector("div#showCode"));
-                         } ;
-                         absDiv.appendChild(closeUp);
-                         absDiv.appendChild(closeDn);
-            
-                         document.body.appendChild(absDiv) ; 
-                         
-                         
-                }  
-             
-           };//“显示源码”的onclick事件函数
+          };//“显示源码”的onclick事件函数
       //“显示源码”按钮结束
 
            paras[i] = paras[i].substring(paras[i].search('>')+1) ;
@@ -216,7 +198,32 @@ var ajaxObj = {
             p.appendChild(txt); 
            my$("#project").appendChild(p);
              }//end for loop
+
+
+        function popWindow(eObj){ //eObj参数由调用本函数的事件处理函数onclick的参数，通过lexical语法传至本popWindow函数
+         //创建前，检测是否有div#popWindow 未关闭
+             if(document.querySelector('div#popWindow')){
+               document.body.removeChild(document.querySelector("div#popWindow"));
+             }
+         //create  div#popWindow 和 二个 input 
+              var absDiv = document.createElement('div') ;
+                  absDiv.id = "popWindow" ; 
+                  absDiv.style.top = eObj.pageY + 'px' ; //eObj外层作用域的onclick函数传来的事件对象
+              var closeUp = document.createElement('input') ;
+              var closeDn = document.createElement('input') ;
+              closeUp.id = 'closeUp' ;
+              closeDn.id = 'closeDn' ;
+              closeDn.value = closeUp.value = "关闭本窗" ;
+              closeDn.type = closeUp.type = "button" ;
+              closeDn.onclick = closeUp.onclick = function(){
+                document.body.removeChild(document.querySelector("div#popWindow"));
+              } ;
+              absDiv.appendChild(closeUp);
+              absDiv.appendChild(closeDn);
  
+              document.body.appendChild(absDiv) ; 
+        }  // end of popWindow function
+
      } ,
      showReading:function(){
        my$("#reading").textContent = "" ;
@@ -286,8 +293,8 @@ var ajaxObj = {
                setTimeout(that.showReading,500*5) ;
                
              },
-     showCode: function(codeString){
-         var showCodeDom = document.querySelector('div#showCode');
+     popWindow: function(codeString){
+         var popWindowDom = document.querySelector('div#popWindow');
          
          var codeParas = codeString.split('\n') ;
              //console.log(codeParas);
@@ -392,10 +399,10 @@ var ajaxObj = {
                   wordDom.textContent = word ;
               pDom.appendChild(wordDom);  
             } //循环aLineWords数组结束  
-             showCodeDom.appendChild(pDom) ; 
-              // add the paragraph  dom to div#showCode
+             popWindowDom.appendChild(pDom) ; 
+              // add the paragraph  dom to div#popWindow
            }  //源代码的每段落分别输出结束    
-         },//End of showCode
+         },//End of popWindow
     };//end of UI
  
     
