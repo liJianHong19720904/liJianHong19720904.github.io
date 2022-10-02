@@ -1,0 +1,20 @@
+﻿1.title
+ Understand HTML/CSS Basis As  Languages（HTML/CSS语言最基本知识入门）
+2.introduction
+了解HTML语言的基本规则和常用标记的内涵，比如hr标签、img标签、ul和ol标签、li标签、a标签，HTML代码的注释语法。了解这些常用标签的常用属性。最好是以英文全称和简写的方式，熟悉和记忆这些标签。
+了解CSS语言的最基本的规则和常用属性的内涵，比如字体家族、字体大小、颜色、宽度、高度等 。
+
+3.keyword
+html ，tag ，attribute; ，hr（horizon） ，img（image） ，ul(unorder list)、ol（unorder list）
+ ，a（anchor）。 
+4.project
+<a src=001.html title=绘制水平线> 本案例演示了解hr标签和其属性写法，尤其是属性值的百分比表达的概念 。 学习HTML语言对源代码的注释，以及注释语句的语法。
+<a src=002.html title=地球生命种类> 本案例演示HTML的列表标签和代码表达。	包括有序、无序列表的概念和标记写法，尤其注意父子元素的嵌套关系。
+<a src=003.html title=在网页插入一只鸟的图片>学习img标记的使用，src属性，本例在网页插入一只鸟的图片， 注意图像文件的位置和文件名的正确表达，文件名由主名加点加扩展名组成。
+<a src=004.html title=在网页插入2只鸟的图片>   了解Web页与外部图像文件的关系，  一个图像文件可以多次插入到任何网页中。
+<a src=005.html title=超链接标记和绝对地址>本案例演示超链接标记和绝对地址--URL作为属性的使用。
+<a src=006.html title=用HTML控制超链接的外观>在之前案例，我们使用HTML标签来控制元素的外观，  人们对Web页的外观需求很多，这会让html代码产生会有许多没有意义的嵌套，   本例我们最后演示用html标签来控制超链接外观，这种方式可以让我们理解HTML标签的作用，但用这种方式写代码是走错了方向，因此必须引入CSS语言了。
+<a src=007.html title=用CSS描述超链接的外观>  引入CSS语言来控制超链接外观， 这才是正式编写网页外观的方式， 此时我们只要对一些CSS语法简单理解一下即可。
+5.reading
+<img src=tag.png>
+<img src=attribute.png>

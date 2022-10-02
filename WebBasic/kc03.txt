@@ -1,0 +1,17 @@
+﻿1.title
+Write Character By HTML （HTML语言能表达的字符）
+2.introduction
+区区101键盘对人类文明的庞大的字符体系的表达，是很局限的，而利用HTML语言的字符实体概念和表达，我们可以实现一些常见的，却无法用键盘直接输入的字符写法 。
+例如，书写中国以外其他文明的字符（非英语）。
+
+3.keyword
+html ，Character Entities ，&nbsp; ，meta ，UTF-8 ，ANSI ， emoji图形字符。 
+4.project
+<a src=001.html title=HTML语言表达的字符实体> 本案例演示通过HTML语言表达的字符实体（Character Entities）。
+<a src=002.html title=其他文明的文字> 本案例演示HTML语言用编码，来表达其他文明的文字。
+<a src=003.html title=ANSI编码存盘网页文件的问题>本案例演示错误网页，文档故意使用非标准的ANSI编码，来存盘网页文件，  导致非英语文明字符无法显示。。
+<a src=004.html title=meta中表明本文件使用了ANSI字符集> 在上一例中，我们已经证明这会导致非英语文明字符无法显示，  但本例则在上面代码中，我们用meta中表明本文件使用了ANSI字符集， 因此本网页文档可以在浏览器中正常显示，尽管在多数代码编辑器中，也许中文还是处于乱码状态。
+<a src=005.html title=emoji图形字符>本案例演示最近几年开始标准化的emoji图形字符。
+5.reading
+<img src=tag.png>
+<img src=attribute.png>

@@ -1,0 +1,22 @@
+﻿1.title
+HTML tags And  Document Structure （HTML语言的简单标记 和 HTML文件基本结构）
+2.introduction
+理解由HTML标记是HTML语言的基本元素，学会书写HTML语言中的常用标记，了解这些标记是英文的全写或简写表达。
+初步记忆和练习一些常用的控制文字，颜色，排版的基本标记。
+初步了解HTML文档的元素的基本结构，初步理解HTML元素之间存在嵌套，以及嵌套产生的元素间的父子关系，大致了解，当前代码编辑器给出的默认的HTML5标准的Web文档文件的结构。
+3.keyword
+html ，element ，tag ，head ，title ，body ，p(paragraph) ，br(break) ，font ，bgcolor(background color)，text 。 
+4.project
+<a src=001.html title=黑色背景和白色文字> 本案例演示了简单地制作一个黑色背景色，白色文字色地网页。请打开源码了解：HTML语言的基本结构，请注意标记之间的嵌套、写在HTML标记内的属性。
+<a src=002.html title=三国演义开篇> 本案例演示p标签和br标签，对比二者在换行格式上的区别。
+<a src=003.html title=三国演义开篇修改>本案例演示font标签对颜色和字体的控制，了解HTML标签间的多层嵌套。
+<a src=004.html title=三国演义开篇中混乱地空白符>本案例演示了解HTML语言对源代码的空白符（空格、Tab、回车）的忽略功能，把多个空白符仅看作一个空格。
+<a src=005.html title=三国演义开篇（背景图）>本案例演示了解HTML语言对源代码的空白符（空格、Tab、回车）的忽略功能，把多个空白符仅看作一个空格。
+
+5.reading
+What Browsers Ignore . The following information in the source document will be ignored when it is viewed in a browser: 
+1. Multiple-character (white) spaces . When a browser encounters more than one consecutive blank character space, it displays a single space. 
+2. Line breaks (carriage returns). Browsers convert carriage returns to white spaces, so following the earlier “ignore multiple white spaces” rule, line breaks have no effect on formatting the page. 
+3. Tabs.  Tabs are also converted to character spaces, so guess what? They’re useless for indenting text on the web page (although they may make your code more readable).
+4. Unrecognized markup. Browsers are instructed to ignore any tag they don’t understand or that was specified incorrectly. Depending on the element and the browser, this can have varied results. The browser may display nothing at all, or it may display the contents of the tag as though it were normal text. 
+5. Text in comments .  Browsers do not display text between the special <!-- and --> .
