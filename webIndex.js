@@ -143,15 +143,15 @@ var ajaxObj = {
              }
             
              //window.open(url);
-              popWindow(eObj);//立刻弹出浮动窗口，为显示案例做准备
+              outputUI.popWindow(eObj);//立刻弹出浮动窗口，为显示案例做准备
               var popWindowDom = document.querySelector('div#popWindow');
                   popWindowDom.style.backgroundColor = 'rgb(200,200,200)' ;
               var iframeDom = document.createElement('iframe');
               iframeDom.style.width = '100%' ;
               iframeDom.style.height = window.innerHeight * 0.8 + 'px' ;
               iframeDom.src = url ;
-              
               popWindowDom.appendChild(iframeDom);
+              
            };
 
            //增加“显示源码”按钮
@@ -160,16 +160,16 @@ var ajaxObj = {
            bt1.value = "显示源码" ;
            bt1.url = bt.id ;
            bt1.onclick = function(eObj){
-             popWindow(eObj);//立刻弹出浮动窗口，为代码显示做准备
+            outputUI.popWindow(eObj);//立刻弹出浮动窗口，为代码显示做准备
              var url = this.url ;
              var typeOfFile = (url.substring(url.length - 8)).trim();
              if(typeOfFile.length > 4){
               typeOfFile = typeOfFile.substring(typeOfFile.length-4)
              }
              //alert(typeOfFile) ;
-             //outputUI.popWindow(s)方法将对传入的s进行分析，按源代码格式实现对页面的输出
+             //showCode(s)函数在本方法内部，属于函数内的函数，供bt1按钮使用将对传入的s进行分析，按源代码格式实现对页面的输出
              if (url.substring(0,4)==='http' || typeOfFile !== 'html'){
-              outputUI.popWindow("本例不是编程案例，没有源码!") ;
+              showCode("本例不是编程案例，没有源码!") ;
               document.querySelector('div#popWindow').style.top = eObj.pageY + 'px' ;
              }
              if( typeOfFile === 'html' ||  typeOfFile === '.css'  ||  typeOfFile.substring(1) === '.js'){
@@ -180,10 +180,10 @@ var ajaxObj = {
               setTimeout(()=>{
                 if(ajaxObj.content){
                   //alert(ajaxObj.content);
-                  outputUI.popWindow(ajaxObj.content) ;
+                  showCode(ajaxObj.content) ;
                 }else{
                   setTimeout(()=>{
-                     outputUI.popWindow(ajaxObj.content) ;
+                     showCode(ajaxObj.content) ;
                     } ,500) ;
                 }
               },500);
@@ -200,31 +200,118 @@ var ajaxObj = {
              }//end for loop
 
 
-        function popWindow(eObj){ //eObj参数由调用本函数的事件处理函数onclick的参数，通过lexical语法传至本popWindow函数
-         //创建前，检测是否有div#popWindow 未关闭
-             if(document.querySelector('div#popWindow')){
-               document.body.removeChild(document.querySelector("div#popWindow"));
-             }
-         //create  div#popWindow 和 二个 input 
-              var absDiv = document.createElement('div') ;
-                  absDiv.id = "popWindow" ; 
-                  absDiv.style.top = eObj.pageY + 'px' ; //eObj外层作用域的onclick函数传来的事件对象
-              var closeUp = document.createElement('input') ;
-              var closeDn = document.createElement('input') ;
-              closeUp.id = 'closeUp' ;
-              closeDn.id = 'closeDn' ;
-              closeDn.value = closeUp.value = "关闭本窗" ;
-              closeDn.type = closeUp.type = "button" ;
-              closeDn.onclick = closeUp.onclick = function(){
-                document.body.removeChild(document.querySelector("div#popWindow"));
-              } ;
-              absDiv.appendChild(closeUp);
-              absDiv.appendChild(closeDn);
+        function  showCode(codeString) {
+          var popWindowDom = document.querySelector('div#popWindow');
+          
+          var codeParas = codeString.split('\n') ;
+              //console.log(codeParas);
+              
+          for(let i=0 ;i<codeParas.length;i++){
+            let para = codeParas[i] ;
+            //去掉每段多余的\r符号
+            if(para[para.length-1] === '\r'){
+             codeParas[i] = para.substring(0,para.length-1)  ;
+            }
+          }
+          /***下面是一个很好的程序改错题，意图实现去掉每段多余的\r符号，但代码没有达到目标
+          for (let para of codeParas){
+           if(para[para.length-1] === '\r'){
+             para = para.substring(0,para.length-1) ;
+            }
+          }
+          ***/
+           //console.log(codeParas);
+         let nextLineisComment = false ;
+         for (let para of codeParas){
+           //console.log(para); //为降低分析代码的复杂性，我们对每一行代码的外观，进行Web页DOM对象的动态生产，
+           let pDom = document.createElement('p'); 
+           let aLineWords = [];
+           let isWord = false ;
+            for(let j=0; j<para.length; j++) {
+              let ch = para[j] ;
+              if(!isWord){//不是真单词，是空白符，这是处理空白符模块
+                 if(ch === ' '){
+                   aLineWords.push(" ") ;
+                   continue ;
+                 }
+                if(ch ==="\t"){
+                  for(let k=0;k<4;k++){
+                    aLineWords.push(" ") ; 
+                  } 
+                   continue ;
+                 }
+                //上面二个if逻辑不成立，说明一定是非空白符，是真单词的开始
  
-              document.body.appendChild(absDiv) ; 
-        }  // end of popWindow function
+                 isWord = true ;
+                 aLineWords.push(ch) ;
+              }else{ //else代码模块，处理真单词情况
+                 if(ch.trim()!== ''){
+                    aLineWords[aLineWords.length -1] += ch ;
+                   } else {//else逻辑表明碰上空白符，
+                   isWord = false ;
+                   if(ch==="\t"){
+                     for(let k=0;k<4;k++){
+                       aLineWords.push(" ")  ;
+                     } 
+                    }else{
+                       aLineWords.push(" ") ; 
+                    }
+                 }
+               }
+              }//把一段文本处理为单词数组aLineWords的循环结束
+ 
+ 
+             const keyWords = ['var' , 'let','const','if' ,'else' ,'{' ,'}','(',')','[',']','for','let','while','function', '\'', '\"' ,'switch','break' ,'new'];
+             const operator = ['+','-','*','/','=','==','===','%','+=','-=' ,'>','<','>=','<=','||','&&',':'] ;
+             let thisLineisComment = false ;  
+             for(let word of aLineWords){
+               let wordDom = null ;
+                if(word === ' '){
+                 wordDom = document.createElement('span');
+                }else {
+                 wordDom = document.createElement('div');
+                  if(thisLineisComment || nextLineisComment){
+                   wordDom.className = "comment" ;  
+                  }
+                   wordDom.className += " codeWord" ;
+                 }   
+                  /*
+                   for(let key of keyWords){
+                     if (word === key){
+                       wordDom.className += " keyWord" ;
+                       break ;
+                     }
+                   }
+                   for(let op of operator){
+                     if (word === op){
+                       wordDom.className += " operator" ;
+                       break ;
+                     }
+                   }
+                   还没有能力做到正确且全面地分析关键字和运算符的颜色*/
+                   //下面实现案例的注释为绿色，技术实现上是通过合并CSS样式中的comment类
+                   // 本课程代码comment 表示情况，以 '//','/*', '<!--','<title>' 开头
+                  
+                   if(word.substring(0,2) === '//'|| word.substring(0,4) === '<!--'){
+                     wordDom.className = "comment" ;  
+                     thisLineisComment = true ;
+                   }else if(word.substring(0,2) === '/*' || word.substring(0,7).trim() === '<title>'){
+                             wordDom.className = "comment" ;
+                             thisLineisComment = true ;  
+                             nextLineisComment = true ;
+                    }
+                   if(word.substring(word.length-2) === '*/' || word.substring(word.length-8) === '</title>' ){
+                     nextLineisComment = false ;
+                   }
+                   wordDom.textContent = word ;
+               pDom.appendChild(wordDom);  
+             } //循环aLineWords数组结束  
+              popWindowDom.appendChild(pDom) ; 
+               // add the paragraph  dom to div#popWindow
+            }  //源代码的每段落分别输出结束    
+          }//End of showCode function
 
-     } ,
+     } , //end of showProject
      showReading:function(){
        my$("#reading").textContent = "" ;
        let paras1 = Model.contentArr[4].split("\n");
@@ -293,116 +380,29 @@ var ajaxObj = {
                setTimeout(that.showReading,500*5) ;
                
              },
-     popWindow: function(codeString){
-         var popWindowDom = document.querySelector('div#popWindow');
-         
-         var codeParas = codeString.split('\n') ;
-             //console.log(codeParas);
-             
-         for(let i=0 ;i<codeParas.length;i++){
-           let para = codeParas[i] ;
-           //去掉每段多余的\r符号
-           if(para[para.length-1] === '\r'){
-            codeParas[i] = para.substring(0,para.length-1)  ;
-           }
-         }
-         /***下面是一个很好的程序改错题，意图实现去掉每段多余的\r符号，但代码没有达到目标
-         for (let para of codeParas){
-          if(para[para.length-1] === '\r'){
-            para = para.substring(0,para.length-1) ;
-           }
-         }
-         ***/
-          //console.log(codeParas);
-        let nextLineisComment = false ;
-        for (let para of codeParas){
-          //console.log(para); //为降低分析代码的复杂性，我们对每一行代码的外观，进行Web页DOM对象的动态生产，
-          let pDom = document.createElement('p'); 
-          let aLineWords = [];
-          let isWord = false ;
-           for(let j=0; j<para.length; j++) {
-             let ch = para[j] ;
-             if(!isWord){//不是真单词，是空白符，这是处理空白符模块
-                if(ch === ' '){
-                  aLineWords.push(" ") ;
-                  continue ;
-                }
-               if(ch ==="\t"){
-                 for(let k=0;k<4;k++){
-                   aLineWords.push(" ") ; 
-                 } 
-                  continue ;
-                }
-               //上面二个if逻辑不成立，说明一定是非空白符，是真单词的开始
-
-                isWord = true ;
-                aLineWords.push(ch) ;
-             }else{ //else代码模块，处理真单词情况
-                if(ch.trim()!== ''){
-                   aLineWords[aLineWords.length -1] += ch ;
-                  } else {//else逻辑表明碰上空白符，
-                  isWord = false ;
-                  if(ch==="\t"){
-                    for(let k=0;k<4;k++){
-                      aLineWords.push(" ")  ;
-                    } 
-                   }else{
-                      aLineWords.push(" ") ; 
-                   }
-                }
-              }
-             }//把一段文本处理为单词数组aLineWords的循环结束
-
-
-            const keyWords = ['var' , 'let','const','if' ,'else' ,'{' ,'}','(',')','[',']','for','let','while','function', '\'', '\"' ,'switch','break' ,'new'];
-            const operator = ['+','-','*','/','=','==','===','%','+=','-=' ,'>','<','>=','<=','||','&&',':'] ;
-            let thisLineisComment = false ;  
-            for(let word of aLineWords){
-              let wordDom = null ;
-               if(word === ' '){
-                wordDom = document.createElement('span');
-               }else {
-                wordDom = document.createElement('div');
-                 if(thisLineisComment || nextLineisComment){
-                  wordDom.className = "comment" ;  
-                 }
-                  wordDom.className += " codeWord" ;
-                }   
-                 /*
-                  for(let key of keyWords){
-                    if (word === key){
-                      wordDom.className += " keyWord" ;
-                      break ;
-                    }
+      popWindow: function(eObj) { //eObj参数由调用本函数的事件处理函数onclick的参数，通过lexical语法传至本popWindow函数
+              //创建前，检测是否有div#popWindow 未关闭
+                  if(document.querySelector('div#popWindow')){
+                    document.body.removeChild(document.querySelector("div#popWindow"));
                   }
-                  for(let op of operator){
-                    if (word === op){
-                      wordDom.className += " operator" ;
-                      break ;
-                    }
-                  }
-                  还没有能力做到正确且全面地分析关键字和运算符的颜色*/
-                  //下面实现案例的注释为绿色，技术实现上是通过合并CSS样式中的comment类
-                  // 本课程代码comment 表示情况，以 '//','/*', '<!--','<title>' 开头
-                 
-                  if(word.substring(0,2) === '//'|| word.substring(0,4) === '<!--'){
-                    wordDom.className = "comment" ;  
-                    thisLineisComment = true ;
-                  }else if(word.substring(0,2) === '/*' || word.substring(0,7).trim() === '<title>'){
-                            wordDom.className = "comment" ;
-                            thisLineisComment = true ;  
-                            nextLineisComment = true ;
-                   }
-                  if(word.substring(word.length-2) === '*/' || word.substring(word.length-8) === '</title>' ){
-                    nextLineisComment = false ;
-                  }
-                  wordDom.textContent = word ;
-              pDom.appendChild(wordDom);  
-            } //循环aLineWords数组结束  
-             popWindowDom.appendChild(pDom) ; 
-              // add the paragraph  dom to div#popWindow
-           }  //源代码的每段落分别输出结束    
-         },//End of popWindow
+              //create  div#popWindow 和 二个 input 
+                   var absDiv = document.createElement('div') ;
+                       absDiv.id = "popWindow" ; 
+                       absDiv.style.top = eObj.pageY + 'px' ; //eObj外层作用域的onclick函数传来的事件对象
+                   var closeUp = document.createElement('input') ;
+                   var closeDn = document.createElement('input') ;
+                   closeUp.id = 'closeUp' ;
+                   closeDn.id = 'closeDn' ;
+                   closeDn.value = closeUp.value = "关闭本窗" ;
+                   closeDn.type = closeUp.type = "button" ;
+                   closeDn.onclick = closeUp.onclick = function(){
+                     document.body.removeChild(document.querySelector("div#popWindow"));
+                   } ;
+                   absDiv.appendChild(closeUp);
+                   absDiv.appendChild(closeDn);
+      
+                   document.body.appendChild(absDiv) ; 
+             } , // end of popWindow method
     };//end of UI
  
     
