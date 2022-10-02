@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+  本例把图片既用作超链接的显示内容，
+  也用作超链接的目标，请区分好这二个概念。
+  并尝试超链接的css伪类特效
+  本例最后一步还未完成，请您继续写完的超链接的HTML代码。
+  </title>
+  <style type="text/css">
+	th,td{
+	 text-align:center;
+	 font-size:30px;
+	 background-color:black;
+	 color:white;
+	}
+	th{
+	 height:80px;
+	}
+	table{
+	width:600px;
+	height:500px;
+	}
+   img{
+    width:120px;
+	border:2px solid white;
+   }
+   a:link{border:15px  solid ;}
+   a:visited{border:15px solid gray ;}
+   a:hover{border:15px solid yellow ;}
+   a:active{border:15px solid red ;}
+  </style>
+ </head>
+ <body>
+  <table>
+  <tr>
+   <th colspan="3">福布斯2019排行榜</th>
+  <tr>
+	<td>
+	 <a href="images/fbs-1.jpg">
+	  <img src="images/fbs-1.jpg">
+	 </a>
+	</td>
+	<td>
+	 <a href="images/fbs-2.jpg">
+	  <img src="images/fbs-2.jpg">
+	 </a>
+	</td>
+	<td> 
+	 <a href="images/fbs-3.jpg">
+	  <img src="images/fbs-3.jpg">
+	 </a>
+	</td>
+  </tr>
+  <!-- 请您继续完成下面的超链接 -->
+  <tr>
+	<td><img src="../images/girl0.jpg"></td>
+	<td><img src="../images/girl1.jpg"></td>
+	<td><img src="../images/girl2.jpg"></td>
+  </tr>
+  </table>
+ </body>
+</html>
