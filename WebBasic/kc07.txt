@@ -8,10 +8,10 @@ Web Page Layout Basic With Box Model Concept （CSS语言的盒状模型概念�
 box model ，div ，margin   #id ，class ，width  ，em ，width = border + padding + content 。  
 4.project
 <a src=001.html title=王维五言古诗1> 本案例演示CSS盒状模型（box model）概念系列1。
-<a src=002.html title=王维五言古诗2> 本案例演示CSS盒状模型（box model）概念系列2。
-<a src=003.html title=王维五言古诗3>本案例演示CSS盒状模型（box model）概念系列3。 
-<a src=004.html title=王维五言古诗4> 本案例演示CSS盒状模型（box model）概念系列4。
+<a src=002.html title=王维五言古诗2> 本案例演示CSS盒状模型（box model）概念系列2 ，本例古诗换行效果，在移动端浏览器和PC端会有不同。
+<a src=003.html title=王维五言古诗3>本案例演示CSS盒状模型（box model）概念系列3，本例古诗换行效果，在移动端浏览器和PC端会有不同。 
+<a src=004.html title=王维五言古诗4> 本案例演示CSS盒状模型（box model）概念系列4，本例古诗换行效果，在移动端浏览器和PC端会有不同。
 <a src=005.html title=王维五言古诗5>本案例演示CSS盒状模型（box model）概念系列5。
-<a src=006.html title=王维五言古诗6>本案例演示CSS盒状模型（box model）概念系列6。
+<a src=006.html title=王维五言古诗6>本案例演示CSS盒状模型（box model）概念系列6，本例古诗换行效果，在移动端浏览器和PC端会有不同。
 5.reading
 <img src=boxModel.jpg>As we’ve seen, every element in a document, both block-level and inline, generates a rectangular element box. The components of an element box are diagrammed in this FIGURE. Pay attention to the new terminology—it will be helpful in keeping things straight .
