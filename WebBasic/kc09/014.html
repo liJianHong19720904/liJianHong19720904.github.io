@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>relative和absolute配合定位</title>
+  <style type="text/css">
+    body{
+	position:relative ;
+	font-size:16px;
+	width:400px;
+	height:500px;
+	border:2px solid ;
+		 }
+	div{
+	 position:absolute ;
+	 border:1px solid blue ;
+	 font-size:1.2em;
+	 margin:10px auto;
+	 padding:0.5em;
+	 text-align:center;
+	 line-height:2em;
+	 width:120px;
+     }
+    div>p{
+	font-size:0.8em;
+	font-weight:bold;
+		}
+	div#abs1{
+	 left:1em;
+	 top:1em;
+	 background:rgb(250,200,200);
+	}
+	div#abs2{
+	 right:1em;
+	 bottom:3em;
+	 background:rgb(200,200,250);
+	}
+  </style>
+ </head>
+ <body>
+ 父亲body的定位类型是relative，二个儿子div则是absolute.
+   <div id="abs1">
+	<p>
+  	 (左:1,上:1)
+	</p>
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+  </div>
+  <div id="abs2">
+    <p>
+	(右:1,下:3)
+	</p>
+	独坐幽篁里，
+	弹琴复长啸。
+	深林人不知，
+	明月来相照。
+  </div>
+ </body>
+</html>

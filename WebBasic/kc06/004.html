@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+  关于对父辈属性的变异：
+  div和p继承了body的width、color、text-align属性
+  div和p设定了 font-size属性，
+  作为孙子辈的p，尽管继承了父辈的font-size属性，但有了自己的font-size属性后，就实现了后代对属性的变异。
+  本例还精确地设定了页面的width宽度和div字体的大小，实现了古诗每行的正确显示。
+  </title>
+  <style type="text/css">
+	body{
+	     width:500px;
+		 color:blue;
+		 text-align:center
+		 }
+	div{
+	    font-size:50px;
+		font-weight : bolder ;
+     	border:1px solid }
+	p{  
+	    font-size: 38px;
+	    line-height:2em;
+	  }
+ 
+    </style>
+ </head>
+ <body>
+  <div>
+   	长歌行（汉乐府）
+    <p>
+	青青园中葵，
+	朝露待日晞。
+	阳春布德泽，
+	万物生光辉。
+	常恐秋节至，
+	琨黄华叶衰。
+	百川东到海，
+	何时复西归？
+	少壮不努力，
+	老大徒伤悲。
+   </p>
+  </div>
+ </body>
+</html>

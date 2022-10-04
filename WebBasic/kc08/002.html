@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+	CSS盒状模型（box model）概念和属性探究2：
+	1、分别为div#box1和div#box2设定不同背景图
+	2、分别为div#box1、div#box2、p.title设定不同单位的圆角（border-radius）
+  </title>
+  <style type="text/css">
+    body{
+		font-size: 30px;
+	}
+	div{
+	    margin: 1em auto ; 
+	    border:1px solid brown ;
+	    padding:1em;
+	}
+	div#box1{
+	    background:url("bk1.jpg");
+		border-radius:1em;
+	}
+	div#box2{
+	    background:url("bk2.jpg");
+		border-radius:15%;
+	}
+	p{
+	  text-align:center;
+	}
+	p.title{
+	  background-color:rgb(200,200,200);
+	  padding:1em;
+	  border-radius:0.5em;
+	  font-weight: bold ;
+	  font-family:黑体 ;
+	 }
+
+  </style>
+ </head>
+ <body>
+   <div id="box1">
+	<p class = "title" >
+  	鹿柴 [唐]王维
+	</p>
+	<p>
+	 空山不见人，
+	</p>
+    <p>
+	但闻人语响。
+	</p>
+	<p>
+	返景入深林，
+	</p>
+	<p>
+	复照青苔上。
+    </p>
+   </div>
+   <div id="box2">
+    <p class = "title">
+	送元二使安西 [唐]王维
+	</p>
+	<p>
+	渭城朝雨浥轻尘，
+	</p>
+	<p>
+	客舍青青柳色新。
+	</p>
+	<p>
+	劝君更尽一杯酒，
+	</p>
+	<p>
+	西出阳关无故人。
+	</p>
+   </div>
+  </body>
+</html>

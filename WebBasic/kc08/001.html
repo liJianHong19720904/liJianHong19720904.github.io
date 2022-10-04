@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+	CSS盒状模型（box model）概念与适应屏幕的探究1：
+	在上一课中，我们手工为p或div设定了width属性，这种方法法其实不利于Web页充分利用不同宽度的屏幕。
+	2、在本课中，我们采用另一种策略，未对任何元素设定width属性，这样div和p这种块级元素则会把屏幕所有可用宽度全部自动继承，对充分利用移动段设备珍贵的屏幕空间有利。
+	3、本例在body设定了基础字体大小为30px。div和p的盒状模型有关参数都以em单位设定，这样设计的页面可以高效地修改，比如以后只要改变body中基础字体大小，div和p的字体也会相对改变。
+	4、代码工作量相对上一课程，html语言部分代码量有所增加，这是因为我们为每行古诗单独设定了一个p元素控制（包括古诗标题），但每行古诗用一个p元素单独控制是非常必要的，每行古诗从内容语义上看，本就应该单独成为一个段落。另外，这种重复简单的设定并不会增加工作量，未来也可以使用Web的JavaScript编程对p元素实现自动生成。
+	
+  </title>
+  <style type="text/css">
+    body{
+		font-size: 30px;
+	}
+	div{
+	    margin: 1em auto ; 
+	    border:1px solid brown ;
+	    padding:1em;
+	}
+	p{
+	  text-align:center;
+	}
+	p.title{
+	  background-color:rgb(200,200,200);
+	  padding:1em;
+	  font-weight: bold ;
+	  font-family:黑体 ;
+	 }
+
+  </style>
+ </head>
+ <body>
+   <div id="box1">
+	<p class = "title" >
+  	鹿柴 [唐]王维
+	</p>
+	<p>
+	 空山不见人，
+	</p>
+    <p>
+	但闻人语响。
+	</p>
+	<p>
+	返景入深林，
+	</p>
+	<p>
+	复照青苔上。
+    </p>
+   </div>
+   <div id="box2">
+    <p class = "title">
+	送元二使安西 [唐]王维
+	</p>
+	<p>
+	渭城朝雨浥轻尘，
+	</p>
+	<p>
+	客舍青青柳色新。
+	</p>
+	<p>
+	劝君更尽一杯酒，
+	</p>
+	<p>
+	西出阳关无故人。
+	</p>
+   </div>
+  </body>
+</html>

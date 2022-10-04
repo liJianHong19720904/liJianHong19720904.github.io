@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+	CSS盒状模型（box model）概念系列5：
+	p作为段落元素，也是块级元素，与div不同，其默认自带margin属性，
+	本例把p和div综合在一起探索，从语义上看，div作为每首古诗的容器，而p则作为古诗的内容的容器。
+	本例为div元素设定margin:auto ，这个设置非常智能，自动将div设定在整个页面中央，也让排版可以适应各类终端屏幕，而div儿子元素p，则自然也坐落在网页中央。
+  </title>
+  <style type="text/css">
+    body{
+		font-size: 30px;
+	}
+	div{
+	 margin: auto ; 
+	 border:1px solid blue ;
+	 width: 400px;
+	 padding:1em;
+	}
+	p{
+	 border:1px solid blue;
+	 line-height: 2em;
+	}
+  </style>
+ </head>
+ <body>
+  <div id="box1">
+	<p>
+  	鹿柴
+	[唐] 王维
+	</p>
+	<p>
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+    </p>
+  </div>
+  <div id="box2">
+   <p>
+	竹里馆[唐] 王维
+   </p>
+   <p>
+	独坐幽篁里，
+	弹琴复长啸。
+	深林人不知，
+	明月来相照。
+   </p>
+
+  </div>
+
+ </body>
+</html>

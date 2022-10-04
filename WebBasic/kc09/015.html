@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>文本流的浮动排版，从上到下、从左到右</title>
+  <style type="text/css">
+    body{
+	font-size:16px;
+	     }
+	div{
+	 font-size:1.9em;
+	 margin:10px;
+	 padding:1em;
+	 text-align:center;
+	 line-height:2em;
+	 background:url("bk1.jpg");
+	  float:left;
+	  width:200px;
+     }
+    div>p{
+	font-size:0.8em;
+	font-weight:bold;
+		}
+  </style>
+ </head>
+ <body>
+ <h1>各Block-level块会在父元素空间内，从上到下、从左到右浮动。调整浏览器宽度可动态排版</h1>
+  <div>
+	<p>
+  	1鹿柴 [唐]王维
+	</p>
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+  </div>
+  <div>
+    <p>
+	2竹里馆 [唐]王维
+	</p>
+	独坐幽篁里，
+	弹琴复长啸。
+	深林人不知，
+	明月来相照。
+  </div>
+    <div>
+	<p>
+  	3鹿柴 [唐]王维
+	</p>
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+  </div>
+  <div>
+    <p>
+	4竹里馆 [唐]王维
+	</p>
+	独坐幽篁里，
+	弹琴复长啸。
+	深林人不知，
+	明月来相照。
+  </div>
+  <div>
+	<p>
+  	5鹿柴 [唐]王维
+	</p>
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+  </div>
+ </body>
+</html>

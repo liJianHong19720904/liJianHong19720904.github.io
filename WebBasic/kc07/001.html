@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+   CSS盒状模型（box model）概念系列1：
+   通用的排版元素div会创建块级（block level）元素，
+   块级元素继承父级元素宽度，
+   而其高度则由内容动态确定，
+   margin外边距属性，设定的是自己与父元素或兄弟元素的距离。
+  </title>
+  <style type="text/css">
+    body{font-size:30px;}
+	#boxDad{
+	 width:500px;
+	 border:2px solid gray;
+	 margin:10px;
+	}
+	#boxSon1,#boxSon2{
+	 
+	 border:1px solid black;
+	 margin:20px ;
+	 text-align:center;
+	}
+  </style>
+ </head>
+ <body>
+  <div id="boxDad">
+ 	<div id="boxSon1">
+	 鹿柴
+	 [唐]王维		
+	</div>
+	<div id="boxSon2">
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+	</div>
+  </div>
+ </body>
+</html>

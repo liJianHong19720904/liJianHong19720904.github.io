@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+   演示孩子辈对父辈属性的继承
+  </title>
+  <style type="text/css">
+  /* 这是CSS的注释语句：
+   body作为爷爷辈，其二个属性（color、text-align）都被后辈继承，
+   div作为父亲辈，其font-size属性被儿子p继承，而border属性没有遗传性 ，
+   p作作为孙子辈，继承了父亲div的字体属性，用于计算2em的行高，让我们简单地就实现古诗每行高度间距设定 。
+  */
+	body{
+	     width:500px;
+		 color:blue;
+		 text-align:center
+		 }
+	div{
+	    font-size:36px;
+     	border:1px solid }
+	p{
+	    line-height:2em;
+	  }
+ 
+    </style>
+ </head>
+ <body>
+  <div>
+   	长歌行（汉乐府）
+    <p>
+	青青园中葵，
+	朝露待日晞。
+	阳春布德泽，
+	万物生光辉。
+	常恐秋节至，
+	琨黄华叶衰。
+	百川东到海，
+	何时复西归？
+	少壮不努力，
+	老大徒伤悲。
+   </p>
+  </div>
+ </body>
+</html>

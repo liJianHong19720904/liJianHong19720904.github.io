@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+  本例继续讨论后代的变异：
+  用文字大小为例，探索CSS属性的层叠性 ,
+  本例设定爷爷的 font-size:25px ;
+  后代则用相对值em，表达后代自己的font-size 。
+  </title>
+  <style type="text/css">
+
+    body{
+	     font-size:25px;
+	     color:navy;
+		 border:1px solid ;
+		 text-align:center;
+         width: 500px ;
+		 }
+	div{
+	    font-size:2em;
+    	background:url("../images/green.jpg") ;
+		border: 1px dotted yellow ;
+
+	    }
+	p  {
+	    font-size:0.78em;
+	    line-height:1.5em;
+	    font-family:楷体 ;
+	  }
+	/* 从爷爷body的25px，到父亲div的2倍（相对父辈）大小，再到儿子p的0.78倍（相对父辈的精确相对值） */
+  </style>
+ </head>
+ <body>
+   
+  <div>
+   长歌行（汉乐府）
+   <p>
+	青青园中葵，
+	朝露待日晞。
+	阳春布德泽，
+	万物生光辉。
+	常恐秋节至，
+	琨黄华叶衰。
+	百川东到海，
+	何时复西归？
+	少壮不努力，
+	老大徒伤悲。
+   </p>
+  </div>
+ </body>
+</html>

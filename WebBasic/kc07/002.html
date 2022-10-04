@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+	CSS盒状模型（box model）概念系列2：
+    块级元素可继承父级的宽度，
+    也可设定width属性改变自己的宽度，
+    本例设定的父元素宽度正好是子元素宽度加上2倍的margin值。
+  </title>
+  <style type="text/css">
+    body{font-size:30px;}
+	#boxDad{
+	 width:500px;
+	 border:2px solid gray;
+	 margin:10px;
+		 
+	}
+	#boxSon1,#boxSon2{
+	 width:400px;
+	 border:1px solid black;
+	 margin:50px;
+	 text-align:center;
+	}
+  </style>
+ </head>
+ <body>
+  <div id="boxDad">
+ 	<div id="boxSon1">
+	 鹿柴
+	 [唐]王维		
+	</div>
+	<div id="boxSon2">
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+	</div>
+  </div>
+ </body>
+</html>

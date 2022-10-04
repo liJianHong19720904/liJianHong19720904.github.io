@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+  CSS选择器的书写：
+  本例以诗歌文字颜色为例，
+  演示三种选择器（tag选择器、类选择器、id选择器）的CSS语法，
+  以及对应的HTML元素类和id属性的写法
+  </title>
+  <style type="text/css">
+  /* 这是CSS的注释语句，下面用文字颜色为例，演示三种选择器（tag选择器、类选择器、id选择器）的写法 */
+
+	div{
+	    font-size:38px;
+	   	width:380px;
+		}
+	.blueFont{color:blue;}
+    .redFont {color:red}
+	#special {color:white;
+	         background-color:black }
+  </style>
+ </head>
+ <body>
+  <div>
+   <p id="special">
+	长歌行（汉乐府）
+   </p>
+	<p class="redFont">青青园中葵，</p>
+	<p class="blueFont">朝露待日晞。</p>
+	<p class="redFont">阳春布德泽，</p>
+	<p class="blueFont">万物生光辉。</p>
+  </div>
+ </body>
+</html>

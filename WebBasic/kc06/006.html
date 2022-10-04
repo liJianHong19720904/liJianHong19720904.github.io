@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+  本例探索div子元素增加设定15像素较粗边框产生的问题。
+  若设定div宽度500像素，div的边框会占据30像素宽度，会导致古诗内容的width空间不够，而导致古诗文字自动换行，导致断行不正确。
+  为让古诗正确显示，需要把边框增加的30像素增加原div的width计算中，因此设置div的属性 width: 530px ; 。
+  </title>
+  <style type="text/css">
+
+    body{
+	     font-size:25px;
+	     color:navy;
+		 border:1px solid ;
+		 text-align:center;
+
+		 }
+	div{
+	    font-size: 2em;
+    	background: url("../images/green.jpg") ;
+		width: 530px ;
+		border: 15px dotted yellow ;
+		/* 用点状边框，效果比实线好一些 */
+	    }
+	p  {
+	    font-size:0.78em;
+	    line-height:1.5em;
+	    font-family:楷体 ;
+	  }
+
+  </style>
+ </head>
+ <body>
+   
+  <div>
+   长歌行（汉乐府）
+   <p>
+	青青园中葵，
+	朝露待日晞。
+	阳春布德泽，
+	万物生光辉。
+	常恐秋节至，
+	琨黄华叶衰。
+	百川东到海，
+	何时复西归？
+	少壮不努力，
+	老大徒伤悲。
+   </p>
+  </div>
+ </body>
+</html>

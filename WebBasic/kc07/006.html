@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+	CSS盒状模型（box model）概念系列6：
+	p作为段落元素，也是块级元素，与div不同，其默认自带margin属性，
+	p默认有margin属性，但默认padding属性为0，
+	因此本例为p设定了padding属性，同时为让古诗每行单独显示，分别对div和p的width值进行了计算和设定。
+	
+  </title>
+  <style type="text/css">
+    body{
+		font-size: 30px;
+	}
+	div{
+	 width: 9em; /* 古诗内容为7em + 左右2个em的padding设置 ，因此宽度设为 9 em */
+	 margin: 1em auto ; 
+	 border:1px solid brown ;
+	 padding:1em;
+	}
+	p{
+	 margin: 5px auto ; 
+	 border:1px solid blue;
+	 width: 7em; /* 5言古诗 + 左右2个padding设置，因此宽度设为 7 em */
+	 padding:1em;
+	 line-height: 2em;
+	 
+	}
+  </style>
+ </head>
+ <body>
+  <div id="box1">
+	<p>
+  	鹿柴
+	[唐] 王维
+	</p>
+	<p>
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+    </p>
+  </div>
+  <div id="box2">
+   <p>
+	竹里馆[唐] 王维
+   </p>
+   <p>
+	独坐幽篁里，
+	弹琴复长啸。
+	深林人不知，
+	明月来相照。
+   </p>
+
+  </div>
+
+ </body>
+</html>

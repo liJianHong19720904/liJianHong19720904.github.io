@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+	CSS盒状模型（box model）概念系列4：
+    padding属性，设定块级元素内部内容与自己边界的距离，注意是四周的边距。
+	本例为子元素#boxSon1,#boxSon2增加了padding: 20px;属性，因此其父元素width也由500px变为500px+2*20px; 。
+  </title>
+  <style type="text/css">
+    body{
+		font-size:30px;
+		border :1px solid blue;
+	    }
+	#boxDad{
+	 width:540px;
+	 border:1px solid green;
+	 margin :50px;
+	}
+	#boxSon1,#boxSon2{
+	 width:400px;
+	 border:1px solid red;
+	 margin:20px 50px;
+	 text-align:center;
+	}
+	#boxSon1{
+	 padding: 20px;
+	 }
+	#boxSon2{
+	 padding: 20px;
+	 line-height:2em;
+	 }
+  </style>
+ </head>
+ <body>
+  <div id="boxDad">
+ 	<div id="boxSon1">
+	 鹿柴
+	 [唐]王维		
+	</div>
+	<div id="boxSon2">
+	空山不见人，
+	但闻人语响。
+	返景入深林，
+	复照青苔上。
+	</div>
+  </div>
+ </body>
+</html>
