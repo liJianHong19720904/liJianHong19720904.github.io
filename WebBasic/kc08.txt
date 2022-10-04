@@ -1,0 +1,18 @@
+﻿1.title
+Web Page Layout Basic With Box Model Concept （CSS的盒状模型概念和排版基础）
+2.introduction
+盒状模型概念对于理解CSS自动排版功能至关重要，Web页作为矩形区域，其内部元素的外观本质上也是矩形，各个元素按照自己盒子模型的设定，与周边元素互相影响，实现了Web页的自动排版。
+本课我们仍以div这个抽象块级元素作为承载网页内容的容器，结合p段落来探索CSS盒状模型内的一些重要概念，探索包括外边距margin，内边距padding的设置，演练以及相关CSS语法。
+为方便理解和设置，本课的块级元素采用了width的固定值设置。
+
+3.keyword
+box model ，div ，margin   #id ，class ，width  ，em ，width = border + padding + content 。  
+4.project
+<a src=001.html title=王维五言古诗1> 本案例演示CSS盒状模型（box model）概念系列1。
+<a src=002.html title=王维五言古诗2> 本案例演示CSS盒状模型（box model）概念系列2。
+<a src=003.html title=王维五言古诗3>本案例演示CSS盒状模型（box model）概念系列3。 
+<a src=004.html title=王维五言古诗4> 本案例演示CSS盒状模型（box model）概念系列4。
+<a src=005.html title=王维五言古诗5>本案例演示CSS盒状模型（box model）概念系列5。
+<a src=006.html title=王维五言古诗6>本案例演示CSS盒状模型（box model）概念系列6。
+5.reading
+<img src=boxModel.jpg>As we’ve seen, every element in a document, both block-level and inline, generates a rectangular element box. The components of an element box are diagrammed in this FIGURE. Pay attention to the new terminology—it will be helpful in keeping things straight .

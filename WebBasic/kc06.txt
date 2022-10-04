@@ -1,13 +1,21 @@
-1.title
-Position And Layout With CSS（CSS语言控制下元素定位和排版）
+﻿1.title
+Web Page Layout With The Div And CSS （抽象的Div区域概念结合CSS语言，实现Web排版）
 2.introduction
-继续深入Web页中元素的盒装模型概念，了解Web页中元素的四种定位方式，初步学会用CSS语言控制元素的这四种定位。初步学写CSS组合选择器，以精确选择特定元素。
+任何屏幕都可以看作一块由不同宽度和高度决定的矩形区域，本课我们从抽象的div（区域）概念来理解和实现Web页的排版。
+仅运用div和p二个块状标记，结合引入CSS语言的一些概念，比如选择器、类、有关属性，高效率地实现Web页的样式。
+
 3.keyword
-position，static ，relative ，fixed ，absolute ，z-index，left ，right ，top ，bottom ，float，div>tagName ，div#IdName 。
+style ，div ，p  。 Selector ，id ，class ，width  ，em ，rgb( r, g, b ) 。  
 4.project
-内有五个HTML文件，仍引用《古诗三百首》的内容，012-013初步演示了Web页中元素的四种position定位方式、014增加了学写css组合选择器，继续探讨盒装模型的定位、015-016从Web页文本流的浮动排版的角度，演示了从上到下、从左到右的Web排版方式，探索了定义为float的元素模型，会被周边inline文本流包裹起来的特征。
-chapter 5
-The process begins as the boxes of individual elements are laid out in such a way that any padding, margin, or border they happen to have is added to their content. This is what we call the box model.
-By default, a block level element's content fills the available inline space of the parent element containing it and grows along the block dimension to accommodate its content. The size of Inline elements just is the size of their content. You can't set width or height on inline elements — they just sit inside the content of block level elements. If you want to control the size of an inline element in this manner, you need to set it to behave like a block level element (e.g., with display: block; or display: inline-block;, which mixes characteristics from both.)
-Originally for floating images inside blocks of text, the float property became one of the most commonly used tools for creating multiple column layouts on webpages. 
-Positioning allows you to take elements out of normal document flow and make them behave differently, for example, by sitting on top of one another or by always remaining in the same place inside the browser viewport. 
+<a src=001.html title=长歌行（汉乐府）1> 本案例演示CSS选择器的书写, 以诗歌文字颜色为例，  演示三种选择器（tag选择器、类选择器、id选择器）的CSS语法，  以及对应的HTML元素类和id属性的写法。
+<a src=002.html title=长歌行（汉乐府）2> 本案例演示CSS选择器的优先级，  在古诗标题中，“长歌行（汉乐府）” 被 p标签控制，  从语法看，古诗标题同时被三个选择器选中，但三个选择器对颜色却有不同设定，本例可以让我们理解不同类型选择器的优先级。
+<a src=003.html title=长歌行（汉乐府）3>本案例演示演示孩子辈对父辈属性的继承: body作为爷爷辈，其二个属性（color、text-align）都被后辈继承，   div作为父亲辈，其font-size属性被儿子p继承，而border属性没有遗传性 ，   p作作为孙子辈，继承了父亲div的字体属性，用于计算2em的行高，让我们简单地就实现古诗每行高度间距设定 。 
+<a src=004.html title=长歌行（汉乐府）4> 本案例演示对父辈属性的变异： div和p设定了 font-size属性，  作为孙子辈的p，尽管继承了父辈的font-size属性，但有了自己的font-size属性后，就实现了后代对属性的变异。  本例还精确地设定了页面的width宽度和div字体的大小，实现了古诗每行的正确显示。
+<a src=005.html title=长歌行（汉乐府）5>本案例继续讨论后代的变异： 用文字大小为例，探索CSS属性的层叠性 ,  本例设定爷爷的 font-size:25px ;  后代则用相对值em表达后代自己的font-size 属性。
+<a src=006.html title=长歌行（汉乐府）6>本案例演示本例探索div子元素增加设定15像素较粗边框产生的问题。  若设定div宽度500像素，div的边框会占据30像素宽度，会导致古诗内容的width空间不够，而导致古诗文字自动换行，导致断行不正确。  为让古诗正确显示，需要把边框增加的30像素增加原div的width计算中，因此设置div的属性 width: 530px ;。
+
+5.reading
+The benefits of using style sheets（CSS）
+• Precise type and layout controls. You can achieve print-like precision using CSS. There is even a set of properties aimed specifically at the printed page . 
+• Less work. You can change the appearance of an entire site by editing one style sheet. This also ensures consistency of formatting throughout the site.
+• More accessible sites. When all matters of presentation are handled by CSS, you can mark up your content meaningfully, making it more accessible for non-visual or mobile devices.
