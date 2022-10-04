@@ -1,13 +1,21 @@
-1.title
-Layout With CSS Model Box （ CSS语言的盒装模型和Web元素的排版）
+﻿1.title
+The Begin Of Code Web page with HTTML/CSS（初步运用 HTML/CSS语言写Web页）
 2.introduction
-理解Web页中元素的盒装模型概念，学会用CSS语言控制盒装模型的排版。初步理解块级元素和行间元素的排版，块级子元素继承父级宽度的特征等。学会用CSS语言的margin、padding等属性调整Web页中的元素间的精确位置，进一步探索Web元素的CSS属性的继承和层叠特性。
+本课我们综合运用表格、超链接、图像标记来构造Web页的内容，再运用CSS语言对Web页进行高效率的样式（其实就是外观）设计。
+其中，超级连接和外部图像地址的引用，涉及对文件和文件夹的理解和语法表述，或许是本课的难点。
+
 3.keyword
-box Model， block ，inline ，margin ，padding ，top ，bottom ，left ，right ，line-height ，font-weight ，letter-spacing， border-radius ，text-shadow 。
+style ，table ， tr，th ，td ，colspan ，a ，img 。 text-align ，background-color，font-size ，border ，width ，height ， px 。 
 4.project
-内有七个HTML文件，引用了《古诗三百首》的内容，005初步演示了元素盒装模型的特征、006-007增加了盒装模型属性的探索、008-009增加了元素嵌套，探索父子元素盒装关系排版、010-011增加了一些高级CSS属性，对CSS语言便捷圆弧角和元素背景图的效果，进行了探索。
-chapter 5
-Everything in CSS has a box around it, and understanding these boxes is key to being able to create layouts with CSS, or to align items with other items. In this lesson, we will take a proper look at the CSS Box Model, in order that you can move onto more complex layout tasks with an understanding of how it works and the terminology that relates to it.
-In CSS we broadly have two types of boxes — block boxes and inline boxes. These characteristics refer to how the box behaves in terms of page flow and in relation to other boxes on the page.
-If a box has an outer display type of block, it will behave in the following ways: 1)The box will break onto a new line. 2)The box will extend in the inline direction to fill the space available in its container. 3) In most cases this means that the box will become as wide as its container, filling up 100% of the space available. 4) The width and height properties are respected. 5) Padding, margin and border will cause other elements to be pushed away from the box .  6) Some HTML elements, such as <h1> and <p>, use block as their outer display type by default.
-If a box has an outer display type of inline, then: 1) The box will not break onto a new line. 2) The width and height properties will not apply. 3) Vertical padding, margins, and borders will apply but will not cause other inline boxes to move away from the box. 4) Horizontal padding, margins, and borders will apply and will cause other inline boxes to move away from the box.  5) Some HTML elements, such as <a>, <span>, <em> and <strong> use inline as their outer display type by default.
+<a src=001.html title=福布斯2019排行榜1> 本案例演示HTML的表格有关标记，若没有CSS语言，这十几个表格单元，需要用多少条语句控制外观？ 有了CSS语言支持，可以高效率地设置td标记的外观。
+<a src=002.html title=福布斯2019排行榜2> 本案例演示用CSS语言，为table标签和td书写样式， 修饰HTML表格单元格td的外观。   注意：table中定义好的font-size属性，也会在子标签th，td中体现出来，如何理解这一点。
+<a src=003.html title=福布斯2019排行榜3>本案例演示CSS常用语法和属性， 本例为控制表格大小，增加了width 和 height属性 。
+<a src=004.html title=福布斯2019排行榜4> 初次接触CSS的类， 本例用css语言书写了一个类gray，注意CSS语法： .gray 和HTML语言中类的属性语法： class="gray" 。  同时为gray类的重新设定了字体。。
+<a src=005.html title=福布斯2019排行榜5>本案例演示在表格单元中插入a标记，实现了对图片的超级链接。  本例图片来源于案例文件同等位置的文件夹“images” ，为清楚表达文件关系，我们必须了解外部图像文件相对于本网页文档的地址写法，简称相对路径。
+<a src=006.html title=福布斯2019排行榜6>本案例演示用表格组织数据，本例的数据是人物照片， 而图片的位置，设置在本文档同层次的images文件夹下，本例也可以练习外部图像文件相对路径的写法，本例还使用了位于本文件上层文件夹内的images文件夹的三张图片，注意这种相对路径的写法: ../images/文件名 。  本例还高效使用CSS语言设置颜色和背景颜色，统一表格和图片的尺寸。
+<a src=007.html title=福布斯2019排行榜7>本案例演示本例把图片既用作超链接的显示内容， 也用作超链接的目标，请区分好这二个概念。  并尝试超链接的css伪类特效，  本例最后一行表格单元的超链接代码还未完成，请您继续写完的超链接的HTML代码。
+5.reading
+Adding links 
+If you’re creating a page for the web, chances are you’ll want to link to other web pages and resources, whether on your own site or someone else’s. Linking, after all, is what the web is all about. In this chapter, we’ll look at the markup that makes links work—links to other sites, to your own site, and within a page. There is one element that makes linking possible: the anchor (a). 
+To make a selection of text a link, simply wrap it in opening and closing <a>...</a> tags and use the href attribute to provide the URL of the target page. The content of the anchor element becomes the hypertext link. Here is an example that creates a link to This site:
+<a href="https://lijianhong19720904.github.io/"> This is my website </a>
