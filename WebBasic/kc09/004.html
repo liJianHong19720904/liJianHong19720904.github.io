@@ -2,108 +2,124 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>作为box model元素的四种position定位方式</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+	本例我们为三个呈现独立图形外观的div容器，配上大量文字，
+	由于div的float排版设置，导致附近的p元素的文字如流水一般，把div包裹起来，实现div的“浮动”。
+	这个例子，让初学者能更好理解float排版。
+	这种float排版，对于窄屏的手机意义不大，因此可能这个案例在手机上效果不太好。
+  </title>
   <style type="text/css">
     body{
-	font-size:16px;
-	width:600px;
-	border:1px solid ;
-		     }
+		font-size: 16px;
+	}
 	div{
-	 border:2px solid blue ;
-	 font-size:1.9em;
-	 margin:10px auto;
-	 padding:1em;
-	 text-align:center;
-	 line-height:2em;
-	  width:200px;
-     }
-    div>p{
-	font-size:0.8em;
-	font-weight:bold;
-		}
-	div#static{
-	 position:static ;
-	 /**下面二句坐标设置无效，static定位遵守浏览器对文本流的排版**/
-	 left:3em;
-	 top:-5em;
+	    margin: 1em auto ; 
+	    border: 1px solid  ;
+	    padding: 1em;
+		margin:0.5em ;
+		
 	}
-    div#relative{
-	 position:relative ;
-	 left:3em;
-	 top:-5em;
-	 background:rgb(200,250,200);
+	div#box1,div#box2,div#box3{
+	    background:rgb(230,250,230);
+		border-radius:1em;
+		float: left ;
 	}
-	div#absolute{
-	 position:absolute ;
-	 left:450px;
-	 top:350px;
-	 background:rgb(200,200,250);
+	div#box2{
+	    background:rgb(250,230,230);
+		float: right ;
 	}
-	div#fixed{
-	 position:fixed ;
-	 top:50px;
-	 right:50px;
-	 background:rgb(250,200,200);	
+
+	p{ 
+	  font-size: 1.5em ;
+	  text-align:center;
+	  font-family:楷体 ;
 	}
+	p.title{
+	  background-color:rgba(200,200,200,0.2);
+	  color:rgb(250,100,100) ;
+	  font-size:1.3em ;
+	  text-shadow:0.05em 0.04em rgb(0,0,0) ;
+	  /* 这里使用em设定阴影单位，而非固定的px单位，可以让title的其子元素span阴影比例合理，无需重新设定其阴影值 */
+	  padding:0.5em;
+	  border-radius:0.5em;
+	  font-weight: bold ;
+	  font-family:黑体 ;
+	 }
+   p.title span{
+     font-size:0.6em;
+	 color:rgb(255,150,0) ;
+   }
+   p.comment{
+    font-size: 1.2em;
+	color:blue;
+	text-indent:2em;
+	line-height:2em;
+	text-align:left;
+   }
   </style>
  </head>
  <body>
-  <h1>滚动鼠标，查看各div定位效果</h1>
-  <div>
+
+   <div id="box1">
+	<p class = "title" >
+  	鹿柴 
+	 <span>[唐]王维</span>
+	</p>
 	<p>
-  	不设position
+	 空山不见人，
 	</p>
-	空山不见人，
-	但闻人语响。
-	返景入深林，
-	复照青苔上。
-  </div>
-  <div id="static">
     <p>
-	position：static
+	但闻人语响。
 	</p>
-	独坐幽篁里，
-	弹琴复长啸。
-	深林人不知，
-	明月来相照。
-  </div>
-    <div  id="relative">
 	<p>
-  	position：relative
-	</p>
-	空山不见人，
-	但闻人语响。
 	返景入深林，
-	复照青苔上。
-  </div>
-  <div  id="absolute">
-    <p>
-	position：absolute
 	</p>
-	独坐幽篁里，
-	弹琴复长啸。
-	深林人不知，
-	明月来相照。
-  </div>
-  <div>
 	<p>
-  	不设position
-	</p>
-	空山不见人，
-	但闻人语响。
-	返景入深林，
 	复照青苔上。
-  </div>
-  <div  id="fixed">
-    <p>
-	position：fixed
+    </p>
+   </div>
+   <p class = "comment">
+      鹿柴，假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。  
+   </p>
+   <div id="box2">
+    <p class = "title">
+	送元二使安西  
+	 <span>[唐]王维</span>
 	</p>
+	<p>
+	渭城朝雨浥轻尘，
+	</p>
+	<p>
+	客舍青青柳色新。
+	</p>
+	<p>
+	劝君更尽一杯酒，
+	</p>
+	<p>
+	西出阳关无故人。
+	</p>
+   </div>
+   <p class = "comment">
+      送元二使安西。假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。  
+   </p>  
+   <div id="box3">
+    <p class = "title">
+	竹里馆 
+	     <span>[唐]王维</span>
+    </p>
+    <p>
 	独坐幽篁里，
+	<p>
 	弹琴复长啸。
+	<p>
 	深林人不知，
+	<p>
 	明月来相照。
-  </div>
- </body>
- <!--对比发现，box元素不设position，相当于把position设为static-->
+    </p>
+   </div>
+   <p class = "comment">
+     竹里馆， 假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。   假设这里有大量，介绍王维和古诗文内涵的文字，用于与卡片状的div发生混合排版关系。  
+   </p>  
+  </body>
 </html>

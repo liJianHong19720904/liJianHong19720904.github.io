@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+	在CSS盒状模型（box model）概念支持下，我们使用div和p，不去设置width属性，这样就能能继承父级也就是body的width。
+	我们通过加入第5行的（ meta name="viewport" content="width=device-width,initial-scale=1"）设置，
+	在移动端打开的Web页的body则可完全继承屏幕的宽度，body元素再把width遗传给子元素，这样就能方便地设计出既符合PC端效果，又能满足移动端效果的Web页。
+  </title>
+  <style type="text/css">
+    body{
+		font-size: 30px;
+	}
+	div{
+	    margin: 1em auto ; 
+	    border: 1px solid  ;
+	    padding: 1em;
+	}
+	div#box1,div#box2,div#box3{
+	    background:rgb(230,250,230);
+		border-radius:1em;
+	}
+	div#box2{
+	    background:rgb(250,230,230);
+	}
+
+	p{
+	  text-align:center;
+	  font-family:楷体 ;
+	}
+	p.title{
+	  background-color:rgba(200,200,200,0.2);
+	  color:rgb(250,100,100) ;
+	  font-size:1.5em ;
+	  text-shadow:0.05em 0.04em rgb(0,0,0) ;
+	  /* 这里使用em设定阴影单位，而非固定的px单位，可以让title的其子元素span阴影比例合理，无需重新设定其阴影值 */
+	  padding:0.5em;
+	  border-radius:0.5em;
+	  font-weight: bold ;
+	  font-family:黑体 ;
+	 }
+   p.title span{
+     font-size:0.6em;
+	 color:rgb(255,150,0) ;
+   }
+  </style>
+ </head>
+ <body>
+   <div id="box1">
+	<p class = "title" >
+  	鹿柴 
+	 <span>[唐]王维</span>
+	</p>
+	<p>
+	 空山不见人，
+	</p>
+    <p>
+	但闻人语响。
+	</p>
+	<p>
+	返景入深林，
+	</p>
+	<p>
+	复照青苔上。
+    </p>
+   </div>
+   <div id="box2">
+    <p class = "title">
+	送元二使安西  
+	 <span>[唐]王维</span>
+	</p>
+	<p>
+	渭城朝雨浥轻尘，
+	</p>
+	<p>
+	客舍青青柳色新。
+	</p>
+	<p>
+	劝君更尽一杯酒，
+	</p>
+	<p>
+	西出阳关无故人。
+	</p>
+   </div>
+   <div id="box3">
+    <p class = "title">
+	竹里馆 
+	     <span>[唐]王维</span>
+    </p>
+    <p>
+	独坐幽篁里，
+	<p>
+	弹琴复长啸。
+	<p>
+	深林人不知，
+	<p>
+	明月来相照。
+    </p>
+  </body>
+</html>

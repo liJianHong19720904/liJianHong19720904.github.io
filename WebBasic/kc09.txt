@@ -1,16 +1,15 @@
 ﻿1.title
-Web Page Layout With Box Model Concept Without Width（CSS语言的盒状模型概念和无固定宽度的排版）
+Web Page Layout With Box Float Concept （CSS语言的盒子浮动概念和自动排版）
 2.introduction
-对于初学者学习理解盒状模型概念，可以分二个阶段进行：第一阶段是利用width把盒状元素宽度固定，然后基于这个宽度固定的容器，设计和理解CSS自动排版； 第二阶段，则是不设定任何容器的width属性，对于作为容器的div元素而言，其应该完全继承屏幕的width属性的，这样我们的页面才能最大地利用移动端的屏幕空间。
-本课我们仍以div这个抽象块级元素为例，尝试不去设定CSS盒状模型内固定宽度和高度，实现能够适应更多屏幕的页面设计。
-另外，本课案例也为增加效果，还引入了对容器元素的背景图、圆角、阴影等一些效果较好的属性。
-
+初学者学习理解盒状模型概念后，可以把div抽象成一个盒子，不用去关心div其中复杂的子元素层次和内容的细节，初步建立对象的概念，如果没有必要，就不去关心对象的内部细节。
+本课我们开始为三个div对象设定float属性，并一步一步去理解盒子设置float属性后发生的变化，以及与周边的其他元素的浮动排版关系，理解所谓的“排版流” 。
 3.keyword
-box model ，div ，margin   auto ，background ，url("path")  ，em ，border-radius ，rgba(r,g,b,opacity) ，text-shadow。  
+viewport ，width ，device-width ，float: left ，float: right  ，text-indent。  
 4.project
-<a src=001.html title=王维五言七言古诗1> 本案例演示CSS盒状模型（box model）概念与适应屏幕的探究。
-<a src=002.html title=王维五言七言古诗2> 本案例演示CSS盒状模型（box model）概念和一些特效属性探究。
-<a src=003.html title=王维五言七言古诗3>本案例演示CSS盒状模型（box model）概念和排版下，行内元素（inline），以span元素为例的探索。。 
+<a src=001.html title=王维古诗三首1> 本案例演示CSS盒状模型（box model）概念与适应屏幕的探究。
+<a src=002.html title=王维古诗三首2> 本案例演示CSS盒状模型（box model）概念和一些特效属性探究。
+<a src=003.html title=王维古诗三首3>本案例演示CSS盒状模型（box model）概念和排版下，行内元素（inline），以span元素为例的探索。
+<a src=004.html title=王维古诗三首3>本案例演示CSS盒状模型（box model）概念和排版下，行内元素（inline），以span元素为例的探索。。 
 
 5.reading
 As we’ve seen, every element in a document, both block-level and inline, generates a rectangular element box. The components of an element box are diagrammed in the FIGURE of last lesson . Pay attention to the new terminology , it will be helpful in keeping things straight .
