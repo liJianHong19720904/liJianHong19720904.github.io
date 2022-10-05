@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+   用HTML5语义标签排版网页：
+   本例把section的float设为left，同时用百分比形式设置其width，
+   这样section 和 article则整齐地并排在一起，
+   上面二个主要内容区域的高度设为70%，
+   各区域height值的计算方法：15% + 10% + 70% + 5% = 100% 。
+  </title>
+  <style type="text/css">
+     body{
+       margin: 0 auto ;
+	   font-size: 25px ;
+	   /* 
+	   最大的盒子body的边框，此时的排版不再需要
+	    border: 2px solid red ; 
+		*/
+	   /* 由于本网页没有内容 ，网页在纵向无法呈现，
+	   为了检测排版效果，我们人为body设定一定高度，
+	   对于有内容的网页则无需这项设定 */
+	   height:400px ;
+	   background-color:rgb(220,200,200);
+	  }
+	 header,nav,section,article,footer{
+	    border:1px solid blue ;
+        margin: 0  ;
+	    padding:1em;
+        text-align:center;
+		box-sizing: border-box ;
+		}
+    header{
+	 height: 15% ;
+	}
+	nav{
+	 height: 10% ;
+	}
+	section{
+	 width: 30% ;
+	 height: 70% ;
+	 float: left ;
+	}
+	article{
+	 height: 70% ;
+	}
+	footer{
+	height: 5% ;
+	}
+  </style>
+ </head>
+ <body>
+  <header>
+   header：主标题区
+  </header>
+  <nav>
+   nav：导航区
+  </nav>
+  <section>
+   section：总结区
+  </section>
+  <article>
+   article：主文章区
+  </article>
+  <footer>
+   footer：脚部区
+  </footer>
+ </body>
+</html>

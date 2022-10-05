@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+   本例解决二个问题：
+   1、解决section区背景图片无法全部显示的问题，由于section区域其实没有任何内容，浏览器无法计算该区域大小，我们把背景图改变为插入，利用img标记插入图片。
+   2、而插入图片又导致新的问题，图片分辨率过大则会“撑”坏版面，太小则会效果不好，而我们理想的Web页是应该能适应各种图片分辨率的。为解决这个问题，我们灵活地利用CSS的继承概念，为img元素设定样式 width：100% ，利用百分比设置，让img元素继承父级元素section的宽度。
+  
+   3、本例可以在任何大小的终端查看，效果都比较统一，比较完美适应不同屏幕的需要，体现了在盒子概念和浮动概念支撑下，HTML/CSS代码优秀的设计能力。
+  </title>
+  <style type="text/css">
+     body{
+       margin: 0 auto ;
+	   font-size: 25px ;
+	   background-color:rgb(220,200,200);
+	  }
+	 header,nav,section,article,footer{
+	    border:1px solid blue ;
+        margin: 0  ;
+	    padding:1em;
+        text-align:center;
+		box-sizing: border-box ;
+		}
+    header{
+   	 height: 15% ;
+	}
+	nav{
+	 height: 10% ;
+	}
+	section{
+	 width: 30% ;
+	 height: 70% ;
+	 float: left ;
+	}
+	article{
+	 height: 70% ;
+	}
+	footer{
+     height: 5% ;
+	}
+	nav ul,nav ul li{
+	 display: inline ;
+	}
+    nav ul li{
+ 
+	}
+	section{
+	 /*
+	  background: url("../images/girl1.jpg") ;
+	  background-size: cover ;
+	 */
+	 overflow:auto;
+	 padding: 0 ;
+	}
+	/**增加二个文字属性的修饰**/
+	article{
+	 margin: auto ;
+	 overflow:auto ;
+	}
+	p.poet{
+	 /**  writing-mode 这个属性设置文字书写次序：
+	 tb为 top to bottom  ，rl 为 right to left
+	 这样就模仿了古代书写规则，与当代的文字默认的方向相反了
+	 。
+	 在PC平台的浏览器中， writing-mode属性有效，
+	 但在移动平台的某些浏览器，可能无法解释writing-mode属性。
+	 **/
+	 writing-mode : tb-rl ;
+	 line-height : 2em ;
+     letter-spacing: 0.2em ;
+	 margin:auto ; /*此时auto可以让文本在四个方向居中*/
+	}
+	section img{
+	  width:100%;
+	  margin:0;
+	  opacity:0.5 }
+	footer{
+	  clear:left ; 
+	  /*避免footer浮动到上面的section、article区域*/
+	}
+  </style>
+ </head>
+ <body>
+  <header>
+   长恨歌--白居易
+  </header>
+  <nav>
+    <ul>
+	 <li>首页</li>
+	 <li>历史</li>
+     <li>典故</li>
+	 <li>旧址</li>
+	 <li>价值</li>
+   </ul>
+  </nav>
+  <section>
+   <img src="../images/girl1.jpg">
+  </section>
+  <article>
+   <p class="poet">
+     <!-- 
+	 为确保古诗在断句处换行，我们必须为每条古诗文字表达位置增加一个br元素，这里需要初学者学习一个文本编辑技巧，既对大量选择文字进行部分关键字替换操作：
+	 具体包括4个替换操作: 
+	  1、把  ， 替换为   ，<br/> 
+	  2、把  。 替换为   。<br/> 
+      3、把  ？ 替换为   ？<br/> 
+      4、把  ！ 替换为   ！<br/> 
+	 -->
+     汉皇重色思倾国，<br/>御宇多年求不得。<br/> 杨家有女初长成，<br/>养在深闺人未识。<br/> 天生丽质难自弃，<br/>一朝选在君王侧。<br/> 回眸一笑百媚生，<br/>六宫粉黛无颜色。<br/> 春寒赐浴华清池，<br/>温泉水滑洗凝脂。<br/> 侍儿扶起娇无力，<br/>始是新承恩泽时。<br/> 云鬓花颜金步摇，<br/>芙蓉帐暖度春宵。<br/> 春宵苦短日高起，<br/>从此君王不早朝。<br/> 承欢侍宴无闲暇，<br/>春从春游夜专夜。<br/> 后宫佳丽三千人，<br/>三千宠爱在一身。<br/> 金星妆成娇侍夜，<br/>玉楼宴罢醉和春。<br/> 姊妹弟兄皆列士，<br/>可怜光彩生门户。<br/> 遂令天下父母心，<br/>不重生男重生女。<br/> 骊宫高处入青云，<br/>仙乐风飘处处闻。<br/> 缓歌慢舞凝丝竹，<br/>尽日君王看不足。<br/> 渔阳鼙鼓动地来，<br/>惊破霓裳羽衣曲。<br/> 九重城阙烟尘生，<br/>千乘万骑西南行。<br/> 翠华摇摇行复止，<br/>西出都门百馀里。<br/> 六军不发无奈何，<br/>宛转蛾眉马前死。<br/> 花钿委地无人收，<br/>翠翘金雀玉搔头。<br/> 君王掩面救不得，<br/>回看血泪相和流。<br/> 黄埃散漫风萧索，<br/>云栈萦纡登剑阁。<br/> 峨嵋山下少人行，<br/>旌旗无光日色薄。<br/> 蜀江水碧蜀山青，<br/>圣主朝朝暮暮情。<br/> 行宫见月伤心色，<br/>夜雨闻铃肠断声。<br/> 天旋地转回龙驭，<br/>到此踌躇不能去。<br/> 马嵬坡下泥土中，<br/>不见玉颜空死处。<br/> 君臣相顾尽沾衣，<br/>东望都门信马归。<br/> 归来池苑皆依旧，<br/>太液芙蓉未央柳。<br/> 芙蓉如面柳如眉，<br/>对此如何不泪垂！<br/> 春风桃李花开日，<br/>秋雨梧桐叶落时。<br/> 西宫南内多秋草，<br/>落叶满阶红不扫。<br/> 梨园子弟白发新，<br/>椒房阿监青娥老。<br/> 夕殿萤飞思悄然，<br/>孤灯挑尽未成眠。<br/> 迟迟钟鼓初长夜，<br/>耿耿星河欲曙天。<br/> 鸳鸯瓦冷霜华重，<br/>翡翠衾寒谁与共？<br/> 悠悠生死别经年，<br/>魂魄不曾来入梦。<br/> 临邛道士鸿都客，<br/>能以精诚致魂魄。<br/> 为感君王辗转思，<br/>遂教方士殷勤觅。<br/> 排空驭气奔如电，<br/>升天入地求之遍。<br/> 上穷碧落下黄泉，<br/>两处茫茫皆不见。<br/> 忽闻海上有仙山，<br/>山在虚无缥缈间。<br/> 楼阁玲珑五云起，<br/>其中绰约多仙子。<br/> 中有一人字太真，<br/>雪肤花貌参差是。<br/> 金阙西厢叩玉扃，<br/>转教小玉报双成。<br/> 闻道汉家天子使，<br/>九华帐里梦魂惊。<br/> 揽衣推枕起徘徊，<br/>珠箔银屏迤逦开。<br/> 云鬓半偏新睡觉，<br/>花冠不整下堂来。<br/> 风吹仙袂飘飘举，<br/>犹似霓裳羽衣舞。<br/> 玉容寂寞泪阑干，<br/>梨花一枝春带雨。<br/> 含情凝睇谢君王，<br/>一别音容两渺茫。<br/> 昭阳殿里恩爱绝，<br/>蓬莱宫中日月长。<br/> 回头下望人寰处，<br/>不见长安见尘雾。<br/> 唯将旧物表深情，<br/>钿合金钗寄将去。<br/> 钗留一股合一扇，<br/>钗擘黄金合分钿。<br/> 但教心似金钿坚，<br/>天上人间会相见。<br/> 临别殷勤重寄词，<br/>词中有誓两心知。<br/> 七月七日长生殿，<br/>夜半无人私语时。<br/> 在天愿作比翼鸟，<br/>在地愿为连理枝。<br/> 天长地久有时尽，<br/>此恨绵绵无绝期！<br/>
+   </p>
+  </article>
+  <footer>
+    盒子模型浮动排版CopyRight 2022 By Li
+  </footer>
+ </body>
+</html>

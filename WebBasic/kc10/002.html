@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+   用HTML5语义标签排版网页：
+   排版各元素的宽度不用设定，
+   而使用百分比来设置相对高度，
+   让所有元素的高度，总数加起来为100%。
+  </title>
+  <style type="text/css">
+     body{
+       margin: 0 auto ;
+	   font-size: 25px ;
+	   /* 
+	   最大的盒子边框，排版不再需要
+	    border: 2px solid red ; 
+		*/
+	   /* 由于本网页没有内容 ，为了检测排版效果， 我们人为body设定一定高度 */
+	   height:400px ;
+	   background-color:rgb(220,200,200);
+	  }
+	 header,nav,section,article,footer{
+	    border:1px solid blue ;
+        margin: 0  ;
+	    padding:1em;
+        text-align:center;
+		box-sizing: border-box ;
+		}
+    header{
+	 height: 15% ;
+	}
+	nav{
+	 height: 10% ;
+	}
+	section{
+	 height: 25% ;
+	}
+	article{
+	 height: 45% ;
+	}
+	footer{
+	height: 5% ;
+	}
+  </style>
+ </head>
+ <body>
+  <header>
+   header：主标题区
+  </header>
+  <nav>
+   nav：导航区
+  </nav>
+  <section>
+   section：总结区
+  </section>
+  <article>
+   article：主文章区
+  </article>
+  <footer>
+   footer：脚部区
+  </footer>
+ </body>
+</html>
