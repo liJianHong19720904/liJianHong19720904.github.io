@@ -1,6 +1,6 @@
     body{
        margin: 0 auto ;
-	   font-size: 20px ;
+	   /* 采用系统默认字体大小，相当于设置 font-size: 16px ; */
 	   background-color:rgb(220,200,200);
 	  }
 	 header,nav,article,footer{
@@ -104,17 +104,17 @@
   top: 20% ;
   padding:0 ;
  }
- ul{
+ nav ul{
     margin:0;
-    padding:0
+    padding:0.5em 0 ;
 	}
- li{
-  display: inline-block ; 
-  /*
-   inline-block 是CSS3新增的能力，采用这个设置，当父级容器的宽度足够时，这些元素按inline方式排列在一行，当父级容器宽度不够，则会元素会自动完整地移动到下一行，而不会像普通文字那样被浏览器边界位置强制换行。
+ nav ul li{
+	  /*
+    display: inline-block 是CSS3新增的能力，采用这个设置，当父级容器的宽度足够时，这些元素按inline方式排列在一行，当父级容器宽度不够，则会元素会自动完整地移动到下一行，而不会像普通文字那样被浏览器边界位置强制换行。
   */
-  margin:0.1em 0.3em; 
-  padding:0.2em;
+   display: inline-block ; 
+   margin:0.1em 0.2em; 
+   padding:0.2em;
    }
 
  }
