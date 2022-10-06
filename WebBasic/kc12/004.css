@@ -1,0 +1,97 @@
+    body{
+       margin: 0 auto ;
+	   font-size: 20px ;
+	   background-color:rgb(220,200,200);
+	  }
+	 header,nav,article,footer{
+	    margin: 0  ;
+	    text-align:center;
+		}
+    header{
+   	 background-color:rgb(200,180,160);
+	 padding:1em;
+	 font-size: 2em;
+	 font-weight:bold ;
+	 font-family: 隶书 , 黑体 ;
+	 letter-spacing: 0.5em;
+	 color: rgb(250,150,150);
+	 text-shadow:0.1em 0.05em black;
+	}
+
+	footer{
+	  padding:1em; ;
+	  color:white;
+	  background-color:rgb(10,10,10);
+	}
+
+	nav ul{
+	position: fixed ;
+	width: 20% ;
+	list-style: none ;
+	border:inset rgb(0,200,200) ;
+	background-color: rgb(200,200,200);
+	padding:1em;
+	left:0 ;
+	bottom:0 ;
+	z-index:2 ;
+	}
+	a {
+	  text-decoration:none;
+	  color:white;
+	  }
+    nav ul li{
+     border: outset 5px rgb(200,100,50) ;
+	 background-color:rgb(50,50,50);
+	 margin: 0.5em auto;
+	 padding:5px 10px ;
+	 cursor:pointer ;
+	 border-radius : 10px ;
+	}
+    nav ul  li:hover{
+	 border: outset 5px rgb(250,150,100) ;
+	 background-color: rgba(0,100,200,0.8) ;
+	}
+	nav ul li:active{
+	 border: outset 5px rgb(250,250,150) ;
+	 background-color: rgb(200,200,50) ;
+	}
+
+	/**增加二个文字属性的修饰**/
+	article{
+	 position : relative ;
+	 margin: auto ;
+	 font-size:1.2em;
+	 color:rgb(255,150,150);
+	 text-shadow:0.05em 0.03em black;
+	}
+
+	p.poet{
+	 font-size:1.3em;
+	 line-height : 2em ;
+     letter-spacing: 0.2em ;
+	 margin:auto ;
+	 font-family:楷体 ;
+	}
+	article p.preface {
+	  color:black;
+	  text-shadow: none;
+	  text-indent:2em;
+	  line-height:2em;
+	  text-align:justify;
+	  
+	  }
+	article p.preface img{
+	  width:35%;
+	  float: left;
+	  opacity:0.7 ;
+	  border:2px solid
+	  }
+	
+    article  strong{
+	  position : absolute ;
+	  color: blue ;
+	  right:10px;
+	  top: 20px ;
+	  opacity:0.1 ;
+	  font-size:12em
+	  }
