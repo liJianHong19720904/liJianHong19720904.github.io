@@ -4,12 +4,12 @@ Refactor The Code And Learn CSS Position Skill（增加二种CSS定位技巧，�
 CSS提供了控制元素位置定位属性，如果仅仅单独学习定位，可能会显得比较简单枯燥，本课我们仍然从上一课的最后一个案例开始，按照需求重构网页，同时，再按新的需要学习和应用CSS的定位技巧。
 本课我们利用超级链接a标记，实现用户点击按钮，实现超链接，让用户能在在本页导航，让页面显示到指定位置。   由于设计完全与上一课不同，因此本课程将在原有代码基础上，对原网页HTML结构和CSS样式端作大量修改，这可以让学习者尝试代码重复利用，以及分析需求，重构代码。
 3.keyword
-position ，fixed ，absolute ，link ，stylesheet ，strong  。  
+position ，fixed ，absolute ，link ，stylesheet ，strong ，@media ，max-width 。  
 4.project
 <a src=001.html title=《琵琶行并序》1>  本例完全套用上一课的HTML的结构代码和CSS的样式代码，  仅以白居易琵琶行并序更改内容，  由于琵琶行并序内容文字很多，网页将变得很长。
 <a src=002.html title=《琵琶行并序》2> 本例修改了导航栏的代码，为li元素套了一个a标记， 这样就可以利用a实现页面超级链接。
 <a src=003.html title=《琵琶行并序》3>本例把导航栏修改为纵向结构，并利用CSS提供的position进行固定定位，这种定位，无论网页内容翻转到何处，导航栏都固定在浏览器窗口指定位置，方便用户随时导航。
-<a src=004.html title=案例HTML文件> 本例是移出样式代码后的HTML文件，注意样式被link 标记代替，link会将该css文件读入，这样的部署，在文件层面实现了样式和内容的分离。
-<a src=004.css title=案例的外部CSS文件>本例是把案例3的CSS代码单独存放的一个独立文件：004.css ，  这样成为单独文件后，这个精心编写的CSS样式就可以同时被许多html文件共享。
+<a src=004.html title=《琵琶行并序》完美版HTML文件> 本例把样式代码移出HTML文件，采用link 标记将该css文件读入，这样的部署，在文件层面实现了样式和内容的分离。
+<a src=004.css title=《琵琶行并序》完美版外部CSS文件>本例是把案例3的CSS代码单独存放的一个独立文件：004.css ， 这样成为单独文件后，这个精心编写的CSS样式就可以同时被许多html文件共享。本例还引入了CSS的media查询语句，当CSS代码发现用户屏幕较窄（本例以600像素为界）后，导航栏会自动采用设定另一套CSS样式，导航栏将以横向菜单按钮形式出现在网页中央位置。
 5.reading
 As we’ve seen, every element in a document, both block-level and inline, generates a rectangular element box. The components of an element box are diagrammed in the FIGURE of last lesson . Pay attention to the new terminology , it will be helpful in keeping things straight .
