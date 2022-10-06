@@ -1,14 +1,15 @@
 ﻿1.title
-Web Page Layout For Complex Home Page （主页排版的内容和设计）
+Web Page Layout Implement With Content （复杂网页的内容设计和排版）
 2.introduction
-初学者理解盒状模型概念后，就可以把div抽象成一个盒子，不用去关心div其中复杂的子元素层次和内容的细节，初步把div理解为宏观对象，分析宏观对象之间的排版关系，如果没有必要，不用去关心对象的内部细节。
-本课我们开始为三个div对象设定float属性，并尝试去理解div盒子设置float属性后发生的变化，重点关注div与周边的其他元素的浮动排版关系，理解所谓的“排版流” 。
+通过上一课的网页排版规划，我们从宏观上为网页排版搭好了“骨架”，本课我们以就经典的“白居易《长恨歌》”为内容，综合应用前面学习的CSS概念，来具体落实每个区域的排版细节和修饰。
+在本课CSS代码对元素大小设计中，我们放弃了固定px取值，而是采用 % 和 em 这种相对量，让本次Web页面“响应性”更好，即可以适应各种尺寸用户终端。
+另外，增了一些特殊效果属性，如overflow、background-size、opacity、writing-mode 、clear，其具体作用详见各案例的代码注释。
 3.keyword
-viewport ，width ，device-width ，float: left ，float: right  ，text-indent。  
+viewport ，width ，device-width ，float: left ，float: right  ，overflow ，background-size ，writing-mode ，opacity ，clear。  
 4.project
-<a src=001.html title=主页设计和排版1> 修改上一课案例，让本例可以在移动端和PC端都有统一的效果。。
-<a src=002.html title=主页设计和排版2> 本案例演示把3个div元素，看作3个完整盒子，不管盒子内部多么复杂，这样就让初学者能较好领悟盒子float排版的概念。
-<a src=003.html title=主页设计和排版3>本案例本例我们在把div#box2 的float属性单独设为 right ;	通过不同宽度的浏览器窗口，我们可以理解块状盒子的float属性为的概念。
-<a src=004.html title=主页设计和排版4>本案例本例我们在把div#box2 的float属性单独设为 right ;	通过不同宽度的浏览器窗口，我们可以理解块状盒子的float属性为的概念。
+<a src=001.html title=白居易《长恨歌》1> 修改上一课案例，本例把白居易的《长恨歌》，共计1021个字符文字填入内容article容器。  为了避免article容器被内容“撑大”而破话排版效果，特为article容器设置overflow属性为hidden ，这样超出内容则会被隐去，若设置为auto则会自动生成一个控制文本播放的滚动条。
+<a src=002.html title=白居易《长恨歌》2> 本案例本例探索三个变化：1、把白居易的《长恨歌》，共计1021个字符文字填入内容article容器。2、为1021个字符组成古诗文本的每隔设定换行标记。3、取消在body元素设定的height固定400px的属性。
+<a src=003.html title=白居易《长恨歌》3>本案例本例解决二个问题：1、解决section区背景图片无法全部显示的问题。2、插入图片又导致新的问题，图片分辨率过大则会“撑”坏版面，太小则会效果不好，而我们理想的Web页是应该能适应各种图片分辨率。
+<a src=004.html title=白居易《长恨歌》4>本案例本例是本综合案例的最终版本，最后完善Web页的一些细节修饰，可以综合练习前面学过的css基础代码，包括二方面：  1、简单地修饰页面，比如为article设定更好的文本排版效果、包括行间距和字间距、对页面做点颜色字体大小的调整， 取消所有容器的框线等。  2、为导航栏设计按钮效果和动态互动等。。
 5.reading
 As we’ve seen, every element in a document, both block-level and inline, generates a rectangular element box. The components of an element box are diagrammed in the FIGURE of last lesson . Pay attention to the new terminology , it will be helpful in keeping things straight .
