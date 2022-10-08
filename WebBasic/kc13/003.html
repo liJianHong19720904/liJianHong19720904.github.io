@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例初步介绍代码中数字运算，为了让实践案例有趣，还涉及以下内容：
+    1、数字的加减乘除运算；
+    2、数字的取余运算；
+    3、让运算结果输出到漂亮的Web页上，本例直接使用一个自编函数(名字myAlert)，初学者按alert方式使用即可；
+    4、为了我们编写的代码能够访问到Web页的元素，我们此时必须把JavaScript的容器，也就是script元素，放在body标记结束的位置，为什么？现在我们不急于解释，初学者当作规则记住即可。
+    5、本例开始，为了我们的JavaScript学习效果，我们之后所有js程序的输出都将直接清晰地写到Web页面上，为最简单让初学者使用这个功能，我们使用自编的函数myAlert，其使用方式与系统内置的alert函数一样。
+    6、为了使以后的课程都能使用上我们自编的myAlert函数，本站myAlert函数的代码存在一个外部文件myJs.js中（地址与myCss.css在同一位置），这样，我们在案例例中使用script元素提前导入这个文件即可。这种方式导入JavaScript代码和导入外部css样式文件的原理是一摸一样的。
+     
+  </title>
+
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+
+ 
+ </head>
+
+ <body>
+  
+  <header>
+   JavaScript的输出
+  </header>
+
+  
+  <article>
+    
+	<strong> 数字 </strong>
+ 
+    <p   class="preface">
+	   <img src="../images/girl2.jpg">
+    本例初步介绍代码中数字运算，为了让实践案例有趣，还涉及以下内容：
+    1、数字的加减乘除运算；
+    2、数字的取余运算；
+    3、让运算结果输出到漂亮的Web页上，本例直接使用一个自编函数(名字myAlert)，初学者按alert方式使用即可；
+    4、为了我们编写的代码能够访问到Web页的元素，我们此时必须把JavaScript的容器，也就是script元素，放在body标记结束的位置，为什么？现在我们不急于解释，初学者当作规则记住即可。
+    5、本例开始，为了我们的JavaScript学习效果，我们之后所有js程序的输出都将直接清晰地写到Web页面上，为最简单让初学者使用这个功能，我们使用自编的函数myAlert，其使用方式与系统内置的alert函数一样。
+    6、为了使以后的课程都能使用上我们自编的myAlert函数，本站myAlert函数的代码存在一个外部文件myJs.js中（地址与myCss.css在同一位置），这样，我们在案例例中使用script元素提前导入这个文件即可。这种方式导入JavaScript代码和导入外部css样式文件的原理是一摸一样的。
+    </p>
+   
+   <p class="poet">
+   
+   </p>
+		
+
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li CopyRight 2022
+  </footer>
+  
+  <script>
+    /**********
+      对数字进行加减乘除运算，并直接用自定义函数myAlert输出到页面上
+    **********/
+   // 由于下面五条语句运算都会把结果输出到到本Web页的header区域
+   myAlert(1 + 2) ;
+   myAlert(1 - 2) ;
+   myAlert(1 * 2) ;
+   myAlert(1 / 2) ;
+   myAlert(1 % 2) ;
+   
+
+  </script>
+
+ </body>
+</html>

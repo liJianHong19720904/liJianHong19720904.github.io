@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例在理解字符、数字、布尔值、if/else语句基础上，尝试写出具备逻辑的语句代码，不管用户如何输入年龄，都可以给出正确的反馈。涉及以下内容：
+    1、利用全局函数prompt请用户通过键盘输入信息，不管用户按键输入什么，输入的数据类型一定是字符；
+    2、学习 if/else 多层次语句，让代码能根据布尔值发生多层次分支；
+    3、了解parseInt返回值的多样性，比如数字或NaN ，NaN比较特殊，在if语句的条件中被判断为false，而数字和字母都会被if条件判读为true；
+    4、对于初学者而言，本例的难点在于多层逻辑的关系。
+    5、本程序中定义和使用多个变量，比如s和parseS。在变量的命名、使用、及其内涵是初学者需要认真思考，清晰理解。
+    6、最后探索本例代码的运行，请尝试在输入年龄时，点击取消，或按ESC ，看看程序的输出，尝试理解JavaScript的另一个特殊的数据 ：null 。
+ 
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+
+ 
+ </head>
+
+ <body>
+  
+  <header>
+   JavaScript的输出
+  </header>
+
+  
+  <article>
+    
+	<strong> if/ else </strong>
+ 
+    <p   class="preface">
+	  <img src="../images/girl2.jpg">
+    本例在理解字符、数字、布尔值、if/else语句基础上，尝试写出具备逻辑的语句代码，不管用户如何输入年龄，都可以给出正确的反馈。涉及以下内容：
+    1、利用全局函数prompt请用户通过键盘输入信息，不管用户按键输入什么，输入的数据类型一定是字符；
+    2、学习 if/else 多层次语句，让代码能根据布尔值发生多层次分支；
+    3、了解parseInt返回值的多样性，比如数字或NaN ，NaN比较特殊，在if语句的条件中被判断为false，而数字和字母都会被if条件判读为true；
+    4、对于初学者而言，本例的难点在于多层逻辑的关系。
+    5、本程序中定义和使用多个变量，比如s和parseS。在变量的命名、使用、及其内涵是初学者需要认真思考，清晰理解。
+    6、最后探索本例代码的运行，请尝试在输入年龄时，点击取消，或按ESC ，看看程序的输出，尝试理解JavaScript的另一个特殊的数据 ：null 。
+
+    </p>
+   
+   <p class="poet">
+   
+   </p>
+		
+
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li CopyRight 2022
+  </footer>
+  
+  <script>
+ 
+   // 下面prompt语句会把参数字符串显示在输出窗口，并把用户输入内容以字符串形式返回
+   
+   var s  = prompt("请输入您的年龄，") ;
+
+   // 下面的parseInt函数会分析传入参数s，并返回结果
+   // 此时的s是字符类型，而parseInt会根据参数s，返回不同的类型的数据，这个数据放在parseS变量中
+   //存在几种情况： 1、当用户输入数字，parseS变量内存放相应的数字。
+                // 2、当用户输入非数字，比如字母或其他字符，包括中文字符，parseS变量内存放NaN。
+
+   var parseS = parseInt( s ) ;
+   //下面语句是输出对本例代码if/else逻辑的总结
+   myAlert('本例代码的if/else逻辑，可以正确判断任何输入！' ) ;        
+   
+    
+    if (parseS) {
+        if( parseS > 18 ){
+         myAlert('您是成年人！现年' + parseS + '岁。') ;    
+        } else{
+         myAlert('您还是未成年人！现年' + parseS + '岁。') ;    
+         }
+    }else{
+        myAlert('您输错了年龄：' + s + ' ?' ) ;    
+    }
+    
+   
+    myAlert('本例中，parseInt(' + s + ') 返回：' + parseS ) ;    
+
+    //最后探索本例代码的运行，请尝试在输入年龄时，点击取消，或按ESC ，看看程序的输出，尝试理解JavaScript的另一个特殊的数据 ：null 。
+  </script>
+
+ </body>
+</html>
