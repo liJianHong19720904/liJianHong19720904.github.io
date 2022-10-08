@@ -1,0 +1,17 @@
+﻿1.title
+The Language of Web(JS), Let's Begin With Number （Web的编程语言JavaScript，让我们从数字开始）
+2.introduction
+真正的计算机语言是比较抽象，需要我们不断探索计算机内部的微观世界 。在接下来的课程中，我们将从代码处理处理数据、展示输出数据的角度，把这趟短短的JavaScript的程序设计学习之旅，分为8个课程，内容涵盖数字和文本数据 、逻辑和布尔值 、运算和表达式 、循环结构 、 函数概念和设计。这些内容都是计算机高级语言通识性学习，我们只是用JavaScript语言表达而已。
+本课将初步介绍代码中数字的概念，涉及以下写程序的基础知识：JS代码的注释、语句的概念、var 关键字（variable的简写）声明变量名、用运算符 = 创建赋值语句、用JavaScript独有的alert函数进行输出、用自定义的函数把信息输出在有CSS代码渲染修饰的Web页上。
+本课将初步介绍代码中数字运算，包括内容：   1、数字的加减乘除运算；   2、数字的取余运算 。
+
+3.keyword
+高级计算机语言 ，JavaScript ，variable ，var ， =  ，alert(参数) ， + 、 -  、/ 、* 、% 。
+
+4.project
+<a src=001.html title=JavaScript所有案例的模板> 有了前面课程的静态Web页面代码基础，我们现在开始学习最流行的计算机语言: JavaScript 也是Web浏览器上的唯一计算机语言，为了让未来的学习实践案例更加有趣，本例把我们之前学习案例的一个简化为一个模板，让未来的JavaScript程序有一个漂亮的输出界面。
+<a src=002.html title=数字/变量/赋值/输出几件事> 本例本例初步介绍代码中数字的概念，为在代码中使用数字，本例还涉及 JS代码的注释、 JS代码中语句的概念、用 var 关键字（variable的简写）声明变量名 、 用运算符 = 创建赋值语句 、用JavaScript独有的alert函数进行输出 。
+<a src=003.html title=数字运算及如何输出到Web页>本例初步介绍代码中数字运算，包括：数字的加减乘除运算；数字的取余运算 。为了让实践案例有趣，让运算结果输出到漂亮的Web页上，本例直接使用一个自编函数(名字myAlert)，初学者需仔细查看引用myAlert代码的文件位置，具体使用非常简便——按alert方式使用即可。
+
+5.reading
+The true programming language of the web, JavaScript lets you add behavior to your web pages. No more dry, boring, static pages that just sit there looking at you , with JavaScript you’re going to be able to reach out and touch your users, react to interesting events, grab data from the web to use in your pages, draw graphics right in your web pages and a lot more. And once you know JavaScript you’ll also be in a position to create totally new behaviors for your users.

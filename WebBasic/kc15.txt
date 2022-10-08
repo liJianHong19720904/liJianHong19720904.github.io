@@ -1,0 +1,18 @@
+﻿1.title
+Boolean , Logic , If/Else （布尔值、逻辑、分支语句）
+2.introduction
+在理解字符和数字二种数据基础上，引入布尔值的概念。通过语言的' > , < , >= , <= , ==  , === ' 运算符，可以把二种数据进行对比运算，产生布尔值。有了布尔值的真假判断，让我们代码开始具备基本逻辑。
+尝试写出具备基本逻辑的if语句代码，不管代码运行时面对那种变数，都可以按逻辑给出正确的反馈。
+学会全局函数prompt，获取用户通过键盘输入信息，学习parseInt全局函数，理解parseInt的工作原理和返回结果。
+开始训练 if/else 多层次逻辑语句表达，让代码能根据需要发生多层次分支。
+ 
+3.keyword
+ >  ,  <  ,  >=  ,  <=  ,  ==  ,  ===  ， prompt ，parseInt ，else 。
+
+4.project
+<a src=001.html title=布尔值的产生> 本例在理解字符和数字二种数据基础上，引入布尔值的概念。
+<a src=002.html title=初步实现程序的简单逻辑判断> 本例尝试写出具备基本逻辑的if语句代码，并初次探索重要的parseInt函数。
+<a src=003.html title=多层条件实现程序正确逻辑判断> 本例尝试写出具备逻辑的语句代码，不管用户如何输入年龄，都可以给出正确的反馈。
+
+5.reading
+The true programming language of the web, JavaScript lets you add behavior to your web pages. No more dry, boring, static pages that just sit there looking at you , with JavaScript you’re going to be able to reach out and touch your users, react to interesting events, grab data from the web to use in your pages, draw graphics right in your web pages and a lot more. And once you know JavaScript you’ll also be in a position to create totally new behaviors for your users.
