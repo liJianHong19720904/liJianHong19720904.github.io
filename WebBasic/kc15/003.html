@@ -68,14 +68,14 @@
    myAlert('本例代码的if/else逻辑，可以正确判断任何输入！' ) ;        
    
     
-    if (parseS) {
+    if (parseS  && parseS > 0 ) {
         if( parseS > 18 ){
          myAlert('您是成年人！现年' + parseS + '岁。') ;    
         } else{
          myAlert('您还是未成年人！现年' + parseS + '岁。') ;    
          }
     }else{
-        myAlert('您输错了年龄：' + s + ' ?' ) ;    
+        myAlert('您输入的年龄为：' + s + '，程序不能理解。' ) ;    
     }
     
    
