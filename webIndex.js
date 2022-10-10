@@ -66,6 +66,8 @@ var ajaxObj = {
        my$("#title").onmouseout = function(){
         this.textContent = titleEn ;
       };
+      //最后一句，修补一个bug。作为可输入文本的input元素，会记住用户上次在页面的输入，但这个输入可能（比如在用户重开网页时）与我们Model中不一致
+       my$("input#lessonId").value = Model.lessonId ; 
      } ,
      showIntroduction : function(){
        my$("#introduction").textContent = "";

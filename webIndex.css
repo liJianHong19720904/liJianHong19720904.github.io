@@ -10,7 +10,7 @@
 */
 
 
-/***为所有元素设定border-box的属性，让各盒装模型元素统一宽和高的计算方法，并清除所有盒装模型元素的默认margin 值。**/
+/***为所有元素设定border-box的属性，让各盒状模型（box model）元素统一宽和高的计算方法，并清除所有盒状模型（box model）元素的默认margin 值。**/
     *{
 	margin:0 ;
 	box-sizing:border-box;
