@@ -1,5 +1,5 @@
 ﻿1.title
-Web Page Layout Implement With Content （复杂网页的内容设计和修饰）
+Web Page Layout Implement With Content （复杂网页的内容设计和排版）
 2.introduction
 通过上一课的网页排版规划，我们从宏观上为网页排版搭好了“骨架”，本课我们以就经典的“白居易《长恨歌》”为内容，综合应用前面学习的CSS概念，来具体落实每个区域的排版细节和修饰。
 在本课CSS代码对元素大小设计中，我们放弃了固定px取值，而是采用 % 和 em 这种相对量，让本次Web页面“响应性”更好，即可以适应各种尺寸用户终端。

@@ -1,19 +1,19 @@
 ﻿1.title
-String Data  Processing With Loop Structure （引入循环程序结构处理字符串数据）
+ Learn Loop Structure By String  Programming （学习循环程序结构，处理字符串数据）
 2.introduction
-在理解字符和数字二种数据基础上，引入布尔值的概念。通过语言的' > , < , >= , <= , ==  , === ' 运算符，可以把二种数据进行对比运算，产生布尔值。有了布尔值的真假判断，让我们代码开始具备基本逻辑。
-尝试写出具备基本逻辑的if语句代码，不管代码运行时面对那种变数，都可以按逻辑给出正确的反馈。
-学会全局函数prompt，获取用户通过键盘输入信息，学习parseInt全局函数，理解parseInt的工作原理和返回结果。
-开始训练 if/else 多层次逻辑语句表达，让代码能根据需要发生多层次分支。
- 
+本例在讲述基本数据、变量、数组这种数据结构基础上，较为深入地探索字符串数据，并编写程序解决问题。初次引入数组这种强大的数据结构，并开始尝试写出具备逻辑的，有循环能力的代码，为处理分析文字数据作准备。涉及以下内容：
+ 1、创建一个很长的字符串，并赋值给变量。 了解在代码中的字符串是不能换行的，否则在任何语言的编程中，都是严重的语法错误，在JavaScript中，我们可以利用转义字符，\n ，来实现对字符串中包含换行符。
+ 2、学习和理解数组的语法，比如，引用数组就直接使用数组名，而引用数组元素的语法，则要使用一对中括号，写为：数组名[下标] ；
+ 3、理解字符串仅仅是从语法上看作字符数组，字符串内的每个字母是不允许用赋值语句修改的。了解字符串在使用数组语法引用字符时，若下标超出字符串长度，会得到 undefined 值。
+ 4、理解while循环结构的表达语法 ，开始学习强大而抽象的循环程序表达，并尝试设计有逻辑的代码，尝试利用多个变量控制循环代码的运行流程，实现字符串数据处理。
 3.keyword
- while  ,   [ ]  ,  undefined  ,    ===  ，if ，else 。
+ while  ,   [ ]  , =  , undefined  ,    ===  ，if ，else 。
 
 4.project
-<a src=001.html title=字符串的建立和输出>  。
-<a src=002.html title=初步探索字符串的数组表达>  。
-<a src=003.html title=用循环程序结构简单分析字符串> 。
-<a src=004.html title=综合利用循环、逻辑、多变量技巧，实现字符串的加工>  。
+<a src=001.html title=字符串的建立和输出> 本例在理解字符、数字、布尔值等基本数据基础上，继续较为深入地探索字符串数据。
+<a src=002.html title=初步探索字符串的数组表达> 本例在理解字符、数字、布尔值等基本数据基础上，初次引入数组这种强大的数据结构，并开始尝试写出具备逻辑的，有循环能力的代码，为处理分析文字数据作准备。
+<a src=003.html title=用循环程序结构简单分析字符串> 本例在理解字符和字符串、数字、布尔值等基本数据基础上，开始引入强大的循环程序语句，并尝试设计有逻辑的、有循环能力的代码。
+<a src=004.html title=综合利用循环、逻辑、多变量技巧，实现字符串的加工>  本例在理解JavaScript基本数据类型的基础上，开始学习强大而抽象的循环程序表达，并尝试设计有逻辑的代码，尝试利用多个变量控制循环代码的运行流程，实现字符串数据处理。
 
 5.reading
 The true programming language of the web, JavaScript lets you add behavior to your web pages. No more dry, boring, static pages that just sit there looking at you , with JavaScript you’re going to be able to reach out and touch your users, react to interesting events, grab data from the web to use in your pages, draw graphics right in your web pages and a lot more. And once you know JavaScript you’ll also be in a position to create totally new behaviors for your users.

@@ -1,17 +1,21 @@
 ﻿1.title
 The Language of Web(JS), Let's Begin With Number （Web的编程语言JavaScript，让我们从数字开始）
 2.introduction
-真正的计算机语言是比较抽象，需要我们不断探索计算机内部的微观世界 。在接下来的课程中，我们将从代码处理处理数据、展示输出数据的角度，把这趟短短的JavaScript的程序设计学习之旅，分为8个课程，内容涵盖数字和文本数据 、逻辑和布尔值 、运算和表达式 、循环结构 、 函数概念和设计。这些内容都是计算机高级语言通识性学习，我们只是用JavaScript语言表达而已。
-本课将初步介绍代码中数字的概念，涉及以下写程序的基础知识：JS代码的注释、语句的概念、var 关键字（variable的简写）声明变量名、用运算符 = 创建赋值语句、用JavaScript独有的alert函数进行输出、用自定义的函数把信息输出在有CSS代码渲染修饰的Web页上。
-本课将初步介绍代码中数字运算，包括内容：   1、数字的加减乘除运算；   2、数字的取余运算 。
+本课将开启初学者的一个学习新阶段，学习JavaScript（简称JS）。作为Web语言中真正的计算机语言，JS体系非常庞大且内涵深刻。而本站为为初学者入门设计了8节课。接下来将通过这8节课，承接和利用前面12节课的学习成果，同时又能深入实现真正的计算机高级语言的初级阶段的学习。
+本课将初步介绍代码中数字的概念，涉及以下写程序的基础知识：JS代码的注释、语句的概念、var 关键字（variable的简写）声明变量名、用运算符 = 创建赋值语句、用JavaScript内置的alert函数进行输出。
+从本课开始，为了让课程更加有趣，也让初学者有JS代码与之前课程的成果结合的意识，本课程特编写了自定义的函数myAlert，让初学者使用，轻松实现把JS输出的信息渲染到美观的Web页上。
+本课针对JavaScript语言，初步介绍代码中数字运算，包括内容：   1、数字的加减乘除运算；   2、数字的取余运算 。
 
 3.keyword
-高级计算机语言 ，JavaScript ，variable ，var ， =  ，alert(参数) ， + 、 -  、/ 、* 、% 。
+高级计算机语言 ，JavaScript ，variable ，var ， =  ，alert(参数) ，myAlert(参数) ， + 、 -  、/ 、* 、% 。
 
 4.project
-<a src=001.html title=JavaScript所有案例的模板> 有了前面课程的静态Web页面代码基础，我们现在开始学习最流行的计算机语言: JavaScript 也是Web浏览器上的唯一计算机语言，为了让未来的学习实践案例更加有趣，本例把我们之前学习案例的一个简化为一个模板，让未来的JavaScript程序有一个漂亮的输出界面。
+<a src=001.html title=本例是后面案例的通用HTML/CSS模板> 有了前面课程的静态Web页面代码基础，我们现在开始学习最流行的计算机语言: JavaScript 也是Web浏览器上的唯一计算机语言，为了让未来的学习实践案例更加有趣，本例把我们之前学习案例的一个简化为一个模板，让未来的JavaScript程序有一个漂亮的输出界面。
 <a src=002.html title=数字/变量/赋值/输出几件事> 本例本例初步介绍代码中数字的概念，为在代码中使用数字，本例还涉及 JS代码的注释、 JS代码中语句的概念、用 var 关键字（variable的简写）声明变量名 、 用运算符 = 创建赋值语句 、用JavaScript独有的alert函数进行输出 。
 <a src=003.html title=数字运算及如何输出到Web页>本例初步介绍代码中数字运算，包括：数字的加减乘除运算；数字的取余运算 。为了让实践案例有趣，让运算结果输出到漂亮的Web页上，本例直接使用一个自编函数(名字myAlert)，初学者需仔细查看引用myAlert代码的文件位置，具体使用非常简便——按alert方式使用即可。
 
 5.reading
-The true programming language of the web, JavaScript lets you add behavior to your web pages. No more dry, boring, static pages that just sit there looking at you , with JavaScript you’re going to be able to reach out and touch your users, react to interesting events, grab data from the web to use in your pages, draw graphics right in your web pages and a lot more. And once you know JavaScript you’ll also be in a position to create totally new behaviors for your users.
+总结我们之前学习的HTML语言和CSS语言的特点，我们会感觉他们都类似简洁的英语，这二种语言表达的概念比较具体直观，对初学者相当友好。但是，他们还算不上真正的计算机高级语言，对编程初学者而言，真正的计算机语言（C、JavaScript、Python等）都具备的抽象概念和逻辑运算的特征，是我们编程初学者学懂、学会任何计算机高级语言都必须跨过的门槛。
+JavaScript既具备传统计算机高级语言的所有的概念（结构化程序设计），同时也具备所有现代高级语言的特征（面向对象编程和函数式编程），更支撑了庞大的Web开发国际标准环境（DOM、Canvas、WebGL等）。而本课程的读者，作为Web程序的初学者，只需要学习掌握JavaScript的传统计算机高级语言概念和结构化编程技巧，再配合前面的HTML/CSS，能够解决Web页面的一些问题，即可算大功告成。而面向对象程序设计和函数式编程乃至Web开发国际标准环境的学习，其本质上已经不是在学某门语言，而是通过JS语言来进入Web领域学习软件开发方法和实践软件工程学，普通人没有几年写代码和写项目的能力和经验，为了表面的效果，盲目进入这些领域去学习是没有意义的。
+若JavaScript还是你学习的第一门真正的计算机高级程序设计语言，那意味着我们还要走上一段比较长的路，夯实传统计算机语言的结构化程序编码的基础，实践一些抽象思维的训练，同时不断探索和理解计算机内部的微妙的微观世界。
+因此，在本站的后续课中，尝试将把传统计算机程序设计学习内容在做精简，从最核心的概念和最重要的角度展开，实现初学者对传统计算机高级语言通识性概念的学习和实践。接下来的8节课安排如下:其中6节课利用案例来启动编程和学习概念，内容涵盖：数字和文本数据 、逻辑和布尔值 、运算和表达式 、循环结构 、函数概念和设计。最后二节课，我们将使用Web语言（JavaScript、HTML/CSS）写出“古诗三百首”作品，尝试用代码来表达一个设计和想法，这样的编程学习将更加有趣，更加高效。

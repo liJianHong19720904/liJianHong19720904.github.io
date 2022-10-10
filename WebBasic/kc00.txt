@@ -5,7 +5,8 @@
 欢迎来到"Learn Web Programming Basic"课程首页！把鼠标移动到最上面英文标题，会有中文互动反馈。
 随着互联网的发展和应用，当今世界的生产和生活也随之发生着信息化的变革，而作为互联网应用中的最为重要的“马甲”—— Web，在其诞生和发展的近三十年中，不仅深刻地影响人们获取和发布信息的方式，其反过来也促进了互联网的普及，同时Web的语言和标准也深刻地影响改变了软件行业。
 学习Web编程一直是人们学习入门计算机编程和软件开发和不错的“窗口”，相对传统的编程学习而言，Web程序设计的学习具入门相对容易轻松、效果更好的特点，但这种容易轻松并不等同于简单，Web中包含的丰富知识和Web程序语言之美都有待学习者亲身体验。为让广大读者系统地理解互联网和Web编程，也为指明一条符合初学者成长的程序设计之路，特搭建本教学网站。
-本站内容一共由20个大课组成，每一大课都按“内容简介”、“本课关键字”、“实践案例”、“理论阅读”五个部分规范组成。其中“实践案例”是本站的学习重点，由于这些实践案例都采用逐步提升难度的方式设计，学习者可按自己的代码功力加以选择， 不同学习者通过演练这种由浅入深的代码案例，就会较为高效地找到和解决编程中的个性的问题，通过分析问题、解决问题的方式，更好激发地自己学习兴趣，到了一定阶段，必然可以找到自己创作Web代码的兴趣和乐趣。
+本站内容一共由20个大课组成，每一大课都按“内容简介”、“本课关键字”、“实践案例”、“理论阅读”五个部分规范组成。其中“实践案例”是本站的学习重点，由于这些实践案例都采用逐步提升难度的方式设计，学习者可按自己的代码功力加以选择， 不同学习者通过演练这种由浅入深的代码案例，就会较为高效地找到和解决编程中的个性的问题，通过分析问题、解决问题的方式，更好激发地自己学习兴趣，每位初学者当学习代码到了某个阶段，必然可以找到自己写代码的兴趣和乐趣。
+最后，希望本站所有20节课能有机组织在一起，像结构优良的代码那样，共同推动实现本课程的核心目标：“面向思维活跃、爱好编程的大学生，为其拨开程序设计学习之路的迷雾，使之快速受益，进入快乐地写代码、学代码的状态！”
 
 
 3.keyword
@@ -19,7 +20,7 @@
  <a src=ts300.txt  title=唐诗三百首原版文本>本例实践案例提供一个文本文件（80KB），内含唐诗文本309首，用于上面代码编辑器练习编辑，或作为内容用于后续课程创建的Web页面。
 
 5.reading
- <img src=qrCode.png > 点击打开二维码，用移动端设备扫描二维码，就可以用手机浏览本站和运行本站所有教学案例。在PC端浏览器输入地址：https://lijianhong19720904.github.io/WebBasic/，移动端运行和查看程序如此方便，也算Web程序学习给大家的一个福利吧。
+ <img src=qrCode.png > 点击打开二维码，用移动端设备扫描二维码，就可以用手机浏览本站和运行本站所有教学案例。在PC端浏览器输入地址：https://lijianhong19720904.github.io/WebBasic/，我们编写的代码在移动端运行和查看如此方便，算是Web程序的学习的一个福利吧。
 Hypertext Markup Language (HTML) is one of the three programming languages used to create every website on the world wide web. 
 Foundation of the web
 If making a webpage can be compared to building a house,then HTML would set the foundation, Cascading Style Sheets(CSS) would take care of decorating, and JavaScript would be in charge of technical additions, such as electricity and plumbing. Each of these three languages is focused and specialized to carry out a specific set of tasks. 
