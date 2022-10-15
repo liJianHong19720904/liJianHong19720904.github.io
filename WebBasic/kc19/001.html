@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例，我们把成熟的代码包装起来，封装成为函数，提供给程序反复使用。
+    从具体到抽象。用函数来实现每首唐诗的获取。
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+
+ 
+ </head>
+
+ <body>
+  
+  <header>
+   JavaScript的输出
+  </header>
+
+  
+  <article>
+    
+	<strong> 函数 </strong>
+ 
+   <img src="../images/girl2.jpg">
+
+   
+   <p class="poet">
+   
+   </p>
+		
+
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li CopyRight 2022
+  </footer>
+  
+  <script>
+
+  //有了函数的概念，初学者可以这样构想：我们可以大胆地精心设计的一个基础性功能代码，利用函数包装起来，供我们未来的程序调用，就像构建一个一个质量合格地零件，通过这些零件，再组装成更强大的部分，最终把功能强大的软件搭建起来。
+
+
+   
+  //下面我们基本的函数，search(s , ch) ，利用这个函数，我们可以得到字符ch在字符串 s 的每次出现的索引位置，结果以数组形式返回。
+  function search( s , ch){
+     var i = 0 ;
+     var posAarr = [] ;
+     while( s[i] ){
+      if(s[i] === ch){
+         posAarr[ lengthOfArray(posAarr) ] = i ;
+         }
+      i++ ; //忘写本句，代码会陷入死循环
+     }
+     return posAarr ; //字符串每个字符都遍历结束了，则返回数组，即时没有匹配一个，返回的空数组也能为后续写代码带来帮助。
+   }//End search function
+
+ //一个基本函数，用来返回数组或字符串的长度。
+ function lengthOfArray(arr){
+   var length = 0 ;
+   var i = 0 ;
+  while( arr[i] ) {
+   length = length + 1 ;
+   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+   }
+  return length ;
+ }//End of function lengthOfArray(arr
+
+ function getTsFromString(ts){
+    if(!ts){ //若以getTsFromString()形式调用本函数，在函数内部ts局部变量是undefined，本if语句就给ts赋一段唐诗字符串初值。
+        var ts = '291杜牧：泊秦淮\n烟笼寒水月笼沙，夜泊秦淮近酒家。商女不知亡国恨，隔江犹唱《后庭花》。\n292杜牧：寄扬州韩绰判官\n青山隐隐水迢迢，秋尽江南草未凋。二十四桥明月夜，玉人何处教吹箫？\n293杜牧：遣怀\n落魄江湖载酒行，楚腰纤细掌中轻。十年一觉扬州梦，赢得青楼薄幸名。\n294杜牧：秋夕\n银烛秋光冷画屏，轻罗小扇扑流萤。天阶夜色凉如水，坐看牵牛织女星。\n295杜牧：赠别二首之一\n娉娉袅袅十三馀，豆蔻梢头二月初。春风十里扬州路，卷上珠帘总不如。\n296杜牧：赠别二首之二\n多情却似总无情，唯觉樽前笑不成。蜡烛有心还惜别，替人垂泪到天明。\n297杜牧：金谷园\n繁华事散逐香尘，流水无情草自春。日暮东风怨啼鸟，落花犹似坠楼人。\n298李商隐：夜雨寄北\n君问归期未有期，巴山夜雨涨秋池。何当共剪西窗烛，却话巴山夜雨时？\n299李商隐：寄令狐郎中\n嵩云秦树久离居，双鲤迢迢一纸笔。休问梁园旧宾客，茂陵秋雨病相如。\n300李商隐：为有\n为有云屏无限娇，凤城寒尽怕春宵。无端嫁得金龟婿，辜负香衾事早朝。\n301李商隐：隋宫\n乘兴南游不戒严，九重谁省谏书函？春风举国裁宫锦，半作障泥半作帆。\n302李商隐：瑶池\n瑶池阿母绮窗开，黄竹歌声动地哀。八骏日行三万里，穆王何事不重来？\n303李商隐：嫦娥\n云母屏风烛影深，长河渐落晓星沈。嫦娥应悔偷灵药，碧海青天夜夜心。\n304李商隐：贾生\n宣室求贤访逐臣，贾生才调更无伦。可怜夜半虚前席，不问苍生问鬼神！\n' ;
+    }
+    
+    //我们可以发现唐诗的文本规律， 第一个\n标志着唐诗标题的结束，第二个\n标志着唐诗诗文的结束，以此类推，如果把这些位置信息放在以一个数组中，配合适当算法，我们就可以利用这个数组来定位每首唐诗。
+   //因此我们利用search函数把每首唐诗开始和结束位置存放到一个数组中返回，再利用这个规律写出算法，把唐诗数据以数组的形式处理出来，由本函数返回给外界。
+   var tsTitles = [] ; //用来存放每首唐诗的标题
+   var tsPoets = [] ; //用来存放每首唐诗的诗文
+   var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
+   var titleBegin = 0 ,
+       titleEnd = tsPosArr[0] ,
+       poetBegin = titleEnd + 1 ,
+       poetEnd = tsPosArr[0+1] ;
+       tsNumber = lengthOfArray( tsPosArr ) /2 ;
+   for(var num = 1 ; num <= tsNumber ; num++){
+      var tsTitle = '' ;
+      for(var i = titleBegin ; i < titleEnd ; i++ ){
+       tsTitle += ts[i] ;
+      }
+      // $(tsTitle) ;从输出改为创建 tsTitles 数据
+      tsTitles[ lengthOfArray(tsTitles) ] = tsTitle ;
+
+      var tsPoet = '' ;
+      for(var i = poetBegin ; i < poetEnd ; i++){
+      tsPoet += ts[i] ;
+       }
+      //$(tsPoet) ;从输出改为创建 tsPoets 数据
+      tsPoets[ lengthOfArray(tsPoets) ] = tsPoet ;
+
+      titleBegin = poetEnd + 1 ;
+      titleEnd = tsPosArr[num * 2 ] ;
+      poetBegin = titleEnd + 1 ;
+      poetEnd = tsPosArr[num * 2 + 1] ;
+   }  //循环处理每首唐诗结束
+   return [ tsTitles , tsPoets ] ; 
+   //对上一句代码的说明： 表达JavaScript内的数组元素时，元素还可直接是数组、表达式、甚至对象（关于对象是下一阶段中级程序设计的学习重点）。许多语言可能没有JavaScript这么强的语法表达能力，会导致代码编写的量大一些而已，我们代码核心的处理和构建数据的思想是不变的。
+  }//End of getTsFromString()
+
+
+  //在getTsFromString函数外面，我们调用getTsFromString() 获取唐诗数组，定义全局变量ts 存放函数的返回值。
+  var ts = getTsFromString() ;
+  /**** 注意：按getTsFromString的算法设计，变量ts的数据结构为：
+    [ ['标题1','标题2'...] , ['唐诗1','唐诗2'...] ]
+    因此，ts[0] 还是一个数组，其中元素是每首唐诗的标题字符串；
+         ts[1]  也是一个数组，其中元素是每首唐诗的诗文字符串。
+   ****/
+  $('ts文本内唐诗共计：' + lengthOfArray(ts[0])  + ' 首。' ) ;
+  
+  $('下面输出第一首唐诗' ) ;
+  var firstPoet = [ ts[0][0] , ts[1][0] ] ;
+  $( firstPoet[0] ) ;
+  $( firstPoet[1] ) ;
+
+  $('下面输出最后一首唐诗' ) ;
+  var lastIndex = lengthOfArray(ts[0]) - 1 ;
+  var lastPoet = [ ts[0][lastIndex] , ts[1][lastIndex] ] ;
+  $( lastPoet[0] ) ;
+  $( lastPoet[1] ) ;
+ 
+
+ </script>
+
+ </body>
+</html>

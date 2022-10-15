@@ -14,6 +14,8 @@ html ，element ，tag ，head ，title ，body ，p(paragraph) ，br(break) ，
 <a src=005.html title=三国演义开篇（背景图）>本案例演示了解HTML语言对源代码的空白符（空格、Tab、回车）的忽略功能，把多个空白符仅看作一个空格。
 
 5.reading
+HTML (Hypertext Markup Language) is the code that is used to structure a web page and its content. For example, content could be structured within a set of paragraphs, a list of bulleted points, or using images and data tables.
+HTML is a markup language that defines the structure of your content. HTML consists of a series of elements, which you use to enclose, or wrap, different parts of the content to make it appear a certain way, or act a certain way. The enclosing tags can make a word or image hyperlink to somewhere else, can italicize words, can make the font bigger or smaller, and so on.
 What Browsers Ignore . The following information in the source document will be ignored when it is viewed in a browser: 
 1. Multiple-character (white) spaces . When a browser encounters more than one consecutive blank character space, it displays a single space. 
 2. Line breaks (carriage returns). Browsers convert carriage returns to white spaces, so following the earlier “ignore multiple white spaces” rule, line breaks have no effect on formatting the page. 

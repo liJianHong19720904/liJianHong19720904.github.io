@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例作为《唐诗三百首》APP最终完善版，全部实现搜索函数tsSearch的代码，包括：
+    1、在tsSearch函数内部，为浏览搜索结果，为UI按钮编写函数的代码更新。
+    2、在tsSearch函数内部，增加了showTs(poet)函数，让需要显示唐诗的函数，能调用showTs，避免重复编码。
+    3、从变量设计的角度看，本程序共增加了2个全局变量，一个是存放唐诗的ts数组，另一个是存放唐诗编号的poetSn。对于代码略有规模的程序，全局变量引入一定要慎重，否则各种全局变量交织在一起，编程者很容易陷入逻辑的“泥潭”。
+    4、从构建程序的思路总结，本程序历经6个步骤，增加了4个基础函数用于字符串信息的底层处理，增加了7个函数用于按钮功能的实现。合理运用函数，加上良好的设计，可以有效地把局部代码和全局代码进行分割，让我们的程序更易于掌控，让代码运行实现我们的设计目标。
+    5、从能力和思维训练这种更高层面看，学习这个代码项目的核心，可以放在如何解决“唐诗三百首显示和搜索”问题的思路上。从字符串处理的基础层面，到程序的需求分析、解决需求的方案分析，最后到代码实现，每个步骤的思路清晰和可靠逻辑我们训练的重点。当我们常用代码熟练后，相对思维和逻辑而言，具体的代码编写已经变得不是那么重要了。若有幸您能体会并达到这个境界，就可以骄傲地宣布，我的“Web程序设计基础”的学习已经毕业，可以“基础”二字拿掉了，从而充满自信地进入下一阶段，“Web前端程序设计进阶”。
+    
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+  <script src="ts300.js"></script>
+  
+  <script>
+   function search( s , ch){
+     var i = 0 ;
+     var posAarr = [] ;
+     while( s[i] ){
+      if(s[i] === ch){
+         posAarr[ lengthOfArray(posAarr) ] = i ;
+         }
+      i++ ; 
+     }
+     return posAarr ; 
+     //字符串每个字符都遍历结束了，则返回数组。
+   }//End search function
+ 
+
+ //一个基本函数，用来返回数组或字符串的长度。
+ function lengthOfArray(arr){
+   var length = 0 ;
+   var i = 0 ;
+  while( arr[i] ) {
+   length = length + 1 ;
+   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+   }
+  return length ;
+ }//End of function lengthOfArray(arr)
+
+
+ function subString( s, p1 , p2 ){
+   var subs = '' ;
+   
+   if(lengthOfArray(s) === 0 || (!parseInt(p1) && !parseInt(p2)) ){
+     return '' ;
+   }
+   if(p1 > p2){
+    var buf =  p1 ;
+        p1 = p2 ;
+        p2 = buf ;
+   }
+   
+   if(p2 === undefined ){
+    p2 = lengthOfArray(s)  ;
+   }
+   for(var i = p1 ; i < p2 ; i++){
+    subs += s[i] ;
+   }
+   return subs ;
+  }//End of subString( s, p1 , p2 )
+
+
+  function getTsFromString(ts){
+    if(!ts){ 
+        var ts = '291杜牧：泊秦淮\n烟笼寒水月笼沙，夜泊秦淮近酒家。商女不知亡国恨，隔江犹唱《后庭花》。\n292杜牧：寄扬州韩绰判官\n青山隐隐水迢迢，秋尽江南草未凋。二十四桥明月夜，玉人何处教吹箫？\n293杜牧：遣怀\n落魄江湖载酒行，楚腰纤细掌中轻。十年一觉扬州梦，赢得青楼薄幸名。\n294杜牧：秋夕\n银烛秋光冷画屏，轻罗小扇扑流萤。天阶夜色凉如水，坐看牵牛织女星。\n295杜牧：赠别二首之一\n娉娉袅袅十三馀，豆蔻梢头二月初。春风十里扬州路，卷上珠帘总不如。\n296杜牧：赠别二首之二\n多情却似总无情，唯觉樽前笑不成。蜡烛有心还惜别，替人垂泪到天明。\n297杜牧：金谷园\n繁华事散逐香尘，流水无情草自春。日暮东风怨啼鸟，落花犹似坠楼人。\n298李商隐：夜雨寄北\n君问归期未有期，巴山夜雨涨秋池。何当共剪西窗烛，却话巴山夜雨时？\n299李商隐：寄令狐郎中\n嵩云秦树久离居，双鲤迢迢一纸笔。休问梁园旧宾客，茂陵秋雨病相如。\n300李商隐：为有\n为有云屏无限娇，凤城寒尽怕春宵。无端嫁得金龟婿，辜负香衾事早朝。\n301李商隐：隋宫\n乘兴南游不戒严，九重谁省谏书函？春风举国裁宫锦，半作障泥半作帆。\n302李商隐：瑶池\n瑶池阿母绮窗开，黄竹歌声动地哀。八骏日行三万里，穆王何事不重来？\n303李商隐：嫦娥\n云母屏风烛影深，长河渐落晓星沈。嫦娥应悔偷灵药，碧海青天夜夜心。\n304李商隐：贾生\n宣室求贤访逐臣，贾生才调更无伦。可怜夜半虚前席，不问苍生问鬼神！\n' ;
+    }
+
+   var tsTitles = [] ; //用来存放每首唐诗的标题
+   var tsPoets = [] ; //用来存放每首唐诗的诗文
+   var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
+   //console.log(tsPosArr) ;
+   var titleBegin = 0 ,
+       titleEnd = tsPosArr[0] ,
+       poetBegin = titleEnd + 1 ,
+       poetEnd = tsPosArr[0+1] ;
+       tsNumber = lengthOfArray( tsPosArr ) /2 ;
+   for(var num = 1 ; num <= tsNumber ; num++){
+    var tsTitle = subString(ts , titleBegin , titleEnd) ;
+        tsTitles[ lengthOfArray(tsTitles) ] = tsTitle ;
+
+    var tsPoet = subString(ts , poetBegin , poetEnd) ;
+        tsPoets[ lengthOfArray(tsPoets) ] = tsPoet ;
+
+      titleBegin = poetEnd + 1 ;
+      titleEnd = tsPosArr[num * 2 ] ;
+      poetBegin = titleEnd + 1 ;
+      poetEnd = tsPosArr[num * 2 + 1] ;
+   }  //循环处理每首唐诗结束
+
+    // 本例继续处理tsTitles和tsPoets，实现诗文在每句独立出来，也让唐诗数据有更易理解，让写代码更方便使用的数据结构。
+    // ts[ [唐诗1数组：标题1 ,  诗句1 , 诗句2 , ...]  , [唐诗2数组] ... ]
+     ts = [] ;
+     for(var i = 0 ; i < tsNumber ; i++ ){
+       var poet = [] ;
+        //用创建的subString函数，把标题中的3位数字的文本编号消除
+        poet[0] = subString(tsTitles[i], 3 ) ;
+        //再使用自创的search函数找到唐诗标题中的冒号--：，删除冒号后并把书名号包住古诗标题 。
+        var maohao = search(poet[0],'：')[0] ;
+        poet[0] = subString(poet[0],0,maohao) + ' 《' + subString(poet[0],maohao+1) + '》'   ;
+        poetContent = tsPoets[i] ;
+        var j = 0 ; //记录唐诗诗文字符串的下标索引
+        var s = '' ; //存放单独成句的每句唐诗
+        while( poetContent[j] ){
+         var sign = poetContent[j] ;
+         if(sign == '，' || sign == '。' || sign == '！' || sign == '？' ){
+          s += sign  ; 
+          poet[ lengthOfArray(poet) ] = s ;
+          s = '' ;
+         }else{
+          s += sign  ; 
+         }
+          j++ ;
+        }
+       ts[ lengthOfArray(ts) ] = poet ;
+     }
+     return ts ;
+   }//End of getTsFromString()
+
+  </script>
+ </head>
+  
+ <body>
+  
+  <header>
+    欢迎打开《唐诗三百首》软件
+  </header>
+
+  <nav>
+    <ul>
+	 导航按钮<br/>
+	  <li id = "begin" onclick="tsBegin()"> 开始 </li> 
+	  <li id = "next"  onclick="tsNext()"> 向后 </li> 
+	  <li id = "prev" onclick="tsPrev()"> 向前</li> 
+    <li id = "search" onclick="tsSearch()"> 搜索</li> 
+	  <li id = "end" onclick="tsEnd()"> 结束</li> 
+   </ul>
+  </nav>
+  <article>
+    
+	 <strong>搜索实现和完善 </strong>
+ 
+   <img src="../images/girl2.jpg">
+
+   </article>
+  <footer>
+    Box-Model & Float & Position  By 健宏Li CopyRight 2022
+  </footer>
+  
+  <script>
+
+  
+  var ts = getTsFromString(ts300) ;
+  /**** 注意：按getTsFromString的算法设计，变量ts的数据结构为：
+   // ts[ [唐诗1数组：标题1 ,  诗句1 , 诗句2 , ...]  , [唐诗2数组] ... ]
+   ****/
+  $('本APP收录唐诗共计：' + lengthOfArray(ts)  + ' 首。' ) ;
+ 
+  var poetSn = 0 ;
+
+  function tsBegin(){
+	  my$('第一首唐诗！') ;
+    poetSn = 0 ;  
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+   }
+
+   function tsNext(){
+	  if(poetSn === lengthOfArray(ts) - 1){
+        poetSn = 0 ;
+     }else{
+        poetSn ++ ;
+     }
+    my$('第' +  (poetSn + 1) + '首唐诗。') ;
+    
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+  }  
+
+  function tsPrev(){
+	 if(poetSn === 0){
+        poetSn = lengthOfArray(ts) - 1  ;
+     }else{
+        poetSn -- ;
+    }
+    my$('第' +  (poetSn + 1) + '首唐诗。') ;
+
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+  }
+
+  
+  function tsSearch(){
+
+    var substr = prompt('请输入搜索关键字：(默认：王维)') ;
+    if(lengthOfArray(substr)===0){
+        substr = '王维' ;
+    }
+    var foundArr = [] ;
+    for(var i= 0 ; i < lengthOfArray(ts) ; i++ ){
+        var poet = ts[i] ;
+        for(var j=0; j < lengthOfArray(poet) ; j++){
+            if( isFound(poet[j] , substr )){
+                foundArr[ lengthOfArray(foundArr) ] = [i , j ] ;
+            }
+        }
+    }
+    
+    my$('通过 \"'+ substr + '\"搜到唐诗：' +  lengthOfArray(foundArr) + '首！' + '请使用导航栏浏览搜到的结果。' ) ;
+    
+    /****规划设计，通过UI导航的 开始、向前 、向后、结束的 按钮互动方式
+     在此对搜索结果：foundArr二维数组 和 ts 唐诗数据 进行分析，利用全局变量poetSn 记录每次导航位置
+     ，再通过设计一些算法，实现这四个按钮把搜到的古诗输出到Web页面
+     ***********/
+    poseSn = 0 ;
+    //foundArr虽然是函数tsSearch内的局部变量，但此时对于下面四个函数，却写在这四个函数外部，相当于全局变量，这也是JavaScript的特色语法，称为 lexical 语法结构。
+    tsBegin = function(){
+       my$('\''+ substr + '\'' + ' 第一首唐诗。') ;
+       poseSn = 0 ;
+       var poet = ts[foundArr[poetSn][0]] ;
+       //console.log(foundArr);
+       showTs(poet) ;
+    } ; //end of tsBegin
+    tsNext = function(){
+        if(poetSn < lengthOfArray(foundArr) -1){
+            poetSn ++ ;
+        }else{
+            poetSn = 0 ;
+        }
+       my$('\''+ substr + '\''+ '--第' +  (poetSn + 1) + '首唐诗。') ;
+       var poet = ts[foundArr[poetSn][0]] ;
+       showTs(poet) ;
+    } ;
+    tsPrev = function(){
+        if(poetSn > 0){
+            poetSn -- ;
+        }else{
+            poetSn = lengthOfArray(foundArr) -1 ;
+        }
+       my$('\''+ substr + '\''+ '--的第'  + (poetSn + 1) + '首唐诗。') ;
+        var poet = ts[foundArr[poetSn][0]] ;
+       showTs(poet) ;
+    } ;
+    tsEnd =  function(){
+       poetSn = lengthOfArray(foundArr) -1 ;
+       var poet = ts[foundArr[poetSn][0]] ;
+       my$('\''+ substr + '\''+ '--最后一首唐诗。') ;
+       showTs(poet) ;
+    } ;
+    
+    //再次利用函数概念，把需要重复的代码打包为showTs(poet) , 注意传入的参数，做好代码不同模块的分工
+     function showTs(poet){
+        for(var i= 0 ; i< lengthOfArray(poet) ;i++){
+         if(foundArr[poetSn][1] === i ) {
+            $(poet[i] + '-key') ;
+         }else{
+            $(poet[i] ) ;
+         }
+        }
+     }
+
+     function isFound( str , substr){
+      var i = 0 ;
+      var foundIt = false ;
+      while( str[i]){
+        for(var j = 0 ; j < lengthOfArray(substr) ; j++){
+           if(str[i+j] !== substr[j]){
+            break ;
+           }
+        }
+        if(j === lengthOfArray(substr)){
+           foundIt = true ;
+           break ;
+         }
+        i++ ; 
+      }
+     return foundIt ; 
+    }//End of isFound function
+  } //tsSearch Function
+
+  function tsEnd(){
+    my$('本系统内最后一首唐诗') ;
+    poetSn = lengthOfArray(ts) -1 ;
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+      $( poet[j] );
+    } 
+  } 
+
+  $('本《唐诗三百首》程序已初步完成，不到300行精炼的代码，所用的语句、语法与传统C语言完全一致。' ) ;
+  $('因此，让初学者在学习初期，能把写代码的核心放在分析问题，解决问题，训练思维上。') ;
+  $('为解决问题，还实现了一些朴素的数据结构和算法，能把代码写到这里的初学者，早已超越了《大学Web程序设计基础》的教学目标！' ) ;
+  $('或许您准备好了进入下一阶段的课程---《Web前端程序设计进阶》，这门课的内容开始真正探索Web领域的软件开发方法，课程的核心是学习面向对象程序设计思想、EcmaScript的一些核心概念、及其华丽的语法。') ; 
+   
+
+ </script>
+
+ </body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例开始探索如何实现“ 搜索 ”唐诗内容的功能，尝试tsSearch()函数的代码设计。
+    本例增加的主要代码都集中在tsSearch()函数内部，根据唐诗的数组ts的数据结构 ，我们将设计一个算法来遍历ts数组，分为2个层次的循环进行，第一个层次是从1到310的每首唐诗，第二个层次是每首唐诗的内容。
+    根据代码对比分析的结果，我们再动态生成foundArr数组，用来记录匹配关键字的唐诗编号，以及所在的行号。
+    我们还初探了在tsSearch函数中设计新函数isFound，这个函数分别使用while和for循环，用来判断对主字符串是否包含某子字符串，包含的朴素算法和变量的设计，都比较精巧，值得初学者多去体验，训练好逻辑思维和计算思维。
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+  <script src="ts300.js"></script>
+
+ </head>
+  <script>
+ 
+  function search( s , ch){
+     var i = 0 ;
+     var posAarr = [] ;
+     while( s[i] ){
+      if(s[i] === ch){
+         posAarr[ lengthOfArray(posAarr) ] = i ;
+         }
+      i++ ; 
+     }
+     return posAarr ; 
+     //字符串每个字符都遍历结束了，则返回数组。
+   }//End search function
+ 
+
+ //一个基本函数，用来返回数组或字符串的长度。
+ function lengthOfArray(arr){
+   var length = 0 ;
+   var i = 0 ;
+  while( arr[i] ) {
+   length = length + 1 ;
+   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+   }
+  return length ;
+ }//End of function lengthOfArray(arr)
+
+
+ function subString( s, p1 , p2 ){
+   var subs = '' ;
+   if(lengthOfArray(s) === 0 || (!parseInt(p1) && !parseInt(p2)) ){
+     return '' ;
+   }
+   if(p1 > p2){
+    var buf =  p1 ;
+        p1 = p2 ;
+        p2 = buf ;
+   }
+   
+   if(p2 === undefined ){
+    p2 = lengthOfArray(s)  ;
+   }
+   for(var i = p1 ; i < p2 ; i++){
+    subs += s[i] ;
+   }
+   return subs ;
+  }//End of subString( s, p1 , p2 )
+
+
+ function getTsFromString(ts){
+    if(!ts){ 
+        var ts = '291杜牧：泊秦淮\n烟笼寒水月笼沙，夜泊秦淮近酒家。商女不知亡国恨，隔江犹唱《后庭花》。\n292杜牧：寄扬州韩绰判官\n青山隐隐水迢迢，秋尽江南草未凋。二十四桥明月夜，玉人何处教吹箫？\n293杜牧：遣怀\n落魄江湖载酒行，楚腰纤细掌中轻。十年一觉扬州梦，赢得青楼薄幸名。\n294杜牧：秋夕\n银烛秋光冷画屏，轻罗小扇扑流萤。天阶夜色凉如水，坐看牵牛织女星。\n295杜牧：赠别二首之一\n娉娉袅袅十三馀，豆蔻梢头二月初。春风十里扬州路，卷上珠帘总不如。\n296杜牧：赠别二首之二\n多情却似总无情，唯觉樽前笑不成。蜡烛有心还惜别，替人垂泪到天明。\n297杜牧：金谷园\n繁华事散逐香尘，流水无情草自春。日暮东风怨啼鸟，落花犹似坠楼人。\n298李商隐：夜雨寄北\n君问归期未有期，巴山夜雨涨秋池。何当共剪西窗烛，却话巴山夜雨时？\n299李商隐：寄令狐郎中\n嵩云秦树久离居，双鲤迢迢一纸笔。休问梁园旧宾客，茂陵秋雨病相如。\n300李商隐：为有\n为有云屏无限娇，凤城寒尽怕春宵。无端嫁得金龟婿，辜负香衾事早朝。\n301李商隐：隋宫\n乘兴南游不戒严，九重谁省谏书函？春风举国裁宫锦，半作障泥半作帆。\n302李商隐：瑶池\n瑶池阿母绮窗开，黄竹歌声动地哀。八骏日行三万里，穆王何事不重来？\n303李商隐：嫦娥\n云母屏风烛影深，长河渐落晓星沈。嫦娥应悔偷灵药，碧海青天夜夜心。\n304李商隐：贾生\n宣室求贤访逐臣，贾生才调更无伦。可怜夜半虚前席，不问苍生问鬼神！\n' ;
+    }
+   
+   
+   var tsTitles = [] ; //用来存放每首唐诗的标题
+   var tsPoets = [] ; //用来存放每首唐诗的诗文
+   var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
+   //console.log(tsPosArr) ;
+   var titleBegin = 0 ,
+       titleEnd = tsPosArr[0] ,
+       poetBegin = titleEnd + 1 ,
+       poetEnd = tsPosArr[0+1] ;
+       tsNumber = lengthOfArray( tsPosArr ) /2 ;
+   for(var num = 1 ; num <= tsNumber ; num++){
+    var tsTitle = subString(ts , titleBegin , titleEnd) ;
+        tsTitles[ lengthOfArray(tsTitles) ] = tsTitle ;
+
+    var tsPoet = subString(ts , poetBegin , poetEnd) ;
+        tsPoets[ lengthOfArray(tsPoets) ] = tsPoet ;
+
+      titleBegin = poetEnd + 1 ;
+      titleEnd = tsPosArr[num * 2 ] ;
+      poetBegin = titleEnd + 1 ;
+      poetEnd = tsPosArr[num * 2 + 1] ;
+   }  //循环处理每首唐诗结束
+
+    // 本例继续处理tsTitles和tsPoets，实现诗文在每句独立出来，也让唐诗数据有更易理解，让写代码更方便使用的数据结构。
+    // ts[ [唐诗1数组：标题1 ,  诗句1 , 诗句2 , ...]  , [唐诗2数组] ... ]
+     ts = [] ;
+     for(var i = 0 ; i < tsNumber ; i++ ){
+       var poet = [] ;
+        //本例用新创建的subString函数，把标题中的3位数字的文本编号消除
+        poet[0] = subString(tsTitles[i], 3 ) ;
+        poetContent = tsPoets[i] ;
+        var j = 0 ; //记录唐诗诗文字符串的下标索引
+        var s = '' ; //存放单独成句的每句唐诗
+        while( poetContent[j] ){
+         var sign = poetContent[j] ;
+         if(sign == '，' || sign == '。' || sign == '！' || sign == '？' ){
+          s += sign  ; 
+          poet[ lengthOfArray(poet) ] = s ;
+          s = '' ;
+         }else{
+          s += sign  ; 
+         }
+          j++ ;
+        }
+       ts[ lengthOfArray(ts) ] = poet ;
+     }
+     return ts ;
+   }//End of getTsFromString()
+
+  </script>
+ <body>
+  
+  <header>
+    欢迎打开《唐诗三百首》软件
+  </header>
+
+  <nav>
+    <ul>
+	 导航按钮<br/>
+	  <li id = "begin" onclick="tsBegin()"> 开始 </li> 
+	  <li id = "next"  onclick="tsNext()"> 向后 </li> 
+	  <li id = "prev" onclick="tsPrev()"> 向前</li> 
+    <li id = "search" onclick="tsSearch()"> 搜索</li> 
+	  <li id = "end" onclick="tsEnd()"> 结束</li> 
+   </ul>
+  </nav>
+  <article>
+    
+	 <strong>数据结构和算法 </strong>
+    <img src="../images/girl2.jpg">
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li健宏 CopyRight 2022
+  </footer>
+  
+  <script>
+
+ 
+  
+  var ts = getTsFromString(ts300) ;
+  /**** 注意：按getTsFromString的算法设计，变量ts的数据结构为：
+   // ts[ [唐诗1数组：标题1 ,  诗句1 , 诗句2 , ...]  , [唐诗2数组] ... ]
+   ****/
+  $('本APP收录唐诗共计：' + lengthOfArray(ts)  + ' 首。' ) ;
+ 
+  
+
+var poetSn = 0 ;
+
+  function tsBegin(){
+	 my$('第一首唐诗！') ;
+    poetSn = 0 ;  
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+   }
+
+   function tsNext(){
+	  if(poetSn === lengthOfArray(ts) - 1){
+        poetSn = 0 ;
+     }else{
+        poetSn ++ ;
+     }
+    my$('第' +  (poetSn + 1) + '首唐诗。') ;
+    
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+  }  
+
+  function tsPrev(){
+	 if(poetSn === 0){
+        poetSn = lengthOfArray(ts) - 1  ;
+     }else{
+        poetSn -- ;
+    }
+    my$('第' +  (poetSn + 1) + '首唐诗。') ;
+
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+  }
+
+  //本例开始探索如何实现“搜索”唐诗内容的功能
+  function tsSearch(){
+
+    var substr = prompt('请输入搜索关键字：(默认：王维)') ; 
+    //充分利用本课程要求学习的，也是最简便的输入方法prompt。我们允许用户什么都不输入，默认搜索 '王维'
+    if(lengthOfArray(substr)===0){
+        substr = '王维' ;
+    }
+    //唐诗的数组 ，ts的数据结构是一个数组，每个元素是一个字符串数组， 我们的下面代码就是遍历ts数组。
+    //遍历ts数组分为2个层次，第一个层次是从1到310的每首唐诗，第二个层次是每首唐诗的内容，由行组成的数组，而每行则是字符串。
+    //根据这个数据结构，我们使用二层for循环来分析对比用户输入的substr字符串。
+    var foundArr = [] ; 
+    //把搜到的数字信息存放在此，foundArr每个元素都是一个只有二个数字的数组，这二个数字分别是匹配substr的唐诗编号，以及substr所在的行号 。
+
+    for(var i= 0 ; i < lengthOfArray(ts) ; i++ ){
+        var poet = ts[i] ;
+        for(var j=0; j < lengthOfArray(poet) ; j++){
+            if( isFound(poet[j] , substr )){  
+       //自定义函数 isFound( str , substr) ，若 str 包含 substr ，返回true。
+                foundArr[ lengthOfArray(foundArr) ] = [i , j ] ;
+            }
+          }
+         
+    }
+    
+    my$('通过 \"'+ substr + '\"搜到唐诗：' +  lengthOfArray(foundArr) + '首！' ) ;
+    for( i=0 ; i< lengthOfArray(foundArr) ; i++){
+        $('No.' + (foundArr[i][0]+1) +'首，' + '第'+ (foundArr[i][1]+1) + ' 行。')
+    }
+    
+  //下面的isFound函数写在tsSearch函数内部，这种函数中包含函数的写法，属于JavaScript的特色，对于初学者，这个做法可能会超出理解，我们在这个案例中，这样作的目的算是向初学者略微显露下一步进阶的内容。
+  //这样的代码组织安排，让isFound函数在程序全局不可见，而仅仅在tsSearch函数内部可以使用，类似函数内部的局部变量。
+     function isFound( str , substr){
+      var i = 0 ;
+      var foundIt = false ;
+      //console.log(substr) ;
+       // 下面使用while和for二层循环实现的，str字符串是否包含子串substr的算法，逻辑清晰，对字符理解运用比较精巧，值得初学者多多体验。
+      while(str[i]){
+        var j  ;
+        for(j = 0 ; j < lengthOfArray(substr) ; j++) {
+          if(str[i+j] !== substr[j]){
+            break ;
+            // break语句可以让程序从未完成的循环中跳出来，跳出来后的变量j
+          }
+        }
+        if( j === lengthOfArray(substr)  ){
+          foundIt = true ;
+         }
+        i++;
+       }
+ 
+    /*
+     注释部分是使用JavaScript字符串对象的方法轻易实现的代码，虽然这样可以让我们不去研究和实现算法，但对大学初学编程的朋友，在计算思维还未开发完善之前，最好不要提前学习这些所谓的“技术”，思维偷懒的结果是对深刻的知识只会浅尝辄止。随着学习深入，因没有真正理解代码的底层逻辑，解决复杂问题的思路往往不够清晰，解决问题的方法也处于局限于经验和简单重复之中，永远无法真正实现创新。
+      if(str.indexOf(substr) !== -1) {
+         foundIt = true;
+       } 
+     我们用这个注释代码来验证自己的代码和算法，是否完全实现了JavaScript内置的indexOf函数的功能？
+     */
+     return foundIt ; 
+    }//End of isFound function
+  } //tsSearch Function
+  /* 本例衍生出来的算法改错题，下面算法以“李白”、“杜甫”可以搜索到唐诗， 但以“长恨歌”、“清平调”等关键字搜索为例，下面的isFound函数的算法为何搜不到对应唐诗 。
+      function isFound( str , substr){
+       var foundIt = false ;
+       var i = 0 ;
+       while( str[i] === substr[0] ) {
+        var j  ;
+        for(j = 1 ; j < lengthOfArray(substr) ; j++) {
+          if(str[i+j] !== substr[j]){
+            break ;
+           }
+        }
+        if( j === lengthOfArray(substr)  ){
+          foundIt = true ;
+         }
+        i++;
+       }
+      return foundIt ; 
+    }//End of isFound function
+  算法分析和改错题结束 ******/
+
+  function tsEnd(){
+    my$('本系统内最后一首唐诗') ;
+    poetSn = lengthOfArray(ts) -1 ;
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+      $( poet[j] );
+    } 
+  } 
+   
+  $('项目第4步，体验"数据结构和算法"结束！' ) ;
+  $('下一步，我们将探索，如何利用原导航栏的UI界面，显示搜索结果。' ) ;
+
+ </script>
+
+ </body>
+</html>

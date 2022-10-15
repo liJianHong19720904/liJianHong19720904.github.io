@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    我们把前面课程自创的处理字符串的代码用函数包装起来，简称封装成为函数。在后面的代码中，根据需要给作为编程者的我们反复使用。
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+
+ 
+ </head>
+
+ <body>
+  
+  <header>
+   JavaScript的输出
+  </header>
+
+  
+  <article>
+    
+	<strong> 创作函数，目的，意义 </strong>
+  <img src="../images/girl2.jpg">
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li CopyRight 2022
+  </footer>
+  
+  <script>
+
+  //有了函数的概念，初学者可以这样构想：我们可以大胆地精心设计的一个基础性功能代码，利用函数包装起来，供我们未来的程序调用，就像构建一个一个质量合格地零件，通过这些零件，再组装成更强大的部分，最终把功能强大的软件搭建起来。
+
+
+   
+  //下面我们基本的函数，search(s , ch) ，利用这个函数，我们可以得到字符ch在字符串 s 的每次出现的索引位置，结果以数组形式返回。
+  function search( s , ch){
+     var i = 0 ;
+     var posAarr = [] ;
+     while( s[i] ){
+      if(s[i] === ch){
+         posAarr[ lengthOfArray(posAarr) ] = i ;
+         }
+      i++ ; //忘写本句，代码会陷入死循环
+     }
+     return posAarr ; //字符串每个字符都遍历结束了，则返回数组，即时没有匹配一个，返回的空数组也能为后续写代码带来帮助。
+   }//End search function
+
+ //一个基本函数，用来返回数组或字符串的长度。
+ function lengthOfArray(arr){
+   var length = 0 ;
+   var i = 0 ;
+  while( arr[i] ) {
+   length = length + 1 ;
+   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+   }
+  return length ;
+ }//End of function lengthOfArray(arr)
+
+ //本例再增加一个字符串处理的基本函数 —— substring(s,p1,p2) ，用来返回字符串s的子串，参数中 ，s为传入的字符串，运行substring函数则把字符串s的下标从p1至p2的子字符串取出返回，其中子串包含p1位置，而不包含p2位置。若仅存在p1参数，则子串的产生则是从s的p1到s的最后结束位置。
+ // 注：上述我们计划设计的substring函数这些规则，也是JavaScript内置系统字符串对象的substring方法的基本规则，我们在此用自己的代码来再次实现这个系统方法。在此回答广大学习者的一个学习中的疑问，为什么系统已经有的函数，初学者不去直接使用，而是要去尝试自己实现？这是不是“重复造轮子” ？  初学者要以自己的背景要区分这件事，有二种背景，一是你现处于建立自己的理解体系和锻炼代码能力的时候， 二是你已经具备了很强的代码和算法能力。如果是第一种情况，这些抽象能力的锻炼和对底层方法理解是非常重要的，否则你写得代码会永远停留在较低水平。如果是第二种情况，除非为了训练写算法的思维，你当然不需要浪费时间去重复写已经掌握的代码和算法，更无须面对写软件工作量较大的时候，不使用现成的工具，而去临时制造工具，这种情况就是“重复造轮子”。
+ function subString( s, p1 , p2 ){
+   var subs = '' ;
+   //下面这个逻辑规范传入的参数，初学者可能比较难理解条件 (!parseInt(p1) && !parseInt(p2)) ，条件只有是参数p1和p2同时不合格，比如这两个参数都不存在，或者都错误，则没有计算子串的意义。
+   if(lengthOfArray(s) === 0 || (!parseInt(p1) && !parseInt(p2)) ){
+     return '' ;
+   }
+   if(p1 > p2){
+    var buf =  p1 ;
+        p1 = p2 ;
+        p2 = buf ;
+   }
+   //下面这个逻辑，让调用subString函数时，可以漏掉p2，此时对于我们前面设计的规则，则要明确把p2计算到字符结束位置，在JavaScript的函数引用中，形参未传入实参，在函数运行时，该形参变量被设定为undefined 。
+   if(p2 === undefined ){
+    p2 = lengthOfArray(s)  ;
+   }
+   for(var i = p1 ; i < p2 ; i++){
+    subs += s[i] ;
+   }
+   return subs ;
+  }//End of subString( s, p1 , p2 )
+
+
+
+ //为了让函数返getTsFromString回的唐诗数据更好使用，本例继续写出完整的getTsFromString函数，设计如下：
+ // 1.返回一个二维数组，数组中每个元素都是一首唐诗, 唐诗以字符串数组形式存放。
+ // 2.在每首唐诗数组ts中，显然，ts[0]表示标题，而ts[1] , ts[2] ... 则是每句诗文，用lengthOfArray(ts) - 1 ,则可以获知唐诗诗文的句子数量。
+ // 3.每句诗文以逗号、句号、问好、惊叹号结束，这需要本次我们在函数中，设计算法将诗文字符串再进行分析和处理。
+ function getTsFromString(ts){
+    if(!ts){ 
+        var ts = '291杜牧：泊秦淮\n烟笼寒水月笼沙，夜泊秦淮近酒家。商女不知亡国恨，隔江犹唱《后庭花》。\n292杜牧：寄扬州韩绰判官\n青山隐隐水迢迢，秋尽江南草未凋。二十四桥明月夜，玉人何处教吹箫？\n293杜牧：遣怀\n落魄江湖载酒行，楚腰纤细掌中轻。十年一觉扬州梦，赢得青楼薄幸名。\n294杜牧：秋夕\n银烛秋光冷画屏，轻罗小扇扑流萤。天阶夜色凉如水，坐看牵牛织女星。\n295杜牧：赠别二首之一\n娉娉袅袅十三馀，豆蔻梢头二月初。春风十里扬州路，卷上珠帘总不如。\n296杜牧：赠别二首之二\n多情却似总无情，唯觉樽前笑不成。蜡烛有心还惜别，替人垂泪到天明。\n297杜牧：金谷园\n繁华事散逐香尘，流水无情草自春。日暮东风怨啼鸟，落花犹似坠楼人。\n298李商隐：夜雨寄北\n君问归期未有期，巴山夜雨涨秋池。何当共剪西窗烛，却话巴山夜雨时？\n299李商隐：寄令狐郎中\n嵩云秦树久离居，双鲤迢迢一纸笔。休问梁园旧宾客，茂陵秋雨病相如。\n300李商隐：为有\n为有云屏无限娇，凤城寒尽怕春宵。无端嫁得金龟婿，辜负香衾事早朝。\n301李商隐：隋宫\n乘兴南游不戒严，九重谁省谏书函？春风举国裁宫锦，半作障泥半作帆。\n302李商隐：瑶池\n瑶池阿母绮窗开，黄竹歌声动地哀。八骏日行三万里，穆王何事不重来？\n303李商隐：嫦娥\n云母屏风烛影深，长河渐落晓星沈。嫦娥应悔偷灵药，碧海青天夜夜心。\n304李商隐：贾生\n宣室求贤访逐臣，贾生才调更无伦。可怜夜半虚前席，不问苍生问鬼神！\n' ;
+    }
+    
+    //我们可以发现唐诗的文本规律， 第一个\n标志着唐诗标题的结束，第二个\n标志着唐诗诗文的结束，以此类推，如果把这些位置信息放在以一个数组中，配合适当算法，我们就可以利用这个数组来定位每首唐诗。
+   //因此我们利用search函数把每首唐诗开始和结束位置存放到一个数组中返回，再利用这个规律写出算法，把唐诗数据以数组的形式处理出来，由本函数返回给外界。
+   var tsTitles = [] ; //用来存放每首唐诗的标题
+   var tsPoets = [] ; //用来存放每首唐诗的诗文
+   var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
+   var titleBegin = 0 ,
+       titleEnd = tsPosArr[0] ,
+       poetBegin = titleEnd + 1 ,
+       poetEnd = tsPosArr[0+1] ;
+       tsNumber = lengthOfArray( tsPosArr ) /2 ;
+   for(var num = 1 ; num <= tsNumber ; num++){
+    /**
+      var tsTitle = '' ;
+      for(var i = titleBegin ; i < titleEnd ; i++ ){
+       tsTitle += ts[i] ;
+      }
+      **/
+      var tsTitle = subString(ts , titleBegin , titleEnd) ;
+          tsTitles[ lengthOfArray(tsTitles) ] = tsTitle ;
+     
+    /**
+      var tsPoet = '' ;
+      for(var i = poetBegin ; i < poetEnd ; i++){
+      tsPoet += ts[i] ;
+       }
+    **/ 
+    var tsPoet = subString(ts , poetBegin , poetEnd) ;
+        tsPoets[ lengthOfArray(tsPoets) ] = tsPoet ;
+
+      titleBegin = poetEnd + 1 ;
+      titleEnd = tsPosArr[num * 2 ] ;
+      poetBegin = titleEnd + 1 ;
+      poetEnd = tsPosArr[num * 2 + 1] ;
+   }  //循环处理每首唐诗结束
+   
+    // 本例继续处理，实现诗文在每句独立出来，也让唐诗数据有更易理解，让写代码更方便使用的数据结构。
+    // ts[ [唐诗1数组：标题1 ,  诗句1 , 诗句2 , ...]  , [唐诗2数组] ... ]
+     ts = [] ;
+     for(var i = 0 ; i < tsNumber ; i++ ){
+       var poet = [] ;
+        //本例用新创建的subString函数，把标题中的3位数字的文本编号消除
+        poet[0] = subString(tsTitles[i], 3 ) ;
+        poetContent = tsPoets[i] ;
+        var j = 0 ; //记录唐诗诗文字符串的下标索引
+        var s = '' ; //存放单独成句的每句唐诗
+        while( poetContent[j] ){
+         var sign = poetContent[j] ;
+         if(sign == '，' || sign == '。' || sign == '！' || sign == '？' ){
+          s += sign  ; 
+          poet[ lengthOfArray(poet) ] = s ;
+          s = '' ;
+         }else{
+          s += sign  ; 
+         }
+          j++ ;
+        }
+       ts[ lengthOfArray(ts) ] = poet ;
+     }
+
+     return ts ;
+  
+  }//End of getTsFromString()
+
+
+  //在getTsFromString函数外面，我们调用getTsFromString() 获取唐诗数组，定义全局变量ts 存放函数的返回值。
+  var ts = getTsFromString() ;
+  /**** 注意：按getTsFromString的算法设计，变量ts的数据结构为：
+   // ts[ [唐诗1数组：标题1 ,  诗句1 , 诗句2 , ...]  , [唐诗2数组] ... ]
+   ****/
+  $('ts文本内唐诗共计：' + lengthOfArray(ts)  + ' 首。' ) ;
+  
+  $('下面输出唐诗数组中，下标索引为偶数的唐诗：' ) ;
+  for (i=0 ; i < tsNumber ; i += 2){
+    var poet = ts[i] ;
+    $('No.' + i + ':');
+    for(j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+  }
+
+ </script>
+
+ </body>
+</html>

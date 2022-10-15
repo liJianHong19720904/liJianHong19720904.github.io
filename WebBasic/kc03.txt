@@ -1,8 +1,7 @@
 ﻿1.title
-Write Character By HTML （HTML语言能表达的字符）
+ Charset And Characters in HTML （HTML语言和存盘字符集）
 2.introduction
-区区101键盘对人类文明的庞大的字符体系的表达，是很局限的，而利用HTML语言的字符实体概念和表达，我们可以实现一些常见的，却无法用键盘直接输入的字符写法 。
-例如，书写中国以外其他文明的字符（非英语）。
+区区101键盘对人类文明的庞大的字符体系的表达，是很局限的，而利用HTML语言的字符实体概念和表达，我们可以实现一些常见的，却无法用键盘直接输入的字符写法 。例如：在文本中输入中文以外其他文明的字符（非英语）。
 
 3.keyword
 html ，Character Entities ，&nbsp; ，meta ，UTF-8 ，ANSI ， emoji图形字符。 
@@ -10,8 +9,11 @@ html ，Character Entities ，&nbsp; ，meta ，UTF-8 ，ANSI ， emoji图形字
 <a src=001.html title=HTML语言表达的字符实体> 本案例演示通过HTML语言表达的字符实体（Character Entities）。
 <a src=002.html title=其他文明的文字> 本案例演示HTML语言用编码，来表达其他文明的文字。
 <a src=003.html title=ANSI编码存盘网页文件的问题>本案例演示错误网页，文档故意使用非标准的ANSI编码，来存盘网页文件，  导致非英语文明字符无法显示。。
-<a src=004.html title=meta中表明本文件使用了ANSI字符集> 在上一例中，我们已经证明这会导致非英语文明字符无法显示，  但本例则在上面代码中，我们用meta中表明本文件使用了ANSI字符集， 因此本网页文档可以在浏览器中正常显示，尽管在多数代码编辑器中，也许中文还是处于乱码状态。
+<a src=004.html title=meta中表明本文件使用了ANSI字符集> 在上一例中，我们已经证明这会导致非英语文明字符无法显示，  但本例则在代码中，用meta中表明本文件使用了ANSI字符集， 本网页文档可以在PC平台的浏览器中正常显示，而在安卓平台的浏览器中我们的中文还处于乱码状态。而在多数代码编辑器中，中文大概率还是处于乱码状态，建议对本例的编辑使用window的记事本，将读盘和存盘的字符集设定为ANSI字符集即可。
 <a src=005.html title=emoji图形字符>本案例演示最近几年开始标准化的emoji图形字符。
 5.reading
-<img src=tag.png>
-<img src=attribute.png>
+Introducing Unicode
+All the characters that make up languages are stored in computers as numbers. A standardized collection of characters with their reference numbers (code points) is called a coded character set, and the way in which those characters are converted to bytes for use by computers is the character encoding. In the early days of computing, computers used limited character sets such as ASCII that contained 128 characters (letters from Latin languages, numbers, and common symbols). The early web used the Latin-1 (ISO 8859-1) character encoding that included 256 Latin characters from most Western languages. But given the web was “worldwide,” it was clearly not sufficient. 
+Enter Unicode. Unicode (also called the Universal Character Set) is a super-character set that contains over 136,000 characters (letters, numbers, symbols, ideograms, logograms, etc.) from all active modern languages. You can read all about it at unicode.org. Unicode has three standard encodings—UTF-8, UTF-16, and UTF-32—that differ in the number of bytes used to represent the characters (1, 2, or 3, respectively). 
+HTML5 uses the UTF-8 encoding by default, which allows wideranging languages to be mixed within a single document. It is always a good idea to declare the character encoding for a
+document with the meta element, as shown in the previous example. Your server also needs to be configured to identify HTML documents as UTF-8 in the HTTP header (information about the document that the server sends to the user agent). You can ask your server administrator to confirm the encoding of the HTML documents. 

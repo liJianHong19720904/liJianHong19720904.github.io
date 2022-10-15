@@ -1,0 +1,20 @@
+﻿1.title
+ Code  A Project of "300 Poets of TANG" （ 手写代码项目《唐诗三百首》）
+2.introduction
+   这是本课程的结束篇，我们将把包含310首唐诗文本作为数据，用来开发一个《唐诗三百首》软件项目，项目编写的基础代码为：
+ 1、引入myCss.css样式文件，目的是为了导入前面12课的HTML/CSS页面样式的一个成熟成果，让页面具备较好外观和导航。
+ 2、引入myJs.js 代码文件，目的是为了导入我特别为JavaScript初学者编写的，方便在Web页实现输出的全局函数，分别是 $和 my$，把字符串当作函数参数传入，即可实现在Web页的header区域实现具有较好视觉效果的输出，具体函数的代码属于高阶内容，我们在基础课只要会简单使用即可。
+ 3、 ts300.js 引入则是为了把《 唐诗三百首 》文本当作字符串变量引入，变量名ts300 ，内含明清时代整理的三百一十首唐诗。该文本已经被处理成为了字符串变量。
+ 4、本程序历经6个步骤，增加了4个基础函数用于字符串信息的底层处理，增加了8个函数用于按钮功能的实现。合理运用函数，加上良好的设计，可以有效地把局部代码和全局代码进行分割，让我们的程序更易于掌控，让代码运行实现我们的设计目标。
+3.keyword
+  $  ,  my$ , search , lengthOfArray  ,  subString  ，getTsFromString ，tsBegin  ，tsNext ，tsPrev ，tsSearch ，showTs ，isFound ，tsEnd。
+
+4.project
+<a src=001.html title=项目的代码组织架构 > 本例实现项目的代码组织架构 。
+<a src=002.html title=程序的UI> 本例实现程序的UI 。
+<a src=003.html title=全局变量的应用> 本例实现全局变量的应用 。
+<a src=004.html title=唐诗搜索的数据结构和算法探索> 本例实现唐诗搜索的数据结构和算法探索 。
+<a src=005.html title=函数表达式概念和运用> 本例实现函数表达式概念和运用 。
+<a src=006.html title=《 唐诗三百首*完美版》>  完善输出和细节，唐诗搜索功能的实现。
+5.reading
+The true programming language of the web, JavaScript lets you add behavior to your web pages. No more dry, boring, static pages that just sit there looking at you , with JavaScript you’re going to be able to reach out and touch your users, react to interesting events, grab data from the web to use in your pages, draw graphics right in your web pages and a lot more. And once you know JavaScript you’ll also be in a position to create totally new behaviors for your users.

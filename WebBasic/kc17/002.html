@@ -4,8 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    本例，我们把成熟的代码包装起来，封装成为函数，提供给程序反复使用。
-    
+    把成熟的代码包装起来，封装成为函数，可以提供给程序反复使用，人们可以避免重复的劳动，计算机也不需要冗余的代码，这是高级语言引入函数概念的初衷。
+    本例把三个自定函数全部放在代码最尾部，而函数调用则在定义之前，这种语法依然有效。本演示说明了在JavaScript中，函数定义形成的名字和代码块优先级是最高的，也就是说，无论函数在代码的何处定义，系统的编译都会把它门提升至代码最前面的位置，让程序中所有代码语句都能使用到自定义的函数。
+    本例还顺便引入代码循环结构的另一种语法，在循环次数明确的前提下，方便也不容易出错的 “ for循环语句 ” 。在上例二个自定义函数中，本例使用for循环对函数内代码进行了修改。
+    for语句的语法非常精炼： 
+    for(循环变量初始化 ; 循环条件 ; 循环变量的变化表达式){
+      循环体 
+    }
+    for循环在第一行语句，就写清晰了循环的三大重要逻辑，分别是：循环变量初始化、循环条件、循环变量的每次变化。在循环次数和条件比较确定的情况下，使用for结构比while结构更便利，代码也不太容易出错。
+
   </title>
   <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
   <script src="../images/myJs.js"></script>
@@ -22,21 +29,14 @@
   
   <article>
     
-	<strong> 函数 </strong>
+	 <strong> 函数 </strong>
+ 	 <img src="../images/girl2.jpg">
  
-    <p   class="preface">
-	   <img src="../images/girl2.jpg">
-     本例在理解JavaScript基本数据类型的基础上，开始学习强大而抽象的循环程序表达，并尝试设计有逻辑的代码，尝试利用多个变量控制循环代码的运行流程，实现字符串数据处理。涉及以下内容：
-     1、学习用代码表达和控制多个变量，习惯用变量来表达程序的“状态”。本例中，定义了控制循环的变量，也了存储的信息的变量，还定义了记录当前程序代码处理状态的变量，这些变量类型多样，有数组，也有字符串，还有整数，这些信息需要初学者多看、深思；
-    
-     4、具体的分析和思路，详见本例源代码和配合语句的注释。
-    </p>
    
    <p class="poet">
    
    </p>
-		
-
+	
   </article>
   <footer>
     Box-Model & Float & Position  By Li CopyRight 2022
@@ -44,55 +44,88 @@
   
   <script>
 
-  //有了数组的概念，
-   var ts1 = '杜甫：梦李白二首之一\n死别已吞声，生别常恻恻。\n江南瘴疠地，逐客无消息。' ;
-   var ts2 = '王维：西施咏\n艳色天下重，西施宁久微。\n朝为越溪女，暮作吴宫妃。\n贱日岂殊众，贵来方悟稀。\n邀人傅脂粉，不自著罗衣。\n君宠益娇态，君怜无是非。\n当时浣纱伴，莫得同车归。\n持谢邻家子，效颦安可希！' ;
-   var ts3 = '王维：送綦毋潜落第还乡\n圣代无隐者，英灵尽来归。\n遂令东山客，不得顾采薇。' ;
+   //2、设计有能判断形参合理性，并能规范返回数据的函数
 
-   function makeStringtoLines(ts){   
-	  var tsLines = [] ; 
-		  tsLines[0] = '' ;
-	  var i = 0 ; //循环变量 i 初始化 
-	  var line = 0 ; 
-	  while( ts[i] ) {  //undefined 在逻辑中，被判断为false
-		if( ts[i]==='\n') {
-		  line = line + 1 ; 
-		  tsLines[line] = '' ; 
-		}
-		 tsLines[line] = tsLines[line] + ts[i] ;
-		 i = i+1 ;  
-		}
-     return tsLines ;
-	//注意：我们传出的数据是一个数组，数组的元素是字符串。
-   }//End of Function poetLines(s)
+  //函数调用方法，直接输入合适的参数。
+  $('调用函数square(99)： ' + square(99) ) ;
+  //下面示范给函数传入错误的参数，而本句难度更体现在于字符串表达式中单引号和双引号的匹配示范。
+  $('调用函数square("ab"): ' + square("ab") ) ;
+  
+ //下面示范了给函数传入错误的参数，factorial由于增加了逻辑判断参数的代码，编程者可以按意图返回函数值，而本句难度也体现在用字符串表达式中，对需要在字符串中使用单引号和双引号时，如果发生匹配问题，可以使用 \ 符号，通知代码编译系统，本支付需要转义。
+  $('调用函数factorial(\'$\')： ' + factorial('$') ) ;
+  $('调用函数factorial(100)： ' + factorial(100) ) ;
+
+  $('从1加到1亿：' + sumFromMToN( 1 , square(10000) ) ) ;
  
- //本例我们不急着马上输出，而是把makeStringtoLines函数的处理结果，存储到唐诗数组变量内 。
- var tsArr1 = makeStringtoLines(ts1) ;
- var tsArr2 = makeStringtoLines(ts2) ;
- var tsArr3 = makeStringtoLines(ts3) ;
- 
-  //本例我们再创造一个基本函数，用来返回数组或字符串的长度。
- function lengthOfArray(arr){
-   var length = 0 ;
-   var i = 0 ;
-  while( arr[i] ) {
-   length = length + 1 ;
-   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+  //下面演示函数的调用时，还可以嵌套使用,但由于字符串太复杂，我们使用中间变量简化代码.
+  var outputs1 = '调用函数sumFromMToN( factorial(11), square(88) )： ' ;
+  var outputs2 = sumFromMToN( factorial(11) , square(88) ) ;
+  $( outputs1 + outputs2 );
+// 在调用函数表达式：  sumFromMToN( 1 , factorial(13) ) 时 ，对于2020年主流的台式微型计算机的硬件而言，本Web页在运行到上面代码时，页面已经非常卡，因此建议在学习者谨慎填入阶乘函数factorial的参数，避免本Web页在移动端等更慢的计算机上“卡死” 。从测试情况看，也带来一个好消息，对于相同的硬件条件和操作系统而言，在谷歌Chrome和浏览器上运算速度比其他浏览器有明显优势。
+//特别提醒： 由于对factorial函数和sumFromMToN函数的嵌套在一起使用，这个逻辑是要求计算机从一个特别大的自然数，比如：factorial(13)，累加到一个比较小的数，比如：square(88)。由此造成的循环运算量特别大，普通的计算机CPU运算资源全部占用可能会长达几分钟，会造成Web页面“死机” 现象，因此本例锻炼学习者良好的逻辑和对数字估计的能力。
+
+
+  //把函数定义全部放在代码尾部，函数依然有效，本演示说明了在JavaScript中，函数定义形成的名字和代码块优先级是最高的，也就是说，无论函数在代码的何处定义，系统的编译都会把它门提升至代码最前面的位置，让程序中所有代码语句都能使用到自定义的函数。
+
+  //1、设计一个最基本的函数,本例增加错误参数的默认处理方式
+  function square(i){
+    if(!parseInt(i)){
+      return 0 ;
+    }
+    var sq = i * i ;
+    return sq ;
    }
-  return length ;
- }//End of function lengthOfArray(arr)
- 
-  myAlert('调用lengthOfArray函数，分析字符串：');
-  myAlert("ts1共计 " + lengthOfArray(ts1) +" 个字符。") ;
-  myAlert("ts2共计 " + lengthOfArray(ts2) +" 个字符。") ;
-  myAlert("ts3共计 " + lengthOfArray(ts3) +" 个字符。") ;
- 
-  myAlert('调用lengthOfArray函数，分析数组：');
-  myAlert("ts1共计 " + lengthOfArray(tsArr1) +" 行句子。") ;
-  myAlert("ts2共计 " + lengthOfArray(tsArr2) +" 行句子。") ;
-  myAlert("ts3共计 " + lengthOfArray(tsArr3) +" 行句子。") ;
+ //本例顺便引入更方便使用的for循环语句 和 更语法更加快捷的赋值计算符
+ /***
+   for语句的语法非常精炼： 
+     for(循环变量初始化 ; 循环条件 ; 循环变量的变化表达式){
+       循环体 
+     }
+   for循环在第一行语句，就写清晰了循环的三大重要逻辑，分别是：循环变量初始化、循环条件、循环变量的每次变化。在循环次数确定的情况下，使用for结构比while结构更便利。
+ ***/ 
+ //在许多语言里 i++ 与 i = i + 1 等效，i += 2 与 i = i + 2 等效，，i *= 2 与 i = i * 2 等效，其他快捷写法，请初学者可以举一反三，自行尝试。
+ //下面用 for循环 和 快捷的赋值计算符修改 factorial 和 sumFromMToN 二个函数：
+  
+ function factorial(j){
+    var fac = 1 ;
+    //对非正确输入的直接处理，返回0 ，不再进入循环计算
+    if( !parseInt(j) ){
+      return 0 ;
+    }
+    for(var i= 1 ; i <= j ; i++ ){
+       fac *= i ;      
+    }
+    return fac ;
+   }
+   //3、设计有二个形参的函数，同时也示范函数的名称，最好使用驼峰语法，且做到“顾名思义”，这样的函数再调用时，代码会更可读，也不容易出现函数名混乱和重名的麻烦。
 
-  </script>
+   function sumFromMToN(m,n){
+    //一个成熟的代码，必须能分析编程时传入参数错误的情况
+    if( !parseInt(m) || !parseInt(n) ){
+      return 0 ;
+     }
+    //一个成熟的代码，必须能处理传入参数次序不对情况
+     if(m > n){
+      var buf = m ;
+          m = n ;
+          n = buf ;
+     }
+
+     var sum = 0 ;
+     for(var i = m ; i <= n ; i++ ){
+      sum = sum + i ;
+     }
+     return sum ;    
+   }
+
+   /***** 从代码的变量使用的角度，我们对函数定义和调用的重要概念总结如下：
+    1.函数内部的变量与函数外界是完全隔离的，因此在函数内部，我们可以比较自由地定义变量和使用变量，在函数内部定义的变量称为局部变量，仅函数内部可用。
+    2.而在函数外部定义变量与函数一样，属于全局的概念，称为全局变量，全局变量可以在函数内部直接使用，但有一种情况，即函数内部的变量名与全局变量同名时，函数内部将不会访问到全外部的全局变量。即在函数内部局部变量必全局变量优先。
+    3.在定义函数时，函数的参数称为“形参” ，形参的名字取名时也要做到“顾名思义”，其地位与定义在函数内部的局部变量名同样。
+    4.在调用函数时传入的参数称为称为“实参”，实参本质上是一个结果（术语称为“值”），复杂的实参可以是复杂的表达式，表达式则可以由各种常量、变量、运算符、函数构建组成。
+
+   *****/
+ </script>
 
  </body>
 </html>

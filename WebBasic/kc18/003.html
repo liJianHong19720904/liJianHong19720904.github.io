@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例，我们把成熟的代码包装起来，封装成为函数，提供给程序反复使用。
+    从具体到抽象。用循环和变量来实现每首唐诗的抽象获取。
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+
+ 
+ </head>
+
+ <body>
+  
+  <header>
+   JavaScript的输出
+  </header>
+
+  
+  <article>
+    
+	 <strong> 函数 </strong>
+ 
+   <img src="../images/girl2.jpg">
+ 
+   
+   <p class="poet">
+   
+   </p>
+		
+
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li CopyRight 2022
+  </footer>
+  
+  <script>
+
+  //有了函数的概念，初学者可以这样构想：我们可以大胆地精心设计的一个基础性功能代码，利用函数包装起来，供我们未来的程序调用，就像构建一个一个质量合格地零件，通过这些零件，再组装成更强大的部分，最终把功能强大的软件搭建起来。
+
+   var ts = '010杜甫：佳人\n绝代有佳人，幽居在空谷。自云良家子，零落依草木。关中昔丧乱，兄弟遭杀戮。官高何足论，不得收骨肉。世情恶衰歇，万事随转烛。夫婿轻薄儿，新人美如玉。合昏尚知时，鸳鸯不独宿。但见新人笑，那闻旧人哭！在山泉水清，出山泉水浊。侍婢卖珠回，牵萝补茅屋。摘花不插发，采柏动盈掬。天寒翠袖薄，日暮倚修竹。\n011杜甫：梦李白二首之一\n死别已吞声，生别常恻恻。江南瘴疠地，逐客无消息。故人入我梦，明我长相忆。君今在罗网，何以有羽翼？恐非平生魂，路远不可测。魂来枫林青，魂返关塞黑。落月满屋梁，犹疑照颜色。水深波浪阔，无使蛟龙得。\n012王维：送别\n下马饮君酒，问君何所之。君言不得意，归卧南山陲。但去莫复闻，白云无尽时。\n' ;
+
+   //我们可以发现唐诗的文本规律， 第一个\n标志着唐诗标题的结束，第二个\n标志着唐诗诗文的结束，以此类推，如果把这些位置信息放在以一个数组中，配合适当算法，我们就可以利用这个数组来定位每首唐诗。
+  //因此我们可以借助这个规律，首先改造search函数，把每首唐诗开始和结束位置存放到一个数组中返回。
+  //下面我们基本的函数，search(s , ch) ，利用这个函数，我们可以得到字符ch在字符串 s 的每次出现的索引位置，结果以数组形式返回。
+  function search( s , ch){
+     var i = 0 ;
+     var posAarr = [] ;
+     while( s[i] ){
+      if(s[i] === ch){
+         posAarr[ lengthOfArray(posAarr) ] = i ;
+         }
+      i++ ; //忘写本句，代码会陷入死循环
+     }
+     return posAarr ; //字符串每个字符都遍历结束了，则返回数组，即时没有匹配一个，返回的空数组也能为后续写代码带来帮助。
+   }//End search function
+
+ //一个基本函数，用来返回数组或字符串的长度。
+ function lengthOfArray(arr){
+   var length = 0 ;
+   var i = 0 ;
+  while( arr[i] ) {
+   length = length + 1 ;
+   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+   }
+  return length ;
+ }//End of function lengthOfArray(arr
+
+  var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
+  $('ts文本内唐诗共计：' + lengthOfArray(tsPosArr) / 2 + ' 首。' ) ;
+  $('唐诗标题和诗文，在字符串的结束位置的数组：' + tsPosArr ) ;
+  $('获取三首唐诗的标题和诗文：') ;
+  /***这是第一首唐诗定位，我们依据这个具体的代码，尝试写出抽象代码，实现获取三首唐诗信息。
+  var titleBegin = 0 ,
+      titleEnd = tsPosArr[0] ,
+      poetBegin = titleEnd + 1 ,
+      poetEnd = tsPosArr[1] ;
+  var tsTitle = '' ;
+  for(var i = titleBegin ; i < titleEnd ; i++ ){
+     tsTitle += ts[i] ;
+  }
+  var tsPoet = '' ;
+  for(var i = poetBegin ; i < poetEnd ; i++){
+     tsPoet += ts[i] ;
+  }
+   $(tsTitle) ;
+   $(tsPoet) ;
+ ****/
+ var  titleBegin = 0 ,
+      titleEnd = tsPosArr[0] ,
+      poetBegin = titleEnd + 1 ,
+      poetEnd = tsPosArr[0+1] ;
+      tsNumber = lengthOfArray( tsPosArr ) /2 ;
+ for(var num = 1 ; num <= tsNumber ; num++){
+     var tsTitle = '' ;
+    for(var i = titleBegin ; i < titleEnd ; i++ ){
+      tsTitle += ts[i] ;
+     }
+     $(tsTitle) ;
+     var tsPoet = '' ;
+    for(var i = poetBegin ; i < poetEnd ; i++){
+     tsPoet += ts[i] ;
+     }
+     $(tsPoet) ;
+     //随着num变量从1变到3，用来抽象表达，下一次循环四个变量的变化。
+      titleBegin = poetEnd + 1 ;
+      titleEnd = tsPosArr[num * 2 ] ;
+      poetBegin = titleEnd + 1 ;
+      poetEnd = tsPosArr[num * 2 + 1] ;
+      
+   } //对所有唐诗最外层的循环，从1到tsNumber
+ //对上述二层循环代码的说明：
+ //对于代码初学者而言，会感觉上面的二层循环描述的代码（语句不到二十句）比较抽象，可能理解会存在障碍，更不用说写出代码了，这种代码虽然很短，与HTML/CSS那种平铺直叙的简单代码完全不同，JavaScript的这种多层循环代码本质上是在描述一种抽象解决问题的“算法”，其难度体现在对变量的理解和对问题的抽象分析和思考上。
+ //在实际大学的初级程序设计教学中，我们并不奢望多数初学者能理解和写出这种代码，如果有少数人可以做到，只可能存在二种情况：一是他们已经经历过类似的训练，抽象思维已经提升；二是他们是少数智商比常人高出一截的人。
+ //最后，给有兴趣继续探索“算法”的初学者一个建议：理解好变量的内涵，一步步尝试代码，不断试错，很快你就可以跨过HTML/CSS代码的具体思维阶段，进入真正的JavaScript代码的抽象思维阶段。或许，你会发现，你开始对类似“数据结构和算法”这种大学计算机编程的核心课程有兴趣了。作为教学工作者的我们，希望这种成长能早几年发生在你的身上。
+
+ </script>
+
+ </body>
+</html>

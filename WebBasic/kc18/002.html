@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例，我们把成熟的代码包装起来，封装成为函数，提供给程序反复使用。
+    
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+
+ 
+ </head>
+
+ <body>
+  
+  <header>
+   JavaScript的输出
+  </header>
+
+  
+  <article>
+    
+	<strong> 函数 </strong>
+ 
+  
+	<img src="../images/girl2.jpg">
+  
+   
+   <p class="poet">
+   
+   </p>
+		
+
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li CopyRight 2022
+  </footer>
+  
+  <script>
+
+  //有了函数的概念，初学者可以这样构想：我们可以大胆地精心设计的一个基础性功能代码，利用函数包装起来，供我们未来的程序调用，就像构建一个一个质量合格地零件，通过这些零件，再组装成更强大的部分，最终把功能强大的软件搭建起来。
+
+   var ts = '010杜甫：佳人\n绝代有佳人，幽居在空谷。自云良家子，零落依草木。关中昔丧乱，兄弟遭杀戮。官高何足论，不得收骨肉。世情恶衰歇，万事随转烛。夫婿轻薄儿，新人美如玉。合昏尚知时，鸳鸯不独宿。但见新人笑，那闻旧人哭！在山泉水清，出山泉水浊。侍婢卖珠回，牵萝补茅屋。摘花不插发，采柏动盈掬。天寒翠袖薄，日暮倚修竹。\n011杜甫：梦李白二首之一\n死别已吞声，生别常恻恻。江南瘴疠地，逐客无消息。故人入我梦，明我长相忆。君今在罗网，何以有羽翼？恐非平生魂，路远不可测。魂来枫林青，魂返关塞黑。落月满屋梁，犹疑照颜色。水深波浪阔，无使蛟龙得。\n012王维：送别\n下马饮君酒，问君何所之。君言不得意，归卧南山陲。但去莫复闻，白云无尽时。\n' ;
+
+   //我们可以发现唐诗的文本规律， 第一个\n标志着唐诗标题的结束，第二个\n标志着唐诗诗文的结束，以此类推，如果把这些位置信息放在以一个数组中，配合适当算法，我们就可以利用这个数组来定位每首唐诗。
+  //因此我们可以借助这个规律，首先改造search函数，把每首唐诗开始和结束位置存放到一个数组中返回。
+  //下面我们基本的函数，search(s , ch) ，利用这个函数，我们可以得到字符ch在字符串 s 的每次出现的索引位置，结果以数组形式返回。
+  function search( s , ch){
+     var i = 0 ;
+     var posAarr = [] ;
+     while( s[i] ){
+      if(s[i] === ch){
+         posAarr[ lengthOfArray(posAarr) ] = i ;
+         }
+      i++ ; //忘写本句，代码会陷入死循环
+     }
+     return posAarr ; //字符串每个字符都遍历结束了，则返回数组，即时没有匹配一个，返回的空数组也能为后续写代码带来帮助。
+   }//End search function
+
+ //一个基本函数，用来返回数组或字符串的长度。
+ function lengthOfArray(arr){
+   var length = 0 ;
+   var i = 0 ;
+  while( arr[i] ) {
+   length = length + 1 ;
+   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+   }
+  return length ;
+ }//End of function lengthOfArray(arr
+
+  var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
+  $('ts文本内唐诗共计：' + lengthOfArray(tsPosArr) / 2 + ' 首。' ) ;
+  $('唐诗标题和诗文，在字符串的结束位置的数组：' + tsPosArr ) ;
+  $('获取唐诗1的标题和诗文：') ;
+  var titleBegin = 0 ,
+      titleEnd = tsPosArr[0] ,
+      poetBegin = titleEnd + 1 ,
+      poetEnd = tsPosArr[1] ;
+  var tsTitle = '' ;
+  for(var i = titleBegin ; i < titleEnd ; i++ ){
+     tsTitle += ts[i] ;
+  }
+  var tsPoet = '' ;
+  for(var i = poetBegin ; i < poetEnd ; i++){
+     tsPoet += ts[i] ;
+  }
+   $(tsTitle) ;
+   $(tsPoet) ;
+ 
+ </script>
+
+ </body>
+</html>

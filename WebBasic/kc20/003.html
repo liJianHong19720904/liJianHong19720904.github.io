@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例，我们把成熟的代码包装起来，封装成为函数，提供给程序反复使用。
+    从具体到抽象。用函数来实现每首唐诗的获取。
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+  <script src="ts300.js"></script>
+ 
+ </head>
+  <script>
+  
+  function search( s , ch){
+     var i = 0 ;
+     var posAarr = [] ;
+     while( s[i] ){
+      if(s[i] === ch){
+         posAarr[ lengthOfArray(posAarr) ] = i ;
+         }
+      i++ ; 
+     }
+     return posAarr ; 
+     //把字符串每个字符都遍历结束了，则返回数组。
+   }//End search function
+
+ //一个基本函数，用来返回数组或字符串的长度。
+ function lengthOfArray(arr){
+   var length = 0 ;
+   var i = 0 ;
+  while( arr[i] ) {
+   length = length + 1 ;
+   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+   }
+  return length ;
+ }//End of function lengthOfArray(arr)
+
+ 
+ function subString( s, p1 , p2 ){
+   var subs = '' ;
+ 
+   if(lengthOfArray(s) === 0 || (!parseInt(p1) && !parseInt(p2)) ){
+     return '' ;
+   }
+   if(p1 > p2){
+    var buf =  p1 ;
+        p1 = p2 ;
+        p2 = buf ;
+   }
+   
+   if(p2 === undefined ){
+    p2 = lengthOfArray(s)  ;
+   }
+   for(var i = p1 ; i < p2 ; i++){
+    subs += s[i] ;
+   }
+   return subs ;
+  }//End of subString( s, p1 , p2 )
+
+
+ 
+ function getTsFromString(ts){
+    if(!ts){ 
+        var ts = '291杜牧：泊秦淮\n烟笼寒水月笼沙，夜泊秦淮近酒家。商女不知亡国恨，隔江犹唱《后庭花》。\n292杜牧：寄扬州韩绰判官\n青山隐隐水迢迢，秋尽江南草未凋。二十四桥明月夜，玉人何处教吹箫？\n293杜牧：遣怀\n落魄江湖载酒行，楚腰纤细掌中轻。十年一觉扬州梦，赢得青楼薄幸名。\n294杜牧：秋夕\n银烛秋光冷画屏，轻罗小扇扑流萤。天阶夜色凉如水，坐看牵牛织女星。\n295杜牧：赠别二首之一\n娉娉袅袅十三馀，豆蔻梢头二月初。春风十里扬州路，卷上珠帘总不如。\n296杜牧：赠别二首之二\n多情却似总无情，唯觉樽前笑不成。蜡烛有心还惜别，替人垂泪到天明。\n297杜牧：金谷园\n繁华事散逐香尘，流水无情草自春。日暮东风怨啼鸟，落花犹似坠楼人。\n298李商隐：夜雨寄北\n君问归期未有期，巴山夜雨涨秋池。何当共剪西窗烛，却话巴山夜雨时？\n299李商隐：寄令狐郎中\n嵩云秦树久离居，双鲤迢迢一纸笔。休问梁园旧宾客，茂陵秋雨病相如。\n300李商隐：为有\n为有云屏无限娇，凤城寒尽怕春宵。无端嫁得金龟婿，辜负香衾事早朝。\n301李商隐：隋宫\n乘兴南游不戒严，九重谁省谏书函？春风举国裁宫锦，半作障泥半作帆。\n302李商隐：瑶池\n瑶池阿母绮窗开，黄竹歌声动地哀。八骏日行三万里，穆王何事不重来？\n303李商隐：嫦娥\n云母屏风烛影深，长河渐落晓星沈。嫦娥应悔偷灵药，碧海青天夜夜心。\n304李商隐：贾生\n宣室求贤访逐臣，贾生才调更无伦。可怜夜半虚前席，不问苍生问鬼神！\n' ;
+    }
+   var tsTitles = [] ; //用来存放每首唐诗的标题
+   var tsPoets = [] ; //用来存放每首唐诗的诗文
+   var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
+   var titleBegin = 0 ,
+       titleEnd = tsPosArr[0] ,
+       poetBegin = titleEnd + 1 ,
+       poetEnd = tsPosArr[0+1] ;
+       tsNumber = lengthOfArray( tsPosArr ) /2 ;
+   for(var num = 1 ; num <= tsNumber ; num++){
+    var tsTitle = subString(ts , titleBegin , titleEnd) ;
+        tsTitles[ lengthOfArray(tsTitles) ] = tsTitle ;
+
+    var tsPoet = subString(ts , poetBegin , poetEnd) ;
+        tsPoets[ lengthOfArray(tsPoets) ] = tsPoet ;
+
+      titleBegin = poetEnd + 1 ;
+      titleEnd = tsPosArr[num * 2 ] ;
+      poetBegin = titleEnd + 1 ;
+      poetEnd = tsPosArr[num * 2 + 1] ;
+   }  //循环处理每首唐诗结束
+
+    // 本例继续处理tsTitles和tsPoets，实现诗文在每句独立出来，也让唐诗数据有更易理解，让写代码更方便使用的数据结构。
+    // ts[ [唐诗1数组：标题1 ,  诗句1 , 诗句2 , ...]  , [唐诗2数组] ... ]
+     ts = [] ;
+     for(var i = 0 ; i < tsNumber ; i++ ){
+       var poet = [] ;
+        //本例用新创建的subString函数，把标题中的3位数字的文本编号消除
+        poet[0] = subString(tsTitles[i], 3 ) ;
+        poetContent = tsPoets[i] ;
+        var j = 0 ; //记录唐诗诗文字符串的下标索引
+        var s = '' ; //存放单独成句的每句唐诗
+        while( poetContent[j] ){
+         var sign = poetContent[j] ;
+         if(sign == '，' || sign == '。' || sign == '！' || sign == '？' ){
+          s += sign  ; 
+          poet[ lengthOfArray(poet) ] = s ;
+          s = '' ;
+         }else{
+          s += sign  ; 
+         }
+          j++ ;
+        }
+       ts[ lengthOfArray(ts) ] = poet ;
+     }
+     return ts ;
+   }//End of getTsFromString()
+
+  </script>
+ <body>
+  
+  <header>
+    欢迎打开《唐诗三百首》软件
+  </header>
+
+  <nav>
+    <ul>
+	 导航按钮<br/>
+	  <li id = "begin" onclick="tsBegin()"> 开始 </li> 
+	  <li id = "next"  onclick="tsNext()"> 向后 </li> 
+	  <li id = "prev" onclick="tsPrev()"> 向前</li> 
+    <li id = "search" onclick="tsSearch()"> 搜索</li> 
+	  <li id = "end" onclick="tsEnd()"> 结束</li> 
+   </ul>
+  </nav>
+  <article>
+    
+	 <strong>全局变量 </strong>
+ 
+   <img src="../images/girl2.jpg">
+ 
+		
+
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li CopyRight 2022
+  </footer>
+  
+  <script>
+ 
+  var ts = getTsFromString(ts300) ;
+  /**** 注意：按getTsFromString的算法设计，变量ts的数据结构为：
+   // ts[ [唐诗1数组：标题1 ,  诗句1 , 诗句2 , ...]  , [唐诗2数组] ... ]
+   ****/
+  $('本APP收录唐诗共计：' + lengthOfArray(ts)  + ' 首。' ) ;
+ 
+  //定义全局变量poetSn ，用于动态记录，当前显示的唐诗的序号，当然这个序号其实是ts数组的下标。
+  var poetSn = 0 ;
+
+  function tsBegin(){
+	  my$('第一首唐诗！') ;
+    poetSn = 0 ;  
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+   }
+
+  function tsNext(){
+	  if(poetSn === lengthOfArray(ts) - 1){
+        poetSn = 0 ;
+     }else{
+        poetSn ++ ;
+     }
+    my$('第' +  (poetSn + 1) + '首唐诗。') ;
+    
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+  }  
+
+  function tsPrev(){
+	 if(poetSn === 0){
+        poetSn = lengthOfArray(ts) - 1  ;
+     }else{
+        poetSn -- ;
+    }
+    my$('第' +  (poetSn + 1) + '首唐诗。') ;
+
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+        $( poet[j] );
+    } 
+  }
+
+  function tsSearch(){
+	  my$('搜索唐诗！') ;
+    $('在本系统内搜索唐诗，本项设计较难，还未完成。' ) ;
+  } 
+
+  function tsEnd(){
+    my$('本系统内最后一首唐诗') ;
+    poetSn = lengthOfArray(ts) -1 ;
+    var poet = ts[poetSn] ;
+    for(var j=0; j < lengthOfArray(poet) ; j++){
+      $( poet[j] );
+    } 
+  } 
+   
+  $('项目第3步，设计"全局变量"结束！' ) ;
+  $('下一步，我们将探索“搜索”功能的代码实现，让初学者也能体验一下“数据结构和算法”的实践 ' ) ;
+
+ </script>
+
+ </body>
+</html>
