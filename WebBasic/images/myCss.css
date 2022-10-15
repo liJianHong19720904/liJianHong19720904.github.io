@@ -45,19 +45,27 @@
 		font-size:1.2em ;
 	}
 
-	footer{
+   footer{
+	  position : relative ;
 	  padding:1em; ;
 	  color:white;
 	  background-color:rgb(10,10,10);
 	}
   /* 我们的CSS代码默认为宽屏 */
-    nav{ 
-	 position: fixed ;
-	 left:0 ;
-	 bottom:2em ;
-     z-index:2 ;
-	}
-	nav ul{
+  nav{ 
+	position: fixed ;
+	right:1em ;
+	bottom:3em ;
+	z-index:2 ;
+	opacity: 0.3;
+	transition:  opacity 1s ;
+   }
+   nav:hover{
+	opacity: 1;
+	transition:  opacity 0.3s ;
+   }
+
+   nav ul{
 	list-style: none ;
 	border:inset rgb(0,200,200) ;
 	background-color: rgb(200,200,200);
@@ -65,13 +73,15 @@
 	}
 
     nav ul li{
-     border: outset 5px rgb(200,100,50) ;
+	 font-size:20px ;
 	 color:white;
+     border: outset 5px rgb(200,100,50) ;
 	 background-color:rgb(50,50,50);
 	 margin: 1em auto;
 	 padding:0.5em ;
 	 cursor:pointer ;
 	 border-radius : 0.5em ;
+	 
 	}
     nav ul  li:hover{
 	 border: outset 5px rgb(250,100,50) ;
@@ -87,30 +97,14 @@
 	 margin: auto ;
 	 font-size:1.2em;
 	 color:rgb(255,150,150);
+	 height: 20em ;
 	 text-shadow:0.05em 0.03em black;
 	}
 
-	p.poet{
-	 font-size:1.3em;
-	 line-height : 2em ;
-     letter-spacing: 0.2em ;
-	 margin:auto ;
-	 font-family:楷体, 黑体;
-	 clear: left ;  
-	 /* 在宽屏下，图片因为随着屏幕宽度而变大，包裹图片的序言文字不变，而导致较大的图片‘撑出’空间，让诗文前几句浮动到图片‘撑出’的空间，加上对诗文对象增加 clear: left ; 可以解决这个问题。 */
-	}
-	article p.preface {
-	  font-size:1.2em;
-	  color:black;
-	  text-shadow: none;
-	  text-indent:2em;
-	  line-height:2em;
-	  text-align:justify;
-	  font-family:仿宋, 隶书;
-	  	  }
-	article p.preface img{
-	  width:35%;
-	  float: left;
+
+	article  img{
+	  height:100%;
+	  margin: auto ;
 	  opacity:0.2 ;
 	  border:2px solid ;
 	  }
@@ -118,10 +112,10 @@
     article  strong{
 	  position : absolute ;
 	  color: blue ;
-	  right:10px;
+	  left:10%;
 	  top: 0px ;
-	  opacity:0.1 ;
-	  font-size:12em
+	  opacity:0.2 ;
+	  font-size:8em
 	  }
 	/* 对于width小于600像素的非宽屏 */ 
 @media only screen and (max-width: 600px){
