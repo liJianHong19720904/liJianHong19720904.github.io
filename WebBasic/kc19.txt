@@ -1,17 +1,20 @@
 ﻿1.title
- Code Organization With Function （设计好函数，组织好代码结构）
+ Code Organization With Function （函数设计合理，构造好的代码结构）
 2.introduction
- 把成熟的代码包装起来，封装成为函数，可以提供给程序反复使用，人们可以避免重复的劳动，计算机也不需要冗余的代码，这是所有计算机高级语言引入函数概念的最初目标。涉及以下内容：
- 1、本课开始，我们开始学习如何在代码中编写自己的函数，或称为自定义函数。初学者用一段时间学会自己构建函数并理解函数的运行原理，是初入计算机程序设计殿堂的最为重要的标志之一，也是理解代码的组织架构，进入下一阶段的代码学习核心的基础能力。
- 2、学习JavaScript语言在“函数定义”和“函数调用”二方面的概念和最基础的语法，函数的基础语法在许多计算机高级语言中几乎完全一致（多数计算机高级语言都沿用了经典的C语言语法），作为计算机高级语言的初学者的我们，必须尽快熟悉基本的函数概念和语法表达，把自己代码能力提升一个高度。
- 3、引入代码循环结构的另一种语法，在循环次数明确的前提下，方便也不容易出错的 “ for循环语句 ” 。
- 4、从代码的变量使用的角度，对我们自己编写的函数定义和调用的重要概念进行总结和抽象。
+  把成熟的代码包装起来，封装成为函数，提供给程序反复使用。我们本课程，面对字符串信息的，开展函数设计合理，构造好的代码结构，为下一课的写项目做好基础准备。
+  本课构建了字符串分析处理的几个的基本函数： 
+  search(s , ch) ，利用这个函数，我们可以得到字符ch在字符串 s 的每次出现的索引位置，结果以数组形式返回。
+  lengthOfArray(arr)，用来返回数组或字符串的长度。
+  substring(s,p1,p2) ，用来返回字符串s的子串，参数中 ，s为传入的字符串，运行substring函数则把字符串s的下标从p1至p2的子字符串取出返回，其中子串包含p1位置，而不包含p2位置。若仅存在p1参数，则子串的产生则是从s的p1到s的最后结束位置。
 3.keyword
-  function  ,   {   } ,  return , square  ,  factorial  ，for ，++  。
+  function  ,  return ,  ! ,  === , parseInt  ,  ||  ，for ， while 。
 
 4.project
-<a src=001.html title=“函数定义”和“函数调用”> 本例 。
-<a src=002.html title=初步探索字符串的数组表达> 本例 。
+<a src=001.html title=构建基本的字符串函数> 本例构建了字符串分析的基本函数，search(s , ch) 和lengthOfArray(arr)，并用这两个函数尝试了对唐诗文本的分析。
+<a src=002.html title=字符串函数在唐诗文本中的应用> 本例再增加一个字符串处理的基本函数 —— substring(s,p1,p2) ，用来返回字符串s的子串，参数中 ，s为传入的字符串，运行substring函数则把字符串s的下标从p1至p2的子字符串取出返回，其中子串包含p1位置，而不包含p2位置。若仅存在p1参数，则子串的产生则是从s的p1到s的最后结束位置。 
 
 5.reading
-The true programming language of the web, JavaScript lets you add behavior to your web pages. No more dry, boring, static pages that just sit there looking at you , with JavaScript you’re going to be able to reach out and touch your users, react to interesting events, grab data from the web to use in your pages, draw graphics right in your web pages and a lot more. And once you know JavaScript you’ll also be in a position to create totally new behaviors for your users.
+对字符串的搜索、获取字符串长度，从字符串中的取出子串等等这些常用功能，任何现代语言中已经有内置的函数了，为什么我们用自创的代码来实现系统中已经有的函数？为什么不教初学者去直接使用，而是要去尝试自己去亲自探索底层代码的实现？这是不是“重复造轮子” ？
+为了回答以上疑问，初学者需要理解二种的情况：
+一是你现处于建立编程的理解体系和锻炼代码能力的时候， 还缺乏编程的抽象能力和算法能力。此时用较为底层的代码来探索和尝试实现系统已有的功能，这对锻炼算法，提高抽象能力是非常重要的。没有这些训练，你写的代码在质量上可能会长期停留在较低水平。
+二是你已经具备了较强的代码和算法能力。如果是这种情况，除非是偶尔为了训练写算法的思维，你当然不需要浪费时间去重复写已经掌握的代码和算法。尤其在工作中，我们必须使用现成的函数，而不去建议去临时创建自己的函数，否则有很大概率引入bug。如果你有强迫症，喜欢自己写出所有代码，而在这期间，又没有学到新的知识或得到能力的提高，发生这种情况，就是“重复造轮子”。
