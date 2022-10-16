@@ -145,6 +145,7 @@
         var s = '' ; //存放单独成句的每句唐诗
         while( poetContent[j] ){
          var sign = poetContent[j] ;
+         //诗文中，每句唐诗结束的标记为四种中文标点符号如下
          if(sign == '，' || sign == '。' || sign == '！' || sign == '？' ){
           s += sign  ; 
           poet[ lengthOfArray(poet) ] = s ;

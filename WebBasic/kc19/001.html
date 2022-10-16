@@ -23,7 +23,7 @@
   
   <article>
     
-	<strong> 构建函数 </strong>
+	<strong> 字符串的函数 </strong>
  
    <img src="../images/girl2.jpg">
 
@@ -72,6 +72,7 @@
    //因此我们利用search函数把每首唐诗开始和结束位置存放到一个数组中返回，再利用这个规律写出算法，把唐诗数据以数组的形式处理出来，由本函数返回给外界。
    var tsTitles = [] ; //用来存放每首唐诗的标题
    var tsPoets = [] ; //用来存放每首唐诗的诗文
+  
    var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
    var titleBegin = 0 ,
        titleEnd = tsPosArr[0] ,
@@ -98,28 +99,34 @@
       poetBegin = titleEnd + 1 ;
       poetEnd = tsPosArr[num * 2 + 1] ;
    }  //循环处理每首唐诗结束
-   return [ tsTitles , tsPoets ] ; 
-   //对上一句代码的说明： 表达JavaScript内的数组元素时，元素还可直接是数组、表达式、甚至对象（关于对象是下一阶段中级程序设计的学习重点）。许多语言可能没有JavaScript这么强的语法表达能力，会导致代码编写的量大一些而已，我们代码核心的处理和构建数据的思想是不变的。
+     
+     ts = [] ; //清空ts局部变量，用来构建新的唐诗数组
+     for(var i= 0 ; i < tsNumber; i++){
+       var poet = [ tsTitles[i] , tsPoets[i]] ;
+       ts[i] = poet ;
+     }
+    return ts ; 
+   //上一句代码中， [ tsTitles[i] , tsPoets[i]] 表达式有些抽象，解释如下： 表达JavaScript内的数组元素的值（数据）时，元素不仅可以是普通数据，还可是变量、数组、表达式、甚至对象（关于对象我们姑且放下，这是下一阶段程序设计进阶的学习重点）。许多语言可能没有JavaScript这么强的语法表达能力，同样的想法，写出的代码量会大一些，不管哪种语言，代码中，构建数据、表达信息的思想是不变的。
   }//End of getTsFromString()
 
 
   //在getTsFromString函数外面，我们调用getTsFromString() 获取唐诗数组，定义全局变量ts 存放函数的返回值。
   var ts = getTsFromString() ;
   /**** 注意：按getTsFromString的算法设计，变量ts的数据结构为：
-    [ ['标题1','标题2'...] , ['唐诗1','唐诗2'...] ]
-    因此，ts[0] 还是一个数组，其中元素是每首唐诗的标题字符串；
-         ts[1]  也是一个数组，其中元素是每首唐诗的诗文字符串。
+    [ ['标题1','诗文1'...] , ['标题2','诗文2'...] ]
+    因此，ts[0]  代表第一首唐诗，数据结构是一个数组，其中二个元素，分别是每首唐诗的标题字符串和诗文字符串；
+    
    ****/
-  $('ts文本内唐诗共计：' + lengthOfArray(ts[0])  + ' 首。' ) ;
+  $('ts文本内唐诗共计：' + lengthOfArray(ts)  + ' 首。' ) ;
   
   $('下面输出第一首唐诗' ) ;
-  var firstPoet = [ ts[0][0] , ts[1][0] ] ;
+  var firstPoet =  ts[0] ;
   $( firstPoet[0] ) ;
   $( firstPoet[1] ) ;
 
   $('下面输出最后一首唐诗' ) ;
-  var lastIndex = lengthOfArray(ts[0]) - 1 ;
-  var lastPoet = [ ts[0][lastIndex] , ts[1][lastIndex] ] ;
+  var lastIndex = lengthOfArray(ts) - 1 ;
+  var lastPoet =  ts[lastIndex] ;
   $( lastPoet[0] ) ;
   $( lastPoet[1] ) ;
  
