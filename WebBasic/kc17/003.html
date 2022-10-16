@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+     如果深入任何计算机语言的函数，都将会开始非常深奥的一个话题，而JavaScript的函数更是如此。
+     本例我们初步接触函数的递归概念，也领略JS函数强大的表达能力：
+     1、数学中有一种数列0，1，1，2，3，5，8…… 称为：斐波那契数列 ，用来描述兔子繁殖的代数和总数。
+     2、抽象总结为，FB[0]=0，FB[1]=1 ... FB[n] = FB[n-2] + FB[n-1] ... , 这里的 [ ] 符号不是表达数组的概念，而是表达数列下标的概念。
+     3、本例我们设计一个函数来表达上面的概念，fibo(n) ，通过向函数传入实参n（数字），通过调用fibo(n)计算，最后可以得出繁殖到第n代后兔子的总数。
+     4、而fibo(n)内部的代码非常有意思，仅确定了函数的结束条件和反复调用自己的表达式，就实现用数学语言表达并解决了一个比较复杂的数学问题。
+     5、本例在函数调用前，定义了一个全局变量记录函数fibo函数运行加上递归调用自己的次数。
+     6、写这个案例的代码有一个风险，注意函数在递归调用自己时，必须有能达到递归结束的条件和可能，否则计算机将进入“死循环”。
+     7、“从前有座山，山上有个和尚讲着递归的故事...”，一般初学者可以从这个古老的故事中去理解递归概念，但对于这种函数递归调用可能暂时不能彻底理解，其中障碍和语法无关，而是存在抽象思维和抽象想象的门槛。因此理解这个案例对于初学者比较难，人在初期接触函数时，我们仅能对函数的形参和实参有表面认识，需要大量思维训练，在头脑中演练出函数运行和返回的流程细节。
+
+  </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+
+ 
+ </head>
+
+ <body>
+  
+  <header>
+   JavaScript的输出
+  </header>
+
+  
+  <article>
+    
+	 <strong> 函数递归 </strong>
+ 	 <img src="../images/girl2.jpg">
+	
+  </article>
+  <footer>
+    Box-Model & Float & Position  By Li CopyRight 2022
+  </footer>
+  
+  <script>
+   var callTimes = 0 ; //记录函数fibo运行次数的全局变量，函数内部可以直接访问（读写即可）
+  
+  //调用斐波那契数列函数 ，递归算出第n代兔子总数。
+  $('递归算出第3代兔子总数： ' + fibo(3) ) ;
+  $('fibo(3)调用斐波那契数列函数的次数： ' + callTimes + '次。') ;
+  $('递归算出第20代兔子总数： ' + fibo(20) ) ;
+  $('已经调用斐波那契数列函数的次数： ' + callTimes + '次。') ;
+  $('用错参数，算出第‘X’代兔子总数： ' + fibo('X') ) ;
+  $('总共调用斐波那契数列函数的次数： ' + callTimes + '次。') ;
+  
+  function fibo(n){ 
+//通过兔子繁殖代数得出兔子总数得斐波那契数列：
+//FB[0]=0，FB[1]=1 ... FB[n] = FB[n-2] + FB[n-1] ... , 前面注释用的 [ ] 符号不是表达数组的概念，而是表达一个数学数列下标的概念
+    callTimes ++ ; 
+    if(n !== 0 &&  !parseInt(n)){ //防止向函数传入非数字的参数
+        return NaN ;
+    }
+    if(n!==parseInt(n)){
+      n = parseInt(n)
+    }
+    if(n === 1){
+       return 1
+    }
+    if(n ===0){
+       return 0
+    }
+    return fibo(n-2) + fibo(n-1) ;
+  }
+
+
+ </script>
+
+ </body>
+</html>
