@@ -92,5 +92,6 @@ function createPDoms(s){
       if(waitForEaseIn === 0) { 
         //发生这个条件，说明所有该入场的句子已出现，异步执行的easeInDoms函数已经结束了。         否则，用户点击按钮快于异步入场动画反馈，会导致控制页面上的easeInDoms函数出现严重错误，后面的动态p元素的入场都会失效和出错。
         ele.textContent = text ;
+        writeTimes = 0 ; //header标题发生变化，内容序号也要全部清零
       }
      }
