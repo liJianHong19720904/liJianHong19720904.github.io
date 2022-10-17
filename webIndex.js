@@ -208,110 +208,100 @@ var ajaxObj = {
           var codeParas = codeString.split('\n') ;
               //console.log(codeParas);
               
-          for(let i=0 ;i<codeParas.length;i++){
+         for(let i=0 ;i<codeParas.length;i++){
             let para = codeParas[i] ;
             //去掉每段多余的\r符号
             if(para[para.length-1] === '\r'){
              codeParas[i] = para.substring(0,para.length-1)  ;
             }
           }
-          /***下面是一个很好的程序改错题，意图实现去掉每段多余的\r符号，但代码没有达到目标
-          for (let para of codeParas){
-           if(para[para.length-1] === '\r'){
-             para = para.substring(0,para.length-1) ;
-            }
-          }
-          ***/
-           //console.log(codeParas);
-         let nextLineisComment = false ;
+
+          //console.log(codeParas);
+         
+     const keyWords = ['{' ,'}','(',')','[',']'];
+     //目前还未在JavaScript代码层面完成operators的分析
+     const operators = ['+','-','*','/','=','%','>','<','|','&','.','\\',':','!'] ;
+     let nextLineisComment  ;
+     let thisLineisComment  ; 
          for (let para of codeParas){
-           //console.log(para); //为降低分析代码的复杂性，我们对每一行代码的外观，进行Web页DOM对象的动态生产，
+           //console.log(para); //为降低分析代码的复杂性，我们对每一行代码的外观，动态生产Web页p元素DOM对象
            let pDom = document.createElement('p'); 
            let aLineWords = [];
-           let isWord = false ;
-            for(let j=0; j<para.length; j++) {
+           let isBlank = true ;
+      
+            for(let j =0 ;j<para.length;j++){
               let ch = para[j] ;
-              if(!isWord){//不是真单词，是空白符，这是处理空白符模块
-                 if(ch === ' '){
-                   aLineWords.push(" ") ;
-                   continue ;
-                 }
-                if(ch ==="\t"){
-                  for(let k=0;k<4;k++){
-                    aLineWords.push(" ") ; 
-                  } 
-                   continue ;
-                 }
-                //上面二个if逻辑不成立，说明一定是非空白符，是真单词的开始
- 
-                 isWord = true ;
-                 aLineWords.push(ch) ;
-              }else{ //else代码模块，处理真单词情况
-                 if(ch.trim()!== ''){
-                    aLineWords[aLineWords.length -1] += ch ;
-                   } else {//else逻辑表明碰上空白符，
-                   isWord = false ;
-                   if(ch==="\t"){
-                     for(let k=0;k<4;k++){
-                       aLineWords.push(" ")  ;
-                     } 
-                    }else{
-                       aLineWords.push(" ") ; 
+                //刚进入段落，是空白符模式，这是处理空白符模块
+                 switch(ch){
+                  case ' ' : aLineWords.push(" ") ;
+                             isBlank = true ;
+                             continue ;
+                  case '\t' : for(let k=0;k<4;k++){
+                               aLineWords.push(" ") ; 
+                              } 
+                              isBlank = true ;
+                              continue ;
+                  default :   if(isBlank){
+                               aLineWords.push(ch) ;
+                               isBlank = false ;
+                              }else{
+                                if(keyWords.indexOf(ch) !==-1 && para[j-1]!=' '){
+                                 aLineWords.push(" ") ;
+                                 isBlank = true ; 
+                                 aLineWords.push(ch) ;
+                                 if(para[j+1]!=' '){
+                                  aLineWords.push(" ") ;
+                                 }
+                                }else{
+                                  aLineWords[aLineWords.length-1] += ch ;
+                                }
+                              
+                              }
+                       } // switch 结束
+           } // 把一段文本处理为单词数组aLineWords的循环
+
+
+            if(nextLineisComment){
+              thisLineisComment = true ;
+            } 
+          
+            for(let word of aLineWords){
+                //下面实现案例的注释统一颜色，技术实现上是通过合并CSS样式中的comment类
+                // 本课程代码comment 表示情况，以 '//','/*', '<!--','<title>' 开头
+                if(word.substring(0,2) === '//'|| word.substring(0,4) === '<!--'){
+                       thisLineisComment = true ;
+                  }else if(word.substring(0,2) === '/*' || word.substring(0,7) === '<title>'){
+                       thisLineisComment = true ;  
+                       nextLineisComment = true ;
+                       } 
+                if(word.substring(word.length-2) === '*/' || word.substring(word.length-8) === '</title>' ){
+                       thisLineisComment = true ; 
+                       nextLineisComment = false ;
                     }
-                 }
-               }
-              }//把一段文本处理为单词数组aLineWords的循环结束
- 
- 
-             const keyWords = ['var' , 'let','const','if' ,'else' ,'{' ,'}','(',')','[',']','for','let','while','function', '\'', '\"' ,'switch','break' ,'new'];
-             const operator = ['+','-','*','/','=','==','===','%','+=','-=' ,'>','<','>=','<=','||','&&',':'] ;
-             let thisLineisComment = false ;  
-             for(let word of aLineWords){
-               let wordDom = null ;
-                if(word === ' '){
+
+
+                let wordDom = null ;
                  wordDom = document.createElement('span');
-                }else {
-                 wordDom = document.createElement('div');
-                  if(thisLineisComment || nextLineisComment){
-                   wordDom.className = "comment" ;  
+                 if(thisLineisComment){
+                    wordDom.className = "comment" ;  
+                  }else{
+                    wordDom.className = "codeWord" ;
+                     if(keyWords.indexOf(word) !== -1){
+                      wordDom.className = " keyWord" ;
+                      }
                   }
-                   wordDom.className += " codeWord" ;
-                 }   
-                  /*
-                   for(let key of keyWords){
-                     if (word === key){
-                       wordDom.className += " keyWord" ;
-                       break ;
-                     }
-                   }
-                   for(let op of operator){
-                     if (word === op){
-                       wordDom.className += " operator" ;
-                       break ;
-                     }
-                   }
-                   还没有能力做到正确且全面地分析关键字和运算符的颜色*/
-                   //下面实现案例的注释为绿色，技术实现上是通过合并CSS样式中的comment类
-                   // 本课程代码comment 表示情况，以 '//','/*', '<!--','<title>' 开头
-                  
-                   if(word.substring(0,2) === '//'|| word.substring(0,4) === '<!--'){
-                     wordDom.className = "comment" ;  
-                     thisLineisComment = true ;
-                   }else if(word.substring(0,2) === '/*' || word.substring(0,7).trim() === '<title>'){
-                             wordDom.className = "comment" ;
-                             thisLineisComment = true ;  
-                             nextLineisComment = true ;
-                    }
-                   if(word.substring(word.length-2) === '*/' || word.substring(word.length-8) === '</title>' ){
-                     nextLineisComment = false ;
-                   }
-                   wordDom.textContent = word ;
+                   
+                 
+               wordDom.textContent = word ;
                pDom.appendChild(wordDom);  
              } //循环aLineWords数组结束  
               popWindowDom.appendChild(pDom) ; 
+             if(!nextLineisComment){
+                thisLineisComment = false ;
+              } 
                // add the paragraph  dom to div#popWindow
             }  //源代码的每段落分别输出结束    
-          }//End of showCode function
+        }//End of showCode function
 
      } , //end of showProject
      showReading:function(){
@@ -374,12 +364,13 @@ var ajaxObj = {
              }//end for loop
      } ,
      showAll: function(){
+               
                var that = this ;
-               setTimeout(that.showTitle,500) ;
-               setTimeout(that.showIntroduction,500*2) ;
-               setTimeout(that.showKeyword,500*3) ;
-               setTimeout(that.showProject,500*4) ;
-               setTimeout(that.showReading,500*5) ;
+               setTimeout(that.showTitle,200) ;
+               setTimeout(that.showIntroduction,200*2) ;
+               setTimeout(that.showKeyword,200*3) ;
+               setTimeout(that.showProject,200*4) ;
+               setTimeout(that.showReading,200*5) ;
                
              },
       popWindow: function(eObj) { //eObj参数由调用本函数的事件处理函数onclick的参数，通过lexical语法传至本popWindow函数
@@ -444,20 +435,25 @@ var ajaxObj = {
       var txtFile = Model.getTextFile(); //本例每一课的文本文件放在与本程序同一文件夹
        ajaxObj.xhrReq(txtFile);
        my$("h1#title").textContent = "收到 ！正 在 读 入 信 息 ..." ;
- 
+       
        setTimeout(function(){
+            document.querySelector('html').className = '' ;
             if (ajaxObj.content.length > 100){
                 Model.processAjaxTxt(ajaxObj.content) ;
                 outputUI.showAll() ;
+                document.querySelector('html').className = 'loaded' ;
               }else{
                 setTimeout(() => {waitForAjax();} ,1000);
                 //ES6的箭头函数，让异步代码也能使用lexical语法，因此上面异步代码可以访问到下面的waitForAjax函数。
               }
-        },1000);
+        },500);
  
        function waitForAjax(){
          my$("h1#title").textContent = "网络访问卡、有延迟 ..." ;
-         setTimeout(() => {Model.getLessonById();} ,1000) ;
+         setTimeout(() => {
+          
+          Model.getLessonById();
+         } ,1000) ;
             }
       }//Model getLessonById method
    };//End Model Object
