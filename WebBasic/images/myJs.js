@@ -24,59 +24,61 @@ function createPDoms(s){
        
         outputDom.appendChild(snDom) ;
         
-        //下面分析s，为运算符添加op的CSS类名，为关键字添加key的CSS类名 。
-    var codeObjArr = parseCode(s) ;
-       function parseCode(s){
-           var op = ['+','-','*','/','(',')','（','）','[',']','{','}','\'','\"','=','%','&','|',',','，','.','。','!','！',':','：','?','？'] ;
-            
-           var codeArr = [] ;
+     //下面分析s，为运算符添加op的CSS类名，为关键字添加key的CSS类名 。
+    var textObjArr = parseText(s) ;
+       function parseText(s){
+        /* 本函数 按照样式表如下的类名，对动态生成的span元素展开类设定，形成不同含义的文字有不同的颜色
+       header p span.sn{
+	   }
+	   header p span.num{
+	   }
+	   header p span.op{
+	   }
+	   header p span.letter{
+	   }
+        */
+           var op = ['+','-','*','/','(',')','（','）','[',']','［','］','{','}','\'','\"','=','%','&','|',',','，','.','。','!','！',':','：','?','？'] ;
+           
+           // 在唐诗三百首中，把中文标点符号一律当作op类处理，这样在该项目Web页面渲染中，文字结构显得更加清晰。
+           var TextArr = [] ;
            var i = 0 ;
-           var word = {text: '' , type: ''} ;
+           
            while(s[i]){
-             if(op.indexOf(s[i]) !== -1 || parseInt(s[i]) || parseInt(s[i])===0 ){
-                codeArr.push(word) ;
-                word = {text: s[i] , type: ''} ;
-                if(parseInt(s[i]) || parseInt(s[i])===0 ){
-                    word.type = 'num' ;
-                }else{
-                    word.type = 'op' ;
-                }
-                 codeArr.push(word) ;
-                 word = {text: '' , type: ''} ;
-             }else{
-                word.text += s[i] ;
+            var word = {text: '' , type: ''} ;
+             if(op.indexOf(s[i]) !== -1 ){
+                word.type = 'op';
+             } else if(parseInt(s[i]) || parseInt(s[i])===0 ){
+                word.type = 'num' ;
+             } else if(s[i]>='a'&&s[i]<='z' || s[i]>='A'&&s[i]<='Z'){
+                word.type = 'letter';
              }
-             i++ ; 
+                word.text = s[i] ;
+                TextArr.push(word) ;
+                 i++ ; 
             }
-            if(word.text !==''){
-             codeArr.push(word) ;
-             }
-          return codeArr ;
-       }
+           return TextArr ;
+         } //End of parseText function
          
 
-       for(var i =0 ; i < codeObjArr.length ; i++ ){
-           codeWord = codeObjArr[i] ;
+       for(var i =0 ; i < textObjArr.length ; i++ ){
+            Word = textObjArr[i] ;
             var stringDom = document.createElement("span") ;
-            stringDom.textContent =  codeWord.text ;
-            if(codeWord.type){
-                stringDom.className = codeWord.type ;
+            stringDom.textContent =  Word.text ;
+            if(Word.type){
+                stringDom.className = Word.type ;
             }
             outputDom.appendChild(stringDom) ;
         }
               
        headerDom.appendChild(outputDom) ;
-}//Function creatPDoms(s) End
+   }//Function creatPDoms(s) End
 
      //easeInDoms()函数以全局变量writeTimes 和showIt为判断条件，以异步方式动画方式，把Web页header区域的p元素一一显示在header区域。
      //背景：在与本文件myJs.js配合的myCss.css文件中，默认设定了header p段落距离正常显示位置较远，而通过本函数对p的className = 'easeIn'设定，动态把header p段落设定到到正常位置 。
      function easeInDoms(){
         if( waitForEaseIn > 0 && showIt){
            //console.log(writeTimes);
-            //var pDoms = document.querySelectorAll('header p') ;
-            //var thisPnum = pDoms.length - writeTimes + 1 ;
-            //thisPnum 控制按writeTimes记录的创建次序，从小到大设置p元素的入场（easeIn）次序 header p#outputP + thisPnum
-            var outp = document.querySelector('header p#outputP' + ( writeTimes - waitForEaseIn + 1) );
+          var outp = document.querySelector('header p#outputP' + ( writeTimes - waitForEaseIn + 1) );
                 outp.className = 'easeIn' ; 
                 waitForEaseIn -- ;
                 showIt = false ;
