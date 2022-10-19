@@ -7,11 +7,11 @@
  /*	基础font-size 属性的大小在页面打开时，由用户端的window.innerWidth属性决定*/
 		}
 
-	html{
+	body{
 		opacity: 0.1;
 		transition:  opacity 0.3s ;
 	}
-	html.loaded{
+	body.loaded{
 		opacity: 1;
 		transition:  opacity 0.9s ;
 	}
@@ -149,7 +149,7 @@
 	   top : 1% ;
 	   left : 0.5% ;
 	  padding  : 1%;
-	  width : 100% ;
+	  width : 99% ;
 	  background-color : rgb(0,30,10) ;
 	  color:rgb(20,180,0);
 	 }

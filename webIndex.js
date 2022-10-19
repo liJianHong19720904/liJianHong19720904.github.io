@@ -1,64 +1,78 @@
-//ajxObj 全局对象
+//ajxObj 全局对象,用来读取外部文本文件（含源代码文件）
 var ajaxObj = {
      content: [] ,
-     xhrReq : (url) =>  {
-         ajaxObj.content = [] ;
+     reqId : undefined ,
+     xhrReq : (url, reqId) =>  {
+         ajaxObj.content = [] ; 
+         // 每次新的http请求前，将本对象上次访问的结果删除
+         ajaxObj.reqId = reqId  ; 
+         //为每个异步访问设定一个id标识，当以后访问ajaxObj.content有内容时，可以通过id标识获知. 但是本例没有使用这个变量和属性。
+         
          let xhr = new XMLHttpRequest();
           xhr.onreadystatechange = myCallback ;
-          console.time('AjaxTime');
-          xhr.open('GET',url,true);
+          //console.time('AjaxTime');
+          xhr.open('GET', url, true);
           xhr.send('');
-        function myCallback(){ //myCallback函数是定义在ajaxObj.xhrReq内的函数，为xhr对象陆续4次发生的异步事件提供响应代码。
- // 一般正常的情况，根据ajax请求情况和结果的不同，xhr的onreadystatechange事件会被触发1次（不成功）或4次（成功），也即是myCallback函数会被执行4次。
-          console.log("Ajax state changed : "+ xhr.readyState);
+        function myCallback(){ 
+//myCallback函数是定义在ajaxObj.xhrReq内部的函数，本函数是为xhr对象的onreadystatechange事件属性，设计的回调事件处理函数。
+//1.在每次htttp请求中，onreadystatechange事件一般会陆续发生4次，同时更改xhr.readyState值,我们的代码则可以根据readyState值得到当前异步访问的进展，同时提供响应代码。
+//2.由于网络或其他可能的问题，Ajax请求也许会不成功，xhr的onreadystatechange事件会被触发1、2、3次（不成功）或4次（成功），成功的Ajax请求，本myCallback函数会被执行4次。
+      // console.log("Ajax state changed : "+ xhr.readyState);
        if (xhr.readyState ===0 ){
-          console.log("Ajax 连接不成功，断网了？");
-          console.timeEnd("AjaxTime");
+          console.log("HTTP请求无法发送，断网了？");
+          //console.timeEnd("AjaxTime");
+          
           return ;
        }
        if (xhr.readyState === 1 ){
-           console.log("Beign connecting...");
-           console.timeEnd("AjaxTime");
-           console.time('AjaxTime');
+
+      //  console.log("Beign connecting...");
+
            return ;
        } 
        if (xhr.readyState === 2 ){
-           console.log("Loading...");
-           console.timeEnd("AjaxTime");
-           console.time('AjaxTime');
+      //     console.log("Loading...");
+      //     console.timeEnd("AjaxTime");
+      //     console.time('AjaxTime');
            return ;
        } 
        if (xhr.readyState === 3 ){
-           console.log("Interacting... ");
-           console.timeEnd("AjaxTime");
-           console.time('AjaxTime');
+       //    console.log("Interacting... ");
+       //    console.timeEnd("AjaxTime");
+       //    console.time('AjaxTime');
            return ;
        } 
        if (xhr.readyState === 4 ){
            console.log("Ajax is complete .");
-           console.timeEnd("AjaxTime");
+           //console.timeEnd("AjaxTime");
            if (xhr.status !== 200){
-               console.log("Get text file from Server failed ! ");
+               console.log("Get file from Server failed ! ");
                return ;
            }else{
                 ajaxObj.content = xhr.responseText; //全局变量ajaxObj
              } // success of GET TXT
             }//readyState === 4
-          }//end of myCallback	     
-     },//end of xhrReq methoed   
+       }//end of myCallback	     
+     }//end of xhrReq methoed   
     };//end of ajaxObj definition
    /****
-   上面ajax读取的文本与index.html内的article的结构匹配 
-   title指标题区  introduction 指摘要或介绍   keyword指关键字   project指案例区   reading指拓展阅读区
+   上面ajax对象由Mode操控，读取的文本,处理后，会存放在Model.contentArr数组中，
+   与index.html内的article的结构匹配： 
+   title指标题区  
+   introduction 指摘要或介绍   
+   keyword指关键字   
+   project指案例区   
+   reading指拓展阅读区
    ***/
    var outputUI = {
      showTitle:function(){
-        var titleTxt = Model.contentArr[0];
-       //title信息中，格式为：English（中文），下面用异步代码实现中英文轮播
-       var pos1 =  titleTxt.search('（') ;
-       var pos2 = titleTxt.search('）');
-       var titleEn = titleTxt.substring(0,pos1) ;
-       var titleCn = titleTxt.substring(pos1+1,pos2) ;
+       let titleTxt = Model.contentArr[0]; 
+       //title信息中，格式为：English（中文），下面用异步代码实现中英文与用户鼠标的互动
+       //console.log(titleTxt) ;
+       let pos1 =  titleTxt.indexOf('（') ;
+       let pos2 = titleTxt.indexOf('）');
+       let titleEn = titleTxt.substring(0,pos1) ;
+       let titleCn = titleTxt.substring(pos1+1,pos2) ;
        my$("#title").textContent = titleEn ;
        my$("#title").onmousemove = function(){
          this.textContent = titleCn ;
@@ -71,7 +85,7 @@ var ajaxObj = {
      } ,
      showIntroduction : function(){
        my$("#introduction").textContent = "";
-       var parasTxt = Model.contentArr[1].split('\n');
+       let parasTxt = Model.contentArr[1].split('\n');
        let b = document.createElement("b"); 
        b.textContent =  "内容简介 : ";
        my$("#introduction").appendChild(b);
@@ -85,7 +99,7 @@ var ajaxObj = {
      } ,
      showKeyword : function(){
       my$("#keyword").textContent = "";
-      var paraTxt = Model.contentArr[2];
+      let paraTxt = Model.contentArr[2];
       let p = document.createElement("p"); 
       let b = document.createElement("b");
       let t = document.createTextNode(paraTxt);
@@ -95,111 +109,87 @@ var ajaxObj = {
       my$("#keyword").appendChild(p);
      },
      showProject:function(){
-       my$("#project").textContent = "";
-       var paras1 = Model.contentArr[3].split("\n");
-       //用户描述project的文本文件，由于可能使用不同的编辑器，造成情况非常不同，比如换行会同时出现\r和\n
-       //下面这段循环程序过滤了，用户创建文本文件时，随意创建的换行和空格。
-       let paras = [] ;
-       let j = 0 ;
-       for(let i=0 ; i < paras1.length ; i++){
-         paras1[i]= paras1[i].trim();
-         if(paras1[i] =="" || paras1[i] == "\r"){
-             
-         }else{
-            paras[j] = paras1[i];
-            j++ ;
-         }
-       }
-       
-       for (var i=0; i< paras.length; i++ ){
+
+        my$("article#project").textContent = '';
+        //document.querySelector('html').className = '' ;
+       let projects = Model.projects ; // Model.projects = [ [url , title]...]
+       // console.log(projects);
+
+         
+      for (let i=0; i< projects.length; i++ ){
            let b = document.createElement("b");
            let p = document.createElement("p");
            var no;
                no = i+1 ;
-              
+           
+          b.textContent =  "实践案例:"+Model.lessonId +"."+ no + " 《 " + projects[i][1] +" 》";
+          my$("#project").appendChild(b);
+
             //增加“运行本例”按钮
            let bt = document.createElement("input");
-           bt.type = "button" ; 
-           bt.value = "运行本例" ;
-           let aProperty = paras[i].substring(7,paras[i].search('>')) ;
-           let titlePos =  aProperty.search("title=") ;
-            if(titlePos!==-1){
-               bt.id = aProperty.substring(0,titlePos);
-               bt.title = aProperty.substring(titlePos+6);
-                }else{
-               bt.id = aProperty ;
-               }
-           if(!bt.title){
-             bt.title = "本例尚未命名" ;
-
-           }
-           b.textContent =  "案例实践:"+Model.lessonId +"."+ no + " 《 " + bt.title +" 》";
-           my$("#project").appendChild(b);
-            
+            bt.type = "button" ; 
+            bt.value = "运行本例" ;
+            bt.url = Model.projects[i][0] ;
+                     
            bt.onclick = function(eObj){
-            var url ;
-             if(this.id.substring(0,4)==='http'){
-               url = this.id ;
-             }else{
-               url = Model.getUrlPath() + (this.id)  ;
-             }
-            
-             //window.open(url);
-              outputUI.popWindow(eObj);//立刻弹出浮动窗口，为显示案例做准备
-              var popWindowDom = document.querySelector('div#popWindow');
-                  popWindowDom.style.backgroundColor = 'rgb(200,200,200)' ;
-              var iframeDom = document.createElement('iframe');
+          
+           //window.open(url);
+            outputUI.popWindow(eObj);//立刻弹出浮动窗口，为显示案例做准备
+            var popWindowDom = document.querySelector('div#popWindow');
+                popWindowDom.style.backgroundColor = 'rgb(200,200,200)' ;
+            var iframeDom = document.createElement('iframe');
               iframeDom.style.width = '100%' ;
               iframeDom.style.height = window.innerHeight * 0.8 + 'px' ;
-              iframeDom.src = url ;
+              iframeDom.src = this.url ;
               popWindowDom.appendChild(iframeDom);
-              
-           };
-
+            };
            //增加“显示源码”按钮
            let bt1 = document.createElement("input");
-           bt1.type = "button" ; 
-           bt1.value = "显示源码" ;
-           bt1.url = bt.id ;
+            bt1.type = "button" ; 
+            bt1.value = "显示源码" ;
+            bt1.url =  Model.projects[i][0] ; ;
            bt1.onclick = function(eObj){
-            outputUI.popWindow(eObj);//立刻弹出浮动窗口，为代码显示做准备
-             var url = this.url ;
+             outputUI.popWindow(eObj);//立刻弹出浮动窗口，为代码显示做准备
+             var url = this.url ; 
              var typeOfFile = (url.substring(url.length - 8)).trim();
              if(typeOfFile.length > 4){
               typeOfFile = typeOfFile.substring(typeOfFile.length-4)
              }
              //alert(typeOfFile) ;
              //showCode(s)函数在本方法内部，属于函数内的函数，供bt1按钮使用将对传入的s进行分析，按源代码格式实现对页面的输出
-             if (url.substring(0,4)==='http' || typeOfFile !== 'html'){
+             if (url.substring(0,4)==='http'){
               showCode("本例不是编程案例，没有源码!") ;
               document.querySelector('div#popWindow').style.top = eObj.pageY + 'px' ;
              }
-             if( typeOfFile === 'html' ||  typeOfFile === '.css'  ||  typeOfFile.substring(1) === '.js'){
+             if( typeOfFile === 'html' || typeOfFile === '.txt' ||  typeOfFile === '.css'  ||  typeOfFile.substring(1) === '.js'){
               //"Get Code ..."
-              ajaxObj.xhrReq(Model.getUrlPath()+url) ;
-              //alert(ajaxObj.content);不可能马上能获取网络上的html文档
-
+              ajaxObj.xhrReq(this.url) ;
               setTimeout(()=>{
-                if(ajaxObj.content){
-                  //alert(ajaxObj.content);
-                  showCode(ajaxObj.content) ;
-                }else{
-                  setTimeout(()=>{
-                     showCode(ajaxObj.content) ;
-                    } ,500) ;
-                }
-              },500);
-             };
+                //console.log(ajaxObj.content) ; 
+                showCode( ajaxObj.content );} ,500)  ;
+             }else{
+              showCode(" 本例不是编程案例，没有源码! \n 本例不是编程案例，没有源码!") ;
+              document.querySelector('div#popWindow').style.top = eObj.pageY + 'px' ;
+             }
+             
           };//“显示源码”的onclick事件函数
-      //“显示源码”按钮结束
+      
 
-           paras[i] = paras[i].substring(paras[i].search('>')+1) ;
-           let txt = document.createTextNode("本例简介："+paras[i]);
+          
+          //用户点击时不可能马上能获取网络上的项目文档，下面的3条代码提前把项目读取到浏览器缓存
+          waitForProjects(i) ;
+          function waitForProjects(){
+           ajaxObj.xhrReq(Model.projects[i][0]) ;
+           }
+
+      
+         
+           let txt = document.createTextNode("本例简介："+ projects[i][2]);
             p.appendChild(bt);
             p.appendChild(bt1);
             p.appendChild(txt); 
            my$("#project").appendChild(p);
-             }//end for loop
+       }//end for loop for every Porject
 
 
         function  showCode(codeString) {
@@ -332,7 +322,9 @@ var ajaxObj = {
              let src = paras[i].substring(paras[i].search('=')+1,paras[i].search('>'));
               bt = document.createElement("input");
               bt.type = "button" ; 
-              bt.id = Model.getUrlPath() + src ;
+              let lessonUrl = Model.getUrlPath(Model.lessonId);
+                 
+              bt.id = lessonUrl + '/' + src ;
               bt.value = "嵌入插图" ;
               
               bt.onclick = function(){
@@ -364,13 +356,11 @@ var ajaxObj = {
              }//end for loop
      } ,
      showAll: function(){
-               
-               var that = this ;
-               setTimeout(that.showTitle,200) ;
-               setTimeout(that.showIntroduction,200*2) ;
-               setTimeout(that.showKeyword,200*3) ;
-               setTimeout(that.showProject,200*4) ;
-               setTimeout(that.showReading,200*5) ;
+               setTimeout(outputUI.showTitle,200) ;
+               setTimeout(outputUI.showIntroduction,200*3) ;
+               setTimeout(outputUI.showKeyword,200*5) ;
+               setTimeout(outputUI.showProject,200*7) ;
+               setTimeout(outputUI.showReading,200*9) ;
                
              },
       popWindow: function(eObj) { //eObj参数由调用本函数的事件处理函数onclick的参数，通过lexical语法传至本popWindow函数
@@ -405,67 +395,115 @@ var ajaxObj = {
       maxId : 20 ,
       lessonId : 0 ,
       contentArr : [] ,
+      projects : [] , //存放本课项目文件的地址和标题，[ [url,title,content] , ... ]
       processAjaxTxt : (theText) => {
         let keyString = ['1.title','2.introduction','3.keyword','4.project','5.reading'] ;
         let arr = [];
         let i,begin,end ;
         for( i=0; i < keyString.length - 1 ; i++) {
-          begin = theText.search(keyString[i]) +keyString[i].length;
-          end = theText.search(keyString[i+1]) ;    
+          begin = theText.indexOf(keyString[i]) + keyString[i].length;
+          end = theText.indexOf(keyString[i+1]) ;    
           arr[i] = theText.substring(begin,end); 
         }
-          arr[i] = theText.substring(keyString[i].length+end);
-          Model.contentArr = arr ;
+          arr[i] = theText.substring(keyString[i].length + end);
+
+          for(let a of arr){
+            if (a.trim() !== ''){
+              Model.contentArr.push(a.trim()) ;    
+            }
+          }
+          
       },
-      getTextFile : function(){
-        if (this.lessonId < 10){
-            return 'kc0' + this.lessonId + ".txt" ;
-        }else{
-            return 'kc' + this.lessonId + ".txt" ;
-        }
-      },
-      getUrlPath : function(){
-        if (this.lessonId < 10){
-            return 'kc0' + this.lessonId + "/" ;
-        }else{
-            return 'kc' + this.lessonId + "/" ;
-        }
-      },
-      getLessonById: function(){
-      var txtFile = Model.getTextFile(); //本例每一课的文本文件放在与本程序同一文件夹
+
+     getLessonById: function(){
+       document.body.className = '' ;
+       var txtFile = getTextFile(Model.lessonId); 
+       //本例每一课的文本文件放在与index.html同一文件夹
        ajaxObj.xhrReq(txtFile);
        my$("h1#title").textContent = "收到 ！正 在 读 入 信 息 ..." ;
-       
+       Model.contentArr = [] ; //读入新的课程前，清空Model中的旧课程内容
+       Model.projects = [] ;  //读入新的课程前，清空Model中的旧项目内容
        setTimeout(function(){
-            document.querySelector('html').className = '' ;
             if (ajaxObj.content.length > 100){
+               document.body.className = 'loaded' ; 
                 Model.processAjaxTxt(ajaxObj.content) ;
+                //生成Model.projects
+                processProjects() ;
+                
                 outputUI.showAll() ;
                 document.querySelector('html').className = 'loaded' ;
               }else{
-                setTimeout(() => {waitForAjax();} ,1000);
-                //ES6的箭头函数，让异步代码也能使用lexical语法，因此上面异步代码可以访问到下面的waitForAjax函数。
+                setTimeout(() => {waitForAjax();} ,2000);
+    //ES6的箭头函数，让异步代码也能使用lexical语法，因此上面异步代码可以访问到下面的waitForAjax函数。
               }
         },500);
- 
-       function waitForAjax(){
-         my$("h1#title").textContent = "网络访问卡、有延迟 ..." ;
+
+
+
+        function getTextFile(id){
+          if (id < 10){
+              return 'kc0' + Model.lessonId + ".txt" ;
+          }else{
+              return 'kc' + Model.lessonId + ".txt" ;
+          }
+        }
+
+       function waitForAjax(s){
+         if(!s){
+          s = "请等待，课程还未成功加载。不过，等久了或需刷新页面。" ;
+         } 
+         my$("h1#title").textContent = s ;
          setTimeout(() => {
-          
-          Model.getLessonById();
+           Model.getLessonById();
          } ,1000) ;
-            }
-      }//Model getLessonById method
+       }
+
+
+       
+       function processProjects(){
+        let projects = [] ;
+        let ppp = Model.contentArr[3].split('\n');
+           for(let p of ppp){
+           if (p.trim() !== ''){
+             projects.push(p.trim()) ; 
+         //  p.trim()防止kc??.txt文本中描述的前后空白，避免下面代码无法准确获取文件名
+           }
+          }
+       
+
+        for(let proTxt of projects){
+           //console.log(proTxt) ;
+           let fileName = proTxt.substring(7,proTxt.indexOf(' title')) ;
+           //console.log(fileName) ;
+           let title = proTxt.substring(proTxt.indexOf('title=') + 6 , proTxt.indexOf('>')) ;
+           //console.log(title) ;
+           //console.log( _getUrlPath(Model.lessonId) ) ; //
+           let content = proTxt.substring(proTxt.indexOf('>')+1) ;
+           
+           let pro = [ Model.getUrlPath(Model.lessonId) + fileName , title , content] ;
+           //console.log(pro) ;
+           Model.projects.push( pro ) ;
+         }
+        }
+       },//Model getLessonById method
+     getUrlPath : function(id){
+      if (id < 10){
+          return 'kc0' + Model.lessonId + "/" ;
+      }else{
+          return 'kc' + Model.lessonId + "/" ;
+      }
+    },
    };//End Model Object
+
     window.onload = function(){
    //动态控制UI，包括：针对不同屏幕的字体大小设置，主区域的高度设置
      var fontSize =  Math.floor(window.innerWidth/100) ;
       
-       switch (fontSize){
-      case 17 :	 case 16 :	 case 15 : 
+     switch (fontSize){
+       case 17 :	 case 16 :	 case 15 : 
         fontSize =  fontSize*1.2; break;
-        case 14 :	 case 13 : 	 case 12 :
-        case 11 : fontSize =  fontSize*1.5; break;
+      case 14 :	 case 13 : 	 case 12 :
+      case 11 : fontSize =  fontSize*1.5; break;
       case 10 : fontSize =  fontSize*2.0 ; break;
       case 9 :  fontSize =  fontSize*2.2; break;
       case 8 :  fontSize =  fontSize*2.5; break;
@@ -474,21 +512,22 @@ var ajaxObj = {
       case 5 :  fontSize =  fontSize*3.5 ; break;
       case 4 :  fontSize =  fontSize*3.8 ; break;
       default : fontSize =  fontSize*3.9 ; break;
-       }
-       document.body.style.fontSize = fontSize + "px" ;
+     }
+     
+     document.body.style.fontSize = fontSize + "px" ;
     
   
    //下面使用ajaxObj.xhrReq("kc01.txt")让第一课的内容页面准备好后，当用户点击输入框后，大概率访问第一课，则无需再作ajax访问
-    ajaxObj.xhrReq("kc00.txt");
+    //ajaxObj.xhrReq("kc00.txt");
     Model.getLessonById() ;
-    setTimeout(function(){outputUI.showAll();},1000);
+    //setTimeout(function(){outputUI.showAll();},1000);
   
     my$("input#lessonId").onclick = function(){
       var id = Model.lessonId ;
       this.value = 1 + id ;
       Model.lessonId =  1 + id ;
       Model.getLessonById();
-      outputUI.showAll();
+      
       };
 
     my$("input#lessonId").addEventListener("change",function(){
@@ -538,17 +577,17 @@ var ajaxObj = {
  
    };//end of window.onload
   function my$(para){
-       if(!para){
-         throw para + "Wrong Selector para,you get nothing !" ;
-       }
+    if(!para){
+       throw para + "Wrong Selector para,you get nothing !" ;
+    }
     var dom = document.querySelectorAll(para) ;
     if (dom.length > 1){
           console.log("you got Dom Array list reference.");
           return dom ;
     }else{
        dom = document.querySelector(para) ;
-        if (dom){
-          console.log("you get a Dom reference.");
+       if (dom){
+          //console.log("you get a Dom reference.");
           return dom ;
         }else{
           throw para + " : wrong Selector para,you get nothing !" ;
