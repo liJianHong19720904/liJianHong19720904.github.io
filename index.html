@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    修炼计算机科学的内功，靠读好书和写代码，而这，或许还可以是你快乐的2件事————李健宏！
+    读好书和写代码，或许是可以让你快乐的2件事————李健宏！
   </title>
    <style type="text/css">
     body{
@@ -15,7 +15,7 @@
    	div#stage{
 	 position: relative;
 	 border:3px solid;
-	 height:360px;
+	 height:460px;
 	 background-color: rgb(38, 10, 2);
 	 overflow: hidden;
 	}
@@ -70,6 +70,12 @@
      color:white;
 	 text-align: center;
 	}
+	footer{
+     font-size:1em;
+	 background-color:rgb(50, 50, 50);
+     color:white;
+	 text-align: center;
+	}
    </style>
    <script type="text/javascript">
     <!--
@@ -82,7 +88,7 @@
 		          audio: new Audio() ,
 				  path: "https://lijianhong19720904.github.io/images/mp3/pride and prejudice " ,
 				  clipNum: 61 , //上面URL共有61章《傲慢与偏见》朗读音频
-                  waitInfos : [ '本站共有《傲慢与偏见》原著全部61章音频。' , ' 网速真慢吧？' , '您还能耐心等等吗？', '音频存在境外gitHub，路途太远。' ,'音频是英文原声朗读。','每次音频切换，都可能要这样等','我可是难得收集到这61个音频的？','原著的文本，本首页有，您需要吗？','对于首次打开本程序朋友，由于音频没有缓存，所以请多等等。','Everything that happens to a child of god is Fathter filtered , and he intends to use it for good , even when others mean it for bad .'],
+                  waitInfos : [ '此处可以播放《傲慢与偏见》原著全部61章音频。' , ' 不管您的网速多慢，我的程序都可以流畅播放所有信息！' , '听音频与看原文的结合，是英语学习修炼，也是人生的享受。', '音频存在境外gitHub，感谢伟大互联网上的这些免费的优质的服务，即使她们连接ChinaNet有些慢。' ,'《傲慢与偏见》原著音频是女声英文原声朗读，质量绝佳！','每次音频切换，意味着大量音频数据需要从gitHub传来...','我收集到这61个音频，也算碰到机缘巧合。','原著的文本，本首页有一个Webster出版的PDF，您需要可以下载！','背景画面没有动画时，说明音频还没有准备好播放，需要在等等。','Everything that happens to a child of god is Fathter filtered , and he intends to use it for good , even when others mean it for bad .','真正的《计算机科学》的学习，不是记忆一些知识而已！','写代码是学好计算机科学的最好的手段，同时也可以训练思维。','本站的CodeBasic是以Web为背景的程序设计的入门。','本站的CodeAdvance是以Web为背景的程序设计的进阶。'],
                   
                  getAudioById : () => {
                      let id = mediaObj.id ;
@@ -90,7 +96,7 @@
                      let path = mediaObj.path ;
                      let pathId = '' ;
                      
-                     console.log('"this" is ' + this) ;
+                     //console.log('"this" is ' + this) ;
 
                      if (id < 10){
 						  pathId = '0' + id ;
@@ -168,8 +174,8 @@
 		                      for (let i=0; i< imgDoms.length ; i++ ) {
 		                        let img = imgDoms[i] ;
 								let ratio = img.width / img.height ;
-			                         img.height = 360 ; //配合CSS样式对stage舞台的高度
-			                         img.width = 360 * ratio ;
+			                         img.height = 460 ; //配合CSS样式对stage舞台的高度
+			                         img.width = 460 * ratio ;
 			                         img.style.left = xPos + 'px' ;
 			                         xPos += img.width ;
 		                             parent.appendChild(img);	
@@ -212,7 +218,7 @@
 			 Stage: document.querySelector("div#stage"),
 			 addInfoToStage: function(info){
 			 //在页面的Stage区域，实现了文本信息逐条显示
-				 const infoNum = 6 ;
+				 const infoNum = 8 ;
 				 var stageDom = document.querySelectorAll("p") ;
 				 if (stageDom.length === infoNum){
 					mediaObj.UI.Stage.removeChild(stageDom[0]) ;
@@ -355,7 +361,7 @@
  </head>
  <body>
   <header>
-	《修炼计算机科学的内功》--读书和写代码
+	《计算机科学导论》之实践篇--读书和写代码
   </header>
   <div id="stage">
 	
@@ -369,12 +375,12 @@
 	 <span id="addVol">+Vol+</span>
 	 <span id="subVol">-Vol-</span>
 	 <span ><a href="images/cssBasic.epub">CSSBook</a></span>
-	 <span ><a href="images/Word Power Made Easy.epub">EDict</a></span>
+	 <span ><a href="images/Word Power Made Easy.epub">WordPower</a></span>
 	 <span ><a href="images/pAndPWebster.pdf">pAndP</a></span>
 	 <span ><a href="qrcode.png">二维码</a></span>
-	 <span ><a href="WebBasic/index.html">Basic</a></span>
-	 <span ><a href="WebAdv/index.html">Advance</a></span>
+	 <span ><a href="WebBasic/index.html">Code Basic</a></span>
+	 <span ><a href="WebAdv/index.html">Code Advance</a></span>
   </div>
-  <footer>修炼计算机科学的内功，靠读好书和写代码，而这，或许还可以是你快乐的2件事————李健宏！</footer> 
+  <footer>‘读书’和‘写代码’是学习计算机科学的内功，也是很快乐的2件事! <br/>江西科技师范大学李健宏！</footer> 
  </body>
 </html>
