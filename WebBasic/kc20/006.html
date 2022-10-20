@@ -27,8 +27,8 @@
       i++ ; 
      }
      return posAarr ; 
-     //字符串每个字符都遍历结束了，则返回数组。
-   }//End search function
+      //字符串每个字符都遍历结束了，则返回数组。
+   }  //End search function
  
 
  //一个基本函数，用来返回数组或字符串的长度。
@@ -37,10 +37,10 @@
    var i = 0 ;
   while( arr[i] ) {
    length = length + 1 ;
-   i = i + 1 ; //忘了这句将让代码陷入恐怖的死循环
+   i = i + 1 ;  //忘了这句将让代码陷入恐怖的死循环
    }
   return length ;
- }//End of function lengthOfArray(arr)
+ } //End of function lengthOfArray(arr)
 
 
  function subString( s, p1 , p2 ){
@@ -62,7 +62,7 @@
     subs += s[i] ;
    }
    return subs ;
-  }//End of subString( s, p1 , p2 )
+  } //End of subString( s, p1 , p2 )
 
 
   function getTsFromString(ts){
@@ -70,8 +70,8 @@
         var ts = '291杜牧：泊秦淮\n烟笼寒水月笼沙，夜泊秦淮近酒家。商女不知亡国恨，隔江犹唱《后庭花》。\n292杜牧：寄扬州韩绰判官\n青山隐隐水迢迢，秋尽江南草未凋。二十四桥明月夜，玉人何处教吹箫？\n293杜牧：遣怀\n落魄江湖载酒行，楚腰纤细掌中轻。十年一觉扬州梦，赢得青楼薄幸名。\n294杜牧：秋夕\n银烛秋光冷画屏，轻罗小扇扑流萤。天阶夜色凉如水，坐看牵牛织女星。\n295杜牧：赠别二首之一\n娉娉袅袅十三馀，豆蔻梢头二月初。春风十里扬州路，卷上珠帘总不如。\n296杜牧：赠别二首之二\n多情却似总无情，唯觉樽前笑不成。蜡烛有心还惜别，替人垂泪到天明。\n297杜牧：金谷园\n繁华事散逐香尘，流水无情草自春。日暮东风怨啼鸟，落花犹似坠楼人。\n298李商隐：夜雨寄北\n君问归期未有期，巴山夜雨涨秋池。何当共剪西窗烛，却话巴山夜雨时？\n299李商隐：寄令狐郎中\n嵩云秦树久离居，双鲤迢迢一纸笔。休问梁园旧宾客，茂陵秋雨病相如。\n300李商隐：为有\n为有云屏无限娇，凤城寒尽怕春宵。无端嫁得金龟婿，辜负香衾事早朝。\n301李商隐：隋宫\n乘兴南游不戒严，九重谁省谏书函？春风举国裁宫锦，半作障泥半作帆。\n302李商隐：瑶池\n瑶池阿母绮窗开，黄竹歌声动地哀。八骏日行三万里，穆王何事不重来？\n303李商隐：嫦娥\n云母屏风烛影深，长河渐落晓星沈。嫦娥应悔偷灵药，碧海青天夜夜心。\n304李商隐：贾生\n宣室求贤访逐臣，贾生才调更无伦。可怜夜半虚前席，不问苍生问鬼神！\n' ;
     }
 
-   var tsTitles = [] ; //用来存放每首唐诗的标题
-   var tsPoets = [] ; //用来存放每首唐诗的诗文
+   var tsTitles = [] ;  //用来存放每首唐诗的标题
+   var tsPoets = [] ;  //用来存放每首唐诗的诗文
    var tsPosArr =  search( ts, '\n' ) ;  // 命名来源于 ts Position Array
    //console.log(tsPosArr) ;
    var titleBegin = 0 ,
@@ -119,7 +119,7 @@
        ts[ lengthOfArray(ts) ] = poet ;
      }
      return ts ;
-   }//End of getTsFromString()
+   } //End of getTsFromString()
 
   </script>
  </head>
@@ -142,7 +142,7 @@
   </nav>
   <article>
     
-	 <strong>搜索实现和完善 </strong>
+	 <strong>实现搜索 </strong>
  
    <img src="../images/girl2.jpg">
 
@@ -230,7 +230,7 @@
        var poet = ts[foundArr[poetSn][0]] ;
        //console.log(foundArr);
        showTs(poet) ;
-    } ; //end of tsBegin
+    } ;  //end of tsBegin
     tsNext = function(){
         if(poetSn < lengthOfArray(foundArr) -1){
             poetSn ++ ;
@@ -285,7 +285,7 @@
         i++ ; 
       }
      return foundIt ; 
-    }//End of isFound function
+    } //End of isFound function
   } //tsSearch Function
 
   function tsEnd(){

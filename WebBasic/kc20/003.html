@@ -4,8 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    本例，我们把成熟的代码包装起来，封装成为函数，提供给程序反复使用。
-    从具体到抽象。用函数来实现每首唐诗的获取。
+    本例，我们为前面的UI的点击互动函数设计代码，为记录当前页面显示的唐诗，引入一个全局变量。
+    tsBegin输出第一首唐诗，
+    tsNext向后输出唐诗，
+    tsPrev往前输出唐诗，
+    tsSearch搜索唐诗，
+    tsEnd最后一首唐诗。
+   定义全局变量poetSn ，用于动态记录，当前显示的唐诗的序号，当然这个序号其实是ts数组的下标。
   </title>
   <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
   <script src="../images/myJs.js"></script>
