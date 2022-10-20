@@ -10,11 +10,11 @@
   $  ,  my$ , search , lengthOfArray  ,  subString  ，getTsFromString ，tsBegin  ，tsNext ，tsPrev ，tsSearch ，showTs ，isFound ，tsEnd。
 
 4.project
-<a src=001.html title=项目的代码组织架构 > 本例实现项目的代码组织架构 。
-<a src=002.html title=程序的UI> 本例实现程序的UI 。
-<a src=003.html title=全局变量的应用> 本例实现全局变量的应用 。
-<a src=004.html title=唐诗搜索的数据结构和算法探索> 本例实现唐诗搜索的数据结构和算法探索 。
-<a src=005.html title=函数表达式概念和运用> 本例实现函数表达式概念和运用 。
-<a src=006.html title=《 唐诗三百首*完美版》>  完善输出和细节，唐诗搜索功能的实现。
+<a src=001.html title=项目的代码组织架构 > 本例通过把三个外部文件myCss.css 、myJs.js 、ts300.js 引入，探索了项目的代码组织架构。搭建了项目的代码组织架构后，在getTsFromString等前面课程设计的函数基础上，对处理好的数据实现简单的输出。 
+<a src=002.html title=程序的UI实现> 本例我们为本软件创建一个UI。UI简称用户界面，可以与用户互动的界面。 为UI的li元素增加onclick属性，为该属性设置JavaScript定义的函数，比如tsBegin()，这样就最简单地实现了Web的UI交互，即通过点击来调用我们自定义的函数  。本例开始，我们再利用myJs.js文件中的一个函数my$ ，可以实现把Web页header区域的内容清空，同时在最显目的区域，配合CSS特效，显示my$(s) 传入的s参数。
+<a src=003.html title=全局变量的应用>  本例，我们为前面的UI的点击互动函数设计代码，为记录当前页面显示的唐诗，引入一个全局变量。其中， tsBegin输出第一首唐诗，  tsNext向后输出唐诗，   tsPrev往前输出唐诗，   tsSearch搜索唐诗，   tsEnd最后一首唐诗。  定义全局变量poetSn ，用于动态记录，当前显示的唐诗的序号，当然这个序号其实是ts数组的下标。 
+<a src=004.html title=唐诗搜索的数据结构和算法探索> 本例探索“ 搜索 ”唐诗内容的功能，尝试对tsSearch()函数的代码设计。 本例增加的主要代码都集中在tsSearch()函数内部，根据唐诗的数组ts的数据结构 ，我们将设计一个算法来遍历ts数组，分为2个层次的循环进行，第一个层次是从1到310的每首唐诗，第二个层次是每首唐诗的内容。 。
+<a src=005.html title=函数表达式概念和运用> 本例讲解JavaScript语言函数一个不错的内涵，函数与变量并没有多大区别，都可以看作信息的“容器”。  函数是代码的容器，而变量是数据的容器。函数既然也是容器，其中的代码内容就可以用程序更替。根据语言的“伟大的思想”，用户点击搜索按钮后，我们使用代码更新用于导航的4个函数（当然搜索函数除外），这样就可以最便利实现了搜索结果的导航。  
+<a src=006.html title= 唐诗三百首完美版>  作为《唐诗三百首》APP最终完善版，实现搜索函数tsSearch的全部代码，并完善输出和细节。
 5.reading
 The true programming language of the web, JavaScript lets you add behavior to your web pages. No more dry, boring, static pages that just sit there looking at you , with JavaScript you’re going to be able to reach out and touch your users, react to interesting events, grab data from the web to use in your pages, draw graphics right in your web pages and a lot more. And once you know JavaScript you’ll also be in a position to create totally new behaviors for your users.
