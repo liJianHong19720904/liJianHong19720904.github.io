@@ -65,7 +65,7 @@
  { //-------------------Ajax 访问网络获取数据的代码模块，异步运行，异步实现CET6单词数据的创建，且不增加任何全局变量
 	  let xhr = new XMLHttpRequest();
           xhr.onreadystatechange = myCallback ;
-          xhr.open('GET',"cet6.txt",true);
+          xhr.open('GET',"cet6Txt.txt",true);
           xhr.send('');
       function myCallback(){
  // 在XMLHttpRequest实例对象xhr控制下，通过http网络协议，myCallback函数将会被异步执行四次，对应xhr的onreadystatechange的事件发生，xhr的属性readyState也会变化4次
@@ -94,12 +94,14 @@
            }else{//xhr.status === 200 ，xhr.responseText可用
              let theText = xhr.responseText ;
 			 console.log("通过HTTP请求，成功获取以下文本数据：");
-             console.log(theText);
-			 CET6 = JSON.parse('[' + theText + ']') ;
-			 //JSON.parse API将字符串转换为代码
+             //console.log(theText);
+			 CET6 = theText.split('\n') ;
+			 //console.log(CET6);
+			
 			  {//---把单词字符串数组处理为对象，代码模块开始
 				let dictEn6 = [];
 				for (let  element of CET6 )	{
+					//console.log(element);
 					let word = {en: "" , ph: "", cn: ""} ;
 					let pos1 = element.search("/") ;
 					word.en = element.substring(0,pos1) ;
@@ -110,6 +112,7 @@
 					dictEn6.push(word) ;
 				 } //end of for dictEn6 from CET6
 				 CET6 = dictEn6 ;
+				 //console.log(CET6);
                 }//---把单词字符串数组处理为对象 代码模块结束
              } // success of GET file
             }//readyState === 4
@@ -229,21 +232,25 @@
    };//end of View
  function Controller(){
 	 //对CET6单词库中，查找a到z开头的单词首个单词，把这些单词对象作为数据
-    
-	let num = 0 ;
-	for (let word of CET6){
- 	  let chCode = "a".charCodeAt() + num ;
+     //console.log(CET6[500]); 代码在此显示CET6[500]为undefined，说明文本还未处理好，甚至还未读入
+    if( !CET6.length ){
+   		setTimeout(Controller , 500) ;
+   	} else{ //异步获取的全局变量，CET6已经准备好了
+     let num = 0 ;
+	 for (let word of CET6){
+ 	   let chCode = "a".charCodeAt() + num ;
 	  if (word.en.substring(0,1).toLowerCase() === String.fromCharCode(chCode)) {
        	  Model.readyWords.push(word) ;
 		  num++ ; 
       }
-	}//end of CET数组遍历
-	
-	Model.word = Model.readyWords[Model.readyIndex] ;
+	 }//end of CET数组遍历
+	 Model.word = Model.readyWords[Model.readyIndex] ;
+	}
 
-    View.getUIDom() ;
-    View.showHint() ; 
-	View.showCursor() ;
+	//下面是UI的代码设置
+     View.getUIDom() ;
+     View.showHint() ; 
+	 View.showCursor() ;
  
 	document.body.onkeydown = function(eObj){
 	    //改动后代码逻辑更加清晰
@@ -272,7 +279,6 @@
 			Model.inputWord += key ;
 			Model.getReadyWords() ;
 		}
-	
    }; //end of document.body.onkeydown function
  }//end of function Controller
 

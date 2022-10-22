@@ -64,7 +64,7 @@
 	 { //-------------------Ajax 访问网络获取数据的代码模块，异步运行，异步实现CET6单词数据的创建，且不增加任何全局变量
 	  let xhr = new XMLHttpRequest();
           xhr.onreadystatechange = myCallback ;
-          xhr.open('GET',"cet6.txt",true);
+          xhr.open('GET',"cet6Txt.txt",true);
           xhr.send('');
       function myCallback(){
  // 在XMLHttpRequest实例对象xhr控制下，通过http网络协议，myCallback函数将会被异步执行四次，对应xhr的onreadystatechange的事件发生，xhr的属性readyState也会变化4次
@@ -104,7 +104,7 @@
 				i++ ;
 			 }
            
-			 CET6 = JSON.parse('[' + string + ']') ;
+			 CET6 =  theText.split('\n') ; ;
 			  {//---把单词字符串数组处理为对象 代码模块开始
 				let dictEn6 = [];
 				for (let  element of CET6 )	{
@@ -129,7 +129,7 @@
   <script type="text/javascript">
   <!--
 	/*
-    采用ajax访问后，也让cet单词的维护变得更简单了，维护人员只要打开cet6.txt,再修改文本文件即可
+    采用ajax访问后，也让cet单词的维护变得更简单了，维护人员只要打开cet6Txt.txt,再修改文本文件即可
 	*/
   var Model = { 
     inputWord : "" , //记录用户实际编辑或输入的单词结果

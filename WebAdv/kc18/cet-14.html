@@ -69,7 +69,7 @@
           console.time('time0');
 		  console.time('time1');
           xhr.onreadystatechange = myCallback ;
-          xhr.open('GET',"cet6.txt",true);
+          xhr.open('GET',"cet6Txt.txt",true);
           xhr.send('');
 		  
       function myCallback(){
@@ -107,19 +107,8 @@
            }else{
 			console.time('处理单词时间');
              let theText = xhr.responseText ;
-			 //下面立刻处理异步获得的文本数据
-			 let string = '' ,
-			     i= 0 ,
-			     length = theText.length ;
-    /* 若不把读取的文本去除换行和回车，JSON.parse 将无法正确解析*/
-			 while (i < length){
-				if (theText[i]!=='\n' && theText[i]!=='\r'){
-					string += theText[i] ;
-				}
-				i++ ;
-			 }
-           
-			 let dictEn6 = JSON.parse('[' + string + ']') ;
+
+           	 let dictEn6 = theText.split('\n') ;
 			  {//---把单词字符串数组处理为对象 代码模块开始
 				for (let  element of dictEn6)	{
 					let word = {en: "" , ph: "", cn: ""} ;

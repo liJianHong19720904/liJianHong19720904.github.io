@@ -68,7 +68,7 @@
           console.time('time0');
 		  console.time('time1');
           xhr.onreadystatechange = myCallback ;
-          xhr.open('GET',"cet6.txt",true);
+          xhr.open('GET',"cet6Txt.txt",true);
           xhr.send('');
 		  
       function myCallback(){
@@ -118,7 +118,7 @@
 				i++ ;
 			 }
            
-			 let dictEn6 = JSON.parse('[' + string + ']') ;
+			 let dictEn6 = theText.split('\n') ;
 			  {//---把单词字符串数组处理为对象 代码模块开始
 				for (let  element of dictEn6)	{
 					let word = {en: "" , ph: "", cn: ""} ;
