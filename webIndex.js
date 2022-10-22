@@ -56,7 +56,7 @@ var ajaxObj = {
      }//end of xhrReq methoed   
     };//end of ajaxObj definition
    /****
-   上面ajax对象由Mode操控，读取的文本,处理后，会存放在Model.contentArr数组中，
+   上面ajax对象由Model对象的getLessonById具体操控读取外部文件，读取的文本处理后，会存放在Model.contentArr数组中，
    与index.html内的article的结构匹配： 
    title指标题区  
    introduction 指摘要或介绍   
@@ -109,10 +109,8 @@ var ajaxObj = {
       my$("#keyword").appendChild(p);
      },
      showProject:function(){
-
-        my$("article#project").textContent = '';
-        //document.querySelector('html').className = '' ;
-       let projects = Model.projects ; // Model.projects = [ [url , title]...]
+       my$("article#project").textContent = '';
+       let projects = Model.projects ; // Model.projects = [ [url , title,content]...]
        // console.log(projects);
 
          
@@ -125,13 +123,23 @@ var ajaxObj = {
           b.textContent =  "实践案例:"+Model.lessonId +"."+ no + " 《 " + projects[i][1] +" 》";
           my$("#project").appendChild(b);
 
-            //增加“运行本例”按钮
-           let bt = document.createElement("input");
-            bt.type = "button" ; 
-            bt.value = "运行本例" ;
-            bt.url = Model.projects[i][0] ;
+          //增加“站外执行”按钮
+          let bt0 = document.createElement("input");
+          bt0.type = "button" ; 
+          bt0.value = "站外打开" ;
+          bt0.url = Model.projects[i][0] ;
+                   
+          bt0.onclick = function(){
+           window.open(this.url);
+          }
+          
+          //增加“站内执行”按钮
+           let bt1 = document.createElement("input");
+            bt1.type = "button" ; 
+            bt1.value = "站内执行" ;
+            bt1.url = Model.projects[i][0] ;
                      
-           bt.onclick = function(eObj){
+           bt1.onclick = function(eObj){
           
            //window.open(url);
             outputUI.popWindow(eObj);//立刻弹出浮动窗口，为显示案例做准备
@@ -144,11 +152,11 @@ var ajaxObj = {
               popWindowDom.appendChild(iframeDom);
             };
            //增加“显示源码”按钮
-           let bt1 = document.createElement("input");
-            bt1.type = "button" ; 
-            bt1.value = "显示源码" ;
-            bt1.url =  Model.projects[i][0] ; ;
-           bt1.onclick = function(eObj){
+           let bt2 = document.createElement("input");
+            bt2.type = "button" ; 
+            bt2.value = "显示源码" ;
+            bt2.url =  Model.projects[i][0] ; ;
+           bt2.onclick = function(eObj){
              outputUI.popWindow(eObj);//立刻弹出浮动窗口，为代码显示做准备
              var url = this.url ; 
              var typeOfFile = (url.substring(url.length - 8)).trim();
@@ -185,8 +193,9 @@ var ajaxObj = {
       
          
            let txt = document.createTextNode("本例简介："+ projects[i][2]);
-            p.appendChild(bt);
+            p.appendChild(bt0);
             p.appendChild(bt1);
+            p.appendChild(bt2);
             p.appendChild(txt); 
            my$("#project").appendChild(p);
        }//end for loop for every Porject
@@ -208,7 +217,7 @@ var ajaxObj = {
 
           //console.log(codeParas);
          
-     const keyWords = ['{' ,'}','(',')','[',']'];
+     const keyWords = ['{' ,'}','(',')','[',']' ,':',';'];
      //目前还未在JavaScript代码层面完成operators的分析
      const operators = ['+','-','*','/','=','%','>','<','|','&','.','\\',':','!'] ;
      let nextLineisComment  ;
@@ -231,22 +240,18 @@ var ajaxObj = {
                               } 
                               isBlank = true ;
                               continue ;
-                  default :   if(isBlank){
+                        
+                  default :   if(keyWords.indexOf(ch) !==-1){
+                               aLineWords.push(" ") ;
                                aLineWords.push(ch) ;
+                               aLineWords.push(" ") ;
                                isBlank = false ;
-                              }else{
-                                if(keyWords.indexOf(ch) !==-1 && para[j-1]!=' '){
-                                 aLineWords.push(" ") ;
-                                 isBlank = true ; 
-                                 aLineWords.push(ch) ;
-                                 if(para[j+1]!=' '){
-                                  aLineWords.push(" ") ;
-                                 }
-                                }else{
+                              }else if(!aLineWords[aLineWords.length-1]){
+                                    aLineWords.push(ch) ;
+                                  }else{
                                   aLineWords[aLineWords.length-1] += ch ;
-                                }
-                              
-                              }
+                                  }
+                          
                        } // switch 结束
            } // 把一段文本处理为单词数组aLineWords的循环
 
@@ -256,11 +261,12 @@ var ajaxObj = {
             } 
           
             for(let word of aLineWords){
+                //console.log(word);
                 //下面实现案例的注释统一颜色，技术实现上是通过合并CSS样式中的comment类
                 // 本课程代码comment 表示情况，以 '//','/*', '<!--','<title>' 开头
-                if(word.substring(0,2) === '//'|| word.substring(0,4) === '<!--'){
+                if(word.trim().substring(0,2) === '//'|| word.trim().substring(0,4) === '<!--'){
                        thisLineisComment = true ;
-                  }else if(word.substring(0,2) === '/*' || word.substring(0,7) === '<title>'){
+                  }else if(word.trim().substring(0,2) === '/*' || word.trim().substring(0,7) === '<title>'){
                        thisLineisComment = true ;  
                        nextLineisComment = true ;
                        } 
@@ -275,9 +281,9 @@ var ajaxObj = {
                  if(thisLineisComment){
                     wordDom.className = "comment" ;  
                   }else{
-                    wordDom.className = "codeWord" ;
+                      wordDom.className = "codeWord" ;
                      if(keyWords.indexOf(word) !== -1){
-                      wordDom.className = " keyWord" ;
+                      wordDom.className = "keyWord" ;
                       }
                   }
                    
