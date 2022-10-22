@@ -4,8 +4,7 @@
   我们在前面案例中，为了写出能操作Web页面，我们已经未加解释就使用了一些Web浏览器对象概念，比如document和window（包括点语法及其属性），这两个单词在我们Web前端代码中经常出现，分别代表Web页文件和浏览器窗口，是我们用代码可控制的Web浏览器和Web文档的对象的名字。
   而关于对象这个概念，本课开始我们要更加抽象地和系统理解浏览器端的对象体系，如同我们对世界的理解那样形成“世界观”，从而对计算机内的信息理解则形成“对象观”。比如:我们可以在开发者面板的console中，交互输出window.document.body.textContent内容，建立比较直观的理解。
   Web前端能表现的计算机内部的复杂信息世界一小部分，我们编写代码时，数据和系统能提供的信息都可以以对象的形式呈现出来，这样的架构更符合人类对世界的认知。本课中，我们重点理解JavaScript语言体系中二种最基本的对象，———数学和时间对象，通过分析这二种对象的名字、内部属性、常用方法，了解语言系统给我们提供的一些基于对象的便利功能，最后利用数学和时间对象写代码编程，实现4个案例。
-  JavaScript的国际标准EcmaScript已经非常成熟，其中预设计了很多对象的类，当我们理解了类和对象的模式，在写代码需要时，只需临时了解学习细节，就可立即在编码中使用，非常高效。此处，我们谈一个特例：数学对象作为唯一特殊类，其在代码中直接写作 Math，无须建立对象。而其他对象，如本课同时介绍的时间对象，则需要用new操作符来产生具体的实例。这点很多开发者不理解，解释如下：在我们的自然界中，数学表达的是客观规律或事物，而其他对象，如时间对象Date，其每时每刻都在变化，信息都不一样，因此笼统的说时间对象是一个抽象的类，具体使用时，则必须具体落实，语法：new Date()，对具备实际信息的对象称为实例。
-
+  
 3.keyword
   EcmaScript ，Math.random ，Math.floor  ，setInterval ， HTML/CSS ，UI ，document.querySelectorAll ，dom元素.textContent ，new Date() ，.getFullYear() ， .getMonth() ，.getDate() ，.getHours()，.getMinutes()，.getSeconds()，.getMilliseconds()，，Number(非数字数据) ， new Date(0) 。 
 	
@@ -16,6 +15,12 @@
   <a src=oop-4.html  title=利用时间对象和API显示当前时间>演示利用EcmaScript内定义的对象（时间对象）的方法，结合前面案例生成UI，实现一个按当前时间变化Web页面。
   
 5.reading
+JavaScript的国际标准EcmaScript已经非常成熟，其中预设计了很多对象的类，当我们理解了类和对象的模式，在写代码需要时，只需临时了解学习细节，就可立即在编码中使用，非常高效。此处，我们谈一个特例：数学对象作为唯一特殊类，其在代码中直接写作 Math，无须建立对象。而其他对象，如本课同时介绍的时间对象，则需要用new操作符来产生具体的实例。这点很多开发者不理解，解释如下：在我们的自然界中，数学表达的是客观规律或事物，而其他对象，如时间对象Date，其每时每刻都在变化，信息都不一样，因此笼统的说时间对象是一个抽象的类，具体使用时，则必须具体落实，语法：new Date()，对具备实际信息的对象称为实例。
+JavaScript/EcmaScript内定义了许多对象的类，来协助开发者对代码中的数据进行分类，比如图像数据和文字数据，对应了图像类（Image）和字符串类（String）。
+本课我们从最为常用的数学对象和时间对象开始，通过写代码来探索这二个对象类的概念和语法，
+	通过了解这二个对象，从而开始构建EcmaScript语言体系中的其他对象的概念和编程通识。
+	Math对象是唯一可直接使用对象，即无须new操作符产生实例，因为人类发明的数学具备普遍性，没有具体某个数学实例的概念。
+ECMAScirpt语言中的内置（Native）对象类，如本课介绍的Date，必须用new操作符产生实例。可以这样理解，时间是抽象的概念，因此必须用类的概念表达，而时间的具体信息数据（也称为时刻），时刻就是时间的对象具体实例。我们在本课代码中，其实是使用“时刻”表达计算机中的时间，理解这点非常重要，多数初学者可以从此能区分对象的类的概念和对象实例的概念。构建正确的概念后，我们就可以开始起步OOP程序设计。
 Values.  Imagine a sea of bits—an ocean of them. A typical modern computer has more than 30 billion bits in its volatile data storage (working memory). Nonvolatile storage (the hard disk or equivalent) tends to have yet a few orders of magnitude more. 
 To be able to work with such quantities of bits without getting lost, we must separate them into chunks that represent pieces of information. In a JavaScript environment, those chunks are called values. Though all values are made of bits, they play different roles. Every value has a type that determines its role. Some values are numbers, some values are pieces of text, some values are functions, and so on.
 To create a value, you must merely invoke its name. This is convenient. You don’t have to gather building material for your values or pay for them. You just call for one, and whoosh, you have it. They are not really created from thin air, of course. Every value has to be stored somewhere, and if you want to use a gigantic amount of them at the same time, you might run out of memory.  Fortunately, this is a problem only if you need them all simultaneously. As soon as you no longer use a value, it will dissipate, leaving behind its bits to be recycled as building material for the next generation of values.
