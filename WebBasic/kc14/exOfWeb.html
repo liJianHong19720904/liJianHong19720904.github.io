@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    本例用自编函数($)，结合Web前端的动态DOM技术，
+    实现一个可以直观地输出JavaScript表达式结果的网页，
+    供初学者练习数学计算和逻辑的表达式，
+    在编程前准备足够的基础。
+    本例只供初学者使用（无须查看本源代吗），源代码可供下一阶段程序设计使用。
+   </title>
+  <link rel = "stylesheet" type="text/css" href="../images/myCss.css">
+  <script src="../images/myJs.js"></script>
+
+   <style>
+    
+  
+    article{}
+    article input#inputer{
+      display: block;
+      width:100%;
+      border: 0.2em solid lightblue;
+      font-size: 2.5em;
+      color:blue ;
+      margin-left: -0.2em;
+      text-align: center;
+    }
+    nav{ 
+      display: block; 
+      position: relative;
+      top: -13em;
+      font-size:1.5em;
+      padding:0 ;
+        }
+    nav li{
+        display: inline-block;
+        margin : 0 1em ;
+    }
+   </style>
+   <script>
+     window.addEventListener('load',()=>{
+       var opDoms = document.querySelectorAll('nav ul li') ;
+       //console.log(opDoms) ;
+         for(let opDom of opDoms){
+           //console.log(opDom.textContent) ;
+           opDom.onclick = function(){
+            var inputerDom = document.querySelector('article input#inputer') ;
+            inputerDom.value += ' ' +this.textContent.trim() ;
+            
+
+           }
+         }
+         
+     },false);
+   </script>
+ </head>
+
+ <body>
+  
+  <header>
+   JavaScript的表达式练习器
+  </header>
+ 
+  
+<article>
+  <input id = "inputer" type="text" >
+</article>
+<nav>
+  <ul>
+      数学运算<br/>
+      <li>
+          +
+      </li>
+      <li>
+          -
+      </li>
+      <li>
+          *
+      </li>
+      <li>
+          /
+      </li>
+      <li>
+          %
+      </li>
+      <li>
+          (  )
+        </li>
+        <li>
+          >
+        </li>
+        <li>
+          <
+        </li>
+        <br/>
+      逻辑和类型<br/>
+      <li>
+         &&
+      </li>
+      <li>
+         ||
+      </li>
+      <li>
+        !
+      </li>
+      <li>
+        typeof
+      </li>
+      <li>
+        '  '
+      </li>
+      <li>
+        ==
+      </li>
+      <li>
+        ===
+      </li> 
+    </ul>
+</nav>
+  <footer>
+      CopyRight By Li Jianhong 2022
+  </footer>
+  
+  <script>
+   
+   
+  $("欢迎使用JavaScript表达式练习器。") ;
+  $("为愉快地使用，建议您的设备有稍宽的屏幕和键盘。") ;
+  $("在屏幕中的文本框内，输入JavaScript语言的表达式，按回车键完成。") ;
+  var  inputerDom = document.querySelector('input#inputer') ;
+       inputerDom.focus();
+  document.body.onkeydown = function(eObj){
+    if(eObj.key === "Enter"){
+    //执行程序，而非inputerDom.value += eObj.key ;
+     $('Enter ，立刻计算您的表达式: ') ;
+     $(inputerDom.value) ;
+      
+     var exp = eval(inputerDom.value.trim()) ;
+     $('结果：' + exp);
+     inputerDom.value = '' ;
+    }
+    
+  } ;     
+  </script>
+
+ </body>
+</html>
