@@ -59,7 +59,7 @@
  <body>
   
   <header>
-   JavaScript的表达式练习器
+   JS语言命令行和表达式练习器
   </header>
  
   
@@ -68,6 +68,7 @@
 </article>
 <nav>
   <ul>
+    类型
     <li>
       typeof
     </li>
@@ -132,14 +133,14 @@
     </ul>
 </nav>
   <footer>
-      CopyRight By Li Jianhong 2022
+      CopyRight By LiJianHong of Jxstnu China 2022
   </footer>
   
   <script>
    
    
-   $("为方便输入代码，建议您配有稍宽的屏幕和键盘。") ;
-  $("在中央文本框内，输入JS语言表达式，按回车键完成。") ;
+  $("因移动端无键盘，可点击导航栏，实现JS语言的基本符号输入。") ;
+  $("在中央文本框内，输入完善的JS语言表达式，按回车键完成计算。") ;
   var  inputerDom = document.querySelector('input#inputer') ;
        inputerDom.focus();
   document.body.onkeydown = function(eObj){
@@ -147,7 +148,7 @@
      $(inputerDom.value) ;
      var exp ;
      try{
-      exp = eval(inputerDom.value.trim()) ;
+      exp = eval( inputerDom.value.trim() ) ;
       }  
       catch(err){
         $('结果：' + err);
