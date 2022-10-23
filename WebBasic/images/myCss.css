@@ -124,6 +124,7 @@
 	  }
 	/* 对于width小于600像素的非宽屏 */ 
 @media only screen and (max-width: 600px){
+ body{font-size:13px;}
  nav{
   left :0 ;
   bottom: 15% ; /*JavaScript程序将输出在header区域，为了导航栏不挡住输出，让导航栏下移*/
@@ -146,5 +147,6 @@
 /* 对于width大于800像素的宽屏 ，我们把网页宽度限制在810像素，并增加粗线框，这样，宽屏的效果比较统一，不会显得差异太大*/ 
 @media only screen and (min-width: 800px){
 	body{width: 810px ;
-		 border:10px solid rgb(200,100,50)}
+		 border:10px solid rgb(200,100,50)} ;
+		 font-size: 20px ;
   }
