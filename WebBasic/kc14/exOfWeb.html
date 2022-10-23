@@ -68,7 +68,10 @@
 </article>
 <nav>
   <ul>
-      数学运算<br/>
+    <li>
+      typeof
+    </li>
+      运算
       <li>
           +
       </li>
@@ -84,17 +87,17 @@
       <li>
           %
       </li>
+
       <li>
-          (  )
-        </li>
-        <li>
-          >
-        </li>
-        <li>
-          <
-        </li>
-        <br/>
-      逻辑和类型<br/>
+        >
+       </li>
+       <li>
+        <
+       </li>
+       <li>
+        =
+       </li>
+      逻辑
       <li>
          &&
       </li>
@@ -105,17 +108,27 @@
         !
       </li>
       <li>
-        typeof
-      </li>
-      <li>
-        '  '
-      </li>
-      <li>
         ==
       </li>
       <li>
         ===
       </li> 
+      结构
+      <li>
+        ( )
+      </li>
+      <li>
+        [ ]
+      </li>
+      <li>
+        { }  
+      </li>
+      <li>
+        ' '
+      </li>
+      <li>
+        " "
+      </li>
     </ul>
 </nav>
   <footer>
@@ -125,18 +138,20 @@
   <script>
    
    
-  $("欢迎使用JavaScript表达式练习器。") ;
-  $("为愉快地使用，建议您的设备有稍宽的屏幕和键盘。") ;
-  $("在屏幕中的文本框内，输入JavaScript语言的表达式，按回车键完成。") ;
+   $("为方便输入代码，建议您配有稍宽的屏幕和键盘。") ;
+  $("在中央文本框内，输入JS语言表达式，按回车键完成。") ;
   var  inputerDom = document.querySelector('input#inputer') ;
        inputerDom.focus();
   document.body.onkeydown = function(eObj){
     if(eObj.key === "Enter"){
-    //执行程序，而非inputerDom.value += eObj.key ;
-     $('Enter ，立刻计算您的表达式: ') ;
      $(inputerDom.value) ;
-      
-     var exp = eval(inputerDom.value.trim()) ;
+     var exp ;
+     try{
+      exp = eval(inputerDom.value.trim()) ;
+      }  
+      catch(err){
+        $('结果：' + err);
+      } 
      $('结果：' + exp);
      inputerDom.value = '' ;
     }
