@@ -78,14 +78,15 @@
 	}
 
     nav ul li{
-	 font-size:20px ;
+	 font-size: 1.1em;
+     font-weight: bolder;
 	 color:white;
      border: outset 5px rgb(200,100,50) ;
 	 background-color:rgb(50,50,50);
-	 margin: 1em auto;
-	 padding:0.5em ;
+	 margin: 0.1em auto;
+	 padding:0.1em 0.2em ;
 	 cursor:pointer ;
-	 border-radius : 0.5em ;
+	 border-radius : 0.3em ;
 	 
 	}
     nav ul  li:hover{
@@ -124,7 +125,7 @@
 	  }
 	/* 对于width小于600像素的非宽屏 */ 
 @media only screen and (max-width: 600px){
- body{font-size:13px;}
+ body{font-size:12px;}
  nav{
   left :0 ;
   bottom: 15% ; /*JavaScript程序将输出在header区域，为了导航栏不挡住输出，让导航栏下移*/
@@ -141,6 +142,7 @@
    display: inline-block ; 
    margin:0.1em 0.2em; 
    padding:0.2em 0.3em;
+
    }
  }
  
