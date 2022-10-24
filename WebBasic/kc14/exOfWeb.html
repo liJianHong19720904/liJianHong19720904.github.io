@@ -39,27 +39,60 @@
     }
    </style>
    <script>
+    //Web页面创建后，为所有按钮赋能函数，让按钮具备最初的添加符号的功能。
      window.addEventListener('load',()=>{
        var opDoms = document.querySelectorAll('nav ul li') ;
+
        //console.log(opDoms) ;
          for(let opDom of opDoms){
            //console.log(opDom.textContent) ;
+           
            opDom.onclick = function(){
             var inputerDom = document.querySelector('article input#inputer') ;
             inputerDom.value += ' ' +this.textContent.trim() ;
-            
-
-           }
+            }
          }
-         
-     },false);
-   </script>
+
+          //下面针对几个特殊的按钮，id为#repeat，#typeof 以及类为 .wrapper的按钮，按其作用重新赋函数值。
+          //对回溯 #repeat按钮的设计
+       document.querySelector('li#repeat').onclick = undefined ;
+       document.querySelector('li#repeat').addEventListener('click',()=>{
+        var inputerDom = document.querySelector('article input#inputer') ;
+            inputerDom.value = CMD.cmd[CMD.now] ;
+            CMD.now === 0 ? CMD.now = CMD.cmd.length -1 :  CMD.now -= 1 ;
+            },true) ;
+        
+          //对取.leftOp类型按钮的设计 
+       var leftOpDoms = document.querySelectorAll('li.leftOp') ;
+           for(let ld of leftOpDoms){
+             ld.onclick = undefined ;
+             ld.onclick=function(){
+                var inputerDom = document.querySelector('article input#inputer') ;
+                var sign = this.textContent.trim();
+                 inputerDom.value = sign + ' ' + inputerDom.value ;
+            };
+          }
+          //对包裹信息类按钮，引号和各种括号按钮，类名： .wraper 的设计 
+        var wraperDoms = document.querySelectorAll('li.wraper') ;
+           for(let wd of wraperDoms){
+             wd.onclick = undefined ;
+             wd.onclick=function(){
+              var inputerDom = document.querySelector('article input#inputer') ;
+              var sign = this.textContent.trim();
+               inputerDom.value = sign[0] + inputerDom.value + sign[sign.length-1] ;
+               };
+           }    
+        
+        
+   
+     },false); // window.addEventListener('load'...)
+   </script> 
  </head>
 
  <body>
   
   <header>
-   JS语言命令行和表达式练习器
+   JS语言命令行练习器
   </header>
  
   
@@ -68,8 +101,12 @@
 </article>
 <nav>
   <ul>
+    回溯
+    <li id = 'repeat'>
+      <-
+    </li>
     类型
-    <li>
+    <li class = 'leftOp'>
       typeof
     </li>
       运算
@@ -105,7 +142,7 @@
       <li>
          ||
       </li>
-      <li>
+      <li class = 'leftOp'>
         !
       </li>
       <li>
@@ -115,21 +152,22 @@
         ===
       </li> 
       结构
-      <li>
+      <li class="wraper">
         ( )
       </li>
-      <li>
+      <li class="wraper">
         [ ]
       </li>
-      <li>
+      <li class="wraper">
         { }  
       </li>
-      <li>
+      <li class="wraper">
         ' '
       </li>
-      <li>
+      <li class="wraper">
         " "
       </li>
+      <li> , </li><li> . </li>
     </ul>
 </nav>
   <footer>
@@ -137,12 +175,13 @@
   </footer>
   
   <script>
-   
-   
-  $("因移动端无键盘，可点击导航栏，实现JS语言的基本符号输入。") ;
-  $("在中央文本框内，输入完善的JS语言表达式，按回车键完成计算。") ;
+  var CMD = {cmd:[], now:-1} ;
+  $("本程序为编程学习者特别设计，可用人机互动的方式，便利地探索JS语言的数据类型、逻辑和计算表达式的构建等。");
+  $("通知1：无键盘的移动端，可利用导航栏按钮，便利地实现语言的符号输入。") ;
+  $("通知2：请在中央文本框内完善的语言表达式后，按回车键提交，实现计算反馈。") ;
   var  inputerDom = document.querySelector('input#inputer') ;
        inputerDom.focus();
+  //对用户按键的分析和处理
   document.body.onkeydown = function(eObj){
     if(eObj.key === "Enter"){
      $(inputerDom.value) ;
@@ -154,10 +193,18 @@
         $('结果：' + err);
       } 
      $('结果：' + exp);
+     if(CMD.cmd.indexOf(inputerDom.value) === -1){
+      CMD.cmd.push(inputerDom.value) ;
+      CMD.now ++ ;
+     }
      inputerDom.value = '' ;
+    } //按Enter执行表达式结束
+    if(eObj.key !== "Enter"){
+      //这个逻辑极大方便有键盘的用户使用，当用户按键时，若此时光标焦点不在输入器上，用户的键盘输入都可以立刻转到输入器上。
+      inputerDom.focus() ;
     }
-    
-  } ;     
+
+  } ;  // End of   document.body.onkeydown
   </script>
 
  </body>
