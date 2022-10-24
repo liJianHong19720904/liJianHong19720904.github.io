@@ -10,6 +10,7 @@ Boolean , Logic , Condition Statement  （布尔值、逻辑、条件分支语�
  >  ,  <  ,  >=  ,  <=  ,  ==  ,  ===  ， prompt ，parseInt ，else 。
 
 4.project
+<a src=../images/exOfWeb.html title=JavaScript语言的表达式练习> 本例练习数字和字符串比较，了解布尔值概念， 如：2 > 1  、1 < 0 、'a' > 'b'  、 'a' < 'b'  、'李' < '王' ，深刻理解汉字和其他字符，对人识字意义重大，但对计算机而言只是编码不同，其他没有区别 。尝试typeof运算符，分别对布尔值、数字、字符串以及prompt输入的变量进行typeof取值，了解typeof运算符返回值。了解运算的优先级和括号作用，比如 typeof 'a' > 'Aa' 与 typeof  ('a' > 'Aa' ) 的区别。
 <a src=001.html title=布尔值的产生> 本例在理解字符和数字二种数据基础上，引入布尔值的概念。
 <a src=002.html title=初步实现程序的简单逻辑判断> 本例尝试写出具备基本逻辑的if语句代码，并初次探索重要的parseInt函数。
 <a src=003.html title=多层条件实现程序正确逻辑判断> 本例尝试写出具备逻辑的语句代码，不管用户如何输入年龄，都可以给出正确的反馈。

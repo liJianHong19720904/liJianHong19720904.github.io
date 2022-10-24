@@ -6,14 +6,16 @@ Data Type Basis , Learn String And Number （数据的基本类型，数字、�
 2、通过演练中英文字符串、数字构成的字符串，让初学者明白字符串和变量关系。
 3、利用JavaScript的 + 运算符，可以把数字和字符串连接在一起，形成新字符串。
 4、初步理解JavaScript 语言可以按需要自动转换数据类型，这种语言对初学者非常友好，我们未来学习将会多次遇到类似情况。
+5、本课开始还引入自己编写的一个Web程序，学生可以使用手机或台式机方便地探索JavaScript的数据和表达式的基本概念。
  
 3.keyword
 var ， =  ，   + 、 -  、script 、 $ 。
 
 4.project
+<a src=../images/exOfWeb.html title=JavaScript语言的表达式练习> 本例建议：练习整数和小数书写和计算，如：1 + 1 、 1 + 1.1 、 1 - 1.1  、 1e20 / 3 ； 字符串表达， 如 'a' 、 "a" 、'aBc'，理解汉字和其他字符，对人识字意义重大，但对计算机而言只是编码不同，其他没有区别  ；'a' 和变量的 a 区别， 最后a会被认为是变量名； 最后学习和尝试语言系统保留字，如alert 、prompt 、if、else 等。
 <a src=001.html title=字符和字符串的生成> 字符串数据必须包含在引号之中，而且必须匹配好，单引号配单引号，双引号则配双引号。 初学者必须掌握字符串的基本运算，简单利用运算符“ + ”就可把几个字符串连接起来。为了让未来的学习实践案例更加有趣，本例我们使用自编的$函数输出运算结果，这样我们的程序就有一个比alert漂亮的输出界面。
 <a src=002.html title=数字计算合并字符串的连接> 本例探索了数字运算，也反复练习了字符串连接。把结果传给函数$参数，然后通过$函数把输出字符串输出到到本Web页的header区域。
-<a src=exOfWeb.html title=JavaScript的表达式练习器> 本课程设计的JavaScript的表达式练习器，为代码初学者设计，可以用于探索JavaScript表达式书写、数据类型测试、逻辑分析等。
+
 
 5.reading
 The true programming language of the web, JavaScript lets you add behavior to your web pages. No more dry, boring, static pages that just sit there looking at you , with JavaScript you’re going to be able to reach out and touch your users, react to interesting events, grab data from the web to use in your pages, draw graphics right in your web pages and a lot more. And once you know JavaScript you’ll also be in a position to create totally new behaviors for your users.
