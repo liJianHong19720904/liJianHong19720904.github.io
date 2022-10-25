@@ -88,7 +88,7 @@
 		          audio: new Audio() ,
 				  path: "https://lijianhong19720904.github.io/images/mp3/pride and prejudice " ,
 				  clipNum: 61 , //上面URL共有61章《傲慢与偏见》朗读音频
-                  waitInfos : [ '此处可以播放《傲慢与偏见》原著全部61章音频。' , ' 不管您的网速多慢，我的程序都可以流畅播放所有信息！' , '听音频与看原文的结合，是英语学习修炼，也是人生的享受。', '音频存在境外gitHub，感谢伟大互联网上的这些免费的优质的服务，即使她们连接ChinaNet有些慢。' ,'《傲慢与偏见》原著音频是女声英文原声朗读，质量绝佳！','每次音频切换，意味着大量音频数据需要从gitHub传来...','我收集到这61个音频，也算碰到机缘巧合。','原著的文本，本首页有一个Webster出版的PDF，您需要可以下载！','背景画面没有动画时，说明音频还没有准备好播放，需要在等等。','Everything that happens to a child of god is Fathter filtered , and he intends to use it for good , even when others mean it for bad .','真正的《计算机科学》的学习，不是记忆一些知识而已！','写代码是学好计算机科学的最好的手段，同时也可以训练思维。','本站的WebBas是以Web为背景的程序设计的入门系列课程。','本站的WebAdv是以Web为背景的程序设计的进阶系列课程。','WebCMD是探索JavaScript语言的小神器，由我特别贴心地初学程序设计的朋友而特殊设计，弥补了手机浏览器没有开发者面板的遗憾，可以在手机上很好体验，实现学习的人机互动！'],
+                  waitInfos : [ '此处可以播放《傲慢与偏见》原著全部61章音频。' , ' 不管您的网速多慢，我的程序都可以流畅播放所有信息！' , '听音频与看原文的结合，是英语学习修炼，也是人生的享受。', '音频存在境外gitHub，感谢伟大互联网上的这些免费的优质的服务，即使她们连接ChinaNet有些慢。' ,'《傲慢与偏见》原著音频是女声英文原声朗读，质量绝佳！','每次音频切换，意味着大量音频数据需要从gitHub传来...','我收集到这61个音频，也算碰到机缘巧合。','原著的文本，本首页有一个Webster出版的PDF，您需要可以下载！','背景画面没有动画时，说明音频还没有准备好播放，需要在等等。','Everything that happens to a child of god is Fathter filtered , and he intends to use it for good , even when others mean it for bad .','真正的《计算机科学》的学习，不是记忆一些知识而已！','写代码是学好计算机科学的最好的手段，同时也可以训练思维。','本站的WebBas是以Web为背景的程序设计的入门系列课程。','本站的WebAdv是以Web为背景的程序设计的进阶系列课程。','WebCMD是探索JavaScript语言的小神器，由我特别为初学程序设计的朋友而贴心地设计开发，弥补了移动端没有键盘和命令行互动的遗憾，在手机上的人机互动体验还不错！'],
                   
                  getAudioById : () => {
                      let id = mediaObj.id ;
@@ -109,13 +109,14 @@
 				      audio.src = path +  pathId + ".mp3" ;
                    }, //End of  getAudioById
                   clock : null ,
-        
+                  slowerCounter: 0 , //这是一个计数器，让2s运行一次的时钟，发生3次倒数才执行字幕输出，避免字幕输出太快！
               clockCode : () => {
                         let audio = mediaObj.audio ;
                         let background = mediaObj.background ;
                         let waitInfos = mediaObj.waitInfos ;
                         let UI = mediaObj.UI ;
-					    if (mediaObj.canPlay){
+						
+					    if (mediaObj.canPlay  && !audio.paused){
                             mediaObj.currentTime = parseInt(audio.currentTime) ;
 							mediaObj.duration = parseInt(audio.duration) ;
 							let percent = Math.floor( mediaObj.currentTime / mediaObj.duration * 100 );
@@ -124,17 +125,22 @@
                             if(background.clock){
                                   //说明动画已经调用，不可再用setInterval启动另外一个异步代码
                              }else{
-
                                     background.clock = setInterval(background.moveBackground , 50);
                                 }
-					           } else{ // mediaObj.canPlay 为 false
-                                audio.pause();
-			                                               
-                                let s = waitInfos[Math.floor(waitInfos.length *Math.random())] ;
-					            UI.addInfoToStage('Chapter ' + mediaObj.id +' . ' + s) ;
-                                //停止本例的背景动画代码放置在此处
-                                clearInterval(background.clock)  ;
-                                background.clock = null ;
+					       } else { // mediaObj.canPlay 为 false 或 audio.paused
+                                if(!mediaObj.canPlay){
+									audio.pause();
+			                  	   //停止本例的背景动画代码放置在此处
+                                    clearInterval(background.clock)  ;
+								    background.clock = null ;
+								  }								
+								  mediaObj.slowerCounter ++ ;
+								  //console.log(mediaObj.slowerCounter) ;
+								  if(mediaObj.slowerCounter >= 3 ){
+									let s = waitInfos[Math.floor(waitInfos.length * Math.random())] ;
+									UI.addInfoToStage('您知道吗？' + s) ;
+									mediaObj.slowerCounter = 0
+								}
 							   }
 					     } , //End of clockCode
 				  background : {
@@ -216,6 +222,21 @@
 			 AddVol : document.querySelector("div span#addVol")  ,
              SubVol : document.querySelector("div span#subVol")  ,
 			 Stage: document.querySelector("div#stage"),
+			 clockOfInfo: null ,
+			 infoOfStage: '' ,
+			  infoAnimation: ()=>{
+				let s = mediaObj.UI.infoOfStage.substring(0,1) ;
+				//console.log(s) ;
+				var stageDom = document.querySelectorAll("p") ;
+				let pDom =  stageDom[stageDom.length-1] ;
+				let clock = mediaObj.UI.clockOfInfo ;
+                pDom.textContent += s ;
+				mediaObj.UI.infoOfStage  =  mediaObj.UI.infoOfStage.substring(1);
+				if (mediaObj.UI.infoOfStage.trim() ===''){
+				 clearInterval(mediaObj.UI.clockOfInfo); 
+				 mediaObj.UI.clockOfInfo = null ;
+				}
+			 },
 			 addInfoToStage: function(info){
 			 //在页面的Stage区域，实现了文本信息逐条显示
 				 const infoNum = 8 ;
@@ -223,10 +244,20 @@
 				 if (stageDom.length === infoNum){
 					mediaObj.UI.Stage.removeChild(stageDom[0]) ;
 				 }
+				  
 				  var pDom = document.createElement("p") ;
-				      pDom.textContent = info ;
+				      //pDom.textContent = info ;
+					  mediaObj.UI.infoOfStage = info ;   
+					  mediaObj.UI.infoOfPDom = pDom ;
+					  
 					  mediaObj.UI.Stage.appendChild(pDom) ;
-				 }//end of addInfoToStage
+					  if(mediaObj.UI.clockOfInfo === null){
+						mediaObj.UI.clockOfInfo = setInterval(mediaObj.UI.infoAnimation , 50) ;
+					  }
+
+				 } //end of addInfoToStage
+				 
+
       };//End of mediaObj.UI
 
       
@@ -239,7 +270,7 @@
 	 
 	mediaObj.UI.Play.addEventListener("click",function(){
 	      mediaObj.audio.play() ;
-		  var s =  "Chapter " + mediaObj. id + " 在" + mediaObj.currentTime + " 秒，开始播放！"  ;
+		  var s =  "Chapter " + mediaObj. id + " 音频，在 " + mediaObj.currentTime + " 秒，开始播放！"  ;
 		  mediaObj.UI.addInfoToStage(s) ;
         /****下面是复制过来的动态改变播放进度值的代码****/
 		 clearInterval(mediaObj.clock);
@@ -249,9 +280,10 @@
 
 	mediaObj.UI.Pause.addEventListener("click",function(){
 	      mediaObj.audio.pause() ;
-		  var s =  "暂停在："+ mediaObj.currentTime + " 秒。" + "Chapter " + mediaObj. id +" 总长度：" + mediaObj.duration  + " 秒。" ;
+		  var s =  "Chapter " + mediaObj. id + " 播放暂停在："+ mediaObj.currentTime + " 秒。" + " 音频总长度：" + mediaObj.duration  + " 秒。" ;
           mediaObj.UI.addInfoToStage(s) ;
-	  },false);
+			
+		},false); // 音频暂停按钮
 
     mediaObj.UI.Percent.addEventListener("click",function(){
 	  
@@ -259,7 +291,7 @@
 
        mediaObj.audio.pause();
 	   var s = "请谨慎填入进度值。" + "当前进度：" + Math.floor(mediaObj.currentTime/mediaObj.duration*100) + "% 。" ;
-	   mediaObj.UI.addInfoToStage(s) ;
+	   mediaObj.UI.addInfoToStage('Chapter ' + mediaObj.id +' . ' + s) ;
 	  },false);
 
     mediaObj.UI.Percent.addEventListener("blur",function(){
@@ -270,7 +302,7 @@
       mediaObj.audio.currentTime = playTime ;
 	  mediaObj.audio.play();
 	  var s = "即将跳转到"+ Math.floor(mediaObj.audio.currentTime) + " 秒！" ;
-	  mediaObj.UI.addInfoToStage(s) ;
+	  mediaObj.UI.addInfoToStage('Chapter ' + mediaObj.id +' . '+ s) ;
      /****下面是复制过来的动态改变播放进度值的代码****/
 	     clearInterval(mediaObj.clock);
 		 mediaObj.clock = setInterval(mediaObj.clockCode , 2000);
@@ -294,7 +326,7 @@
 			  mediaObj.audio.volume += 0.1 ;
 		  }
 		   s += parseInt(mediaObj.audio.volume * 100) + "%" ;
-		   mediaObj.UI.addInfoToStage(s) ;
+		   mediaObj.UI.addInfoToStage('Chapter ' + mediaObj.id +' . ' + s) ;
 		  },false);
 
     
@@ -327,7 +359,7 @@
       mediaObj.getAudioById();
 	  var s =   "开始加载音频文件： " + "Chapter " + mediaObj.id  ;
 	  mediaObj.UI.addInfoToStage(s) ;
-      mediaObj.UI.addInfoToStage("若是第一次，请耐心等待……");
+      mediaObj.UI.addInfoToStage("若您是第一次听，请耐心等待……");
 
       
 	  mediaObj.canPlay = false ;
@@ -339,15 +371,15 @@
    
    //下面二个事件处理函数，利用了HTML5标准的Web音频、视频最重要的二个API事件，即loadedmetadata 和canplaythrough ，有兴趣发掘更多细节则请参考HTML5音视频编程的技术文档。
     mediaObj.audio.addEventListener("loadedmetadata",function(){
-	   var s = "成功载入音频文件的元数据...";
+	   var s = 'Chapter ' + mediaObj.id +' . '+ "成功载入该音频的元数据。";
        mediaObj.UI.addInfoToStage(s) ;
-	       s = "本音频文件共: " + Math.floor(mediaObj.audio.duration) + "秒 。";
+	       s = 'Chapter ' + mediaObj.id +' . '+"本音频文件共: " + Math.floor(mediaObj.audio.duration) + "秒 。";
        mediaObj.UI.addInfoToStage(s) ;
       },false);
    
       mediaObj.audio.addEventListener("canplaythrough",function(){
         var s = "Ok，音频文件可以正常播放了！";
-       mediaObj.UI.addInfoToStage(s) ;
+       mediaObj.UI.addInfoToStage('Chapter ' + mediaObj.id +' . ' + s) ;
 	   mediaObj.canPlay = true ;
 	     },false);
 
