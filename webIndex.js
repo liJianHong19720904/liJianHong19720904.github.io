@@ -193,9 +193,10 @@ var ajaxObj = {
       
          
            let txt = document.createTextNode("本例简介："+ projects[i][2]);
-            p.appendChild(bt0);
+           
             p.appendChild(bt1);
-            p.appendChild(bt2);
+            p.appendChild(bt2); 
+            p.appendChild(bt0);
             p.appendChild(txt); 
            my$("#project").appendChild(p);
        }//end for loop for every Porject
@@ -485,8 +486,11 @@ var ajaxObj = {
            //console.log(title) ;
            //console.log( _getUrlPath(Model.lessonId) ) ; //
            let content = proTxt.substring(proTxt.indexOf('>')+1) ;
-           
-           let pro = [ Model.getUrlPath(Model.lessonId) + fileName , title , content] ;
+           //实践案例中，有的案例是其他网站的网址，并非本站源文件，因此要在URI地址上区分开来，
+           if(fileName.substring(0,4) !== 'http'){
+            fileName = Model.getUrlPath(Model.lessonId) + fileName ;
+           }
+           let pro = [ fileName , title , content] ;
            //console.log(pro) ;
            Model.projects.push( pro ) ;
          }
