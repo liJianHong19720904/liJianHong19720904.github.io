@@ -136,7 +136,7 @@
 								  }								
 								  mediaObj.slowerCounter ++ ;
 								  //console.log(mediaObj.slowerCounter) ;
-								  if(mediaObj.slowerCounter >= 3 ){
+								  if(mediaObj.slowerCounter >= 5 ){
 									let s = waitInfos[Math.floor(waitInfos.length * Math.random())] ;
 									UI.addInfoToStage('您知道吗？' + s) ;
 									mediaObj.slowerCounter = 0
@@ -223,12 +223,13 @@
              SubVol : document.querySelector("div span#subVol")  ,
 			 Stage: document.querySelector("div#stage"),
 			 clockOfInfo: null ,
+			 pTxtDom : null ,
 			 infoOfStage: '' ,
 			  infoAnimation: ()=>{
 				let s = mediaObj.UI.infoOfStage.substring(0,1) ;
 				//console.log(s) ;
-				var stageDom = document.querySelectorAll("p") ;
-				let pDom =  stageDom[stageDom.length-1] ;
+
+				let pDom =  mediaObj.UI.pTxtDom ;
 				let clock = mediaObj.UI.clockOfInfo ;
                 pDom.textContent += s ;
 				mediaObj.UI.infoOfStage  =  mediaObj.UI.infoOfStage.substring(1);
@@ -246,11 +247,12 @@
 				 }
 				  
 				  var pDom = document.createElement("p") ;
-				      //pDom.textContent = info ;
+				      
 					  mediaObj.UI.infoOfStage = info ;   
 					  mediaObj.UI.infoOfPDom = pDom ;
 					  
 					  mediaObj.UI.Stage.appendChild(pDom) ;
+                      mediaObj.UI.pTxtDom = pDom ;
 					  if(mediaObj.UI.clockOfInfo === null){
 						mediaObj.UI.clockOfInfo = setInterval(mediaObj.UI.infoAnimation , 50) ;
 					  }
