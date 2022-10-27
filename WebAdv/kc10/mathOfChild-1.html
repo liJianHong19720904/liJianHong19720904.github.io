@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        小学一年级算术训练APP（20以内）
+        本版程序先仿造传统高级语言，创建了三个内存变量，全局变量，用于存放二个加数和答案 。
+        另外，还创建了用于指向Web页输出的Dom对象，共计7个DOM元素共同组成了本APP的UI界面。
+    </title>
+    <style>
+      body{
+	   font-size: 30px ;
+	  }
+	  input{
+	   font-size: 2em ;
+	  }
+
+    </style>
+</head>
+<body>
+  <h1 id="output">小学数学加减法（20以内）训练APP</h1> 
+  <div id = 'question'>
+    <input id = "opNum1" type = "text" readonly> 
+       <span id="op"> + </span> 
+    <input id = "opNum2" type = "text" readonly> 
+ </div>
+ <div id = 'answer'>
+   A. <input type="button" value="20" id = "answerA">
+   B. <input type="button" value="21" id = "answerB">
+   C. <input type="button" value="22" id = "answerC">
+   D. <input type="button" value="23" id = "answerD">
+ </div> 
+ <script type="text/javascript">
+ <!--
+    /***
+	本版程序，创建了三个内存变量：
+	1. opNum1、opNum2存放二个随机数字，用于加减计算。
+    2. answer用于存放答案。
+
+    本版程序，还创建了几个变量，用于指向Web页输出的Dom对象：
+	1. opNum1Dom 、opNum2Dom 指向Web页的二个数字的input元素。
+	2. outputDom 指向Web页标题的h1的元素。
+    3. answerDoms 指向代表4个选项按钮input元素。
+
+	上述一共7个DOM元素共同组成了本APP的UI界面。
+	本例这一步，我们需要区分不同元素的属性，如input的value和h1的textContent，很容易混淆。
+	总结“事件处理函数 ” ：
+	赋值给Web页面元素的 onclick onmouseover onmouseout onfocus onblur onkeyDown onkeyPress .....等属性的函数 。
+	***/
+	var opNum1 = parseInt( 10 * Math.random() ) ;
+    var opNum2 = parseInt( 10 * Math.random() ) ;
+    var answer = opNum1 + opNum2 ;
+
+    console.log(answer) ;
+
+	var opNum1Dom = document.querySelector("input#opNum1");
+    var opNum2Dom = document.querySelector("input#opNum2");
+	var outputDom = document.querySelector("h1#output") ;
+	var answerDoms = document.querySelectorAll("div#answer input");
+        opNum1Dom.value = opNum1 ; opNum2Dom.value = opNum2 ;
+
+        for (var i = 0 ; i < 4 ; i++){
+            answerDoms[i].value  =  Math.floor(Math.random()*20)  ;
+		   //上面二句是测试代码，简单地生成了本按钮的随机答案，产生了bug，可能造成选项答案相同。
+             answerDoms[i].onclick =  function(){
+			    var sel = parseInt(this.value) ;  //this关键字，在元素对象的事件处理函数中，代表元素对象本身
+				 if (sel === answer){
+                  outputDom.textContent = '恭喜！你答对了' ;
+				 }else{
+				  outputDom.textContent = '你答错了，再试一试！'   ;
+				 }			 
+			   };//End answerDoms[i].onclick
+        }
+		//程序第一阶段目标完成，把答案放在最后一个选项D
+        var rand = Math.floor(Math.random()*4 ) ;
+        answerDoms[rand].value  =  answer ;
+
+
+ //-->
+ </script>
+</body>
+</html>

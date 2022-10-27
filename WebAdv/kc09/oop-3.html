@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>EcmaScript内定义的对象（时间对象），Date对象是EcmaScript语言体系中的众多对象的父亲（类），不可以直接使用，需要new操作符来产生实例</title>
+  <script type="text/javascript">
+  <!--
+   var now = new Date() ;
+   console.log("把现在时间，直接输出：" + now) ;
+   console.log("用时间对象的内置方法输出：" ) ;
+   console.log( now.getFullYear() + "年"  + 
+                (now.getMonth()+1)+ "月"  + 
+				 now.getDate()+ "日"      + 
+				 '星期' + now.getDay()  );
+  console.log("把现在时间，按数字输出：" + Number(now)) ;
+  console.log("把数字0，按时间输出：" +  new Date(0)) ;
+  var year = now.getFullYear() - 1970 ;
+  var totalMs = (year*365 + year/4) * 24 * 3600 *1000;
+  console.log("粗算当前距1970年初毫秒数：" + totalMs) ;
+  console.log("这两个数字的比值：" + totalMs/Number(now)) ;               
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>生成输出几个重要时间对象，本例要使用Console面板查看结果</h1>
+ </body>
+</html>

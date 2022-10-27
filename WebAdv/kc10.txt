@@ -1,26 +1,39 @@
 ﻿1.title
-  Date Object VS Math Object （探索篇：时间对象和数学对象）
+  Learn Number With Make  Basic Function （探索篇：编写基本的函数，探索计算机中的数字）
 2.introduction
-  我们在前面案例中，为了写出能操作Web页面，我们已经未加解释就使用了一些Web浏览器对象概念，比如document和window（包括点语法及其属性），这两个单词在我们Web前端代码中经常出现，分别代表Web页文件和浏览器窗口，是我们用代码可控制的Web浏览器和Web文档的对象的名字。
-  而关于对象这个概念，本课开始我们要更加抽象地和系统理解浏览器端的对象体系，如同我们对世界的理解那样形成“世界观”，从而对计算机内的信息理解则形成“对象观”。比如:我们可以在开发者面板的console中，交互输出window.document.body.textContent内容，建立比较直观的理解。
-  Web前端能表现的计算机内部的复杂信息世界一小部分，我们编写代码时，数据和系统能提供的信息，我们都可以对象的形式呈现出来，这样的对象形式的构造更符合人类对世界的认知。本课中，我们重点理解JavaScript语言体系中二种最基本的对象，———数学和时间对象，通过分析这二种对象的名字、内部属性、常用方法，了解语言系统给我们提供的一些基于对象的便利功能，最后利用数学和时间对象写代码编程，实现4个案例。
-  
+  在计算机程序中，任何数据的本质上都是二进制，而计算机高级语言可以这些数据按不同类型管理，并为不同类型规范操作，这才让计算机内的数据与我们现实信息对应起来。
+  因此数字是本质，才有了我们后来所谓的数字化，在之前课程中，虽然我们已经多次使用数字类型，但并不意味这我们已经理解这种最基本的数据类型--数字类型，本课程通过JavaScript函数的练习，我们通过代码探索数字类型——Number，同时通过十进制和二进制转换的案例做算法和逻辑的演练。
+  本课仍然通过几个难度逐渐递进的案例完成学习，前二个案例通过浏览器后台输出，探索二进制表达范围，同时也会训练在代码中定义和使用函数。后三个案例则需要比较综合应用浏览器端的基本只是，比如使用HTML/CSS和事件处理函数创建一个简单UI，通过代码实现了简单加法训练的WebApp。
+
 3.keyword
-  EcmaScript ，Math.random ，Math.floor  ，setInterval ， HTML/CSS ，UI ，document.querySelectorAll ，dom元素.textContent ，new Date() ，.getFullYear() ， .getMonth() ，.getDate() ，.getHours()，.getMinutes()，.getSeconds()，.getMilliseconds()，，Number(非数字数据) ， new Date(0) 。 
+  function ，return ，console.log ，!== ， === ，% ，parseInt ，UI（HTML/CSS） ，<input> ，type="text"  ，type="button"  ， value ，onclick ， aArray = [ ] ， aArray.length 。 
 	
 4.project
-  <a src=oop-1.html  title=随机生成彩票号码> 演示随机生成彩票号码，本例要使用Console面板查看结果。EcmaScript内定义的对象（数学对象），Math对象是EcmaScript语言体系中的唯一对象，直接使用，无需new操作符产生实例 。
-  <a src=oop-2.html  title=抽奖Web页程序>演示随机生成彩票中奖号码，本例用HTML/CSS设计了UI，并利用异步代码实现号码自动变化。
-  <a src=oop-3.html  title=对计算机内时间数据的探索>演示EcmaScript内定义的对象（时间对象），生成输出几个重要时间对象实例，同时编写代码计算分析EcmaScript定义的时间，理解在计算机内部时间对象本质上是一个数字，本例要使用Console面板查看结果。
-  <a src=oop-4.html  title=利用时间对象和API显示当前时间>演示利用EcmaScript内定义的对象（时间对象）的方法，结合前面案例生成UI，实现一个按当前时间变化Web页面。
+  <a src=../../WebBasic/images/exOfWeb.html  title=使用本站WebCMD，以“命令行”方式建立数学概念>本例先使用本站开发的命令行界面，使用Math对象定义的pow函数，为学生复习或建立数学的2的n次方的概念，为下面自己编写代码和建立自定义函数建立一些感性认知。 建议输入 Math.pow(2,0) 、Math.pow(2,1)、Math.pow(2,8)、Math.pow(2,32)、Math.pow(2,64) 等。在此基础上，利用1/0建立Infinity的数字概念，对有兴趣的学生，提出为什么： Math.pow(2,64) - 100  全等于 Math.pow(2,64)， 0.1 + 0.2 不等于0.3 的问题，引入计算机对数字表达和计算的局限性问题。
+  <a src=binary-1.html  title=自定义函数探索二的N次幂计算>本例通过自定义函数power2(x)，理解计算机内的二进制数字。
+  <a src=binary-2.html  title=探索js语言的Infinity保留字，测试浏览器>本例探索经典的32位、64位、128位二进制数的十进制范围，学习函数的定义和调用。利用循环，研究JavaScript定义的Infinity这个所谓的最大值。
+  <a src=mathOfChild-1.html  title=用CSS语言制作一个UI>本例用HTML/CSS创建一个简单UI，用于小学一年级算术训练程序， 本版程序先沿用传统高级语言习惯，创建了三个内存变量，全局变量，用于存放二个加数和答案 。另外，还创建了用于指向Web页输出的Dom对象，共计7个DOM元素共同组成了本APP的UI界面。。
+  <a src=mathOfChild-2.html title=引入函数改进数据的质量>本例继续上例改进程序，试图解决上一例几个存在的问题：多次运行题目重复、答案选项总在D项问题、答案可能重复。	本版程序对UI界面做了改进，一是使用了CSS对按钮类型的选择，二是实现了反馈输出区域。
+  <a src=mathOfChild-3.html title=小学一年级算术训练程序（含bug版）>本例继续上例改进程序，本版程序，实现了更强的可用性。为实现下一题按钮功能，本例尝试引入和利用JavaScript自定义函数概念，让学生尝试理解代码的功能分块和浅尝函数对代码的“封装”。同时因为函数的内部局部变量可以发生对比，也尝试在学生头脑中建立全局变量的概念。
   
 5.reading
-JavaScript的国际标准EcmaScript已经非常成熟，其中预设计了很多对象的类，当我们理解了类和对象的模式，在写代码需要时，只需临时了解学习细节，就可立即在编码中使用，非常高效。此处，我们谈一个特例：数学对象作为特殊类，其在代码中直接写作 Math，无须建立对象实例，在EcmaScript6国际标准新增的Symbol类也是这种特列。而其所有他对象类，如本课同时介绍的时间对象，则需要用new操作符来产生具体的实例。这点很多开发者不理解，解释如下：在我们的自然界中，数学表达的是客观规律或事物，而其他对象，如时间对象Date，其每时每刻都在变化，信息都不一样，因此笼统的说时间对象是一个抽象的类，具体使用时，则必须具体落实，语法：new Date()，对具备实际信息的对象称为实例。
-JavaScript/EcmaScript内定义了许多对象的类，来协助开发者对代码中的数据进行分类，比如图像数据和文字数据，对应了图像类（Image）和字符串类（String）。
-本课我们从最为常用的数学对象和时间对象开始，通过写代码来探索这二个对象类的概念和语法，
-	通过了解这二个对象，从而开始构建EcmaScript语言体系中的其他对象的概念和编程通识。
-	Math对象是唯一可直接使用对象，即无须new操作符产生实例，因为人类发明的数学具备普遍性，没有具体某个数学实例的概念。
-ECMAScirpt语言中的内置（Native）对象类，如本课介绍的Date，建议用new操作符产生实例，否则被当作函数运行，返回当前石刻的字符串。可以这样理解，时间是抽象的概念，因此必须用类的概念表达，而时间的具体信息数据（也称为时刻），时刻就是时间的对象具体实例。我们在本课代码中，其实是使用“时刻”表达计算机中的时间，理解这点非常重要，多数初学者可以从此能区分对象的类的概念和对象实例的概念。构建正确的概念后，我们就可以开始起步OOP程序设计。
-Values.  Imagine a sea of bits—an ocean of them. A typical modern computer has more than 30 billion bits in its volatile data storage (working memory). Nonvolatile storage (the hard disk or equivalent) tends to have yet a few orders of magnitude more. 
-To be able to work with such quantities of bits without getting lost, we must separate them into chunks that represent pieces of information. In a JavaScript environment, those chunks are called values. Though all values are made of bits, they play different roles. Every value has a type that determines its role. Some values are numbers, some values are pieces of text, some values are functions, and so on.
-To create a value, you must merely invoke its name. This is convenient. You don’t have to gather building material for your values or pay for them. You just call for one, and whoosh, you have it. They are not really created from thin air, of course. Every value has to be stored somewhere, and if you want to use a gigantic amount of them at the same time, you might run out of memory.  Fortunately, this is a problem only if you need them all simultaneously. As soon as you no longer use a value, it will dissipate, leaving behind its bits to be recycled as building material for the next generation of values.
+
+ Inside the computer’s world, there is only data. You can read data, modify data, create new data——but that which isn’t data cannot be mentioned. All this data is stored as long sequences of bits and is thus fundamentally alike.
+
+ Bits are any kind of two-valued things, usually described as zeros and ones. Inside the computer, they take forms such as a high or low electrical charge, a strong or weak signal, or a shiny or dull spot on the surface of a CD. Any piece of discrete information can be reduced to a sequence of zeros and ones and thus represented in bits.
+ For example, we can express the number 13 in bits. It works the same way as a decimal number, but instead of 10 different digits, you have only 2, and the weight of each increases by a factor of 2 from right to left. Here are the bits that make up the number 13,  the binary number 00001101. Its non-zero digits stand for 8, 4, and 1, and add up to 13.
+
+Most programming is done with programming languages. A programming language is an artificially constructed language used to instruct computers. It is interesting that the most effective way we’ve found to communicate with a computer borrows so heavily from the way we communicate with each other. Like human languages, computer languages allow words and phrases to be combined in new ways, making it possible to express ever new concepts.
+At one point language-based interfaces, such as the BASIC and DOS prompts of the 1980s and 1990s, were the main method of interacting with computers. They have largely been replaced with visual interfaces, which are easier to learn but offer less freedom. Computer languages are still there, if you know where to look. One such language, JavaScript, is built into every modern web browser and is thus available on almost every device.  JavaScript was standardized in 1996 by the European Computer Manufacturers Association (ECMA), which is why you sometimes hear it called ECMAScript.
+JavaScript is the language of the Web. It started as a way to manipulate a few selected types of elements in a web page (such as images and form fields), but it has grown tremendously. In addition to client-side browser scripting, these days you can use JavaScript to program for an increasing variety of platforms. You can write server-side code (using .NET or Node.js), desktop applications (that work on all operating systems)  and application extensions (e.g., for Firefox or Photoshop), mobile applications, and command-line scripts.
+
+ Besides explaining JavaScript, I will introduce the basic principles of programming. Programming, it turns out, is hard. The fundamental rules are simple and clear, but programs built on top of these rules tend to become complex enough to introduce their own rules and complexity. You’re building your own maze, in a way, and you might just get lost in it.
+There will be times when reading this book feels terribly frustrating. If you are new to programming, there will be a lot of new material to digest. Much of this material will then be combined in ways that require you to make additional connections.
+It is up to you to make the necessary effort. When you are struggling to follow the book, do not jump to any conclusions about your own capabilities. You are fine—you just need to keep at it. Take a break, reread some material, and make sure you read and understand the example programs and exercises. Learning is hard work, but everything you learn is yours and will make subsequent learning easier.
+
+ A program is many things. It is a piece of text typed by a programmer, it is the directing force that makes the computer do what it does, it is data in the computer’s memory, yet it controls the actions performed on this same memory. Analogies that try to compare programs to objects we are familiar with tend to fall short. A superficially fitting one is that of a machine—lots of  separate parts tend to be involved, and to make the whole thing tick, we have to consider the ways in which these parts interconnect and contribute to the operation of the whole.
+A computer is a physical machine that acts as a host for these immaterial machines. Computers themselves can do only stupidly straightforward things. The reason they are so useful is that they do these things at an incredibly high speed. A program can ingeniously combine an enormous number of these simple actions to do very complicated things.
+A program is a building of thought. It is costless to build, it is weightless, and it grows easily under our typing hands.
+
+
+

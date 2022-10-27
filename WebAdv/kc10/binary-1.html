@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>通过自定义函数power2(x)，理解计算机内的二进制数字</title>
+  <script type="text/javascript">
+  <!--
+   //自定义power2函数探索计算机中二进制数字，请打开Console面板查看
+	 function power2(x){
+	  var result=1;
+    	for (var i=1;i<=x ;i+=1 ) {
+          result=result*2;
+	     }
+	   return result;
+	}
+	for (var i=0; i < 64 ; i++){
+	  console.log("2^" +i + " = " + power2(i));
+	}
+  //-->
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

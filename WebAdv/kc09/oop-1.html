@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+	JavaScript/EcmaScript内定义了许多对象的类，来协助开发者对代码中的数据进行分类，比如图像数据和文字数据，对应了图像类（Image）和字符串类（String）。
+	本例我们从最为常用的数学对象和时间对象开始，通过写代码来探索这二个对象类的概念和语法，
+	通过了解这二个对象，从而开始构建EcmaScript语言体系中的其他对象的概念和编程通识。
+	Math对象是唯一可直接使用对象，即无须new操作符产生实例，因为人类发明的数学具备普遍性，没有具体某个数学实例的概念。
+	ECMAScirpt语言中的内置（Native）对象类，如本课介绍的Date，必须用new操作符产生实例。可以这样理解，时间是抽象的概念，因此必须用类的概念表达，而时间的具体信息数据（也称为时刻），时刻就是时间的对象具体实例。我们在本课代码中，其实是使用“时刻”表达计算机中的时间，理解这点非常重要，多数初学者可以从此能区分对象的类的概念和对象实例的概念。构建正确的概念后，我们就可以开始起步OOP程序设计。
+  </title>
+  <script type="text/javascript">
+  <!--
+   function randNums(){
+	  var s = '' ; //让s为空字符串，当s+0时，则可以生成字符串0
+	  for (var i=0; i < 2 ; i++){
+		 s += randNum() ; 
+	  }
+    return s ;
+	//下面演示函数中的函数（子函数），子函数如同局部变量，只能在外部函数中使用。
+	function randNum(){
+	 return Math.floor(Math.random()*10) ;
+	}
+   }//end of randString
+	var randArr = [ ] ;//中奖号码
+	setInterval(function(){
+	  for (var i=0; i < 4; i++) {
+		 randArr[i] = randNums() ;
+	  }
+	  console.log(randArr.toString());
+	},1000) ;
+  //-->
+  </script>
+ </head>
+ <body>
+  <h1>随机生成彩票号码，本例要使用Console面板查看结果</h1>
+ </body>
+</html>

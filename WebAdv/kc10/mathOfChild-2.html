@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+		小学一年级算术训练APP（20以内）
+		本版程序，试图解决上一例几个存在的问题：多次运行题目重复、答案选项总在D项、答案可能重复。
+		本版程序对UI界面做了改进，一是使用了CSS对按钮类型的选择，二是实现了反馈输出区域。
+
+	</title>
+    <style>
+      body{
+	   font-size: 20px ;
+	   margin:auto ;
+	  }
+	  input{
+	   font-size: 2em ;
+	   width:4em;
+	  }
+	  input[type = button]{
+	    width:3em;
+		margin-right: 1em;
+		 }
+    span#op{
+	 font-size:3em;
+	 color:red;
+	 font-weight:bolder;
+	}
+	h1#output{
+		color:rgb(0,200,100);
+		background-color: pink;
+		position: absolute;
+		right:1em;
+		top:2.2em;
+		text-decoration: underline;
+	}
+    </style>
+</head>
+<body>
+  <h1>小学数学加减法（20以内）训练APP</h1> 
+  <h1 id="output">小朋友，加油！</h1> 
+  <div id = 'question'>
+    <input id = "opNum1" type = "text" readonly> 
+       <span id="op"> + </span> 
+    <input id = "opNum2" type = "text" readonly> 
+	   
+ </div>
+ <div id = 'answer'>
+   A. <input type="button" value="20" id = "answerA">
+   B. <input type="button" value="21" id = "answerB">
+   <br/>
+   C. <input type="button" value="22" id = "answerC">
+   D. <input type="button" value="23" id = "answerD">
+ </div> 
+ <script type="text/javascript">
+ <!--
+   
+
+    // 我们把描述一个普遍性的一般需求： 能否产生一个10个元素的数组，数组内的数字（从0到9）一定是各不相同的，这样就解决了问题1。同时，能否产生一个4个元素的数组，其中的数字（从0到3）也各不相同。
+	//最后为解决这个问题。设计一个函数randIntArray(n)，这个函数会返回一个数组，其中每个数字都不重复，且在0到 n-1 之间。
+	var opNumArr1 = randIntArray(10) ;
+    var opNumArr2 = randIntArray(10) ;
+	var answerArr = [ ] ;
+	for(var i=0 ;i<opNumArr1.length ; i++){
+		answerArr[i] =  opNumArr1[i] + opNumArr2[i] ;
+	}
+	
+	function randIntArray(n) {
+	 var arr = [ ] ;
+         for(var i=0 ; i< n ; i++){
+           var rand = Math.floor( Math.random() * n) ; 
+		   if( arr.indexOf(rand) !== -1){
+		     i -- ;
+	 //数组中存在已有数字，则循环变量减一，则该循环将重复直至问题解决，本方法源于2020级计算机科学技术班学生"廖锦锋" 。
+		   }else{
+		     arr[i] = rand ;
+		   }
+		 }//End of for loop N
+	  return arr ;
+	} //End of function randIntArray(n)
+	console.log(randIntArray(20));
+	
+	var opNum1Dom = document.querySelector("input#opNum1");
+    var opNum2Dom = document.querySelector("input#opNum2");
+	var outputDom = document.querySelector("h1#output") ;
+	var answerDoms = document.querySelectorAll("div#answer input");
+        opNum1Dom.value = opNumArr1[0] ; 
+		opNum2Dom.value = opNumArr2[0] ;
+    var answer = answerArr[0] ;
+
+	//在循环建立四个按钮选项之前，随机安排正确答案的位置，rightSn
+	var rightSn = Math.floor(Math.random() * 4 ) ;
+        for (var i = 0 ; i < 4 ; i++){
+			if( i === rightSn){
+				answerDoms[i].value  = answer ;	
+			}else{
+				//用增加正负随机数方式，让其他三个答案尽量接近正确答案，但会发生二个相同错误选项的小概率事件，也可能会发生错误选项中有负数的小概率事件。
+				var sign = 1 ;
+				if(Math.random() > 0.5 ){
+					sign = - 1 ;
+				}
+			    answerDoms[i].value = answer + sign*(1+Math.floor(Math.random()*4))   ;
+			}
+          
+             answerDoms[i].onclick =  function(){
+			     var sel = parseInt(this.value) ; 
+				 if (sel === answer){
+                  outputDom.textContent = '恭喜！你答对了' ;
+				 }else{
+				  outputDom.textContent = '你答错了，再试一试！'   ;
+				 }			 
+			   };//End answerDoms[i].onclick
+        }//End of for loop 生成四个答案选项的循环
+		
+
+ //-->
+ </script>
+</body>
+</html>
