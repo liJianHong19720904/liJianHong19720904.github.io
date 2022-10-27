@@ -9,7 +9,7 @@
     实现一个可以直观地输出JavaScript表达式结果的网页，
     供初学者练习数学计算和逻辑的表达式，
     在编程前准备足够的基础。
-    本例只供初学者使用（无须查看本源代吗），源代码可供下一阶段程序设计使用。
+    本例只供初学者使用，对本例源代码的理解是下一阶段课程胜利完成后的目标。
    </title>
   <link rel = "stylesheet" type="text/css" href="myCss.css">
   <script src="myJs.js"></script>
@@ -38,7 +38,13 @@
         display: inline-block;
         margin : 0 1em ;
     }
-
+/* 下面的语句会对原myCss.css对于用户宽屏的解除部分限制，本例用户输入的语句可能很长，对宽屏不应做限制 ，*/ 
+@media only screen and (min-width: 960px){
+	body{
+     width: 980px ;
+		 border:10px solid rgb(200,100,50)} ;
+		 font-size: 2em ;
+  }
    </style>
    <script>
     //Web页面创建后，为所有按钮赋能函数，让按钮具备最初的添加符号的功能。
@@ -62,6 +68,7 @@
         var inputerDom = document.querySelector('article input#inputer') ;
             inputerDom.value = CMD.cmd[CMD.now] ;
             CMD.now === 0 ? CMD.now = CMD.cmd.length -1 :  CMD.now -= 1 ;
+     
             },true) ;
         
           //对取.leftOp类型按钮的设计 
@@ -179,7 +186,7 @@
   </footer>
   
   <script>
-  var CMD = {cmd:[], now:-1} ;
+  var CMD = {cmd:[], now:0} ;
   $("本程序为编程学习者特别设计，可用人机互动的方式，便利地探索JS语言的数据类型、逻辑和计算表达式的构建等。");
   $("通知1：无键盘的移动端，可利用导航栏按钮，便利地实现语言的符号输入。") ;
   $("通知2：请在中央文本框内完善的语言表达式后，按回车键提交，实现计算反馈。") ;
@@ -197,9 +204,14 @@
         $('结果：' + err);
       } 
      $('结果：' + exp);
-     if(CMD.cmd.indexOf(inputerDom.value) === -1){
+     var pos = CMD.cmd.indexOf(inputerDom.value) ;
+     if(pos === -1){
       CMD.cmd.push(inputerDom.value) ;
       CMD.now ++ ;
+     }else{
+      var buf = CMD.cmd[now] ;
+      CMD.cmd[now] = CMD.cmd[pos] ;
+      CMD.cmd[pos] = buf ;
      }
      inputerDom.value = '' ;
     } //按Enter执行表达式结束
