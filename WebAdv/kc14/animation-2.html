@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> 
+    产生100个球自行运动的动画！
+    本例以短短不到100行代码，
+	展示了Web浏览器端平台代码创作的极高效率。
+	可以用来探索二方面内容：
+	一是 JavaScript语言的强大而简洁的对象构建能力，
+	二是，初步探索HTML5内置的Canvas对象的强大作图能力，
+	面向对象程序设计中，初学者一般都会难以短期领会比较抽象的关键字：比如：prototype原型、constructor构造函数、this等概念，可以多次编写此类代码，加深理解。
+	本程序也可用来测试浏览器和计算机的性能，比如以笔者使用的2020年的台式PC机为例，在Windows10操作系统测试情况如下：
+	1、在Chrome和Edge浏览器中，本程序有着77FPS的速度渲染表现。Chrome消耗了计算机的CPU约12%计算资源和23%的GPU图像处理资源。这二个浏览器的效果算是最好的。
+	2、而在fireFox浏览器，本程序只有36FPS的速度渲染表现。fireFox消耗了计算机的CPU约26%计算资源和44%的GPU图像处理资源。这个曾经划时代的浏览器的核心引擎在速度效果表现上看，与前者的V8引擎还是有着不小的差距。
+  </title>
+ </head>
+ <style type="text/css">
+	html { height:100%; }
+	body {margin:0;
+	     overflow:hidden;
+		 }
+ </style>
+ <body>
+
+  <canvas>您的浏览器不支持Canvas！</canvas>
+
+  <script type="text/javascript">
+  <!--
+   //开始运行全局代码，获取canvas对象和其中的二维作图对象context
+   var canvas = document.querySelector("canvas");
+    canvas.width = window.innerWidth ;
+    canvas.height = window.innerHeight ;
+   var context = canvas.getContext('2d');
+   var balls = [] ;
+  
+  // 每个动画小球的构造函数，随机产生了小球的所有作图数据
+  function Ball(){
+   this.r = 10 + random(10,20) ;
+   this.vx = 1   + random(1,6)   ;
+   this.vx = Math.random() <  0.5 ?  - this.vx : this.vx ;
+   this.vy = 1   + random(1,6)   ;
+   this.vy = Math.random() <  0.5 ?  - this.vy : this.vy ;
+   this.x = random(30, canvas.width - 30) ;
+   this.y = random(30, canvas.height - 30) ;
+    var r =  random(50,250),
+	    g =  random(50,250),
+		b =  random(50,250);
+   this.innerColor = 'rgba(' + r +',' + g +','+ b +','+ '1)' ;
+   this.middleColor = 'rgba(' + r +',' + g +','+ b +','+ '0.5)' ;
+   this.outerColor = 'rgba(' + r +',' + g +','+ b +','+ '0.05)' ;
+     function random(min,max) {
+     var num = Math.floor(Math.random()*(max-min)) + min;
+	 return num;
+    }
+  }//End of Ball constructor
+
+   //在构造函数Ball的原型内设计一个用于绘图的方法，draw，实现了所有小球实例天生就能使用自己的数据，来绘制自己在Canvas中的图像。
+   Ball.prototype.draw = function(){
+      var x = this.x ,
+	        y = this.y ,
+		      r = this.r ;
+    //本函数内作图API仅仅是canvas作图API的冰山一角，学习者千万不用急着学习这些API ，由于其中内容过于丰富（其内容可能不比JavaScript语言本身要少），效果特别好，可能占用较长时间，以至于让我们忘了学习JavaScript的核心知识。而一般学习者并不太需要急着掌握这么专业的代码作图能力。
+    context.beginPath();
+    //若没有这一句，各个球的绘图要相互连接，造计算量呈指数增长，造成canvas几乎无法绘制。
+    context.arc(x,y,r,0,2*Math.PI);
+    var gradient = context.createRadialGradient(x,y,r/10,x,y,r*3/4,x,y,r) ;
+        gradient.addColorStop(0, this.innerColor );
+        gradient.addColorStop(0.5, this.middleColor );
+        gradient.addColorStop(1, this.outerColor );
+	context.fillStyle = gradient ;
+	context.fill();
+   };
+
+//在构造函数Ball的原型内设计一个用于直线匀速运动（且能弹性碰撞边界）方法，实现了所有小球实例天生就能更新自己的位置和速度属性，为绘制自己的draw方法提供数据。
+   Ball.prototype.move = function(){
+     if (( this.x + this.r) >= canvas.width ||( this.x - this.r) <= 0 ){
+			  this.vx = - this.vx ;
+	      }
+	 if (( this.y + this.r) >= canvas.height || ( this.y - this.r) <= 0 ){
+		  this.vy = - this.vy ;
+	      }
+		  
+		  this.x += this.vx ;
+		  this.y += this.vy ;
+   };
+
+  //开始运行全局代码如下：
+  //用对象构造函数Ball()，创建100个圆对象，并使用对象原型的draw方法实现自我绘制。
+  for (var i=0; i < 100 ; i++){
+		 balls[i] = new Ball() ;
+		 balls[i].draw();
+     }
+   var  lastTime = + new Date();
+   var  frames = 1 ,
+        fps = '?' ; 
+	//fps这个变量非常有趣，值得玩味，比如在本机的IE中，fps在25-35附近变化，无法稳定，因此动画比较卡。而在chrome和Edge中，fps稳定在60，动画流畅，验证了现代浏览器引擎的计算能力的巨大进步。而我们也做一个极端的实验，比如把球增加到上千个，在chrome和Edge的fps变量也都会有所下降，不过到时画面过于复杂，人眼已经无法识别了，而这点也验证了canvas可以轻松满足人们对Web图形的程序绘制苛刻需求。
+   context.font = "38px Arial" ;
+   context.strokeStyle = 'rgb(255,0,0)' ;
+
+ window.requestAnimationFrame(animate) ;
+    
+	//定义 animate异步动画函数，不断地异步调用每个小球的move()和draw()方法，实现炫酷动画。
+	function animate(){
+	  //绘制所有画面之前，先清除canvas的context二维作图区
+	  context.clearRect(0,0,canvas.width,canvas.height);
+	  //context.save()
+      context.strokeText("Fps: " + fps,canvas.width/2-38*3,canvas.height/2);
+	  //context.restore();
+	  for (var i=0; i < balls.length ; i++) {
+          balls[i].move();
+		  balls[i].draw();
+	 }//end of for loop
+      window.requestAnimationFrame(animate) ;
+	  frames++ ;
+	  var nowTime = +new Date();
+	  if (nowTime - lastTime > 1000){
+	   lastTime = nowTime ;
+       fps = frames ;
+	   frames = 1 ;
+       }
+	}//End of animate
+  
+  
+  //-->
+  </script>
+ </body>
+</html>

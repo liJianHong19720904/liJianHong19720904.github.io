@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> 
+   探索HTML5内置的Canvas对象的强大作图能力，产生100个随机球！
+   JavaScript语言的强大而简洁的对象构建能力，
+   面向对象程序设计中，初学者一般都会难以短期领会比较抽象的关键字：
+   比如：prototype原型、constructor构造函数、this等概念，
+   可以多次编写此类代码，加深理解。
+	
+  </title>
+ </head>
+ <style type="text/css">
+	html { height:100%; }
+	body {margin:0;
+	     overflow:hidden;
+         
+		 }
+ </style>
+ <body>
+
+  <canvas>您的浏览器不支持Canvas！</canvas>
+
+  <script type="text/javascript">
+  <!--
+   //开始运行全局代码，获取canvas对象和其中的二维作图对象context
+   var canvas = document.querySelector("canvas");
+    canvas.width = window.innerWidth ;
+    canvas.height = window.innerHeight ;
+   var context = canvas.getContext('2d');
+   var balls = [] ;
+  
+  // 每个动画小球的构造函数，随机产生了小球的所有作图数据
+  function Ball(){
+   this.r = 10 + random(10,20) ;
+   this.vx = 1   + random(1,6)   ;
+   this.vx = Math.random() <  0.5 ?  - this.vx : this.vx ;
+   this.vy = 1   + random(1,6)   ;
+   this.vy = Math.random() <  0.5 ?  - this.vy : this.vy ;
+   this.x = random(30, canvas.width - 30) ;
+   this.y = random(30, canvas.height - 30) ;
+    var r =  random(50,250),
+	    g =  random(50,250),
+		b =  random(50,250);
+   this.innerColor = 'rgba(' + r +',' + g +','+ b +','+ '1)' ;
+   this.middleColor = 'rgba(' + r +',' + g +','+ b +','+ '0.5)' ;
+   this.outerColor = 'rgba(' + r +',' + g +','+ b +','+ '0.05)' ;
+     function random(min,max) {
+     var num = Math.floor(Math.random()*(max-min)) + min;
+	 return num;
+    }
+  }//End of Ball constructor
+
+   //在构造函数Ball的原型内设计一个用于绘图的方法，draw，实现了所有小球实例天生就能使用自己的数据，来绘制自己在Canvas中的图像。
+   Ball.prototype.draw = function(){
+     //本函数内作图API仅仅是canvas作图API的冰山一角，学习者千万不用急着学习这些API ，由于其中内容过于丰富（其内容可能不比JavaScript语言本身要少），效果特别好，可能占用较长时间，以至于让我们忘了学习JavaScript的核心知识。而一般学习者并不太需要急着掌握这么专业的代码作图能力。
+      var x = this.x ,
+	       y = this.y ,
+		    r = this.r ;
+
+    context.beginPath();
+    //若没有这一句，各个球的绘图要相互连接，造计算量呈指数增长，造成canvas几乎无法绘制。
+    context.arc(x,y,r,0,2*Math.PI);
+    var gradient = context.createRadialGradient(x,y,r/10,x,y,r*3/4,x,y,r) ;
+        gradient.addColorStop(0, this.innerColor );
+        gradient.addColorStop(0.5, this.middleColor );
+        gradient.addColorStop(1, this.outerColor );
+	context.fillStyle = gradient ;
+	context.fill();
+   };
+
+  //开始运行全局代码如下：
+  //用对象构造函数Ball()，创建100个球对象，并使用对象原型的draw方法实现自我绘制。
+  for (var i=0; i < 100 ; i++){
+		 balls[i] = new Ball() ;
+		 balls[i].draw();
+     }
+ 
+  //-->
+  </script>
+ </body>
+</html>

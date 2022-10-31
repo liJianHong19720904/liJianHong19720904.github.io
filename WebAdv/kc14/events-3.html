@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+	Web页读入、鼠标点击、鼠标移动等事件，结合异步代码控制动画。
+	50只小鸟随机分布在屏幕上，
+	增加了一个圆形跟随鼠标。
+	点击鼠标后，小鸟会陆续飞到鼠标点击位置。
+	这个案例需要使用异步代码解决小鸟陆续飞的难题，
+	在算法上的有一定难度，
+	完成本例需要一些编写编码的经验。
+  </title>
+  <style type="text/css">
+	body{
+	 /* 下面的宽度和高度设置仅仅是为了配合背景图（图片来源：江西省南昌市滕王阁）*/
+	 width:900px;
+	 height:450px;
+	 border:2px solid;
+	 font-size:1.5em;
+	 cursor:pointer;
+	 margin:0 ;
+	 background-image: url('twg.jpg');
+	 background-repeat: no-repeat;
+	 background-size: cover;
+	 }
+	
+   img{
+    position:absolute;
+   }
+   h2{
+	color:rgba(250,250,250);
+	opacity: 0.32 ;
+   }
+   div#home{
+    position:absolute;
+	width:100px;
+	height:100px;
+	background-color:rgba(250,150,0);
+	opacity: 0.6 ;
+	border-width:0px;
+	border-radius:50%;
+   }
+  </style>
+  <script type="text/javascript">
+  <!--
+   //下面这段代码，让Web页立刻读取网络，并开始默默准备100个动态小鸟的Dom元素，存放在 gifArr 数组中，供让Web页正常建立后使用。
+	var gifURL = "../images/kcBird.gif" ;
+	var gifArr = [] ;
+	for (var i=0; i < 50 ; i++ ){
+		let gifDom = new Image();
+        gifDom.src = gifURL ;
+		gifDom.width = 20 + 30*Math.random() ;
+		//gifDom.style.width = 50 + "px" ;
+		gifDom.style.opacity = 0.5 + Math.random()*0.3 ;
+		gifDom.id = "bird-" + i ;
+		gifArr[i] = gifDom ;
+	}
+  //-->
+  </script>
+  <script type="text/javascript">
+  <!--
+	window.onload = function(){
+  
+	  document.body.onmousemove = function(eObj){
+    	 var mouseX = eObj.clientX ;
+	     var mouseY = eObj.clientY ;
+ 	     document.getElementById("home").style.left = mouseX - 100/2 + "px" ;
+         document.getElementById("home").style.top = mouseY - 100/2 + "px" ;
+	  };//end of body.onmousemove
+
+     i = 0 ;
+	 setTimeout(showBird, 100 ) ;
+	 function showBird(){
+	   document.body.appendChild(gifArr[i]);
+	   var x =  Math.random() * window.innerWidth -100 ;
+	   if (x< 0) {
+		  x = 0 ;
+	    }
+	   var y =  Math.random() * window.innerHeight - 100;
+	    if (y < 0 ) {
+		  y = 0 ;
+	    }
+	   gifArr[i].style.left = x + "px" ;
+       gifArr[i].style.top = y + "px" ;
+	   i++ ;
+	   if (i < gifArr.length) {
+	    setTimeout(showBird, 100 ) ;
+	   }
+	 }//end of function  showBird() definition
+		
+	 var clock =  null ;
+ document.body.onclick = function(eObj){
+	  var mouseX = eObj.clientX ;
+	  var mouseY = eObj.clientY ;
+	  document.getElementById("home").style.opacity = 1.0 ;
+	 setTimeout(function(){
+      document.getElementById("home").style.opacity = 0.6 ;
+	 },50);
+	  //console.log(mouseX + "," + mouseY);
+   //下面创建一段代码，让屏幕上的鸟，逐渐向移动的鼠标指针靠拢
+      var birdsDom = document.querySelectorAll('img') ;
+	  var birds = [] ;
+	      //console.log(birdsDom);
+		  for (var j=0; j < birdsDom.length ; j++) {
+			 birds[j] = { } ; //用对象来记录每只小鸟的数据，此对象内的数据并没有直接与Web页上小鸟有关
+             birds[j].speed = 10 + Math.floor(Math.random()*100) ;
+             birds[j].x = parseInt(birdsDom[j].style.left) ;
+			 birds[j].y = parseInt(birdsDom[j].style.top) ;
+             birds[j].x0 = mouseX - 50*Math.random() ;
+			 birds[j].y0 = mouseY - 50*Math.random() ;
+			}
+	  //用上层的clock变量，控制50只鸟的位置改变异步动画的代码
+	  if (clock){
+		  clearInterval(clock);
+	  }
+
+	  clock = setInterval(function(){
+		   for (var j=0; j < birds.length ; j++) {
+		 //外部的 mouseX 和 mouseY  变量记录了鼠标位置
+		     birds[j].dx = birds[j].x0 - birds[j].x ;
+             birds[j].dy = birds[j].y0 - birds[j].y ; 
+			let x = birds[j].x + birds[j].dx/birds[j].speed ;
+			let y = birds[j].y + birds[j].dy/birds[j].speed ;
+            birdsDom[j].style.left = x  + "px" ; 
+			birdsDom[j].style.top = y  + "px" ;
+            birds[j].x = x ;
+			birds[j].y = y ;
+	    }
+	  },50); //不断执行50只鸟的位置改变，生成异步动画的代码
+
+	 };//end of body.onclick	 
+
+	};//end of window.onload
+  //-->
+  </script>
+ </head>
+ <body>
+  <div id="home">
+  </div>
+  <h2>落霞与孤鹜齐飞 ，秋水共长天一色。</h2>
+ </body>
+</html>

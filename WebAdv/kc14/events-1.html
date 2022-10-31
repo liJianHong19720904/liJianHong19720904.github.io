@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+	学习Web的Events事件，
+	本例用javascript控制DOM事件，
+	利用CSS的class类切换，
+	实现动态鼠标交互效果。
+	本例也可演示Web页中事件的冒泡机制。
+ </title>
+  <style type="text/css">
+	body{
+	 border:2px solid;
+	 font-size:1.5em;
+	 cursor:pointer;
+	 }
+	div{
+	  border:2px solid;
+	  margin:2em;
+	  width:80%;
+	  height:80%;
+	  background-color:rgb(200,200,200);
+	 }
+	 p{
+	    border:2px solid;
+		margin:2em;
+	    background-color:rgb(180,180,180);
+	    width:80%;
+	    height:80%;
+	  }
+	  .lighter{
+	    background-color:rgb(200,200,255);
+	  }
+  </style>
+  <script type="text/javascript">
+  <!--
+    var timer1 = new Date() ;
+	window.onload = function(){
+	var timer2 = new Date() ;
+	  console.log("页面创建时间："+ (timer2 - timer1) +" ms 。");
+     //三个叠加对象的onclick事件
+	 var para = document.querySelector("p");
+	  para.onclick = function(){
+	  console.log("paragraph is clicked!");
+	   };
+	 var div = document.querySelector("div");
+	  div.onclick = function(){
+	   console.log("div is clicked!");
+	  };
+	  document.body.onclick = function(){
+	   console.log("body is clicked!");
+	 };
+	  
+	   //多个等号表达式，从右向左实现运算和赋值
+	   div.onmouseover = para.onmouseover = function(){
+	     this.className = "lighter" ;
+	   };
+	   div.onmouseout = para.onmouseout = function(){
+	     this.className = "" ;
+	   };
+	};//end of window.onload
+  //-->
+  </script>
+ </head>
+ <body>
+  爷爷body
+  <div>
+   父亲div
+	<p>儿子p（事件发生机制：从里层向外层，或小辈向先辈传播）</p> 
+  </div>
+ </body>
+</html>
