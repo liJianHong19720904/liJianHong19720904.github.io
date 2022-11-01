@@ -32,11 +32,12 @@
 	border:2px solid blue;
 	text-align:center;
     margin:auto;}
+
 	table td{
 	border:1px solid gray;
 	padding: 2px 10px ;
 	}
-	table td.chosen{
+	table tr.chosen{
 	border:2px solid red;
 	background-color:rgb(230,230,255);
 	font-size:1.2em;
@@ -47,7 +48,9 @@
 	color:white;
 	font-size:0.5em;
 	padding: 2px ;
+	text-decoration: none;
 	}
+
   </style>
  
   <script type="text/javascript">
@@ -123,21 +126,26 @@
 			   }
 		  }
 
-      function showTable(){//本函数由function showStudents()使用
+      function showTable(){// 本函数由function showStudents()使用
 	   var tableDom = document.querySelector("table") ;
 	   for (let i=0; i< students.length ; i++){
+		       students[i] = (i+1) + ' ' + students[i] ; //为每个学生字符串创建一个序号
 		   let aStudent = students[i].split(" ") ;
-           aStudent[aStudent.length] = '0' ;//发言数据默认为0,若写为数值型，则会导致aStudent[j].substring(0,4)严重错误
+           aStudent[aStudent.length] = '0' ;
+		   //发言数据默认为0,若写为数值型，则会导致aStudent[j].substring(0,4)严重错误
 		    let trDom = document.createElement("tr");
 		   for (let j=0; j< aStudent.length; j++) {
 			   let tdDom = document.createElement("td");
 			      if (aStudent[j].substring(0,4) == 'http') {
                       let aDom =  document.createElement("a");
+					  let qrCodeDom = document.createElement('img');
+					      qrCodeDom.src = aStudent[j].trim() + 'qrCode.jpg' ;
+					      qrCodeDom.style.width = "50%" ;
 					  aDom.href = aStudent[j] ;
-                      aDom.text = aStudent[j] ;
                       aDom.target = '_BLANK' ;
+					  aDom.appendChild(qrCodeDom);
                       tdDom.appendChild(aDom);
-			       }else{
+				   }else{
 			          tdDom.textContent = aStudent[j] ;
 				   }
                  trDom.appendChild(tdDom);
@@ -151,13 +159,15 @@
 	   searchDom.onclick = function(){
 	    var xh =  document.querySelector("input#xh").value.trim();
 		console.log(xh) ;
-		var  tdDoms =document.querySelectorAll("table tr td")
-		 for(let i = 0 ; i < tdDoms.length ; i++){
-		   tdDoms[i].className = "" ;
+		var  trDoms =document.querySelectorAll("table tr") ;
+		   //以下i从1开始，因为表头所在的tr无须查找
+		 for(let i = 1 ; i < trDoms.length ; i++){
+		   trDoms[i].className = "" ;
 		   document.querySelector("h1").textContent = "未查到该学号" ;//该语句和下面的对比学号的逻辑互动形成对用户查学号的反馈
-		   if (tdDoms[i].textContent ===xh){
-             tdDoms[i].className = "chosen" ;
-			 document.querySelector("h1").textContent = "在下表第" + (i/4+1) + " 行 ";
+		     
+		   if (trDoms[i].querySelectorAll('td')[1].textContent ===xh){
+             trDoms[i].className = "chosen" ;
+			 document.querySelector("h1").textContent = "在下表第" + (i+1) + " 行 ";
 			 break;
 		   }
 		 }
@@ -172,14 +182,17 @@
    <h1> Homeworks by JXSTNU CS2020 </h1>
    学号 <input type="text" id = "xh" value="2020" />  &LessLess;--输入学号
    <input type="button" id = "search" value="定位该学号" />
-
-   
+   <div id="qrCode">
+	<img>
+	<p> 
+   </div>  
    <table>
     <tr>
+	 <th>序号</th>
    	 <th>学号</th>
 	 <th>姓名</th>
 	 <th>项目</th>
-     <th>发言</th>
+     <th>积分</th>
 	</tr>
    </table>
     <h2>CopyRight Belongs to Mr. Li Jian Hong </h2>
