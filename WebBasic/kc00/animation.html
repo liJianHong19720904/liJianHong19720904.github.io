@@ -3,10 +3,14 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>产生N球的动画</title>
+  <title> 
+    产生N球的动画程序，效果特别，对初学者有很强震撼。
+    本例是JavaScript的内存对象的研究范例，结合Canvas API的强大绘图效果。
+    可以让学习者在代码实例中，深入理解对象创建中的关键概念，如：构造函数Constructor、原型prototype、、this关键字等。
+  </title>
  </head>
  <style type="text/css">
-	html{height:100%;}
+	html { height:100%; }
 	body{margin:0;
 	     overflow:hidden;
 		 }
@@ -19,8 +23,10 @@
     canvas.width = window.innerWidth ;
     canvas.height = window.innerHeight ;
    var context = canvas.getContext('2d');
-   
    var balls = [] ;
+  
+   var theNumberOfBall = prompt('请输入随机小球的个数（数字）：');
+   theNumberOfBall =  parseInt(theNumberOfBall) ? theNumberOfBall : 100 ; 
   function Ball(){
    this.r = 10 + random(10,20) ;
    this.vx = 1   + random(1,6)   ;
@@ -38,9 +44,10 @@
   }//End of Ball constructor
    Ball.prototype.draw = function(){
       var x = this.x ,
-	      y = this.y ,
-		  r = this.r ;
-    context.beginPath();//没有这一句，各个球的绘图要相互连接，造计算量呈指数增长，造成canvas几乎无法绘制。
+	        y = this.y ,
+		      r = this.r ;
+    context.beginPath();
+    //若没有这一句，各个球的绘图要相互连接，造计算量呈指数增长，造成canvas几乎无法绘制。
     context.arc(x,y,r,0,2*Math.PI);
     var gradient = context.createRadialGradient(x,y,r/10,x,y,r*3/4,x,y,r) ;
         gradient.addColorStop(0, this.innerColor );
@@ -61,8 +68,8 @@
 		  this.y += this.vy ;
    };
 
-  //用对象构造函数Ball()，创建100个圆对象，并使用对象原型的draw方法实现自我绘制。
-     for (var i=0; i < 100 ; i++){
+  //用对象构造函数Ball()，创建N个圆对象，并使用对象原型的draw方法实现自我绘制。
+     for (var i=0; i < theNumberOfBall ; i++){
 		 balls[i] = new Ball() ;
 		 balls[i].draw();
      }
@@ -70,13 +77,13 @@
    var  frames = 1 ,
         fps = '?' ; 
 	//fps这个变量非常有趣，值得玩味，比如在本机的IE中，fps在25-35附近变化，无法稳定，因此动画比较卡。而在chrome和Edge中，fps稳定在60，动画流畅，验证了现代浏览器引擎的计算能力的巨大进步。而我们也做一个极端的实验，比如把球增加到上千个，在chrome和Edge的fps变量也都会有所下降，不过到时画面过于复杂，人眼已经无法识别了，而这点也验证了canvas可以轻松满足人们对Web图形的程序绘制苛刻需求。
-   context.font = "30px Arial" ;
+   context.font = "3em Arial" ;
    context.strokeStyle = 'rgb(255,0,0)' ;
  window.requestAnimationFrame(animate) ;
 	function animate(time){
 	  context.clearRect(0,0,canvas.width,canvas.height);
 	  //context.save()
-      context.strokeText("Fps: " + fps,canvas.width*4/5,40);
+      context.strokeText("Fps: " + fps , canvas.width*2/5,canvas.height*2/5);
 	  //context.restore();
 	  for (var i=0; i < balls.length ; i++) {
           balls[i].move();
