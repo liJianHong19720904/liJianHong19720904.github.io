@@ -12,8 +12,8 @@
   <a src=objDom-1.html  title=向Web页动态添加元素(代码无法运行)>本例演示用JavaScript语言在Web页，用代码动态（在程序运行的时刻，on the fly）向Web页添加元素对象。
   <a src=objDom-2.html title=向Web页动态添加元素(代码可以运行)>本例稍微把Dom操作的代码片段移动位置，就实现在Web页生成100个矩形，且不会有报错信息，需要从Web页内存模型建立的角度理解和分析这种现象。
   <a src=objDom-3.html title=用Web的DOM技术创建可视化信息>本例在构造函数创建对象模型基础上，利用Web的DOM技术展现内存信息的可视化外观！
-  <a src=objDom-4.html title=引入点击事件>本例用构造函数创建内存对象，结合CSS让利用DOM元素实现随意定位，最后再利用onclick点击事件来逐一实现对象再网页上的移动！本例需要理解函数中的this关键字，在函数执行的不同上下文中，this所代表的也完全不同。这点对于多数开发者而言，可能难以真正理解，需要一段时间学习才能领悟。
-  <a src=objDom-5.html title=异步事件和DOM元素的动画>本例利用onmouseover事件触发对象的goOut方法，实现dom元素移动动画，为实现异步代码能获取变量不断变化的数据，我们引入了函数闭包概念和js变量作用域的lexical语法。另外，本例this的运用和对象指向传递，对其理解需要比较深的功力，因此本例仅供学有余力的学习者参考，普通开发者能大致看懂代码即可，无需掌握编写。
+  <a src=objDom-4.html title=引入点击事件>本例用构造函数创建内存对象，结合CSS让利用DOM元素实现随意定位，最后再利用onmouse件来实现对象在网页被鼠标推动的错觉！本例需要理解函数中的this关键字，在函数执行的不同上下文中，this所代表的也完全不同。这点对于多数开发者而言，可能难以真正理解，需要一段时间学习才能领悟。
+  <a src=objDom-5.html title=异步事件和DOM元素的动画>本例利用点击事件触发所有页面的对象实现随机的运动动画，多次点击页面，会发现所有对象动画都会加快，本例可以深刻理解对象这种强大抽象数据结构，不仅可以存放对象的抽象信息，也能“存放”对象在Web页的dom元素，实际上我们现在还使用“存放”表述这个概念是不准确的，我们应该使用动词“指向”，英文reference。
 5.reading
 
 Understanding the DOM is key to being able to manipulate the text or HTML in a web page. Using the DOM, you can create animations, update data without refreshing web pages, move objects around in a browser, and much more! 
