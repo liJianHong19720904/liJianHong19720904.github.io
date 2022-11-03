@@ -3,7 +3,13 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>在构造函数创建对象模型，利用DOM技术创建“UI外观”基础上，再利用点击事件（异步代码入门）来逐一展现对象外观！</title>
+  <title>
+	在构造函数创建对象模型，
+	利用DOM技术创建“UI外观”基础上，
+	再利用onmouseover事件（异步代码入门）触发对象随机散落在屏幕各处，
+	window.innerWidth 和window.innerHeight是浏览器对象的window的二个及其重要的属性，可以获取用户的浏览器窗口信息。
+	
+  </title>
   <style type="text/css">
 	div{
 	    width:20%;
@@ -48,8 +54,8 @@
 	   
 	  //每次运行goOut方法，让dom元素对象的x,y在可见屏幕范围内随机设置
 	   this.goOut = function(){
-		 var randX = window.innerWidth * 0.8 * Math.random() ;
-		 var randY = window.innerHeight * 0.8 * Math.random() ;
+		 var randX = window.innerWidth * 0.6 * Math.random() ;
+		 var randY = window.innerHeight * 0.6 * Math.random() ;
 		 this.divDom.style.left = randX   + 'px';
          this.divDom.style.top = randY  + 'px' ;
          		
@@ -63,7 +69,7 @@
 		  this.male ? div.className = "male"  : div.className = "female" ;
           //设定dom元素的属性model，指向代表本内存对象本身，在本方法addToDom函数第一次运行时，可以用this获取该值。
 		  div.model = this ;
-		  div.onclick = function(){
+		  div.onmouseover = function(){
 		   this.model.goOut() ;
 		  };
 		this.divDom  = div ;
@@ -73,7 +79,8 @@
  
  //把自动产生的对象放在数组中，对象的属性（性名和年龄）用简单算法实现了随机变化
     var student = [] ;
-    const stuNum = 200 ;
+	//屏幕空间有限，动态生成的DOM对象数量不宜太多
+    const stuNum = 50 ;
 	var name, age , male ;
 	for (var i=0; i< stuNum ; i++ ) {
 		  
@@ -95,7 +102,7 @@
   </script>
  </head>
  <body>
-  <h1>随机产生内存对象，根据内存对象数据，生成对象的外观信息。利用onclick事件逐一移动DOM元素。</h1>
+  <h2>随机产生内存对象，根据内存对象数据，生成对象的外观信息。利用onmouseover事件触发DOM元素随机移动，鼠标移动的造成效果不错。</h2>
   <script type="text/javascript">
   <!--
 	 //输出自动产生的数据
