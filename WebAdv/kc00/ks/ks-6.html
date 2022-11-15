@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+    案例7、实现鼠标互动的“真实”动画。
+   提出问题：
+    本例解决把100个div元素的“瞬间”移动，改变为“流畅”动画。
+	
+   分析问题：
+	我们使用代码让对象的坐标发生了变化，导致了div元素的“瞬间”移动。因为计算机计算速度极快，而让人们有此感觉，如果要实现“真实”流畅的动画，需要按人类理解的时间来控制这种“瞬间”移动，也就是我们需要对时间整个因素进行编程，而这将打开一个全新的天地“异步编程”，事实上初级的编程者还不具备这种功力。本例推荐一个“捷径”，利用CSS3的新标准，把动画作为元素的“外观”进行设置，而我们的JavaScript代码则是用于“触发”这些外观变化。
+   解决问题：
+	道理比较深奥，但代码很简洁，只需在CSS样式表中添加 transition: all 1.5s ; 这条语句可以监控指定对象，当发生任何外观的变化，比如本例是坐标，则这个变化就会被控制在1.5秒内匀速实现。
+  </title>
+  <style type="text/css">
+	div{
+	 width:100px;
+	 background-color:rgba(100,100,100,0.1);
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 display: inline-block;
+	 margin:10px;
+	 color:green;
+	 text-align:center;
+	 padding:20px;
+	 cursor: pointer;
+	 position: absolute ;
+     transition: all 1.5s ;
+	}
+
+	
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    var s = '绝代有佳人，幽居在空谷。自云良家子，零落依草木。' ;
+    for(var i=0 ;i<100;i++){
+	    var divDom = document.createElement('div') ;
+            divDom.textContent = s ;
+			divDom.onmouseover = function(){
+	           var x = Math.floor( Math.random() * window.innerWidth ) ;
+			   var y = Math.floor( Math.random() * window.innerHeight) ;
+	          this.style.left = x + 'px' ;
+	          this.style.top = y + 'px' ;
+			};
+            randPositionDiv(divDom);
+	    document.body.appendChild(divDom) ;
+		
+	}//End of for Loop
+	
+
+	function randPositionDiv(dom){
+	  var x = Math.floor( Math.random() * window.innerWidth ) ;
+      var y = Math.floor( Math.random() * window.innerHeight ) ;
+	  dom.style.left = x + 'px' ;
+	  dom.style.top = y + 'px' ;
+	}
+  //-->
+  </script>
+ </body>
+</html>

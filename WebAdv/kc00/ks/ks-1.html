@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+    基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+    案例2、N个页面元素的动态生成。
+   提出问题：
+     如何在Web页面上，用js代码生成N个看得到见的元素？
+   分析问题： 
+     使用循环语句，从1到N，这是所有真正的编程语言都能快速解决的问题，值得注意的是，不能陷入死循环和考虑循环的计算规模。
+   解决问题：
+     通过for循环，精确控制循环次数，估计当前计算机性能，在本例中，应该可以轻松处理数百个div元素。
+  </title>
+  <style type="text/css">
+	div{
+	 width:200px;
+	 height:100px;
+	 background-color:gray;
+	 display: inline-block;
+	 margin:10px;
+	}
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    for(var i=0 ;i<100;i++){
+	    var divDom = document.createElement('div') ;
+	    document.body.appendChild(divDom) ;
+	}
+	
+  //-->
+  </script>
+ </body>
+</html>

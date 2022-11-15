@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+
+ 案例10、使用“软编码”，实现本程序能适应各种宽高比的屏幕。
+ 提出问题：
+    前面程序中，当我们把浏览器窗口设置成为很窄（比如小于300px）时，效果非常不好，因为我们设定每个div球的直径为100px，这种硬编码方式会让程序适用性不好，尤其不适应小屏幕和手机等宽高比较大的情况。
+	
+   分析问题：
+	我们可以通过分析 window.innerWidth 和 window.innerHeight ;使用其中较小的值作为div球直径的参考。
+	此时的div宽和高将由JavaScript按逻辑动态生成，css的宽高设置将无法解决这个问题。
+  解决问题：
+	本例使用了JavaScript的问号表达式，快速获取了div球的直径，传给变量r ，代码中以前使用的100作为直径的硬编码方式，都由r变量名替代。
+  </title>
+  <style type="text/css">
+    body{
+ 	 margin: 0  ;
+	 overflow:hidden ;
+			}
+	div{
+	 background-color:rgba(100,100,100,0.1);
+	 box-sizing: border-box ;
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 
+	 font-size: 1.2em;
+	 color:green;
+	 text-align:center;
+
+	 margin: 0 ;
+	 padding: 0 ;
+	 cursor: pointer;
+	 position: absolute ;
+     transition: all 0.5s ;
+	}
+
+	
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    var bodyWidth = window.innerWidth ;
+	var bodyHeight = window.innerHeight ;
+	//问号表达式，快速实现if/else逻辑
+	var r =  bodyWidth > bodyHeight ? bodyHeight / 10 : bodyWidth / 10 ; 
+    document.body.style.width = bodyWidth + 'px';
+	document.body.style.height = bodyHeight + 'px' ;
+    var s = '绝佳' ; 
+    for(var i=0 ;i < 100 ; i++){
+	    var divDom = document.createElement('div') ;
+            divDom.textContent = s ;
+			divDom.style.width = divDom.style.height = r + 'px' ;
+			divDom.onmouseover = function(){
+			  //在dom元素的事件处理函数中，this关键字代表dom元素自身
+			  randPositionDiv(this) ;
+			};  // divDom.onmouseover function
+          
+        randPositionDiv(divDom);
+	    document.body.appendChild(divDom) ;
+		
+	}//End of for Loop
+	
+
+	function randPositionDiv(dom){
+	  var x =  Math.floor(Math.random() * bodyWidth ) ;
+	  if(x >= bodyWidth - r){
+	     x =   bodyWidth - r ; 
+	  }
+      var y =  Math.floor( Math.random() * bodyHeight );
+	  if(y >= bodyHeight - r){
+	     y = bodyHeight - r ; 
+	  }
+	  dom.style.left = x + 'px' ;
+	  dom.style.top = y + 'px' ;
+	}
+  //-->
+  </script>
+ </body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+  基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+    案例5、为实现页面100个div元素的动态的随机的绝对定位。
+   提出问题：
+    如何实现页面元素在页面上的动态的随机绝对定位？
+  分析问题： 
+     本例运用CSS对象强大的定位属性position: absolute ;
+	 结合JavaScript的动态控制Web元素内的style对象的能力，动态设置了100个元素的绝对坐标。
+   解决问题：
+     在编程技巧上，设计了一个函数randPositionDiv(dom)，让代码的可读性和可扩展性更好。本例直接使用JavaScript的改变Web元素对象内的style子对象，这种方式，相当于直接用HTML在元素内写style属性，这种写法是CSS样式中优先级最高的方式，也是最终极的改变Web元素外观的技术手段。
+
+  </title>
+  <style type="text/css">
+	div{
+	 width:100px;
+	 height:100px;
+	 background-color:rgba(100,100,100,0.1);
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 display: inline-block;
+	 margin:10px;
+	 color:white;
+	 text-align:center;
+	 padding:20px;
+	 position: absolute ;
+
+
+	}
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    var s = '绝代有佳人，幽居在空谷。自云良家子，零落依草木。' ;
+    for(var i=0 ;i<100;i++){
+	    var divDom = document.createElement('div') ;
+            divDom.textContent = s ;
+            randPositionDiv(divDom);
+	    document.body.appendChild(divDom) ;
+		
+	}//End of for Loop
+	
+
+	function randPositionDiv(dom){
+	  var x = Math.floor( Math.random() * 600 ) ;
+      var y = Math.floor( Math.random() * 400 ) ;
+	  //注意Web元素内的style内的css语句都是字符串
+	  dom.style.left = x + 'px' ;
+	  dom.style.top = y + 'px' ;
+	}
+  //-->
+  </script>
+ </body>
+</html>

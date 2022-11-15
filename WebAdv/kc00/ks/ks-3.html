@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+     基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+    案例4、为动态生成的元素设置外观和排版特征，本例以100个动态div为示范。
+   提出问题：
+     如何改变动态生成Web页面上元素的外观（形状/排版布局）？
+   分析问题： 
+     运用Web语言体系中的CSS语言，这个标准是控制和改变Web页元素外观的最高效的手段，所有现代浏览器都高性能地实现了这个标准。
+   解决问题：
+     本例我们简单地使用div标记选择器，一次性把100个div改变为正圆形，且具有背景色90%透明的效果，利用设置border和padding属性利用了CSS盒子模型的排版特性，同时为其设定了较好的inline-block排版特征。
+  </title>
+  <style type="text/css">
+	div{
+	 width:100px;
+	 height:100px;
+	 background-color:rgba(100,100,100,0.1);
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 display: inline-block;
+	 margin:10px;
+	 color:white;
+	 text-align:center;
+	 padding:20px;
+	
+	}
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    var s = '绝代有佳人，幽居在空谷。自云良家子，零落依草木。' ;
+    for(var i=0 ;i<100;i++){
+	    var divDom = document.createElement('div') ;
+	    document.body.appendChild(divDom) ;
+		divDom.textContent = s ;
+	}
+	
+  //-->
+  </script>
+ </body>
+</html>

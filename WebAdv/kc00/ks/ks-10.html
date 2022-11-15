@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+
+ 案例11、把诗圣杜甫的“佳人”的诗歌的每一个字，显示在div球内。
+ 提出问题：
+    在前面程序中，每一个div球的内容和外观都是一样的，我们能个性化地定义div球的内容或外观吗？比如本例中，我们将实现把杜甫大师的“佳人”共计144个字，分别传给144个div球。
+	
+   分析问题：
+	解决类似重复的问题，应该使用函数，通过函数，把创建div元素的代码封装到函数Ball中，让函数传递的参数来实现div球的个性化变化。
+	从文字和div球的排版上，解决文字在div球内居中的设计。本例将在每个新增的动态div内，再动态增加一个p元素，用以作为文字的容器，这样就可以利用CSS的盒子模型实现排版需求。
+  解决问题：
+	本例中，为每个div球内添加一个儿子元素p，关键代码如下：
+		var divDom = document.createElement('div') ;
+		var pDom = document.createElement('p') ;
+		…………省略对p的内容设计和p中文字大小的动态设计
+		divDom.appendChild(pDom) ; 
+		document.body.appendChild(divDom) ;
+	这样的内容设计，我们在利用CSS样式表中的盒状模型的特性，对div和p的CSS样式稍作调整，就可以让汉字较为准确定位在div球内，并具备较好的显示特效。
+
+  </title>
+  <style type="text/css">
+    body{
+ 	 margin: 0  ;
+	 overflow:hidden ;
+			}
+	div{
+	 background-color:rgba(100,100,100,0.1);
+	 box-sizing: border-box ;
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 margin: 0 ;
+	 padding: 0 ;
+	 cursor: pointer;
+	 position: absolute ;
+     transition: all 0.5s ;
+	}
+
+	/* 把每个汉字放在div内的p元素中 */
+  div p{
+   margin: auto;
+   padding: 10%;
+   color:rgb(0,200,0);
+   text-align:center;
+   text-shadow:1px 1px rgb(0,100,100);
+  }
+	
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+   
+    var bodyWidth = window.innerWidth ;
+	var bodyHeight = window.innerHeight ;
+	//问号表达式，快速实现if/else逻辑
+	var r =  bodyWidth > bodyHeight ? bodyHeight / 10 : bodyWidth / 10 ; 
+    document.body.style.width = bodyWidth + 'px';
+	document.body.style.height = bodyHeight + 'px' ;
+    //利用字符串的length属性和数组特性，实现每个汉字拆分。
+    var s = '绝代有佳人，幽居在空谷。自云良家子，零落依草木。关中昔丧乱，兄弟遭杀戮。官高何足论，不得收骨肉。世情恶衰歇，万事随转烛。夫婿轻薄儿，新人美如玉。合昏尚知时，鸳鸯不独宿。但见新人笑，那闻旧人哭！在山泉水清，出山泉水浊。侍婢卖珠回，牵萝补茅屋。摘花不插发，采柏动盈掬。天寒翠袖薄，日暮倚修竹。' ; //包含标点共144个字
+    for(var i=0 ;i < s.length ; i++){
+	    Ball(s[i]) ;
+	}//End of for Loop
+	
+	//Ball 函数用来生成div球的对象，对象中包含球的坐标和div元素引用本身
+    function Ball(s){
+	    var divDom = document.createElement('div') ;
+		var pDom = document.createElement('p') ;
+            pDom.textContent = s ;
+            pDom.style.fontSize = r/2 +  'px' ;
+			divDom.style.width = divDom.style.height = r + 'px' ;
+			divDom.onmouseover = function(){
+			  //在dom元素的事件处理函数中，this关键字代表dom元素自身
+			  randPositionDiv(this) ;
+			};  // divDom.onmouseover function
+          
+        randPositionDiv(divDom);
+
+		divDom.appendChild(pDom) ; //divDom 是pDom的父元素
+		document.body.appendChild(divDom) ;
+	}
+
+	function randPositionDiv(dom){
+	  var x =  Math.floor(Math.random() * bodyWidth ) ;
+	  if(x >= bodyWidth - r){
+	     x =   bodyWidth - r ; 
+	  }
+      var y =  Math.floor( Math.random() * bodyHeight );
+	  if(y >= bodyHeight - r){
+	     y = bodyHeight - r ; 
+	  }
+	  dom.style.left = x + 'px' ;
+	  dom.style.top = y + 'px' ;
+	}
+  //-->
+  </script>
+ </body>
+</html>

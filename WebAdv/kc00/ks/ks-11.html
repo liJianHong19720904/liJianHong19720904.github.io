@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+
+ 案例12、鼠标互动接触，产生“佳人”的诗歌的排版动画。
+ 提出问题：
+    在前面程序中，这144个随机的div球其实可以排成一首诗“佳人”，如何编写代码，实现鼠标接触控制下，完成实现这首诗的自动排版？
+	
+   分析问题：
+	每个div球必须能记住自己的位置，在Web页的二维世界，我们采用最简便的方式，为div元素增加的x，y属性。
+	再增加让div球归位排列成为诗歌的函数setPositionDiv，让每个div球能通过onmouseover事件触发该函数。
+	“佳人”为五言格式，加上标点每行共计12个字符，而古诗字符串的每个字的下标则与此有对应关系，需要写代码设计一个算法，教学中要鼓励学生自创的算法，本例代码我用对12的取余操作和除法取整，实现了每个div球行列位置的算法。
+  解决问题：
+    用代码实现上述分析外，我们为了较好的展现效果，在CSS样式表中，还增加了标点符号的类，在动态生成div球时，判断并能改变包含标点div球外观。
+	由于古诗较长，代码设计排版会突破原来Web页的高度，因此本例还取消了body中样式表的 overflow:hidden ;，否则原隐藏溢出的设计会让一些诗文显示在可视区域之外。
+  
+
+  </title>
+  <style type="text/css">
+    body{
+ 	 margin: 0  ;
+	 	}
+	div{
+	 background-color:rgba(100,100,100,0.1);
+	 box-sizing: border-box ;
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 margin: 0 ;
+	 padding: 0 ;
+	 cursor: pointer;
+	 position: absolute ;
+     transition: all 0.5s ;
+	}
+   div.bd{
+    background-color:rgba(0,100,100,0.05);
+	border:0px solid ;
+	border-radius: 0% ;
+   }
+	/* 把每个汉字放在div内的p元素中 */
+  div p{
+   margin: auto;
+   padding: 10%;
+   color:rgb(0,200,0);
+   text-align:center;
+   text-shadow:1px 1px rgb(0,100,100);
+  }
+	
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    
+    var bodyWidth = window.innerWidth ;
+	var bodyHeight = window.innerHeight ;
+	var r =  bodyWidth > bodyHeight ? bodyHeight / 12 : bodyWidth / 12 ; 
+    document.body.style.width = bodyWidth + 'px';
+	document.body.style.height = bodyHeight + 'px' ;
+   
+    var s = '绝代有佳人，幽居在空谷。自云良家子，零落依草木。关中昔丧乱，兄弟遭杀戮。官高何足论，不得收骨肉。世情恶衰歇，万事随转烛。夫婿轻薄儿，新人美如玉。合昏尚知时，鸳鸯不独宿。但见新人笑，那闻旧人哭！在山泉水清，出山泉水浊。侍婢卖珠回，牵萝补茅屋。摘花不插发，采柏动盈掬。天寒翠袖薄，日暮倚修竹。' ; //包含标点共144个字
+    for(var i=0 ;i < s.length ; i++){
+		//下面x，y和循环变量i的计算的实现了每个字在二维的行列定位
+	    var x = i % 12 ;
+		var y = Math.floor ( i / 12 ) ;
+		//把古诗的每个字所在的x,y坐标，传给Ball函数参数，Ball函数会将x和y，作为属性存储在DOM对象属性中，供onmouseover.
+		Ball(s[i], x ,y) ;
+	}//End of for Loop
+	
+    function Ball(s, x, y){
+	    var divDom = document.createElement('div') ;
+		var pDom = document.createElement('p') ;
+            pDom.textContent = s ;
+            pDom.style.fontSize = r/2 +  'px' ;
+			divDom.style.width = divDom.style.height = r + 'px' ;
+			if(x === 5 || x === 11 ){
+			 divDom.className = 'bd' ;
+			}
+			divDom.x = x ;
+            divDom.y = y ;
+			divDom.onmouseover = function(){
+			  setPositionDiv(this) ;
+			};  // divDom.onmouseover function
+          
+        randPositionDiv(divDom);
+		divDom.appendChild(pDom) ; 
+		document.body.appendChild(divDom) ;
+
+	}
+
+	function randPositionDiv(dom){
+	  var x =  Math.floor(Math.random() * bodyWidth ) ;
+	  if(x >= bodyWidth - r){
+	     x =   bodyWidth - r ; 
+	  }
+      var y =  Math.floor( Math.random() * bodyHeight );
+	  if(y >= bodyHeight - r){
+	     y = bodyHeight - r ; 
+	  }
+	  dom.style.left = x + 'px' ;
+	  dom.style.top = y + 'px' ;
+	}
+
+	function setPositionDiv(dom){
+	  var x = parseInt(dom.x) * r * 1.1 ; 
+	  // 坐标值乘1.1再定位，让div球之间略有距离
+	  var y = parseInt(dom.y) * r * 1.1 ;
+	  dom.style.left = x + 'px' ;
+      dom.style.top = y + 'px' ;
+     
+	}
+  //-->
+  </script>
+ </body>
+</html>

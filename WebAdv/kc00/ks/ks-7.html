@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+
+ 案例8、精确控制球的随机运动，把运动限制在Web页面范围之内。
+   提出问题：
+    本例解决div元素可能移出当前窗口范围的瑕疵。
+   分析问题：
+	我们仔细观察，会发现这100个div球，不会超出Web页面的左边和上面，也就是代码中认为x（left）和y（top）坐标值的最小值是0，这个逻辑是正确的。
+	因为在Web页面这个二维世界中，每个div的左上角作x（left）和y（top）坐标值，当随机产生div左上角靠近Web页右边或下面时，就发生了div移出页面的“不和谐”的瑕疵。
+  解决问题：
+	案例中对每个div的尺寸固定了100个像素，我们在生成移动位置的最大值时，要考虑到这个值。
+	实际上，因为延续前面的案例，margin属性造成了边界不清，本例还需要删除此外，以前为div设置的margin和padding属性，这二个盒子排版属性会让div球运动在渲染时，因排版设置而超出边界。
+	本例还为body设置了margin: 0 ; 让每个div和body的边界更加清楚。设置 overflow:hidden ;隐藏一些渲染超出页面的范围的瑕疵。
+  </title>
+  <style type="text/css">
+    body{
+ 	 margin: 0  ;
+	 overflow:hidden ;
+			}
+	div{
+	 width:100px;
+	 height:100px;
+	 background-color:rgba(100,100,100,0.1);
+	 box-sizing: border-box ;
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 
+	 font-size:10px;
+	 color:green;
+	 text-align:center;
+	 
+	 /*margin:10px; 如果不消除margin，会造成边界不准确问题*/
+	 /*padding: 20px ，同时稍大的padding设置也会造成div的变形*/ ;
+	 margin: 0 ;
+	 padding: 0 ;
+	 cursor: pointer;
+	 position: absolute ;
+     transition: all 0.5s ;
+	}
+
+	
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    var bodyWidth = window.innerWidth ;
+	var bodyHeight = window.innerHeight ;
+    document.body.style.width = bodyWidth + 'px';
+	document.body.style.height = bodyHeight + 'px' ;
+    var s = '绝代佳人' ; // 杜绝过多内容给div球造成的变形
+    for(var i=0 ;i<100;i++){
+	    var divDom = document.createElement('div') ;
+            divDom.textContent = s ;
+			divDom.onmouseover = function(){
+	         var x =  Math.floor(Math.random() * bodyWidth)  ;
+	         if(x >= bodyWidth - 100){
+	          x = bodyWidth - 100 ; 
+	           }
+      
+             var y =  Math.floor(Math.random() * bodyHeight) ;
+	         if(y >= bodyHeight - 100){
+	            y = bodyHeight - 100 ; 
+	          }
+	          this.style.left = x + 'px' ;
+	          this.style.top = y + 'px' ;
+			}; //divDom.onmouseover function
+          
+        randPositionDiv(divDom);
+	    document.body.appendChild(divDom) ;
+		
+	}//End of for Loop
+	
+
+	function randPositionDiv(dom){
+	  var x =  Math.floor(Math.random() * bodyWidth ) ;
+	  if(x >= bodyWidth - 100){
+	     x =   bodyWidth - 100 ; 
+	  }
+      
+      var y =  Math.floor( Math.random() * bodyHeight );
+	  if(y >= bodyHeight - 100){
+	     y = bodyHeight - 100 ; 
+	  }
+	  dom.style.left = x + 'px' ;
+	  dom.style.top = y + 'px' ;
+	}
+  //-->
+  </script>
+ </body>
+</html>

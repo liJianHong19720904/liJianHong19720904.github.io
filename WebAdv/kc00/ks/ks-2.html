@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+    案例3、为页面元素的生成内容，本例是为div中设置唐诗的文本信息。
+  
+   提出问题：
+     如何动态生成Web页面上，各种元素的内容（文字/图片）？
+   分析问题： 
+     这要需要我们学习了解Web页面元素的内容分类，基本分为三类：1、面对div、p、h标题这类元素对象，使用代码改变其textContent属性。2、面对input元素，则是用代码改变其value属性。3、面对img、audio、video等媒体元素，则是用代码改变其src属性。
+   解决问题：
+     定义唐诗字符串s，将s赋值给动态生成的div元素对象的textContent属性。
+
+  </title>
+  <style type="text/css">
+	div{
+	 width:100px;
+	 height:100px;
+	 background-color:gray;
+	 display: inline-block;
+	 margin:10px;
+	 color:white;
+	 text-align:center;
+	 padding:20px;
+	}
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    var s = '绝代有佳人，幽居在空谷。自云良家子，零落依草木。' ;
+    for(var i=0 ;i<100;i++){
+	    var divDom = document.createElement('div') ;
+	    document.body.appendChild(divDom) ;
+		divDom.textContent = s ;
+	}
+	
+  //-->
+  </script>
+ </body>
+</html>

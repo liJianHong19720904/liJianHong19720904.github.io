@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+  基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+  案例1、一个页面元素的动态生成。
+  提出问题：
+     如何在Web页面上，用js代码生成一个看得到见的元素？
+  分析问题： 
+     根据Web浏览器的DOM模型标准，首先使用document元素的API， createElement('标签名') 则可以内存中创建元素，而这个元素在页面上开始是不可见的，必须指定一个在当前页面可见的父元素，使用这个父元素的appendChild方法，才能把这个元素增加到Web页面上。
+	 本例为了简便，使用了Web页面中，最大的可见的页面对象body作为父元素。而JavaScript为方便在页面中直接添加元素对象，也允许直接使用document.body名称表示body对象。
+	 对于body内的其他子元素，则无法直接使用名称，而必须使用document的获取页面对象的方法，把页面对象引用某个变量中，再使用appendChild方法，即可把内存中的页面对象，添加到页面上来。
+  解决问题：
+     通过完成上面二步后，理论上元素已经在页面上，但有些元素仍不可见，比如我们下面的案例，生成的一个空白的div元素，为了让这个div可见，我们在css样式表中为div设定了外观，也可以为div对象的文字属性增加内容，比如为其textConent属性设置问题内容。
+
+  </title>
+  <style type="text/css">
+	div{
+	 width:100px;
+	 height:100px;
+	 background-color:gray;
+	}
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+	var divDom = document.createElement('div') ;
+	    document.body.appendChild(divDom) ;
+  //-->
+  </script>
+ </body>
+</html>

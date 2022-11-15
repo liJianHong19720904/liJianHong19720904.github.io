@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+
+ 案例9、解决代码冗余问题，实现onmouseover事件函数对自定义函数代码的复用。
+ 提出问题：
+    通过code review，我们会发现，这100个div球的onmouseover事件函数代码，与randPositionDiv(dom)代码几乎一摸一样。本例我们来研究解决事件处理函数如何使用自定义函数的问题。
+   分析问题：
+	分析自定义函数randPositionDiv(dom)，我们发现传入的参数dom是需要移动的div元素对象，而在对象的onmouseover处理函数的定义中，this关键字正好代表div元素自身，因此我们可以把this关键字传入randPositionDiv函数作为实参，实现对特定div的引用。
+  解决问题：
+	在div对象的onmouseover事件函数，使用randPositionDiv(this) 调用函数。
+  </title>
+  <style type="text/css">
+    body{
+ 	 margin: 0  ;
+	 overflow:hidden ;
+			}
+	div{
+	 width:100px;
+	 height:100px;
+	 background-color:rgba(100,100,100,0.1);
+	 box-sizing: border-box ;
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 
+	 font-size:10px;
+	 color:green;
+	 text-align:center;
+
+	 margin: 0 ;
+	 padding: 0 ;
+	 cursor: pointer;
+	 position: absolute ;
+     transition: all 0.5s ;
+	}
+
+	
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    var bodyWidth = window.innerWidth ;
+	var bodyHeight = window.innerHeight ;
+    document.body.style.width = bodyWidth + 'px';
+	document.body.style.height = bodyHeight + 'px' ;
+    var s = '绝代佳人' ; 
+    for(var i=0 ;i<100;i++){
+	    var divDom = document.createElement('div') ;
+            divDom.textContent = s ;
+			divDom.onmouseover = function(){
+			  //在dom元素的事件处理函数中，this关键字代表dom元素自身
+			  randPositionDiv(this) ;
+			};  // divDom.onmouseover function
+          
+        randPositionDiv(divDom);
+	    document.body.appendChild(divDom) ;
+		
+	}//End of for Loop
+	
+
+	function randPositionDiv(dom){
+	  var x =  Math.floor(Math.random() * bodyWidth ) ;
+	  if(x >= bodyWidth - 100){
+	     x =   bodyWidth - 100 ; 
+	  }
+      var y =  Math.floor( Math.random() * bodyHeight );
+	  if(y >= bodyHeight - 100){
+	     y = bodyHeight - 100 ; 
+	  }
+	  dom.style.left = x + 'px' ;
+	  dom.style.top = y + 'px' ;
+	}
+  //-->
+  </script>
+ </body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+ 基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+    案例6、用鼠标互动方式，不断改变页面100个div元素在Web页面的动态的随机的绝对定位。
+   提出问题：
+    有二个问题，一是如何实现div元素在整个Web页面上的随机绝对定位？ 二是如何用鼠标的移动的方式让这些div随机“动”起来？
+  分析问题：
+    为解决问题一，需要引入页面的window.innerWidth 和 window.innerHeight 的概念，这是浏览器的窗口尺寸属性，可以使用JavaScript动态获取。我们编写的代码需要分析和利用好这二个属性，才能写出能适用任意尺寸屏幕的代码。
+    为解决问题二，需为每个div元素定义onmouseover事件处理函数，也即是，定义好每个div元素的鼠标事件处理函数之后，才能把div元素添加到Web页面中。
+   解决问题：
+    window.innerWidth 和 window.innerHeight得到的是二个数字类型的数据，可以用来作数学计算。注意生成px结尾的字符串，才能作为坐标传给每个div。
+    为每个div元素对象设置onmouseover属性，从JavaScript的语法上分析，本质上就是把一个函数表达式，作为数据传给了对象的onmouseover属性。JavaScript和浏览器配合的这套事件驱动机制，让JavaScript与Web页面实现了高效的互动。
+  
+  </title>
+  <style type="text/css">
+	div{
+	 width:100px;
+	 background-color:rgba(100,100,100,0.1);
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 display: inline-block;
+	 margin:10px;
+	 color:green;
+	 text-align:center;
+	 padding:20px;
+	 position: absolute ;
+
+	}
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    var s = '绝代有佳人，幽居在空谷。自云良家子，零落依草木。' ;
+    for(var i=0 ;i<100;i++){
+	    var divDom = document.createElement('div') ;
+            divDom.textContent = s ;
+			divDom.onmouseover = function(){
+	           var x = Math.floor( Math.random() * window.innerWidth ) ;
+               var y = Math.floor( Math.random() * window.innerHeight ) ;
+	          this.style.left = x + 'px' ;
+	          this.style.top = y + 'px' ;
+			};
+            randPositionDiv(divDom);
+	    document.body.appendChild(divDom) ;
+		
+	}//End of for Loop
+	
+
+	function randPositionDiv(dom){
+	  var x = Math.floor( Math.random() * window.innerWidth ) ;
+      var y = Math.floor( Math.random() * window.innerHeight ) ;
+	  dom.style.left = x + 'px' ;
+	  dom.style.top = y + 'px' ;
+	}
+  //-->
+  </script>
+ </body>
+</html>

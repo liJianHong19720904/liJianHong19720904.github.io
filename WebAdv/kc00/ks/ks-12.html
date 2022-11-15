@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+
+ 案例13、利用鼠标点击和滑动，实现“佳人”的诗歌动画互动。
+
+ 提出问题：
+    在上一版程序中，需要逐一触碰到这144个div球，才可完成“佳人”首诗的自动排版，本例提出一个新的问题，能让整个过程快速实现吗？比如实现鼠标移动则完成古诗排版，鼠标点击则再次进入随机排版状态。
+ 分析问题：
+	通过分析问题，我们可以发现本例触发动画排版的事件对象不再是这些div球，而是Web页面，即body元素。因此本程序的事件处理函数必须重构。
+	因为我们必须使用循环代码来控制这144个div球，我们设计tsBalls数组来存放能表示这144个div球的内存对象，因此有本例将从更高层次来理解内存对象。
+	本例的内存对象其实是抽象的概念，其并不会在Web页上有任何外观信息，但作为数据可以控制代码的逻辑和找到Web页上的对象。
+	我们需要重新改造Ball函数，让其具备创建抽象内存对象的能力，这个抽象内存对象存放三个信息属性，前2个是排版好的位置（属性名： x0, y0 ），第三个属性是div球在Web页面上的元素的引用（属性名： dom ），这个难点学习者需要学习者深刻领悟JavaScript的对象引用这个概念。
+    
+  解决问题：
+   1、引入ES6遍历数组的高级语法，让代码更加简洁， for(let 临时元素 of 数组名) {…… }。
+   2、把为页面创建div球的代码，独立封装为createDivDom函数，稍作改造，其完成创建dom对象后，再把动态创建的dom对象引用返回，存放在tsBalls数组中。
+   3、createDivDom函数、randPositionDiv函数、setPositionDiv函数各司其职，代码逻辑性更强，代码写到这里，编程者的关注点将会逐渐聚焦到函数的参数和变量的作用域上来，而此后这类学习将夯实我们编写大规模的高质量代码底层能力。
+   4、本例代码也是理解JavaScript异步代码的入门范本，本例对web页的鼠标事件的函数写在body.onmousemove和body.onclick内，这二段代码的虽然写在较前位置，本程序打开时，这二段代码并不会执行，而一直等着用户的鼠标触发。
+
+  </title>
+  <style type="text/css">
+    body{
+ 	 margin: 0  ;
+     cursor: pointer;
+	 	}
+	div{
+	 background-color:rgba(100,100,100,0.1);
+	 box-sizing: border-box ;
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 margin: 0 ;
+	 padding: 0 ;
+	 position: absolute ;
+     transition: all 0.5s ;
+	}
+   div.bd{
+    background-color:rgba(0,100,100,0.05);
+	border:0px solid ;
+	border-radius: 0% ;
+   }
+	/* 把每个汉字放在div内的p元素中 */
+  div p{
+   margin: auto;
+   padding: 10%;
+   color:rgb(0,200,0);
+   text-align:center;
+   text-shadow:1px 1px rgb(0,100,100);
+  }
+	
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    // 本例将案例引入更高层次，用内存对象来记录div球的原始位置、当前位置和dom元素的引用，并使用内存数组tsBalls来存放这144个div球。
+	var tsBalls = [] ; 
+	    document.body.onmousemove = function(){
+		  for(let ball of tsBalls){
+		    setPositionDiv(ball) ;
+		  }
+		};
+		document.body.onclick = function(){
+		  for(let ball of tsBalls){
+		    randPositionDiv(ball) ;
+		  }
+		};
+
+    var bodyWidth = window.innerWidth ;
+	var bodyHeight = window.innerHeight ;
+	var r =  bodyWidth > bodyHeight ? bodyHeight / 15 : bodyWidth / 15 ; 
+    document.body.style.width = bodyWidth + 'px';
+	document.body.style.height = bodyHeight + 'px' ;
+   
+    var s = '绝代有佳人，幽居在空谷。自云良家子，零落依草木。关中昔丧乱，兄弟遭杀戮。官高何足论，不得收骨肉。世情恶衰歇，万事随转烛。夫婿轻薄儿，新人美如玉。合昏尚知时，鸳鸯不独宿。但见新人笑，那闻旧人哭！在山泉水清，出山泉水浊。侍婢卖珠回，牵萝补茅屋。摘花不插发，采柏动盈掬。天寒翠袖薄，日暮倚修竹。' ; //包含标点共144个字
+    for(var i=0 ;i < s.length ; i++){
+		//下面x0，y0和循环变量i的计算的实现了每个字，排成诗歌时，在二维的行列定位
+	    var x0 = i % 12 ;
+		var y0 = Math.floor ( i / 12 ) ;
+		var ballObj = Ball(s[i], x0 ,y0) ;
+		// Array类型的对象，利用其push和pop方法非常容易
+		tsBalls.push(ballObj) ;
+        randPositionDiv(ballObj) ;
+	}//End of for Loop
+
+	
+    function Ball(s, x0, y0){
+		var divObj ={
+		 x0: x0 ,
+		 y0: y0 ,
+		 dom: null ,
+		}; //End of divObj
+       divObj.dom = createDivDom(s, x0, y0) ;
+    	return divObj ;
+	}; //End of Ball function
+
+    function createDivDom(s, x0, y0){
+	  var divDom = document.createElement('div') ;
+	   var pDom = document.createElement('p') ;
+           pDom.textContent = s ;
+              pDom.style.fontSize = r/2 +  'px' ;
+			  divDom.style.width = divDom.style.height = r + 'px' ;
+			  if(x0 === 5 || x0 === 11 ){
+			    divDom.className = 'bd' ;
+			 }
+		    divDom.appendChild(pDom) ; 
+		    document.body.appendChild(divDom) ;
+			return divDom ;
+		 }
+ 
+	function randPositionDiv(divObj){
+	  var x =  Math.floor(Math.random() * bodyWidth ) ;
+	  if(x >= bodyWidth - r){
+	     x =   bodyWidth - r ; 
+	  }
+      var y =  Math.floor( Math.random() * bodyHeight );
+	  if(y >= bodyHeight - r){
+	     y = bodyHeight - r ; 
+	  }
+	  divObj.dom.style.left = x + 'px' ;
+	  divObj.dom.style.top = y + 'px' ;
+	}
+
+	function setPositionDiv(divObj){
+	  var x = parseInt(divObj.x0) * r * 1.1 ; 
+	  // 坐标值乘1.1再定位，让div球之间略有距离
+	  var y = parseInt(divObj.y0) * r * 1.1 ;
+	  divObj.dom.style.left = x + r + 'px' ;
+      divObj.dom.style.top = y + r + 'px' ;
+	}
+  //-->
+  </script>
+ </body>
+</html>

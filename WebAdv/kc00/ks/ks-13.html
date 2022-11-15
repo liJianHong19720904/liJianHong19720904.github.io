@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>
+   基于“提出问题--分析问题--解决问题”方法论的编程系列案例，（也可以作为Web页面DOM对象编程的系列案例）。
+
+ 案例13、用构建函数（constructor）“优雅”地重构的代码。
+
+ 提出问题：
+    对上一版的程序，我们从代码组织结构角度看。创建的内存对象、全局函数Ball、createDivDom、randPositionDiv、setPositionDiv之间的关系是并列的，之间没有层次。能否用一个概念，让内存对象和这些函数和建立代码有机的组织起来，让未来的代码更易于扩展？
+ 分析问题：
+	通过上面问题，经历13个步骤的具体和抽象的基础训练，本例我们终于到了引入构造函数的时机。
+	本例我们把Ball函数当作构造函数，以这个函数为核心，内存对象由其产生，原先一些全局函数也归属在Ball函数内，用来构造对象的“行为”，这样我们就把前面案例中一些零散的全局对象和全局函数，有机地组成了一个核心概念（用构造函数来构造内存对象）。
+  
+  解决问题：
+   1、引入构造函数的语法，函数定义不变，引用函数则用new操作符。
+   2、new 构造函数可以立刻产生一个内存对象，在构造函数内部this关键字代表这个刚刚产生的内存对象。
+   3、按代码功能清晰划分代码块，并解决一些硬编码和全局变量名不规范问题。
+   4、把演示的古诗增加为三首，新增双击鼠标按钮切换古诗的互动。
+
+  </title>
+  <style type="text/css">
+    body{
+ 	 margin: 0  ;
+     cursor: pointer;
+	 	}
+	div{
+	 background-color:rgba(100,100,100,0.1);
+	 box-sizing: border-box ;
+	 border:1px solid rgb(100,100,200) ;
+	 border-radius: 50% ;
+	 margin: 0 ;
+	 padding: 0 ;
+	 position: absolute ;
+     transition: all 0.5s ;
+	}
+   div.bd{
+    background-color:rgba(0,100,100,0.05);
+	border:0px solid ;
+	border-radius: 0% ;
+   }
+	/* 把每个汉字放在div内的p元素中 */
+  div p{
+   margin: auto;
+   padding: 10%;
+   color:rgb(0,200,0);
+   text-align:center;
+   text-shadow:1px 1px rgb(0,100,100);
+  }
+	
+  </style>
+
+ </head>
+ <body>
+  <script type="text/javascript">
+  <!--
+    // 本例引入对象的构建函数后，代码组织结构优化了，代码的修改思路也更加清晰，本例传承编程传统，把前面的硬编码问题解决。 const 关键字用来声明不可改变的变量，也称常量。
+	// NUMS 常量决定是每行古诗的字符数。
+	// S字符串数组，可存放若干首古诗字符串。
+    //  tsBalls 数组的元素是当前古诗每个字符的内存对象，内存对象的数据结构由构造函数Ball设计
+	// sn 变量记载当期再Web页面上显示的古诗编号，双击鼠标触发古诗变化，其变化范围从0至s.length
+	const NUMS = 6 ;
+	var tsBalls = [] ; 
+	var sn = 0 ;
+	const S = ['离离原上草，一岁一枯荣。野火烧不尽，春风吹又生。远芳侵古道，晴翠接荒城。又送王孙去，萋萋满别情。' , '艳色天下重，西施宁久微。朝为越溪女，暮作吴宫妃。贱日岂殊众，贵来方悟稀。邀人傅脂粉，不自著罗衣。君宠益娇态，君怜无是非。当时浣纱伴，莫得同车归。持谢邻家子，效颦安可希！' , '绝代有佳人，幽居在空谷。自云良家子，零落依草木。关中昔丧乱，兄弟遭杀戮。官高何足论，不得收骨肉。世情恶衰歇，万事随转烛。夫婿轻薄儿，新人美如玉。合昏尚知时，鸳鸯不独宿。但见新人笑，那闻旧人哭！在山泉水清，出山泉水浊。侍婢卖珠回，牵萝补茅屋。摘花不插发，采柏动盈掬。天寒翠袖薄，日暮倚修竹。'] ;  
+	 
+	 //下面代码，对body增加了鼠标移动、点击和双击的事件的监听，并设计了处理函数，可以看作Web页面互动UI设计.
+	    document.body.onmousemove = function(){
+		  for(let ball of tsBalls){
+		    ball.setPositionDiv() ;
+		  }
+		};
+		document.body.onclick = function(){
+		  for(let ball of tsBalls){
+		    ball.randPositionDiv() ;
+		  }
+		};
+        document.body.ondblclick = function(){
+		  console.log('double click');
+		  for(let ball of tsBalls){
+		   this.removeChild(ball.dom) ;
+		  }
+		  tsBalls = [] ;
+		  sn === S.length -1 ? sn = 0 : sn++ ;
+           for(var i=0 ;i < S[sn].length ; i++){
+	         var x0 = i % NUMS ;
+		     var y0 = Math.floor ( i / NUMS ) ;
+		     var ballObj = new Ball( x0 , y0 ) ;
+                ballObj.createDivDom(S[sn][i]) ;
+			    ballObj.randPositionDiv() ;
+		       tsBalls.push(ballObj) ;
+ 	       }//End of for Loop
+		};//End of  document.body.ondblclick 
+
+   //下面代码，针对用户的不同屏幕，设计全屏显示控制。并动态地设定每个古诗字体的显示，本例以字体偏大为原则
+    var bodyWidth = window.innerWidth ;
+	var bodyHeight = window.innerHeight ;
+    document.body.style.width = bodyWidth + 'px';
+	document.body.style.height = bodyHeight + 'px' ;
+	var r =  bodyWidth > bodyHeight ? bodyHeight / (NUMS*3/2) : bodyWidth / (NUMS*3/2) ; 
+
+   
+ 
+	//下面这段代码是程序运行后，在Web页的默认输出
+    for(var i=0 ;i < S[sn].length ; i++){
+	   var x0 = i % NUMS ;
+	   var y0 = Math.floor ( i / NUMS ) ;
+	   var ballObj = new Ball( x0 , y0 ) ; 
+	   //注意上面的语法，初学者可以简单记作 “new 出一个内存对象 ”
+           ballObj.createDivDom(S[sn][i]) ;
+		   ballObj.randPositionDiv() ;
+		   tsBalls.push(ballObj) ;
+ 	  }//End of for Loop
+
+	
+ //下面代码，是本例的核心代码，构建函数Ball，用 new 操作本函数，可以立刻产生一个内存对象，在构造函数内this代表这个刚刚产生的内存对象。 
+    function Ball(x0 , y0){
+		//为new出的对象设置属性
+		this.x0 = x0 ;
+		this.y0 = y0 ;
+        this.dom = null ;
+//为new出的对象设置方法（函数），本质上这也是属性设置，区别是属性的值不是数据，而是代码本身。
+//在方法函数内，this也代表这个刚刚产生的内存对象。
+		this.createDivDom = function(s){
+		  	  var divDom = document.createElement('div') ;
+	          var pDom = document.createElement('p') ;
+               pDom.textContent = s ;
+               pDom.style.fontSize = r/2 +  'px' ;
+			  divDom.style.width = divDom.style.height = r + 'px' ;
+			  if(this.x0 === 5 || this.x0 === 11 ){
+			    divDom.className = 'bd' ;
+			  }
+		    divDom.appendChild(pDom) ; 
+		    document.body.appendChild(divDom) ;
+			this.dom = divDom ;
+		};
+
+		this.randPositionDiv = function(){
+		  	var x =  Math.floor(Math.random() * bodyWidth ) ;
+	          if(x >= bodyWidth - r){
+	             x =   bodyWidth - r ; 
+	            }
+            var y =  Math.floor( Math.random() * bodyHeight );
+	          if(y >= bodyHeight - r){
+	           y = bodyHeight - r ; 
+	          }
+	      this.dom.style.left = x + 'px' ;
+	      this.dom.style.top = y + 'px' ;
+		} ;
+
+       this.setPositionDiv = function(){
+         var x = parseInt(this.x0) * r * 1.2 ; 
+	     var y = parseInt(this.y0) * r * 1.2 ;
+	       this.dom.style.left = x + r + 'px' ;
+           this.dom.style.top = y + r + 'px' ;
+	   } ;
+    // 无须写 return 对象名，因为 构建函数隐含了这个功能，即“构造函数结束时，会把当前创建的对象返回”。
+	}; //End of Ball Construction function
+
+  //-->
+  </script>
+ </body>
+</html>
