@@ -16,6 +16,7 @@ Computer 、Computer Science 、Code、Programming、Script、Language 、Web �
   <a src=https://code.visualstudio.com/ title=代码编辑器VScode（支持PC各平台）> 这是Visual Studio Code的官方网站，在此网站提供基于各类平台VScode安装程序的下载，这点和前面案例的Editplus仅基于window平台不同。VSCode是专业开发者使用最多的代码编辑器，系统相对前面的较为庞大（约80MB）。VSCode不推荐没有编程经验和代码编辑器使用经验人使用，比较复杂，熟练需要较长时间，对于普通编程实践有“牛刀杀鸡”之嫌。我们只需要知道VSCode这个代码编辑器开源，且开发语言居然也是本课程学习的Web的核心语言——JavaScript编写的。
   <a src=ts300.txt  title=唐诗三百首原版文本>本例实践案例提供一个文本文件（80KB），内含唐诗文本309首，用于上面代码编辑器练习编辑，或作为内容用于后续课程创建的Web页面。
   <a src=cet6.txt  title=大学英语等级考试（CET）单词库文本>本例实践案例提供一个文本文件（300KB），内含大学英语等级考试单词6千个，既可用于练习代码编辑，也是后面案例的外部数据来源。
+  <a src=ks/ks.html  title=课程期末考试参考效果>本例作为课程期末考试最终的参考效果，配合试卷使用，用于综合考核学生的前端代码创作能力，可有效实现考试的检验目标。本题源代码已经压缩，代码抄袭的困难程度远高于代码的重新设计。
 5.reading
 <img src=qrCode.jpg><--本课程二维码
 When action grows unprofitable （实践）, gather information（理论）; when information grows unprofitable, sleep （耐心）. —— Ursula K. Le Guin, The Left Hand of Darkness
