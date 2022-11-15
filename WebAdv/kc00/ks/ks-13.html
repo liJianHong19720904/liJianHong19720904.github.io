@@ -66,13 +66,13 @@
 	var sn = 0 ;
 	const S = ['离离原上草，一岁一枯荣。野火烧不尽，春风吹又生。远芳侵古道，晴翠接荒城。又送王孙去，萋萋满别情。' , '艳色天下重，西施宁久微。朝为越溪女，暮作吴宫妃。贱日岂殊众，贵来方悟稀。邀人傅脂粉，不自著罗衣。君宠益娇态，君怜无是非。当时浣纱伴，莫得同车归。持谢邻家子，效颦安可希！' , '绝代有佳人，幽居在空谷。自云良家子，零落依草木。关中昔丧乱，兄弟遭杀戮。官高何足论，不得收骨肉。世情恶衰歇，万事随转烛。夫婿轻薄儿，新人美如玉。合昏尚知时，鸳鸯不独宿。但见新人笑，那闻旧人哭！在山泉水清，出山泉水浊。侍婢卖珠回，牵萝补茅屋。摘花不插发，采柏动盈掬。天寒翠袖薄，日暮倚修竹。'] ;  
 	 
-	 //下面代码，对body增加了鼠标移动、点击和双击的事件的监听，并设计了处理函数，可以看作Web页面互动UI设计.
-	    document.body.onmousemove = function(){
+	 //下面代码，对body增加了鼠标移动、点击和双击的事件的监听，并设计了处理函数，可以看作Web页面互动UI设计。 由于触屏可以响应鼠标单击和双击，因此对于触屏的控制，把鼠标的移动事件等同与触屏的滑动即可。
+	    document.body.onmousemove = document.body.ontouchmove =function(){
 		  for(let ball of tsBalls){
 		    ball.setPositionDiv() ;
 		  }
 		};
-		document.body.onclick = function(){
+		document.body.onclick =  function(){
 		  for(let ball of tsBalls){
 		    ball.randPositionDiv() ;
 		  }
@@ -93,7 +93,7 @@
 		       tsBalls.push(ballObj) ;
  	       }//End of for Loop
 		};//End of  document.body.ondblclick 
-
+        
    //下面代码，针对用户的不同屏幕，设计全屏显示控制。并动态地设定每个古诗字体的显示，本例以字体偏大为原则
     var bodyWidth = window.innerWidth ;
 	var bodyHeight = window.innerHeight ;
