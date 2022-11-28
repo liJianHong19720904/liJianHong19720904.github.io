@@ -12,7 +12,8 @@
 Computer 、Computer Science 、Code、Programming、Script、Language 、Web 。
 
 4.project
-  <a src=webGLABC.html  title=演示一个轻巧的3D案例>本案例用JavaScript的对象概念，利用webGL提供的API和一个成熟的js代码库，仅仅几十条语句就实现了一个3D动画效果。
+  <a src=webGLABC.html  title=演示一个轻巧的3D案例1>本案例用JavaScript的对象概念，利用webGL提供的API和一个成熟的js代码库，仅仅几十条语句就实现了一个3D动画效果。
+<a src=webGLABC1.html  title=演示一个轻巧的3D案例2>对上面案例的一个变量和3D对象属性的微调。
   <a src=editPlus.zip  title=入门级代码编辑器EditPlus（Window平台）>本实践案例提供一个zip文件包（2MB），文件包内有一个极为精简的代码编辑器的安装程序，这个编辑器名字为Editplus，对于从没有专业代码编辑器经验的学习者，建议下载安装，因为其小而精的特点，很容易学习，让我们尽快熟悉专业的代码编辑环境。
   <a src=https://code.visualstudio.com/ title=代码编辑器VScode（支持PC各平台）> 这是Visual Studio Code的官方网站，在此网站提供基于各类平台VScode安装程序的下载，这点和前面案例的Editplus仅基于window平台不同。VSCode是专业开发者使用最多的代码编辑器，系统相对前面的较为庞大（约80MB）。VSCode不推荐没有编程经验和代码编辑器使用经验人使用，比较复杂，熟练需要较长时间，对于普通编程实践有“牛刀杀鸡”之嫌。我们只需要知道VSCode这个代码编辑器开源，且开发语言居然也是本课程学习的Web的核心语言——JavaScript编写的。
   <a src=ts300.txt  title=唐诗三百首原版文本>本例实践案例提供一个文本文件（80KB），内含唐诗文本309首，用于上面代码编辑器练习编辑，或作为内容用于后续课程创建的Web页面。
