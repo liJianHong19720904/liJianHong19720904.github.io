@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>WebGL abc</title>
+		<title>WebGL abc1</title>
 		<style>
 		 body {
                margin: 0; 
@@ -20,12 +20,15 @@
 
 		<script>
           //全局变量定义，渲染器、场景、镜头、二个物体、完整动画周期（5s）
+		  //增加灯光，阴影，基本反光材质
          var renderer = null,
 		     scene = null,
 			 camera = null,
 			 cube = null;
 			 sphere = null ; 
-		 var duration = 5000;
+			 light = null ;
+		 var duration = 5000,
+		     step = 1 ;
 		 var currentTime =  Date.now();
 		 function animate(){
 		  var now = Date.now();
@@ -35,10 +38,10 @@
 		  var angle = Math.PI * 2 * fract ;
 		      cube.rotation.y += angle/2 ;
 			  cube.rotation.x += angle/4 ;
-			  sphere.rotation.z -= angle/4 ;
-			  sphere.rotation.x -= angle/4 ;
-			 
-		 }
+		      step ++ ;
+			  sphere.rotation.y += angle/4 ;
+			  sphere.position.y = 8.5 + 4 *  Math.sin( step / Math.PI / 10 ) ;
+			 }
 		 function run(){
 		   requestAnimationFrame(function(){run();}) ;
 		   renderer.render( scene , camera) ;
@@ -48,40 +51,56 @@
 	
 	</head>
 	<body>
-	 <p>《计算机科学导论》之代码案例集--NO.129（李健宏）</p>
+	 <p>《计算机科学导论》之代码案例集--NO.130（李老师）</p>
 	<script>
 		scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	    renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.setClearColor(new THREE.Color(0x000000));
+		renderer.shadowMap.Enabled = true;
         document.body.appendChild( renderer.domElement );
 	var axes = new THREE.AxesHelper(20);
 		scene.add(axes);
     var planeGeo = new THREE.PlaneGeometry(120,25) ;
-	var planeMat = new THREE.MeshBasicMaterial({color:0x333333});
+	var planeMat = new THREE.MeshLambertMaterial({color:0xCCCCCC});
 	var plane = new THREE.Mesh(planeGeo,planeMat);
 	    plane.rotation.x = - 0.5 * Math.PI ;
 		plane.rotation.z =   0.35 * Math.PI ;
         plane.position.set(12,-1,-30);
+		plane.receiveShadow = true;
 		scene.add(plane);
 	        
     
-       var cubeGeo = new THREE.BoxGeometry( 4, 4, 4);
-       var cubeMat = new THREE.MeshBasicMaterial( { color: 0xffff66 , wireframe:true } );
+       var cubeGeo = new THREE.BoxGeometry( 6, 6, 6);
+       var cubeMat = new THREE.MeshLambertMaterial( { color: 0x00AAFF} );
           cube = new THREE.Mesh( cubeGeo, cubeMat );
-		  cube.position.y = 4 ;
+		  cube.position.y = 6 ;
+		  cube.position.x = - 2 ;
+		  cube.position.z =  4 ;
           scene.add( cube );
-      var  sphereGeo = new THREE.SphereGeometry(4,1,1);
-	  var  sphereMat = new THREE.MeshBasicMaterial({color:0x00eeff,wireframe:true});
+      var  sphereGeo = new THREE.SphereGeometry(6,10,5);
+	  var  sphereMat = new THREE.MeshLambertMaterial({color:0xFFFFFF , wireframe:true});
+	       
 	       sphere = new THREE.Mesh(sphereGeo,sphereMat);
-	       sphere.position.z = - 12 ;
-           sphere.position.x =  6 ;
-		   sphere.position.y =  2 ;
+		   sphere.castShadow = true;
+	       sphere.position.z = - 4 ;
+           sphere.position.x =  4 ;
+		   sphere.position.y =  6 ;
 		   scene.add(sphere);
-		  camera.position.z = 25;
-		  camera.position.y = 2 ;
-		  camera.position.x = 3 ;
+         
+		 
+         camera.position.set(20, 22, 5);
+         camera.lookAt(scene.position);
+
+	      light = new THREE.SpotLight(0xFFFFFF);
+          light.position.set(10, 30, 5);
+          light.castShadow = true;
+          light.shadow.mapSize = new THREE.Vector2(1000, 1000);
+          light.shadow.camera.far = 10;
+          light.shadow.camera.near = 5;
+		  scene.add(light);
+
 		 run();
 		</script>
 	</body>
